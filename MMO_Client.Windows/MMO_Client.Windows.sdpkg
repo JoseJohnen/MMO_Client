@@ -16,7 +16,6 @@ Bundles: []
 TemplateFolders: []
 RootAssets:
     - 264872e5-592d-45d8-b07f-f7899e93e8a8:Models/tankexport
-    - 4a6561ca-1576-4961-99d7-7e4e7fc9b030:Models/Barge_w40k
     - 7d44cc93-8767-4a89-aad9-82e9b90e114d:Prefabs/DoomGuy
     - 7dbf55d9-8f19-4468-93be-fcff03782368:UI/UIPage
     - b81a483c-3906-48ee-8e2d-39d44cf84307:Prefabs/RealEnt

@@ -2,7 +2,7 @@
 Id: 4e53ab6e-0062-4f38-97b4-b98ed5b9179a
 SerializedVersion: {Stride: 2.0.0.0}
 Tags: []
-Source: !file ../../../../../../Escritorio/Cosas_Hobbys/Modelos 3d/warhammer-40k-battle-barge/textures/Steel.jpg
+Source: !file Steel.jpg
 Type: !ColorTextureType
     ColorKeyColor: {R: 255, G: 0, B: 255, A: 255}
     PremultiplyAlpha: false

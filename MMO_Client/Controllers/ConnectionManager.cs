@@ -72,6 +72,7 @@ namespace MMO_Client.Code.Controllers
             SendStartAsync();
         }
 
+        #region Listening Socket
         private async static void PrepareListeningSocket()
         {
             listeningSocket = new Socket(SocketType.Stream, ProtocolType.Tcp);
@@ -114,7 +115,9 @@ namespace MMO_Client.Code.Controllers
                 Console.WriteLine("Error AcceptCallback(IAsyncResult): " + ex.Message);
             }
         }
+        #endregion
 
+        #region Send - Receive Operations
         static async void SendStartAsync()
         {
             TaskStatus tsst = TaskStatus.Canceled;
@@ -180,6 +183,11 @@ namespace MMO_Client.Code.Controllers
                         gameSocketClient.SenderSocket = new Socket(SocketType.Stream, ProtocolType.Tcp);
                         await gameSocketClient.SenderSocket.ConnectAsync(remoteHost, remotePort);
                     }
+
+                    if (!gameSocketClient.SenderSocket.Connected)
+                    {
+                        await gameSocketClient.SenderSocket.ConnectAsync(remoteHost, remotePort);
+                    }
                 }
 
                 retrySend = false;
@@ -239,7 +247,10 @@ namespace MMO_Client.Code.Controllers
             {
                 if (gameSocketClient != null)
                 {
-                    gameSocketClient.CloseConnection();
+                    if(gameSocketClient.SenderSocket.Connected)
+                    {
+                        gameSocketClient.CloseConnection();
+                    }
                 }
             }
         }
@@ -248,16 +259,18 @@ namespace MMO_Client.Code.Controllers
         {
             try
             {
-                byte[] responseBytes = new byte[256];
-                char[] responseChars = new char[256];
+                byte[] responseBytes = new byte[1000];
+                char[] responseChars = new char[1000];
 
                 retryRecv = true;
+                int size = 1000;
                 while (true)
                 {
-                    if (listeningSocket.Available > 0)
+                    if (listeningSocket.Available > size)
                     {
-                        responseBytes = new byte[listeningSocket.Available];
-                        responseChars = new char[listeningSocket.Available];
+                        size = listeningSocket.Available;
+                        responseBytes = new byte[size];
+                        responseChars = new char[size];
                     }
 
                     int bytesReceived = await gameSocketClient.ListenerSocket.ReceiveAsync(responseBytes, SocketFlags.None);
@@ -280,8 +293,8 @@ namespace MMO_Client.Code.Controllers
 
                     // Print the contents of the 'responseChars' buffer to Console.Out
                     await Console.Out.WriteAsync("Received: " + responseChars.AsMemory(0, charCount));
-                    responseBytes = new byte[256];
-                    responseChars = new char[256];
+                    responseBytes = new byte[1000];
+                    responseChars = new char[1000];
                 }
             }
             catch (Exception ex)
@@ -296,7 +309,9 @@ namespace MMO_Client.Code.Controllers
                 }
             }
         }
+        #endregion
 
+        #region Others
         static bool LogInSocket()
         {
             try
@@ -322,6 +337,7 @@ namespace MMO_Client.Code.Controllers
                 return false;
             }
         }
+        #endregion
 
         #region Old System
         //Requiere AsyncScript

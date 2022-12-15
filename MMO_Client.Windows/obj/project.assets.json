@@ -16168,8 +16168,8 @@
     },
     "Interfaz/1.0.0": {
       "type": "project",
-      "path": "../../../../../Cod_Pers/Interfaz/Interfaz.csproj",
-      "msbuildProject": "../../../../../Cod_Pers/Interfaz/Interfaz.csproj"
+      "path": "../../../Interfaz/Interfaz.csproj",
+      "msbuildProject": "../../../Interfaz/Interfaz.csproj"
     },
     "MMO_Client/1.0.0": {
       "type": "project",
@@ -16189,11 +16189,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\User\\Documentos\\Stride Projects\\MMO_Client\\MMO_Client.Windows\\MMO_Client.Windows.csproj",
+      "projectUniqueName": "E:\\Cod_Pers\\Stride\\MMO_Client\\MMO_Client.Windows\\MMO_Client.Windows.csproj",
       "projectName": "MMO_Client.Windows",
-      "projectPath": "E:\\User\\Documentos\\Stride Projects\\MMO_Client\\MMO_Client.Windows\\MMO_Client.Windows.csproj",
+      "projectPath": "E:\\Cod_Pers\\Stride\\MMO_Client\\MMO_Client.Windows\\MMO_Client.Windows.csproj",
       "packagesPath": "C:\\Users\\jjohn\\.nuget\\packages\\",
-      "outputPath": "E:\\User\\Documentos\\Stride Projects\\MMO_Client\\MMO_Client.Windows\\obj\\",
+      "outputPath": "E:\\Cod_Pers\\Stride\\MMO_Client\\MMO_Client.Windows\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -16215,8 +16215,8 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "E:\\User\\Documentos\\Stride Projects\\MMO_Client\\MMO_Client\\MMO_Client.csproj": {
-              "projectPath": "E:\\User\\Documentos\\Stride Projects\\MMO_Client\\MMO_Client\\MMO_Client.csproj"
+            "E:\\Cod_Pers\\Stride\\MMO_Client\\MMO_Client\\MMO_Client.csproj": {
+              "projectPath": "E:\\Cod_Pers\\Stride\\MMO_Client\\MMO_Client\\MMO_Client.csproj"
             }
           }
         }

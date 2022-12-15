@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KXenkuC8yqkkHM3dM7y9i/2zNjhgJRFqcO5ln+g2dJ9wz/54mNEDPszoSVZdzUjNMVeS9Eho0xDw+QyzCUbXIg==",
+  "dgSpecHash": "dZ8/7Bj4VXg460413NEZLXUI3k9qL1LnIF6Hf7FPMLjdHy2OFc+ZLU2T5wdWut1MKOMcQW+8w0G3wp7aGZ4CqQ==",
   "success": true,
-  "projectFilePath": "E:\\User\\Documentos\\Stride Projects\\MMO_Client\\MMO_Client.Windows\\MMO_Client.Windows.csproj",
+  "projectFilePath": "E:\\Cod_Pers\\Stride\\MMO_Client\\MMO_Client.Windows\\MMO_Client.Windows.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jjohn\\.nuget\\packages\\ffmpeg.autogen\\3.4.0.2\\ffmpeg.autogen.3.4.0.2.nupkg.sha512",
     "C:\\Users\\jjohn\\.nuget\\packages\\humanizer.core\\2.2.0\\humanizer.core.2.2.0.nupkg.sha512",

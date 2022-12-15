@@ -11673,8 +11673,8 @@
     },
     "Interfaz/1.0.0": {
       "type": "project",
-      "path": "../../../../../Cod_Pers/Interfaz/Interfaz.csproj",
-      "msbuildProject": "../../../../../Cod_Pers/Interfaz/Interfaz.csproj"
+      "path": "../../../Interfaz/Interfaz.csproj",
+      "msbuildProject": "../../../Interfaz/Interfaz.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -11697,11 +11697,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\User\\Documentos\\Stride Projects\\MMO_Client\\MMO_Client\\MMO_Client.csproj",
+      "projectUniqueName": "E:\\Cod_Pers\\Stride\\MMO_Client\\MMO_Client\\MMO_Client.csproj",
       "projectName": "MMO_Client",
-      "projectPath": "E:\\User\\Documentos\\Stride Projects\\MMO_Client\\MMO_Client\\MMO_Client.csproj",
+      "projectPath": "E:\\Cod_Pers\\Stride\\MMO_Client\\MMO_Client\\MMO_Client.csproj",
       "packagesPath": "C:\\Users\\jjohn\\.nuget\\packages\\",
-      "outputPath": "E:\\User\\Documentos\\Stride Projects\\MMO_Client\\MMO_Client\\obj\\",
+      "outputPath": "E:\\Cod_Pers\\Stride\\MMO_Client\\MMO_Client\\obj\\",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
       "fallbackFolders": [

@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MMO_Client.Windows", "MMO_C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MMO_Client", "MMO_Client\MMO_Client.csproj", "{3B6E785B-1C47-42C5-BC45-081A95B73B13}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interfaz", "..\..\..\..\Cod_Pers\Interfaz\Interfaz.csproj", "{B17391B9-E90A-4E98-9DDB-23872F648ECC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interfaz", "..\..\Interfaz\Interfaz.csproj", "{B17391B9-E90A-4E98-9DDB-23872F648ECC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

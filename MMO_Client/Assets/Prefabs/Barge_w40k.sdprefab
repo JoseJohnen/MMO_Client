@@ -18,5 +18,5 @@ Hierarchy:
                         Children: {}
                     4a6b307b2b60aa65b85695ffc6399d6b: !ModelComponent
                         Id: 62d99402-a92e-42a3-88c5-451aeb6a1842
-                        Model: 4a6561ca-1576-4961-99d7-7e4e7fc9b030:Models/Barge_w40k
+                        Model: null
                         Materials: {}

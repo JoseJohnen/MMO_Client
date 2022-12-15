@@ -2,7 +2,7 @@
 Id: c8429107-89ed-4ba1-9843-2566e1d22252
 SerializedVersion: {Stride: 2.0.0.0}
 Tags: []
-Source: !file ../../../../../../Escritorio/Cosas_Hobbys/Modelos 3d/warhammer-40k-battle-barge/textures/Stone.jpg
+Source: !file Stone.jpg
 Type: !ColorTextureType
     ColorKeyColor: {R: 255, G: 0, B: 255, A: 255}
     PremultiplyAlpha: false
