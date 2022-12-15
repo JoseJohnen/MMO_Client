@@ -1,0 +1,41 @@
+!PrefabAsset
+Id: 0e1e5d85-f3ff-4350-b9c7-9aeeb90d99e8
+SerializedVersion: {Stride: 3.1.0.1}
+Tags: []
+Hierarchy:
+    RootParts:
+        - ref!! 3f465c39-dcf5-485d-9639-623efebe3f6b
+    Parts:
+        -   Entity:
+                Id: 3f465c39-dcf5-485d-9639-623efebe3f6b
+                Name: Ground
+                Components:
+                    181e747fbd648a997d3ae40cb6a39876: !TransformComponent
+                        Id: 14bb17e4-b2a9-4718-bfc5-7def81d57692
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    4a0274ec2bc77923947faab50c3b223c: !ModelComponent
+                        Id: d43fdb55-f439-4e96-a55a-6047bc433244
+                        Model: a4fc7b82-fd71-47e3-b4c6-6e577907f30b:Models/Ground
+                        Materials:
+
+                            37f0dfb9d2d7733c74412c9047e63b4e~0: d2d0c55c-4ea6-40fa-86ab-46cf71126b92:Materials/Ground Material
+
+                    cd4e89894a0c07ff9995b39cf03816dd: !StaticColliderComponent
+                        Id: cf30b213-ffd9-4c6d-8ac4-6b2910dcec97
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        AlwaysUpdateNaviMeshCache: false
+                        ColliderShapes:
+                            945b2c63ee7f665bb62ca6406dff65b3: !BoxColliderShapeDesc
+                                Is2D: false
+                                Size: {X: 100.0, Y: 0.1, Z: 100.0}
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+                                LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}

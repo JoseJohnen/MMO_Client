@@ -1,0 +1,120 @@
+!SpriteSheet
+Id: 64a9a093-8019-4aa4-9c67-bee15d41da89
+SerializedVersion: {Stride: 2.0.0.0}
+Tags: []
+Type: Sprite2D
+ColorKeyColor: {R: 255, G: 0, B: 255, A: 255}
+Packing: {}
+Sprites:
+    e775cffa009ea8635e04fd2c8ffd943e:
+        Source: !file weapons.png
+        Name: Pistol
+        TextureRegion: {X: 182, Y: 62, Width: 59, Height: 46}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    3f5e11876351071bd99c467d70c05205:
+        Source: !file weapons.png
+        Name: Rifle
+        TextureRegion: {X: 308, Y: 53, Width: 124, Height: 52}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    1c56ec6f43f3f9a63d7dcda77ec98d99:
+        Source: !file weapons.png
+        Name: SixShooter
+        TextureRegion: {X: 506, Y: 62, Width: 50, Height: 38}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    d9493d42ed90bd622441bb43f7a615ea:
+        Source: !file weapons.png
+        Name: AK-74
+        TextureRegion: {X: 627, Y: 60, Width: 127, Height: 40}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    516580a7404844aa25f69e030dd71372:
+        Source: !file weapons.png
+        Name: Sub-MachineGun
+        TextureRegion: {X: 159, Y: 211, Width: 106, Height: 57}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    c60e4a85f025b2e2ed62f8a27e52ceb5:
+        Source: !file weapons.png
+        Name: Circular-MachineGun
+        TextureRegion: {X: 306, Y: 219, Width: 128, Height: 41}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    11cc50122e990d54aff4cce61065ecb6:
+        Source: !file weapons.png
+        Name: Heavy-MachineGun
+        TextureRegion: {X: 467, Y: 212, Width: 127, Height: 57}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    a16bfbfdeeaedb36cdb808f665774bc5:
+        Source: !file weapons.png
+        Name: Rifle
+        TextureRegion: {X: 626, Y: 230, Width: 128, Height: 24}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    032f9fc45a0a7020d17e9512579f7d86:
+        Source: !file weapons.png
+        Name: Rifle-Sniper
+        TextureRegion: {X: 147, Y: 384, Width: 127, Height: 32}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    f26e80f611a9dbd87a8035abd25b9fbf:
+        Source: !file weapons.png
+        Name: Mini-MachineGun
+        TextureRegion: {X: 336, Y: 376, Width: 80, Height: 49}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    b121d8fed8b58e60060512a892661867:
+        Source: !file weapons.png
+        Name: Grenade-Launcher
+        TextureRegion: {X: 0, Y: 0, Width: 0, Height: 0}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    7a95cedc2f13011215de0cf1803fe574:
+        Source: !file weapons.png
+        Name: Uzi-Silenced
+        TextureRegion: {X: 0, Y: 0, Width: 0, Height: 0}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    86d3d0e5b2f97faf41c35c23688e72ee:
+        Source: !file weapons.png
+        Name: Uzi
+        TextureRegion: {X: 186, Y: 540, Width: 58, Height: 54}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    c471007794dae6279c957a760da492fb:
+        Source: !file weapons.png
+        Name: VectorSub-MachineGun
+        TextureRegion: {X: 0, Y: 0, Width: 0, Height: 0}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    17a6463d30c3da420d6e0655d4c06a10:
+        Source: !file weapons.png
+        Name: Rifle-Scope
+        TextureRegion: {X: 0, Y: 0, Width: 0, Height: 0}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    bdeeea3d23b0e876c508aea43e9520ff:
+        Source: !file weapons.png
+        Name: Rifle-3
+        TextureRegion: {X: 630, Y: 544, Width: 122, Height: 42}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}

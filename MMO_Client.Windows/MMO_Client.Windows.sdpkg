@@ -1,0 +1,26 @@
+!Package
+SerializedVersion: {Assets: 3.1.0.0}
+Meta:
+    Name: MMO_Client.Windows
+    Version: 1.0.0
+    Authors: []
+    Owners: []
+    Dependencies: null
+AssetFolders:
+    -   Path: !dir Assets
+ResourceFolders:
+    - !dir Resources
+OutputGroupDirectories: {}
+ExplicitFolders: []
+Bundles: []
+TemplateFolders: []
+RootAssets:
+    - 264872e5-592d-45d8-b07f-f7899e93e8a8:Models/tankexport
+    - 4a6561ca-1576-4961-99d7-7e4e7fc9b030:Models/Barge_w40k
+    - 7d44cc93-8767-4a89-aad9-82e9b90e114d:Prefabs/DoomGuy
+    - 7dbf55d9-8f19-4468-93be-fcff03782368:UI/UIPage
+    - b81a483c-3906-48ee-8e2d-39d44cf84307:Prefabs/RealEnt
+    - d1d57703-4b54-4a86-9ec3-ef96f4e0d2a6:Prefabs/Bullet
+    - d3f59efa-4dd1-4407-b3ab-8aeb0d287cad:Prefabs/Player
+    - d6281e6d-7a1a-42bc-b011-f9cd028b1bf1:Prefabs/Character
+    - ee11f642-d70c-4eb6-88c8-ebe22c076c08:Models/Cylinder

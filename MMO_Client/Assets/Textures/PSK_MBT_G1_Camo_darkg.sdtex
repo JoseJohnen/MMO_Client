@@ -1,0 +1,7 @@
+!Texture
+Id: 9134e935-ed47-45f9-b22f-a287cbe23b96
+SerializedVersion: {Stride: 2.0.0.0}
+Tags: []
+Source: !file PSK_MBT_G1_Camo_darkg.png
+Type: !ColorTextureType
+    ColorKeyColor: {R: 255, G: 0, B: 255, A: 255}

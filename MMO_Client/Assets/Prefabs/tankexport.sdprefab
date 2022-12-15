@@ -1,0 +1,24 @@
+!PrefabAsset
+Id: a53d22be-7939-4418-9323-fd2b3e909f95
+SerializedVersion: {Stride: 3.1.0.1}
+Tags: []
+Hierarchy:
+    RootParts:
+        - ref!! 65fdf995-a017-4f34-97ea-2adfd72a83a7
+    Parts:
+        -   Entity:
+                Id: 65fdf995-a017-4f34-97ea-2adfd72a83a7
+                Name: tankexport
+                Components:
+                    5d2c1dabe2f4be7ad743b45185f389bd: !TransformComponent
+                        Id: 2a0ee3f6-e38f-4792-b967-89f9ab8be194
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    17e48be47e814013ef22ac6d75c9292f: !ModelComponent
+                        Id: a48d1ed5-2cf5-47fd-b489-35679bf1f3b3
+                        Model: 264872e5-592d-45d8-b07f-f7899e93e8a8:Models/tankexport
+                        IsShadowCaster: false
+                        Materials:
+                            b4f7b3e92140f9e724880c09d7d56eab~0: c9eda76b-0c60-4854-bb80-59667186d44c:Materials/Material.002

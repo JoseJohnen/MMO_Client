@@ -1,0 +1,22 @@
+!SpriteSheet
+Id: 256b429d-72de-4b9c-a365-1e7ff1535e71
+SerializedVersion: {Stride: 2.0.0.0}
+Tags: []
+Type: Sprite2D
+ColorKeyColor: {R: 255, G: 0, B: 255, A: 255}
+Packing: {}
+Sprites:
+    ea7471ba4e85ea684d44effcf155a98b:
+        Source: !file infantry_2.png
+        Name: infantry_1
+        TextureRegion: {X: 1, Y: 0, Width: 5, Height: 8}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    4b6bd958854746a19182ca001530b0cc:
+        Source: !file infantry.png
+        Name: infantry_2
+        TextureRegion: {X: 1, Y: 0, Width: 5, Height: 8}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}

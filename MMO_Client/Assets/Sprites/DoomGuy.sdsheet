@@ -1,0 +1,372 @@
+!SpriteSheet
+Id: 8e5582ae-8007-428b-a277-fad0dec90317
+SerializedVersion: {Stride: 2.0.0.0}
+Tags: []
+Type: Sprite2D
+ColorKeyColor: {R: 255, G: 0, B: 255, A: 255}
+Packing: {}
+Sprites:
+    343c25afc75d4e750cda97760756d9fb:
+        Source: !file DOOMGUY/-WPain.png
+        Name: -WPain
+        TextureRegion: {X: 0, Y: 0, Width: 688, Height: 880}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    0d78844965a62e2082457a658cbe0fb0:
+        Source: !file DOOMGUY/-WShoot_0.png
+        Name: -WShoot_0
+        TextureRegion: {X: 0, Y: 0, Width: 816, Height: 848}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    527be7b34b88f11db0ddfa0ed8cc94ab:
+        Source: !file DOOMGUY/-WShoot_1.png
+        Name: -WShoot_1
+        TextureRegion: {X: 0, Y: 0, Width: 832, Height: 848}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    477a144fcaeac071a61c559b97e50002:
+        Source: !file DOOMGUY/-WWalk_0.png
+        Name: -WWalk_0
+        TextureRegion: {X: 0, Y: 0, Width: 672, Height: 848}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    3d96be8960bbccee6a9eea681c9e9d05:
+        Source: !file DOOMGUY/-WWalk_1.png
+        Name: -WWalk_1
+        TextureRegion: {X: 0, Y: 0, Width: 576, Height: 880}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    cb24df47f3a5655ee35fce7d4378c50d:
+        Source: !file DOOMGUY/-WWalk_2.png
+        Name: -WWalk_2
+        TextureRegion: {X: 0, Y: 0, Width: 608, Height: 864}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    2690824b8b4afd0fa95cc9529bad2d75:
+        Source: !file DOOMGUY/-WWalk_3.png
+        Name: -WWalk_3
+        TextureRegion: {X: 0, Y: 0, Width: 544, Height: 864}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    29cde396bccc5e7a0b86c9e9d9c1c5eb:
+        Source: !file DOOMGUY/DE_0.png
+        Name: DE_0
+        TextureRegion: {X: 0, Y: 0, Width: 608, Height: 896}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    d25388cd09121d7f306a7561c4b9236c:
+        Source: !file DOOMGUY/DE_1.png
+        Name: DE_1
+        TextureRegion: {X: 0, Y: 0, Width: 704, Height: 944}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    f31094a4f40186fe4d38b118536df3df:
+        Source: !file DOOMGUY/DE_2.png
+        Name: DE_2
+        TextureRegion: {X: 0, Y: 0, Width: 768, Height: 912}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    4576805f6bc82f2cf4a3e8a3e46f7227:
+        Source: !file DOOMGUY/DE_3.png
+        Name: DE_3
+        TextureRegion: {X: 0, Y: 0, Width: 848, Height: 832}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    50586451b42f0a0d058d77eb08e656d3:
+        Source: !file DOOMGUY/DE_4.png
+        Name: DE_4
+        TextureRegion: {X: 0, Y: 0, Width: 880, Height: 752}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    8d5f99d16eab37c72974e75f82f512ab:
+        Source: !file DOOMGUY/DE_5.png
+        Name: DE_5
+        TextureRegion: {X: 0, Y: 0, Width: 912, Height: 640}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    b1d2f1a326ff5c8f845c8c24a2a92ff9:
+        Source: !file DOOMGUY/DE_6.png
+        Name: DE_6
+        TextureRegion: {X: 0, Y: 0, Width: 912, Height: 528}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    18237e06e738277e1a2e93760902c260:
+        Source: !file DOOMGUY/DE_7.png
+        Name: DE_7
+        TextureRegion: {X: 0, Y: 0, Width: 912, Height: 368}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    80353ec1ba67576d0b36c9ef77300840:
+        Source: !file DOOMGUY/DE_8.png
+        Name: DE_8
+        TextureRegion: {X: 0, Y: 0, Width: 912, Height: 352}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    20584bb85348eb355bf3a6fa14919a55:
+        Source: !file DOOMGUY/DN_0.png
+        Name: DN_0
+        TextureRegion: {X: 0, Y: 0, Width: 704, Height: 800}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    e85b40cf7d2c796a01f50935558dd220:
+        Source: !file DOOMGUY/DN_1.png
+        Name: DN_1
+        TextureRegion: {X: 0, Y: 0, Width: 560, Height: 688}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    ccc3d9286a743650e95d3a8e68fdac70:
+        Source: !file DOOMGUY/DN_2.png
+        Name: DN_2
+        TextureRegion: {X: 0, Y: 0, Width: 576, Height: 736}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    79ff25e784f21dc47a0bb6cc8a3ea940:
+        Source: !file DOOMGUY/DN_3.png
+        Name: DN_3
+        TextureRegion: {X: 0, Y: 0, Width: 656, Height: 608}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    d007ca71d8527162526ae2fef5df8cdc:
+        Source: !file DOOMGUY/DN_4.png
+        Name: DN_4
+        TextureRegion: {X: 0, Y: 0, Width: 816, Height: 224}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    264ef3ce46dd9bd32ff0a9d78b3e3b4c:
+        Source: !file DOOMGUY/DN_5.png
+        Name: DN_5
+        TextureRegion: {X: 0, Y: 0, Width: 816, Height: 224}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    273f56210729438a35de73e18040e59d:
+        Source: !file DOOMGUY/DN_6.png
+        Name: DN_6
+        TextureRegion: {X: 0, Y: 0, Width: 816, Height: 224}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    99c6f14220f96ba17614f64404eee9aa:
+        Source: !file DOOMGUY/N-Pain.png
+        Name: N-Pain
+        TextureRegion: {X: 0, Y: 0, Width: 544, Height: 864}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    a8ba944b0e873e0d0efd9cbc11c90a00:
+        Source: !file DOOMGUY/N-Shoot_0.png
+        Name: N-Shoot_0
+        TextureRegion: {X: 0, Y: 0, Width: 384, Height: 816}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    a821f7af1aa0d07bacc392ac97a95e4d:
+        Source: !file DOOMGUY/N-Shoot_1.png
+        Name: N-Shoot_1
+        TextureRegion: {X: 0, Y: 0, Width: 416, Height: 816}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    c2fbcdc5bfc2511dddc0e25ba5ce8f2e:
+        Source: !file DOOMGUY/N-Walk_0.png
+        Name: N-Walk_0
+        TextureRegion: {X: 0, Y: 0, Width: 576, Height: 800}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    1a2624c353e1dbc42486544a291cd2e5:
+        Source: !file DOOMGUY/N-Walk_1.png
+        Name: N-Walk_1
+        TextureRegion: {X: 0, Y: 0, Width: 560, Height: 864}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    83796fadf42e8b7f00f81e96fa130131:
+        Source: !file DOOMGUY/N-Walk_2.png
+        Name: N-Walk_2
+        TextureRegion: {X: 0, Y: 0, Width: 560, Height: 864}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    794805ae0f918a4ae1c2508e4e7d7af7:
+        Source: !file DOOMGUY/N-Walk_3.png
+        Name: N-Walk_3
+        TextureRegion: {X: 0, Y: 0, Width: 544, Height: 864}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    2ac74715f8f8cf0acc197b76cc377e22:
+        Source: !file DOOMGUY/NWPain.png
+        Name: NWPain
+        TextureRegion: {X: 0, Y: 0, Width: 688, Height: 832}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    8280fd25a2222abd06028d910ce043e7:
+        Source: !file DOOMGUY/NWShoot_0.png
+        Name: NWShoot_0
+        TextureRegion: {X: 0, Y: 0, Width: 608, Height: 832}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    7625bf26fa80519b5780d4d0198925ef:
+        Source: !file DOOMGUY/NWShoot_1.png
+        Name: NWShoot_1
+        TextureRegion: {X: 0, Y: 0, Width: 656, Height: 832}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    26b80aa576c8e6810f8c6191d48f40b6:
+        Source: !file DOOMGUY/NWWalk_0.png
+        Name: NWWalk_0
+        TextureRegion: {X: 0, Y: 0, Width: 720, Height: 816}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    d4fb23b2eaad49fa09f08b583ccc6049:
+        Source: !file DOOMGUY/NWWalk_1.png
+        Name: NWWalk_1
+        TextureRegion: {X: 0, Y: 0, Width: 656, Height: 864}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    177cf45176a99b009e1a148a500cbf12:
+        Source: !file DOOMGUY/NWWalk_2.png
+        Name: NWWalk_2
+        TextureRegion: {X: 0, Y: 0, Width: 656, Height: 880}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    a22fa2bbe3dfb84ec83ec75c7e86858e:
+        Source: !file DOOMGUY/NWWalk_3.png
+        Name: NWWalk_3
+        TextureRegion: {X: 0, Y: 0, Width: 640, Height: 864}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    53302516f3ce4e318f2fc77385f4feba:
+        Source: !file DOOMGUY/S-Pain.png
+        Name: S-Pain
+        TextureRegion: {X: 0, Y: 0, Width: 624, Height: 880}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    08c000aac085dfe0ac898576b5b6b646:
+        Source: !file DOOMGUY/S-Shot_0.png
+        Name: S-Shot_0
+        TextureRegion: {X: 0, Y: 0, Width: 416, Height: 896}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    d81994887c04471c4b90fb165b627573:
+        Source: !file DOOMGUY/S-Shot_1.png
+        Name: S-Shot_1
+        TextureRegion: {X: 0, Y: 0, Width: 416, Height: 896}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    945e9b367341b9c753d20880a494f3ac:
+        Source: !file DOOMGUY/S-Walk_0.png
+        Name: S-Walk_0
+        TextureRegion: {X: 0, Y: 0, Width: 656, Height: 896}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    c25ed5a3a734db184911d536ad6c077f:
+        Source: !file DOOMGUY/S-Walk_1.png
+        Name: S-Walk_1
+        TextureRegion: {X: 0, Y: 0, Width: 640, Height: 880}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    191a4560e732a972b39f0af0729a1a1d:
+        Source: !file DOOMGUY/S-Walk_2.png
+        Name: S-Walk_2
+        TextureRegion: {X: 0, Y: 0, Width: 592, Height: 896}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    a8717697066e89d639118837083dc0be:
+        Source: !file DOOMGUY/S-Walk_3.png
+        Name: S-Walk_3
+        TextureRegion: {X: 0, Y: 0, Width: 608, Height: 896}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    0c6eca5d89988a1c2e6ec334776eee34:
+        Source: !file DOOMGUY/SWPain.png
+        Name: SWPain
+        TextureRegion: {X: 0, Y: 0, Width: 576, Height: 896}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    4bd6563c42b52a6b5ccf09ddc82e760d:
+        Source: !file DOOMGUY/SWShoot_0.png
+        Name: SWShoot_0
+        TextureRegion: {X: 0, Y: 0, Width: 720, Height: 880}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    6b09f252b9aa4752804d39bb3b95c884:
+        Source: !file DOOMGUY/SWShoot_1.png
+        Name: SWShoot_1
+        TextureRegion: {X: 0, Y: 0, Width: 688, Height: 880}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    9a39f1d4899bea8e13be96e12ee09665:
+        Source: !file DOOMGUY/SWWalk_0.png
+        Name: SWWalk_0
+        TextureRegion: {X: 0, Y: 0, Width: 560, Height: 864}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    45ac87e0a3d42afa2cd97c1ae21f61c2:
+        Source: !file DOOMGUY/SWWalk_1.png
+        Name: SWWalk_1
+        TextureRegion: {X: 0, Y: 0, Width: 560, Height: 880}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    7a7f6e519837c583443eabdb68e20f76:
+        Source: !file DOOMGUY/SWWalk_2.png
+        Name: SWWalk_2
+        TextureRegion: {X: 0, Y: 0, Width: 592, Height: 880}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    dda68ffd8e18316845732da2f47e0877:
+        Source: !file DOOMGUY/SWWalk_3.png
+        Name: SWWalk_3
+        TextureRegion: {X: 0, Y: 0, Width: 560, Height: 880}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    869e3a9c4ed34b3cd5a06b1e277e7278:
+        Source: !file DOOMGUY/Z-Transparency.png
+        Name: DoomGuy
+        TextureRegion: {X: 0, Y: 0, Width: 105, Height: 56}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}

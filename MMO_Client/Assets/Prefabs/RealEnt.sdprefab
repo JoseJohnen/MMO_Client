@@ -1,0 +1,39 @@
+!PrefabAsset
+Id: b81a483c-3906-48ee-8e2d-39d44cf84307
+SerializedVersion: {Stride: 3.1.0.1}
+Tags: []
+Hierarchy:
+    RootParts:
+        - ref!! 733ab001-e16a-43ca-8be4-4b438e4e41de
+    Parts:
+        -   Entity:
+                Id: 107dc585-508d-4576-a5d1-5d31746836cd
+                Name: Fwd
+                Components:
+                    0d927ab1a1320dd217782208898bd446: !TransformComponent
+                        Id: f3f5af02-d8e7-4386-bf2f-43af3b3a68b8
+                        Position: {X: 0.0, Y: 0.0, Z: 1.0}
+                        Rotation: {X: 0.7071685, Y: 0.0, Z: 0.0, W: 0.7070451}
+                        Scale: {X: 0.3, Y: 0.3, Z: 0.3}
+                        Children: {}
+                    c252bb61c6456c9571af49fffc92318b: !ModelComponent
+                        Id: 0b37dbea-32c2-4620-a43f-3df39fc26ffc
+                        Model: d7535ce3-c7d1-4044-a589-ede98ee8b6f9:Models/Cone
+                        Materials:
+                            0e3827927ee67f5628fd38571989f9be~0: a4b69d3a-1039-459a-a4e1-0ff0fc60fcde:Materials/Sphere Material
+        -   Entity:
+                Id: 733ab001-e16a-43ca-8be4-4b438e4e41de
+                Name: RealEnt
+                Components:
+                    6fd48f36a1a7986fb194fb855cc4370e: !TransformComponent
+                        Id: 31892106-3b84-480b-ac25-9db782309fe3
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 0.125, Y: 0.125, Z: 0.125}
+                        Children:
+                            19e67e116aa8fc8378192b40a4332dd2: ref!! f3f5af02-d8e7-4386-bf2f-43af3b3a68b8
+                    2f0b2cd16a3437efae6f0511ba6fafc4: !ModelComponent
+                        Id: 8f006e43-2537-4efa-a316-d6e02eb2a4c6
+                        Model: 0d193748-cff2-441f-97cc-2a0ffe8993d4:Models/Sphere
+                        Materials:
+                            851a054f06cdbc3f9a261db23a0c89b7~0: a4b69d3a-1039-459a-a4e1-0ff0fc60fcde:Materials/Sphere Material

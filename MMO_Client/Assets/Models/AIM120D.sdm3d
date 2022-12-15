@@ -1,0 +1,15 @@
+!Model
+Id: e743bacc-1729-47ca-9a5a-9444b6d522f7
+SerializedVersion: {Stride: 2.0.0.0}
+Tags: []
+Source: !file C:/Users/jjohn/AppData/Local/Temp/Rar$DRa27920.21210/AIM120D Missile/Files/AIM120D.obj
+Skeleton: c09a0b12-a50d-452a-b4af-2c54069d2f6d:Models/AIM120D Skeleton
+PivotPosition: {X: 0.0, Y: 0.0, Z: 0.0}
+Materials:
+    68762507fbe097548c399f675e1ee2df:
+        Name: Material.006
+        MaterialInstance:
+            Material: 1b12e756-9602-4b36-841d-677ff089e387:Materials/Material (2)
+Modifiers: {}
+~SourceHashes:
+    68cf345df43543be7fdc9544fb2f0db7~C:/Users/jjohn/AppData/Local/Temp/Rar$DRa27920.21210/AIM120D Missile/Files/AIM120D.obj: cdba4e878311e508580ebc117438f5db

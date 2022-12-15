@@ -1,0 +1,43 @@
+!PrefabAsset
+Id: 3220ecc2-f1c4-4500-976f-221698a64874
+SerializedVersion: {Stride: 3.1.0.1}
+Tags: []
+Hierarchy:
+    RootParts:
+        - ref!! 14e15933-7917-4bfc-b338-88725b74c867
+    Parts:
+        -   Entity:
+                Id: 14e15933-7917-4bfc-b338-88725b74c867
+                Name: SpriteSheet
+                Components:
+                    b1f13a9a7056c4da556fccc38bd8a63e: !TransformComponent
+                        Id: c61e6b38-6b8c-42c6-87c3-cfcca734cc48
+                        Position: {X: 0.0, Y: 0.8537746, Z: 0.0}
+                        Rotation: {X: -0.7069834, Y: 0.0, Z: 0.0, W: 0.70723015}
+                        Scale: {X: 0.125, Y: 0.125, Z: 1.0}
+                        Children: {}
+                    25bfd4f57efb62d4baf29cbcdaa5b1db: !SpriteComponent
+                        Id: c7c5e1a3-cb51-4987-8b9d-ceaafafc507e
+                        SpriteProvider: !SpriteFromSheet
+                            Sheet: 701bfa83-7468-442f-9fdf-739cc9dfeea7:Tileset/SpriteSheet
+                        Color: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}
+                    155980b48385976d81d809c9948029cb: !RigidbodyComponent
+                        Id: 88023a1b-81dc-4213-9315-a0ff3e78e429
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        IsKinematic: true
+                        Mass: 1.0
+                        LinearDamping: 0.0
+                        AngularDamping: 0.0
+                        OverrideGravity: false
+                        Gravity: {X: 0.0, Y: 0.0, Z: 0.0}
+                        NodeName: null
+                        ColliderShapes:
+                            c766260b0504f4d9499bf8b9baf26b5d: !StaticPlaneColliderShapeDesc
+                                Normal: {X: 0.0, Y: 1.0, Z: 0.0}
+                                Offset: 0.0

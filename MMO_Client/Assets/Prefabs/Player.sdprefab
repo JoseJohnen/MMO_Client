@@ -1,0 +1,86 @@
+!PrefabAsset
+Id: d3f59efa-4dd1-4407-b3ab-8aeb0d287cad
+SerializedVersion: {Stride: 3.1.0.1}
+Tags: []
+Hierarchy:
+    RootParts:
+        - ref!! c6347113-f3c5-4445-a83e-de31e13cd136
+    Parts:
+        -   Entity:
+                Id: 0ae0cd7f-b348-4b65-ac93-973e313dd6d2
+                Name: weapon
+                Components:
+                    972ec541f8560d61553250000b4c886c: !TransformComponent
+                        Id: a334bfe6-720d-4e0e-8c5a-426a55ca3ceb
+                        Position: {X: 0.0, Y: 0.0, Z: -0.5}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 0.3, Y: 0.3, Z: 0.3}
+                        Children: {}
+                    1927e16eb6303bb0a7afd53b3512d0f8: !ModelComponent
+                        Id: cf8b06e6-d9d0-4261-a472-c74389c00af5
+                        Model: ee11f642-d70c-4eb6-88c8-ebe22c076c08:Models/Cylinder
+                        Materials:
+                            c66cfb7fb9523925a9b418fc07beea0e~0: a4b69d3a-1039-459a-a4e1-0ff0fc60fcde:Materials/Sphere Material
+        -   Entity:
+                Id: 38c46ecc-f666-4985-9e06-1c60ede648e8
+                Name: L-Shoulder
+                Components:
+                    9ad176bf863ace9054ab19ec82919dd2: !TransformComponent
+                        Id: c3bd2bfa-e1ed-4b38-9955-9a94d5b24278
+                        Position: {X: -0.5, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 0.3, Y: 0.3, Z: 0.3}
+                        Children: {}
+                    7456af3b7245202884d051f166d03eab: !ModelComponent
+                        Id: 949627d6-d68a-4534-8ac8-13d6997e68b3
+                        Model: 0d193748-cff2-441f-97cc-2a0ffe8993d4:Models/Sphere
+                        Materials: {}
+        -   Entity:
+                Id: 95139b0b-ff27-4665-95a7-e1bdce77eaac
+                Name: Camera
+                Components:
+                    19e5f6e9d93dfa9b5fe4b72896cb6fd3: !TransformComponent
+                        Id: 8dd13c47-0d5e-4557-a766-bdf0bbc22098
+                        Position: {X: 0.15141368, Y: 0.6, Z: -0.086321115}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    31e44ba2d6cb1015f71ae9dba2610d3c: !CameraComponent
+                        Id: 0c603b16-6310-4d29-b346-7f7cca148361
+                        Enabled: false
+                        Name: Player
+                        Projection: Perspective
+                        Slot: 8b4c8539-e21b-4b67-bd6a-8165175f9896
+        -   Entity:
+                Id: 97f226cc-2fc5-499c-b218-3be3c2a760b9
+                Name: R-Shoulder
+                Components:
+                    9ad176bf863ace9054ab19ec82919dd2: !TransformComponent
+                        Id: b37e5c5c-f753-4666-97d0-8359e67e9ed7
+                        Position: {X: 0.5, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 0.3, Y: 0.3, Z: 0.3}
+                        Children: {}
+                    7456af3b7245202884d051f166d03eab: !ModelComponent
+                        Id: dead7ea6-f865-4dc8-a261-7ee111c1e71e
+                        Model: 0d193748-cff2-441f-97cc-2a0ffe8993d4:Models/Sphere
+                        Materials: {}
+        -   Entity:
+                Id: c6347113-f3c5-4445-a83e-de31e13cd136
+                Name: Player
+                Components:
+                    f67098c2ae98636d3f576db11d11f765: !TransformComponent
+                        Id: 72622b37-0d43-4f79-954f-bf5fe6011038
+                        Position: {X: 0.0, Y: 0.5, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            824067ac9cb69d0f3aab0fc3d9a7f696: ref!! 8dd13c47-0d5e-4557-a766-bdf0bbc22098
+                            51cd6d71735820d4895a832e6a424c39: ref!! a334bfe6-720d-4e0e-8c5a-426a55ca3ceb
+                            a43deabc108ced72dd775db9a6203e85: ref!! b37e5c5c-f753-4666-97d0-8359e67e9ed7
+                            9562d67ded6dca1eb07ee19927924c44: ref!! c3bd2bfa-e1ed-4b38-9955-9a94d5b24278
+                    c8b0367af886c3e402f7bcfb6e079719: !ModelComponent
+                        Id: 50eac55d-8da4-4ec2-aac1-9ed253e5c697
+                        Model: 0d193748-cff2-441f-97cc-2a0ffe8993d4:Models/Sphere
+                        Materials:
+                            77f26682f5ba4ad6625218f73ff9dd6d~0: a4b69d3a-1039-459a-a4e1-0ff0fc60fcde:Materials/Sphere Material

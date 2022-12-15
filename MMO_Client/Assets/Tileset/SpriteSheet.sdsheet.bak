@@ -1,0 +1,15 @@
+!SpriteSheet
+Id: 701bfa83-7468-442f-9fdf-739cc9dfeea7
+SerializedVersion: {Stride: 2.0.0.0}
+Tags: []
+Type: Sprite2D
+ColorKeyColor: {R: 255, G: 0, B: 255, A: 255}
+Packing: {}
+Sprites:
+    e0cf8c472fa3c76f01b5d06f4acfe731:
+        Source: !file Tileset_2.png
+        Name: Tileset_2
+        TextureRegion: {X: 0, Y: 0, Width: 256, Height: 256}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}

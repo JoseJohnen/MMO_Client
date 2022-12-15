@@ -1,0 +1,11 @@
+!Skeleton
+Id: c09a0b12-a50d-452a-b4af-2c54069d2f6d
+SerializedVersion: {Stride: 2.0.0.0}
+Tags: []
+Source: !file C:/Users/jjohn/AppData/Local/Temp/Rar$DRa27920.21210/AIM120D Missile/Files/AIM120D.obj
+PivotPosition: {X: 0.0, Y: 0.0, Z: 0.0}
+Nodes:
+    1b0ffbba5ba5909e8cb43ba45e1743e7: {Name: AIM120D.obj, Depth: 0}
+    a4fdfe0a5bf21b74827415039059b767: {Name: Cylinder.003_Cylinder.005, Depth: 1}
+~SourceHashes:
+    64de701c389f31f304b58b6b71479722~C:/Users/jjohn/AppData/Local/Temp/Rar$DRa27920.21210/AIM120D Missile/Files/AIM120D.obj: cdba4e878311e508580ebc117438f5db

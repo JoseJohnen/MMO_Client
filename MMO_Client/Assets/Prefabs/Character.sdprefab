@@ -1,0 +1,109 @@
+!PrefabAsset
+Id: d6281e6d-7a1a-42bc-b011-f9cd028b1bf1
+SerializedVersion: {Stride: 3.1.0.1}
+Tags: []
+Hierarchy:
+    RootParts:
+        - ref!! 33762f70-cf58-4252-b2ea-8eb7c060dd18
+    Parts:
+        -   Entity:
+                Id: 222eacc2-bdf1-4ee5-a1af-a0bb9f66db8c
+                Name: Camera
+                Components:
+                    62c8c2b94a673b9475b8b63cb04116e1: !TransformComponent
+                        Id: 40989c53-9414-4489-acef-ad54e4960ee0
+                        Position: {X: 0.0, Y: 1.0, Z: 50.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    c232b5e6dcdeb10ba52f1ea690c17aa6: !CameraComponent
+                        Id: 3d2acfe8-d621-4e7f-bdfb-4f73c2d6830b
+                        Name: Player
+                        Projection: Perspective
+                        Slot: 80cda127-0bb8-4436-bee2-f20afbfc5481
+        -   Entity:
+                Id: 33762f70-cf58-4252-b2ea-8eb7c060dd18
+                Name: Player
+                Components:
+                    eba15338829ab0d9aa4998f2feb4106f: !TransformComponent
+                        Id: 5fc1e8a2-9055-425e-958f-ec12aeabfc5f
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 0.25, Y: 0.25, Z: 0.25}
+                        Children:
+                            22a1648e357ef82d6e8ca2b51137576c: ref!! abfd07dd-c3aa-4dd7-9a00-61b36134858f
+                            f476fce35c7816c0c659ff6bf9a018b8: ref!! 495eb153-1bc7-4100-a50d-26a1fc4e18b2
+                            c36c7ddabc4353a0970ae978daf39da5: ref!! 7a85b6de-a859-4b94-ad62-66566c36a8ee
+                            1ce8811c77c22ff042bacad68b96ecd0: ref!! 17e1bb74-177f-4cba-85af-3b69c8eff818
+                            cfefa4e63baa244d04bdc6bc5ee17f06: ref!! 64f5af5a-c7f6-41f0-9d6f-a1e21497f649
+                    ef4be1f0214297ad7896162b993bf60d: !SpriteComponent
+                        Id: 1ecd50c5-a4bb-4be9-8bd4-452b8b6f0f9b
+                        SpriteProvider: !SpriteFromSheet
+                            Sheet: 8e5582ae-8007-428b-a277-fad0dec90317:Sprites/DoomGuy
+                        Color: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}
+                        PremultipliedAlpha: false
+                        IgnoreDepth: true
+                        BlendMode: AlphaBlend
+                        Sampler: PointClamp
+        -   Entity:
+                Id: 3ecbcd65-13a4-47ee-bfdc-3e86fb95b0de
+                Name: L-Shoulder
+                Components:
+                    bce9c0fb6e98dfbec7ea5d39908d9974: !TransformComponent
+                        Id: 17e1bb74-177f-4cba-85af-3b69c8eff818
+                        Position: {X: -0.1, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+        -   Entity:
+                Id: 6e19c7a1-72e0-4fff-8303-c04937bad7bb
+                Name: Camera
+                Components:
+                    a6bb01df5f819f44cfcf5896e2153f1f: !TransformComponent
+                        Id: abfd07dd-c3aa-4dd7-9a00-61b36134858f
+                        Position: {X: 0.0, Y: 0.0, Z: 3.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    fc9e28194c3a63dcca4d0b6dbacb555e: !CameraComponent
+                        Id: a47dfbb2-32fb-442f-aebb-653b0465e9b2
+                        Name: Camera
+                        Projection: Perspective
+                        NearClipPlane: 0.001
+                        Slot: 80cda127-0bb8-4436-bee2-f20afbfc5481
+        -   Entity:
+                Id: 9c1a664b-ee11-4658-8c4f-18d0980635b4
+                Name: weapon
+                Components:
+                    5a8bc91b5f1b2017be298d950d2eb108: !TransformComponent
+                        Id: 64f5af5a-c7f6-41f0-9d6f-a1e21497f649
+                        Position: {X: 0.0, Y: 0.1, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+        -   Entity:
+                Id: ac2750e7-e5ed-4b27-8a43-7a9b43bb01d6
+                Name: R-Shoulder
+                Components:
+                    fde48f1521bc35660860ffb3ada0130d: !TransformComponent
+                        Id: 7a85b6de-a859-4b94-ad62-66566c36a8ee
+                        Position: {X: 0.1, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 0.01, Y: 0.01, Z: 0.01}
+                        Children: {}
+        -   Entity:
+                Id: ee43130a-0a33-40eb-b3a5-c5c4984b4c22
+                Name: Gun
+                Components:
+                    497ea2d9fc3217b7a08cc1fc07c6e47e: !TransformComponent
+                        Id: 495eb153-1bc7-4100-a50d-26a1fc4e18b2
+                        Position: {X: 0.0, Y: -0.01, Z: 0.03}
+                        Rotation: {X: -0.5, Y: -0.49999997, Z: -0.49999997, W: 0.5}
+                        Scale: {X: 0.5, Y: 0.5, Z: 0.5}
+                        Children: {}
+                    042e3c20c63dd31a30a94932f4401952: !SpriteComponent
+                        Id: 8f28cf45-e753-48d3-b85a-0d877e7c1aab
+                        SpriteProvider: !SpriteFromSheet
+                            Sheet: 09c4913c-c277-449e-b6dd-d9ac8e600c4f:Sprites/Axe
+                        Color: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}
+                        Sampler: PointClamp

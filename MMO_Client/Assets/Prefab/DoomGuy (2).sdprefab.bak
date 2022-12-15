@@ -1,0 +1,23 @@
+!PrefabAsset
+Id: 6b993919-bcda-42ec-8317-10f970e8f383
+SerializedVersion: {Stride: 3.1.0.1}
+Tags: []
+Hierarchy:
+    RootParts:
+        - ref!! e815f03a-66bd-4cb2-8457-22855039ba62
+    Parts:
+        -   Entity:
+                Id: e815f03a-66bd-4cb2-8457-22855039ba62
+                Name: DoomGuy
+                Components:
+                    57cc99843ef986689c91a7fb07a98fe8: !TransformComponent
+                        Id: 6440e5e3-24f7-44a0-b286-302a139ac5c7
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 0.12, Y: 0.12, Z: 0.12}
+                        Children: {}
+                    4dfd2d154dd29ea5115f6e56d3a86659: !SpriteComponent
+                        Id: 8abee374-2cba-42a8-a7b6-1cfcd25819ad
+                        SpriteProvider: !SpriteFromSheet
+                            Sheet: 8339d950-b9ad-458b-a489-a27187e6e5ba:Sprites/Doom_guy_ssh
+                        Color: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}

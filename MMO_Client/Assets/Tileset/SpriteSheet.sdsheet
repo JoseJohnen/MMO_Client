@@ -1,0 +1,88 @@
+!SpriteSheet
+Id: 701bfa83-7468-442f-9fdf-739cc9dfeea7
+SerializedVersion: {Stride: 2.0.0.0}
+Tags: []
+Type: Sprite2D
+ColorKeyColor: {R: 255, G: 0, B: 255, A: 255}
+Packing: {}
+Sprites:
+    e0cf8c472fa3c76f01b5d06f4acfe731:
+        Source: !file Tileset_2.png
+        Name: Black
+        TextureRegion: {X: 0, Y: 0, Width: 16, Height: 16}
+        PixelsPerUnit: 20.0
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderModeU: Wrap
+        BorderModeV: Wrap
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    1770f1478ebdf88f73f4bbb7b2578c02:
+        Source: !file Tileset_2.png
+        Name: Grass
+        TextureRegion: {X: 16, Y: 0, Width: 16, Height: 16}
+        PixelsPerUnit: 20.0
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderModeU: Wrap
+        BorderModeV: Wrap
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    61d90654dac8288ce8084df5b0fd13dd:
+        Source: !file Tileset_2.png
+        Name: Yellow_wth_dots
+        TextureRegion: {X: 32, Y: 0, Width: 16, Height: 16}
+        PixelsPerUnit: 20.0
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderModeU: Wrap
+        BorderModeV: Wrap
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    ea10666bdbeb3718b7604cccf3720dd7:
+        Source: !file Tileset_2.png
+        Name: Sand
+        TextureRegion: {X: 48, Y: 0, Width: 16, Height: 16}
+        PixelsPerUnit: 20.0
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderModeU: Wrap
+        BorderModeV: Wrap
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    d000ecb6065994c31ad9afd9f9a93343:
+        Source: !file Tileset_2.png
+        Name: Water
+        TextureRegion: {X: 64, Y: 0, Width: 16, Height: 16}
+        PixelsPerUnit: 20.0
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderModeU: Wrap
+        BorderModeV: Wrap
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    f1f160f76fa0590a2cfb356be778c2bb:
+        Source: !file Tileset_2.png
+        Name: Shallow_water
+        TextureRegion: {X: 80, Y: 0, Width: 16, Height: 16}
+        PixelsPerUnit: 20.0
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderModeU: Wrap
+        BorderModeV: Wrap
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    548efdfd3607f00afc714a8d6196d8fc:
+        Source: !file Tileset_2.png
+        Name: Cascade_water
+        TextureRegion: {X: 96, Y: 0, Width: 16, Height: 16}
+        PixelsPerUnit: 20.0
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderModeU: Wrap
+        BorderModeV: Wrap
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    6ce28367c9e19a91c96eeb85a6984a3e:
+        Source: !file Tileset_2.png
+        Name: Swampy
+        TextureRegion: {X: 112, Y: 0, Width: 16, Height: 16}
+        PixelsPerUnit: 20.0
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderModeU: Wrap
+        BorderModeV: Wrap
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}

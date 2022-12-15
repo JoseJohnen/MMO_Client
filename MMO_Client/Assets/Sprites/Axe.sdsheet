@@ -1,0 +1,15 @@
+!SpriteSheet
+Id: 09c4913c-c277-449e-b6dd-d9ac8e600c4f
+SerializedVersion: {Stride: 2.0.0.0}
+Tags: []
+Type: Sprite2D
+ColorKeyColor: {R: 255, G: 0, B: 255, A: 255}
+Packing: {}
+Sprites:
+    553fdc71bec40ffe078e4668cc7723d1:
+        Source: !file Axe.png
+        Name: Axe
+        TextureRegion: {X: 0, Y: 0, Width: 4, Height: 12}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}

@@ -1,0 +1,189 @@
+!SceneAsset
+Id: 653b85fa-5e49-4621-ade3-383125002c94
+SerializedVersion: {Stride: 3.1.0.1}
+Tags: []
+ChildrenIds: []
+Offset: {X: 0.0, Y: 0.0, Z: 0.0}
+Hierarchy:
+    RootParts:
+        - ref!! 84188729-18b5-4648-b80c-c5a5fbb03aba
+        - ref!! 5758ccae-2e6c-4327-b063-a5d60dc50bc9
+        - ref!! 4b9637a0-f1ea-48cd-bcc4-3d8b157c2292
+        - ref!! 2f4a3abc-56e1-43dd-bc33-5531a5d5763f
+        - ref!! 671c67b1-8617-4412-a55b-d4159559587a
+        - ref!! f08b714e-443a-44e6-8e40-762f2fd7cd91
+        - ref!! e3c8c343-7723-4e41-8b3b-675f7d161585
+        - ref!! b4ede24e-d573-4636-95fb-f81001224eec
+        - ref!! 5952a4f6-2fd7-4275-ab6a-236ac12709b4
+    Parts:
+        -   Entity:
+                Id: 2f4a3abc-56e1-43dd-bc33-5531a5d5763f
+                Name: Ground
+                Components:
+                    76290b454dd35c65974b245ca8ebc596: !TransformComponent
+                        Id: e7a321d3-126f-464b-b5b6-44b558ef092f
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    9138e05709c2498647769e43e2dc062b: !ModelComponent
+                        Id: ea668b6a-a9c3-42e5-84b1-04aead031f1b
+                        Model: 870ab9a4-cdee-4f74-929d-a8e4468a2cc5:Ground
+                        Materials: {}
+        -   Entity:
+                Id: 4b9637a0-f1ea-48cd-bcc4-3d8b157c2292
+                Name: Skybox
+                Components:
+                    42e6d420a80ca1cf8b6a86b9e313c1e3: !TransformComponent
+                        Id: 7db3708c-13b4-4d71-b394-33c0a0cfee1d
+                        Position: {X: 0.0, Y: 2.0, Z: -2.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    ea81262bac610d0601dee15d6f0a5650: !BackgroundComponent
+                        Id: 13c1653b-52c5-4a7b-82c5-4849a2e7a14d
+                        Texture: 082f9a25-6d0c-4561-85ec-e9bc0e5a2c55:Skybox texture
+                    bbad9799f062966e3d1ea7e597e40814: !LightComponent
+                        Id: feeb3817-4740-4451-8334-c077da40b570
+                        Type: !LightSkybox
+                            Skybox: 8cbc2008-02bb-4bbe-af82-f51d7ad7ced0:Skybox
+        -   Entity:
+                Id: 5758ccae-2e6c-4327-b063-a5d60dc50bc9
+                Name: Directional light
+                Components:
+                    e6c5aa59dc86e2c293f13357a39521ab: !TransformComponent
+                        Id: 20eaf630-9461-49a0-a18b-c97280c74a2b
+                        Position: {X: 0.0, Y: 2.0, Z: 0.0}
+                        Rotation: {X: 1.131334E-08, Y: -0.9659258, Z: -0.25881904, W: -4.222196E-08}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    88012ba15888e9065ceae097313abeda: !LightComponent
+                        Id: a0a7239c-f32c-4644-bdbe-4c44d979b84a
+                        Type: !LightDirectional
+                            Color: !ColorRgbProvider
+                                Value: {R: 1.0, G: 1.0, B: 1.0}
+                            Shadow:
+                                Enabled: true
+                                Filter: !LightShadowMapFilterTypePcf
+                                    FilterSize: Filter5x5
+                                Size: Large
+                                DepthRange: {}
+                                PartitionMode: !LightDirectionalShadowMap.PartitionLogarithmic {}
+                                ComputeTransmittance: false
+                                BiasParameters: {}
+                        Intensity: 20.0
+        -   Entity:
+                Id: 5952a4f6-2fd7-4275-ab6a-236ac12709b4
+                Name: ConnectionManager
+                Components:
+                    a22ead8742443762ee66f7063e983c77: !TransformComponent
+                        Id: c83cd615-de09-4e86-9e87-8190314eb67a
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    d71a966458fe6b4d8c3c6fbefd6710df: !MMO_Client.Code.Controllers.ConnectionManager,MMO_Client
+                        Id: d15475ff-1f3a-44f7-adc8-d7f1a31a2919
+                        isStarted: false
+        -   Entity:
+                Id: 671c67b1-8617-4412-a55b-d4159559587a
+                Name: Sphere
+                Components:
+                    7f809e7656471255046764c3a31499df: !TransformComponent
+                        Id: e99831b4-eebb-405b-8dfc-228b153a46a0
+                        Position: {X: 0.0, Y: 0.5, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    eadd1ae3d773c1abda877f886f82f43f: !ModelComponent
+                        Id: 303ee126-b273-492e-87cd-8d47a86e0c17
+                        Model: 23949f88-243c-4951-bc9f-5507c045b287:Sphere
+                        Materials: {}
+        -   Entity:
+                Id: 84188729-18b5-4648-b80c-c5a5fbb03aba
+                Name: IntroCamera
+                Components:
+                    57dd0b5868b2f35921804426729589a9: !TransformComponent
+                        Id: 17274307-dfee-42c2-a91e-89e4cbab5ef5
+                        Position: {X: 2.6, Y: 0.6, Z: -1.0}
+                        Rotation: {X: 0.0, Y: 0.82903755, Z: 0.0, W: 0.5591929}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    f5175acfd825ec78d623fa1b06936444: !CameraComponent
+                        Id: e38786a6-6108-4d7f-829e-48baec55769c
+                        Name: IntroCamera
+                        Projection: Perspective
+                        Slot: 8b4c8539-e21b-4b67-bd6a-8165175f9896
+        -   Entity:
+                Id: b4ede24e-d573-4636-95fb-f81001224eec
+                Name: WorldController
+                Components:
+                    a345354c3640f426589d939f4f26006c: !TransformComponent
+                        Id: 63fbc583-6685-421d-94f4-77449701c195
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    2d423a973a372d76959277a3b187f7c1: !MMO_Client.WorldController,MMO_Client
+                        Id: 180e6405-4adc-4f47-860f-391093b382d2
+                        tileSquare: null
+                        l_sprites: null
+                        l_l_instanciatedEntitys: {}
+                        l_entitysFurnitures: {}
+                        l_areaLimits: {}
+                        l_areaTeleports: {}
+                        l_areaFurnitures: {}
+        -   Entity:
+                Id: e3c8c343-7723-4e41-8b3b-675f7d161585
+                Name: PlayerController
+                Components:
+                    fbadbfe457c9be6621668fe37c7d5513: !TransformComponent
+                        Id: a4edf44a-8a13-4ce9-b8c5-770489bfaca1
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    1a718dffc5a9791552505e29e556da75: !MMO_Client.Controllers.PlayerController,MMO_Client
+                        Id: f87a8c0d-2be6-4ee3-b891-ae69db547672
+                        l_entitysCharacters: {}
+                        l_bullets: {}
+                        ActiveArea: null
+                        l_ActiveAreaFurniture: null
+                        l_AnimacionesEntitys: {}
+                        shot: null
+                        OtherCamera: null
+                        modifier: {X: 0.0, Y: 0.0, Z: 0.0}
+                        CameraFollowing: false
+        -   Entity:
+                Id: f08b714e-443a-44e6-8e40-762f2fd7cd91
+                Name: Controller
+                Components:
+                    21837087ba4bdcfb8a0e4ea0ac8a5f59: !TransformComponent
+                        Id: 51fa87a3-ddc4-445b-8edb-eaefbf64e23d
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    fe1608e9705a14a0002957bbb1801f5d: !MMO_Client.Code.Controllers.Controller,MMO_Client
+                        Id: 182bda0e-95df-4f67-aaed-f20c946f8a0a
+                        playerController: null
+                        worldController: null
+                        dataFileProviderService: null
+                        l_Prefabs: {}
+                        l_Models: {}
+                        l_Sprites: {}
+                        l_Textures: {}
+                        l_Materials: {}
+                        l_UI: {}
+                        movementDisable: false
+                        autoMovement: false
+                        isHistoryRelatedUsage: false
+                        isPressedZToRun: false
+                        isLoginInProcess: false
+                        isLoginSuccessfull: false
+                        dtIsLoginInProcess: 2022-12-14T19:14:45.7304926
+                        CursorPos: ref!! 671c67b1-8617-4412-a55b-d4159559587a
+                        lastPositionBeforeMove: 2022-12-14T19:14:45.7305245
+                        page: null
+                        MainSceneImages: null
+                        TextoFueraDeCutscene: false
