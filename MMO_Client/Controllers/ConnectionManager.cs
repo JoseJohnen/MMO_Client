@@ -69,7 +69,10 @@ namespace MMO_Client.Code.Controllers
 
             Task.Run(() => PrepareListeningSocket());
 
-            SendStartAsync();
+            //SendStartAsync();
+
+            LogInSocket();
+            Task.Run(() => SendAsync(url, PortToSend));
         }
 
         #region Listening Socket
@@ -102,13 +105,15 @@ namespace MMO_Client.Code.Controllers
                 // Get the socket that handles the client request.
                 Socket listener = (Socket)ar.AsyncState;
 
-                if(gameSocketClient != null)
+                if (gameSocketClient != null)
                 {
                     gameSocketClient.ListenerSocket = listener.EndAccept(ar);
+                    gameSocketClient.StreamSocket = new NetworkStream(gameSocketClient.ListenerSocket);
                 }
 
                 // Create the state object.
-                ReceiveStartAsync();
+                //ReceiveStartAsync();
+                Task.Run(() => ReceiveSteamAsync());
             }
             catch (Exception ex)
             {
@@ -118,50 +123,81 @@ namespace MMO_Client.Code.Controllers
         #endregion
 
         #region Send - Receive Operations
-        static async void SendStartAsync()
-        {
-            TaskStatus tsst = TaskStatus.Canceled;
-            TaskStatus lst_tsst = TaskStatus.Canceled;
-            do
-            {
-                if (LogInSocket())
-                {
-                    if (tsst != TaskStatus.Running)
-                    {
-                        await Task.Run(() => tsst = SendAsync(url, PortToSend).Status);
-                        if (tsst != lst_tsst)
-                        {
-                            lst_tsst = tsst;
-                            Console.WriteLine("SendStartAsync Status: " + tsst.ToString());
-                        }
-                    }
-                    //retrySend = false;
-                }
-            } while (retrySend);
-        }
-
-        static async void ReceiveStartAsync()
+        static async Task ReceiveSteamAsync()
         {
             try
             {
-                TaskStatus tsst = TaskStatus.Canceled;
-                TaskStatus lst_tsst = TaskStatus.Canceled;
-                do
+                byte[] responseBytes = new byte[1024];
+                char[] responseChars = new char[1024];
+
+                retryRecv = true;
+                int size = 1000;
+
+                if (gameSocketClient.StreamSocket == null)
                 {
-                    if (tsst != TaskStatus.Running)
+                    gameSocketClient.StreamSocket = new NetworkStream(gameSocketClient.ListenerSocket);
+                }
+
+                while (true)
+                {
+                    if (listeningSocket.Available > size)
                     {
-                        await Task.Run(() => tsst = ReceiveAsync(PortToReceive).Status).ConfigureAwait(false);
-                        if (tsst != lst_tsst)
-                        {
-                            lst_tsst = tsst;
-                            Console.WriteLine("ReceiveStartAsync Status: " + tsst.ToString());
-                        }
+                        size = listeningSocket.Available;
+                        responseBytes = new byte[size];
+                        responseChars = new char[size];
                     }
-                } while (retryRecv);
+
+                    List<byte> allData = new List<byte>();
+                    int numBytesRead = 0;
+                    if (gameSocketClient.StreamSocket.DataAvailable && gameSocketClient.StreamSocket.CanRead)
+                    {
+                        do
+                        {
+                            numBytesRead = gameSocketClient.StreamSocket.Read(responseBytes, 0, responseBytes.Length);
+
+                            if (numBytesRead == responseBytes.Length)
+                            {
+                                allData.AddRange(responseBytes);
+                            }
+                            else if (numBytesRead > 0)
+                            {
+                                allData.AddRange(responseBytes.Take(numBytesRead));
+                            }
+                        } while (gameSocketClient.StreamSocket.DataAvailable);
+                    }
+
+                    // Convert byteCount bytes to ASCII characters using the 'responseChars' buffer as destination
+                    int charCount = Encoding.ASCII.GetChars(allData.ToArray(), 0, numBytesRead, responseChars, 0);
+
+                    if (charCount == 0) continue;
+
+
+                    if (responseChars.AsSpan(0, size).SequenceEqual("LOGIN_TRUE"))
+                    {
+                        retrySend = false;
+                        isLoginSuccessfull = true;
+                    }
+                    
+                    if (charCount > 0)
+                    {
+                        ConnectionManager.l_instrucciones.Add(new string(responseChars).Replace("\0", ""));
+                        await Console.Out.WriteAsync("Received (StreamReader): " + responseChars.AsMemory(0, charCount));
+                    }
+
+                    responseBytes = new byte[1024];
+                    responseChars = new char[1024];
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error ReceiveStartAsync: " + ex.Message);
+                Console.WriteLine("Error ReceiveAsync: " + ex.Message);
+            }
+            finally
+            {
+                if (gameSocketClient != null)
+                {
+                    gameSocketClient.CloseConnection();
+                }
             }
         }
 
@@ -229,7 +265,7 @@ namespace MMO_Client.Code.Controllers
                                         bytesSent += await gameSocketClient.SenderSocket.SendAsync(requestBytes.AsMemory(bytesSent), SocketFlags.None);
                                     }
 
-                                    Console.WriteLine("Sending..." + inputCommand+" count: "+requestBytes.Length);
+                                    Console.WriteLine("Sending..." + inputCommand + " count: " + requestBytes.Length);
                                     //await Task.Delay(TimeSpan.FromSeconds(1));
                                     inputCommand = String.Empty;
                                 }
@@ -247,7 +283,7 @@ namespace MMO_Client.Code.Controllers
             {
                 if (gameSocketClient != null)
                 {
-                    if(gameSocketClient.SenderSocket.Connected)
+                    if (gameSocketClient.SenderSocket.Connected)
                     {
                         gameSocketClient.CloseConnection();
                     }
@@ -255,7 +291,7 @@ namespace MMO_Client.Code.Controllers
             }
         }
 
-        static async Task ReceiveAsync(int recvPort)
+        static async Task ReceiveAsync()
         {
             try
             {
@@ -309,6 +345,55 @@ namespace MMO_Client.Code.Controllers
                 }
             }
         }
+
+        #region Suplementary (Unused)
+        static async void SendStartAsync()
+        {
+            TaskStatus tsst = TaskStatus.Canceled;
+            TaskStatus lst_tsst = TaskStatus.Canceled;
+            do
+            {
+                if (LogInSocket())
+                {
+                    if (tsst != TaskStatus.Running)
+                    {
+                        await Task.Run(() => tsst = SendAsync(url, PortToSend).Status);
+                        if (tsst != lst_tsst)
+                        {
+                            lst_tsst = tsst;
+                            Console.WriteLine("SendStartAsync Status: " + tsst.ToString());
+                        }
+                    }
+                    //retrySend = false;
+                }
+            } while (retrySend);
+        }
+
+        static async void ReceiveStartAsync()
+        {
+            try
+            {
+                TaskStatus tsst = TaskStatus.Canceled;
+                TaskStatus lst_tsst = TaskStatus.Canceled;
+                do
+                {
+                    if (tsst != TaskStatus.Running)
+                    {
+                        await Task.Run(() => tsst = ReceiveAsync().Status).ConfigureAwait(false);
+                        if (tsst != lst_tsst)
+                        {
+                            lst_tsst = tsst;
+                            Console.WriteLine("ReceiveStartAsync Status: " + tsst.ToString());
+                        }
+                    }
+                } while (retryRecv);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error ReceiveStartAsync: " + ex.Message);
+            }
+        }
+        #endregion
         #endregion
 
         #region Others
