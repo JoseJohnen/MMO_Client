@@ -13,6 +13,7 @@ using System.Linq;
 using Interfaz.Models;
 using SharpDX.MediaFoundation;
 using static Stride.Audio.AudioLayer;
+using System.Collections.Concurrent;
 
 namespace MMO_Client.Code.Controllers
 {
@@ -67,12 +68,12 @@ namespace MMO_Client.Code.Controllers
             Services.AddService(this);
             Instance = this;
 
-            Task.Run(() => PrepareListeningSocket());
+            //Task.Run(() => PrepareListeningSocket());
 
             //SendStartAsync();
 
             LogInSocket();
-            Task.Run(() => SendAsync(url, PortToSend));
+            Task.Run(() => SendSteamAsync(url, PortToSend));
         }
 
         #region Listening Socket
@@ -108,7 +109,10 @@ namespace MMO_Client.Code.Controllers
                 if (gameSocketClient != null)
                 {
                     gameSocketClient.ListenerSocket = listener.EndAccept(ar);
-                    gameSocketClient.StreamSocket = new NetworkStream(gameSocketClient.ListenerSocket);
+                    if(gameSocketClient.StreamSocket == null)
+                    {
+                        gameSocketClient.StreamSocket = new NetworkStream(gameSocketClient.SenderSocket);
+                    }
                 }
 
                 // Create the state object.
@@ -123,26 +127,116 @@ namespace MMO_Client.Code.Controllers
         #endregion
 
         #region Send - Receive Operations
-        static async Task ReceiveSteamAsync()
+        static async Task SendSteamAsync(string remoteHost, int remotePort)
         {
             try
             {
-                byte[] responseBytes = new byte[1024];
-                char[] responseChars = new char[1024];
+                int baseSize = 1024;
+                byte[] responseBytes = new byte[baseSize];
+                char[] responseChars = new char[baseSize];
 
                 retryRecv = true;
                 int size = 1000;
 
+                if (gameSocketClient == null)
+                {
+                    gameSocketClient = new GameSocketClient();
+                }
+
+                if (gameSocketClient != null)
+                {
+                    if (gameSocketClient.SenderSocket == null)
+                    {
+                        bool makeSenderSocket = false;
+                        TaskStatus tstatus = TaskStatus.Created;
+                        gameSocketClient.SenderSocket = new Socket(SocketType.Stream, ProtocolType.Tcp);
+                        await gameSocketClient.SenderSocket.ConnectAsync(remoteHost, remotePort);
+                    }
+
+                    if (gameSocketClient.StreamSocket == null)
+                    {
+                        if (!gameSocketClient.SenderSocket.Connected)
+                        {
+                            await gameSocketClient.SenderSocket.ConnectAsync(remoteHost, remotePort);
+                        }
+                        gameSocketClient.StreamSocket = new NetworkStream(gameSocketClient.SenderSocket);
+                    }
+                }
+
+                bool stopUpdateProcessing = false;
+                Task.Run(() => ReceiveSteamAsync());
+                while (stopUpdateProcessing == false)
+                {
+                    if (gameSocketClient != null)
+                    {
+                        if (gameSocketClient.SenderSocket != null)
+                        {
+                            if (gameSocketClient.l_SendQueueMessages.Count > 0)
+                            {
+                                string item = string.Empty;
+                                while (gameSocketClient.l_SendQueueMessages.TryDequeue(out item))
+                                {
+                                    if (string.IsNullOrWhiteSpace(item))
+                                    {
+                                        continue;
+                                    }
+
+                                    //Example of "Brute Processing" to close connection with the server
+                                    if (item.Equals("<EXIT>"))
+                                    {
+                                        stopUpdateProcessing = true;
+                                    }
+
+                                    byte[] requestBytes = Encoding.ASCII.GetBytes(item);
+
+                                    await gameSocketClient.StreamSocket.WriteAsync(requestBytes, 0, requestBytes.Length);
+
+                                    Console.WriteLine("Sending (Stream)..." + item + " count: " + requestBytes.Length);
+                                    //gameSocketClient.l_SendQueueMessages.Remove(item);
+                                    //await Task.Delay(TimeSpan.FromSeconds(1));
+                                }
+                                //gameSocketClient.l_SendQueueMessages.Clear();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error SendSteamAsync: " + ex.Message);
+            }
+            finally
+            {
+                if (gameSocketClient != null)
+                {
+                    if (gameSocketClient.SenderSocket.Connected)
+                    {
+                        gameSocketClient.CloseConnection();
+                    }
+                }
+            }
+        }
+
+        static async Task ReceiveSteamAsync()
+        {
+            try
+            {
+                int baseSize = 1024;
+                byte[] responseBytes = new byte[baseSize];
+                char[] responseChars = new char[baseSize];
+
+                int size = 1000;
+
                 if (gameSocketClient.StreamSocket == null)
                 {
-                    gameSocketClient.StreamSocket = new NetworkStream(gameSocketClient.ListenerSocket);
+                    gameSocketClient.StreamSocket = new NetworkStream(gameSocketClient.SenderSocket);
                 }
 
                 while (true)
                 {
-                    if (listeningSocket.Available > size)
+                    if (gameSocketClient.SenderSocket.Available > size)
                     {
-                        size = listeningSocket.Available;
+                        size = gameSocketClient.SenderSocket.Available;
                         responseBytes = new byte[size];
                         responseChars = new char[size];
                     }
@@ -153,7 +247,7 @@ namespace MMO_Client.Code.Controllers
                     {
                         do
                         {
-                            numBytesRead = gameSocketClient.StreamSocket.Read(responseBytes, 0, responseBytes.Length);
+                            numBytesRead = await gameSocketClient.StreamSocket.ReadAsync(responseBytes, 0, responseBytes.Length);
 
                             if (numBytesRead == responseBytes.Length)
                             {
@@ -184,13 +278,13 @@ namespace MMO_Client.Code.Controllers
                         await Console.Out.WriteAsync("Received (StreamReader): " + responseChars.AsMemory(0, charCount));
                     }
 
-                    responseBytes = new byte[1024];
-                    responseChars = new char[1024];
+                    responseBytes = new byte[baseSize];
+                    responseChars = new char[baseSize];
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error ReceiveAsync: " + ex.Message);
+                Console.WriteLine("Error ReceiveSteamAsync: " + ex.Message);
             }
             finally
             {
@@ -203,6 +297,9 @@ namespace MMO_Client.Code.Controllers
 
         static async Task SendAsync(string remoteHost, int remotePort)
         {
+            string rmHst = remoteHost;
+            int rmPort = remotePort;
+            int positionDondeCae = 0;
             try
             {
                 if (gameSocketClient == null)
@@ -242,13 +339,19 @@ namespace MMO_Client.Code.Controllers
                                         break;
                                     }
 
+                                    positionDondeCae = 1;
+
                                     if (item.sb == null)
                                     {
                                         stopUpdateProcessing = true;
                                     }
 
+                                    positionDondeCae = 2;
+
                                     //inputCommand += item.sb.ToString();
                                     inputCommand = item.sb.ToString().Trim();
+
+                                    positionDondeCae = 3;
 
                                     //Example of "Brute Processing" to close connection with the server
                                     if (inputCommand.Equals("<EXIT>"))
@@ -256,14 +359,23 @@ namespace MMO_Client.Code.Controllers
                                         stopUpdateProcessing = true;
                                     }
 
+                                    positionDondeCae = 4;
+
                                     byte[] requestBytes = Encoding.ASCII.GetBytes(inputCommand);
+
+                                    positionDondeCae = 5;
 
                                     int bytesSent = 0;
 
+                                    positionDondeCae = 6;
+
                                     while (bytesSent < requestBytes.Length)
                                     {
+                                        positionDondeCae = 71;
                                         bytesSent += await gameSocketClient.SenderSocket.SendAsync(requestBytes.AsMemory(bytesSent), SocketFlags.None);
                                     }
+
+                                    positionDondeCae = 7;
 
                                     Console.WriteLine("Sending..." + inputCommand + " count: " + requestBytes.Length);
                                     //await Task.Delay(TimeSpan.FromSeconds(1));
@@ -277,7 +389,7 @@ namespace MMO_Client.Code.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error SendAsync: " + ex.Message);
+                Console.WriteLine("Error SendAsync: Number Flag: " + positionDondeCae + " Message: " + ex.Message);
             }
             finally
             {
@@ -286,6 +398,10 @@ namespace MMO_Client.Code.Controllers
                     if (gameSocketClient.SenderSocket.Connected)
                     {
                         gameSocketClient.CloseConnection();
+                    }
+                    else
+                    {
+                        Task.Run(() => SendAsync(rmHst, rmPort));
                     }
                 }
             }
@@ -410,15 +526,30 @@ namespace MMO_Client.Code.Controllers
                 Message msg = new Message();
                 msg.Text = "some@email.com";
                 string strMsg = msg.ToJson();
-                StateObject stObj = new StateObject();
-                stObj.addData(strMsg);
-                l_stateObjects.Add(stObj);
+                //StateObject stObj = new StateObject();
+                //stObj.addData(strMsg);
+
+                //Descomentar cuando se use sistema Send de socket normal y no Stream
+                //l_stateObjects.Add(stObj);
+
+                //Comentar cuando no se user sistema Stream y si socket normal
+                if (gameSocketClient == null)
+                {
+                    gameSocketClient = new GameSocketClient();
+                }
+
+                if (gameSocketClient.l_SendQueueMessages == null)
+                {
+                    gameSocketClient.l_SendQueueMessages = new ConcurrentQueue<string>();
+                }
+
+                gameSocketClient.l_SendQueueMessages.Enqueue(strMsg);
 
                 return true;
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error SendAsync: " + ex.Message);
+                Console.WriteLine("Error LogInSocket: " + ex.Message);
                 return false;
             }
         }
@@ -577,9 +708,13 @@ namespace MMO_Client.Code.Controllers
         {
             try
             {
-                StateObject nwStObj = new StateObject();
-                nwStObj.addData(instruction);
-                l_stateObjects.Add(nwStObj);
+                //Comentado - Descomentar si se vuelve a StateObject
+                //StateObject nwStObj = new StateObject();
+                //nwStObj.addData(instruction);Gundam Wing Endless Waltz ending
+                //l_stateObjects.Add(nwStObj);
+
+                //Dejar descomentado si se esta utilizando gameSocketClient
+                gameSocketClient.l_SendQueueMessages.Enqueue(instruction);
                 return true;
             }
             catch (Exception ex)

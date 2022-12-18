@@ -8,7 +8,7 @@ Hierarchy:
     Parts:
         -   Entity:
                 Id: 6e5247e2-9fd8-4462-973e-48ec127711e6
-                Name: AIM120D
+                Name: Bullet
                 Components:
                     bb7e924e7fdc24beff7aaa0de4cdf538: !TransformComponent
                         Id: eada3efa-bd97-4c9f-bfab-fc19c0256fa6
@@ -18,5 +18,5 @@ Hierarchy:
                         Children: {}
                     f1ec8ae7fc19630a73c7c282c123ddd5: !ModelComponent
                         Id: 613023f7-8bb4-4785-9134-c60ebf295d9e
-                        Model: e743bacc-1729-47ca-9a5a-9444b6d522f7:Models/AIM120D
+                        Model: 7831ed4a-7449-4b5c-8665-9033c56b990a:Models/AIM120D
                         Materials: {}

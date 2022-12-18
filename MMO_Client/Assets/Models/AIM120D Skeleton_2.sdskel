@@ -1,0 +1,11 @@
+!Skeleton
+Id: f9eaebea-b607-43b2-9c87-8bf4ce0a7938
+SerializedVersion: {Stride: 2.0.0.0}
+Tags: []
+Source: !file ../../Resources/AIM120D.obj
+PivotPosition: {X: 0.0, Y: 0.0, Z: 0.0}
+Nodes:
+    155c2eb3c4f925bfb1a5e124d0ec3d39: {Name: AIM120D.obj, Depth: 0}
+    e21b09e454f320783ad2c23f34422ed2: {Name: Cylinder.003_Cylinder.005, Depth: 1}
+~SourceHashes:
+    0137a2a96adcbb5d46f3794bf32cb9d1~../../Resources/AIM120D.obj: cdba4e878311e508580ebc117438f5db

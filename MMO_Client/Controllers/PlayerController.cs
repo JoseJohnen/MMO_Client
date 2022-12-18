@@ -533,7 +533,7 @@ namespace MMO_Client.Controllers
             }
             catch (Exception ex)
             {
-                Log.Error("Error string Movement(string): " + ex.Message);
+                Log.Error("Error string MovementOnline(): " + ex.Message);
                 return string.Empty;
             }
         }
@@ -1147,7 +1147,7 @@ namespace MMO_Client.Controllers
             }
             catch (Exception ex)
             {
-                Log.Error("Error string Movement(string): " + ex.Message);
+                Log.Error("Error string ShotOnline(): " + ex.Message);
                 return string.Empty;
             }
         }

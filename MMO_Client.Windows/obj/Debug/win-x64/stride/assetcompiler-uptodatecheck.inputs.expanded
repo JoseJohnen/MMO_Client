@@ -872,7 +872,6 @@ C:\Users\jjohn\.nuget\packages\stride.spritestudio.offline\4.1.0.1734\stride\Str
 C:\Users\jjohn\.nuget\packages\stride.video\4.1.0.1734\stride\Assets\VideoShader.sdsl
 C:\Users\jjohn\.nuget\packages\stride.video\4.1.0.1734\stride\Assets\VideoShader.sdsl
 C:\Users\jjohn\.nuget\packages\stride.video\4.1.0.1734\stride\Stride.Video.sdpkg
-C:\Users\jjohn\AppData\Local\Temp\Rar$DRa27920.21210\AIM120D Missile\Files\AIM120D.obj
 C:\WINDOWS\FONTS\COURBD.TTF
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client.Windows\MMO_Client.Windows.sdpkg
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client.Windows\obj\Debug\win-x64\MMO_Client.Windows.sdserializationhash
@@ -885,10 +884,12 @@ E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Assets\Materials\Default.sdmat
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Assets\Materials\Ground Material.sdmat
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Assets\Materials\LightNode.sdmat
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Assets\Materials\Material (2).sdmat
+E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Assets\Materials\Material (3).sdmat
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Assets\Materials\Material.002.sdmat
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Assets\Materials\Material.sdmat
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Assets\Materials\Sphere Material.sdmat
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Assets\Models\AIM120D Skeleton.sdskel
+E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Assets\Models\AIM120D Skeleton_2.sdskel
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Assets\Models\AIM120D.sdm3d
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Assets\Models\Cone.sdpromodel
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Assets\Models\Cylinder.sdpromodel
@@ -898,8 +899,6 @@ E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Assets\Models\tankexport.fbx
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Assets\Models\tankexport.fbx
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Assets\Models\tankexport.sdm3d
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Assets\Models\texture.png.png
-E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Assets\Prefab\DoomGuy (2).sdprefab.bak
-E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Assets\Prefabs\Barge_w40k.sdprefab
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Assets\Prefabs\Bullet.sdprefab
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Assets\Prefabs\Character.sdprefab
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Assets\Prefabs\Cursor.sdprefab
@@ -995,4 +994,5 @@ E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Assets\UI\UIPage.sduipage
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Assets\UI\UIPage.sduipage.bak
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client\MMO_Client.sdpkg
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client\obj\Debug\net6.0-windows\MMO_Client.sdserializationhash
+E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Resources\AIM120D.obj
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client\Resources\skybox_texture_hdr.dds
