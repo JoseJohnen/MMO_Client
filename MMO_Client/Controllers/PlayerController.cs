@@ -24,7 +24,7 @@ namespace MMO_Client.Controllers
         #region Atributos
         // Declared public member fields and properties will show in the game studio
         public List<Puppet> l_entitysCharacters = new List<Puppet>(); //Other Characters, Players or not
-        
+
         public List<Pares<List<Entity>, Bullet>> l_bullets = new List<Pares<List<Entity>, Bullet>>();
 
         [DataMemberIgnore]
@@ -35,7 +35,7 @@ namespace MMO_Client.Controllers
 
         public List<Trios<int, Puppet, TimeSpan>> l_AnimacionesEntitys = new List<Trios<int, Puppet, TimeSpan>>();
         DateTime lastFrame = DateTime.Now;
-        
+
         public Prefab shot;
 
         public CameraComponent OtherCamera;
@@ -119,8 +119,6 @@ namespace MMO_Client.Controllers
             ShotOnline();
 
             Animacion();
-
-
         }
 
         /*internal static void SetInstrucciones(string returned)
@@ -1077,8 +1075,8 @@ namespace MMO_Client.Controllers
                     {
 
                         Shot shot = new Shot();
-                        shot.LauncherName = Player.PLAYER.Entity.Name;
-                        shot.WeaponPos = new SerializedVector3(Player.PLAYER.Entity.Transform.Position).ConvertToVector3SN();
+                        shot.LN = Player.PLAYER.Entity.Name;
+                        shot.WPos = new SerializedVector3(Player.PLAYER.Weapon.Transform.WorldMatrix.TranslationVector).ConvertToVector3SN();
                         byteData += shot.ToJson(); //+= "1";
 
                         //Vector3 result = UtilityAssistant.ScreenToMapPosition(Input.MousePosition, UtilityAssistant.LockDimension.Y, 0f);
@@ -1121,22 +1119,46 @@ namespace MMO_Client.Controllers
                             string tempString = UtilityAssistant.ExtractValues(item, "ST");
                             if (!string.IsNullOrWhiteSpace(tempString))
                             {
-                                Shot shot = Interfaz.Models.Shot.CreateFromJson(tempString);
-                                Console.WriteLine("Shot: " + shot.ToJson());
-                                //l_bullets.Add(new Pares<List<Entity>, Bullet>(instance, new Bullet(entUse.Name, initialposition, moddif)));
-                                if (shot.Type == "NB")
+                                if (!string.IsNullOrWhiteSpace(tempString))
                                 {
-                                    int intbllt = l_bulletsOnline.Count;
-                                    l_bulletsOnline.Add(new Bullet(shot.Id, shot.LauncherName, UtilityAssistant.ConvertVector3NumericToStride(shot.WeaponPos), UtilityAssistant.ConvertVector3NumericToStride(shot.Moddif)));
-                                    l_bulletsOnline[intbllt].ProyectileBody = Controller.controller.GetPrefab("Bullet")[0];
-                                    l_bulletsOnline[intbllt].ProyectileBody.Transform.Position = l_bulletsOnline[intbllt].InitialPosition;
-                                    UtilityAssistant.RotateTo(l_bulletsOnline[intbllt].ProyectileBody, (l_bulletsOnline[intbllt].ProyectileBody.Transform.Position + l_bulletsOnline[intbllt].MovementModifier));
-                                }
-                                else
-                                {
-                                    ProyectileTurnOnline(shot);
-                                }
+                                    ShotTotalState STS = ShotTotalState.CreateFromJson(tempString);
 
+                                    //Shot shot = Interfaz.Models.Shot.CreateFromJson(tempString);
+                                    //Console.WriteLine("Shot: " + shot.ToJson());
+                                    //l_bullets.Add(new Pares<List<Entity>, Bullet>(instance, new Bullet(entUse.Name, initialposition, moddif)));
+
+                                    if (STS.l_shots != null)
+                                    {
+                                        if (STS.l_shots.Count > 0)
+                                        {
+                                            foreach (Shot shot in STS.l_shots)
+                                            {
+                                                int intbllt = l_bulletsOnline.Count;
+                                                l_bulletsOnline.Add(new Bullet(shot.Id, shot.LN, UtilityAssistant.ConvertVector3NumericToStride(shot.WPos), UtilityAssistant.ConvertVector3NumericToStride(shot.Mdf)));
+                                                l_bulletsOnline[intbllt].ProyectileBody = Controller.controller.GetPrefab("Bullet")[0];
+                                                l_bulletsOnline[intbllt].ProyectileBody.Transform.Position = l_bulletsOnline[intbllt].InitialPosition;
+                                                UtilityAssistant.RotateTo(l_bulletsOnline[intbllt].ProyectileBody, (l_bulletsOnline[intbllt].ProyectileBody.Transform.Position + l_bulletsOnline[intbllt].MovementModifier));
+                                            }
+                                        }
+                                    }
+
+                                    if (STS.l_shotsUpdates != null)
+                                    {
+                                        if (STS.l_shotsUpdates.Count > 0)
+                                        {
+                                            foreach (ShotUpdate shtUp in STS.l_shotsUpdates)
+                                            {
+                                                foreach (Bullet bllt in l_bulletsOnline)
+                                                {
+                                                    if (shtUp.Id == bllt.id)
+                                                    {
+                                                        bllt.Position = UtilityAssistant.ConvertVector3NumericToStride(shtUp.Pos);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                                 //return shotInstructions;
                             }
                         }
@@ -1258,32 +1280,6 @@ namespace MMO_Client.Controllers
             //Generate a Proyectile of some description in the target direction from the gun.
 
             //Let "Shot", and "Damage" deal the rest :)
-        }
-
-        //Checks and execute the movement of the Bullets, Missile and everything else.
-        public void ProyectileTurnOnline(Shot shot)
-        {
-            try
-            {
-                if (l_bullets.Count > 0)
-                {
-                    if (string.IsNullOrWhiteSpace(shot.Type))
-                    {
-                        // Here it process the received data from inet as result of bullet creation on server, Because here is where data of the bullets is updated anyway.
-                        foreach (Bullet item in l_bulletsOnline)
-                        {
-                            if(shot.Id == item.id)
-                            {
-                                item.ProyectileBody.Transform.Position += item.MovementModifier;
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error("Error ProyectileTurn(): " + ex.Message);
-            }
         }
 
         //Checks and execute the movement of the Bullets, Missile and everything else.

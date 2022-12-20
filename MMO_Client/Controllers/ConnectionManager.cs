@@ -68,12 +68,12 @@ namespace MMO_Client.Code.Controllers
             Services.AddService(this);
             Instance = this;
 
-            //Task.Run(() => PrepareListeningSocket());
+            Task.Run(() => PrepareListeningSocket());
 
             //SendStartAsync();
 
             LogInSocket();
-            Task.Run(() => SendSteamAsync(url, PortToSend));
+            Task.Run(() => SendAsync(url, PortToSend));
         }
 
         #region Listening Socket
@@ -111,7 +111,7 @@ namespace MMO_Client.Code.Controllers
                     gameSocketClient.ListenerSocket = listener.EndAccept(ar);
                     if(gameSocketClient.StreamSocket == null)
                     {
-                        gameSocketClient.StreamSocket = new NetworkStream(gameSocketClient.SenderSocket);
+                        gameSocketClient.StreamSocket = new NetworkStream(gameSocketClient.ListenerSocket);
                     }
                 }
 
@@ -229,14 +229,14 @@ namespace MMO_Client.Code.Controllers
 
                 if (gameSocketClient.StreamSocket == null)
                 {
-                    gameSocketClient.StreamSocket = new NetworkStream(gameSocketClient.SenderSocket);
+                    gameSocketClient.StreamSocket = new NetworkStream(gameSocketClient.ListenerSocket);
                 }
 
                 while (true)
                 {
-                    if (gameSocketClient.SenderSocket.Available > size)
+                    if (gameSocketClient.ListenerSocket.Available > size)
                     {
-                        size = gameSocketClient.SenderSocket.Available;
+                        size = gameSocketClient.ListenerSocket.Available;
                         responseBytes = new byte[size];
                         responseChars = new char[size];
                     }
@@ -266,7 +266,7 @@ namespace MMO_Client.Code.Controllers
                     if (charCount == 0) continue;
 
 
-                    if (responseChars.AsSpan(0, size).SequenceEqual("LOGIN_TRUE"))
+                    if (responseChars.AsSpan(0, responseChars.Length).SequenceEqual("LOGIN_TRUE"))
                     {
                         retrySend = false;
                         isLoginSuccessfull = true;
@@ -324,34 +324,24 @@ namespace MMO_Client.Code.Controllers
                 }
 
                 retrySend = false;
+                string item = string.Empty;
                 while (stopUpdateProcessing == false)
                 {
                     if (gameSocketClient != null)
                     {
                         if (gameSocketClient.SenderSocket != null)
                         {
-                            if (l_stateObjects.Count > 0)
+                            if (gameSocketClient.l_SendQueueMessages.Count > 0)
                             {
-                                foreach (StateObject item in l_stateObjects.ToList())
+                                while (gameSocketClient.l_SendQueueMessages.TryDequeue(out item))
                                 {
-                                    if (item == null)
+                                    if (string.IsNullOrWhiteSpace(item))
                                     {
                                         break;
                                     }
 
-                                    positionDondeCae = 1;
-
-                                    if (item.sb == null)
-                                    {
-                                        stopUpdateProcessing = true;
-                                    }
-
-                                    positionDondeCae = 2;
-
-                                    //inputCommand += item.sb.ToString();
-                                    inputCommand = item.sb.ToString().Trim();
-
-                                    positionDondeCae = 3;
+                                    //inputCommand += item.sb.ToString().Trim();
+                                    inputCommand = item.Trim();
 
                                     //Example of "Brute Processing" to close connection with the server
                                     if (inputCommand.Equals("<EXIT>"))
@@ -359,29 +349,20 @@ namespace MMO_Client.Code.Controllers
                                         stopUpdateProcessing = true;
                                     }
 
-                                    positionDondeCae = 4;
-
                                     byte[] requestBytes = Encoding.ASCII.GetBytes(inputCommand);
-
-                                    positionDondeCae = 5;
 
                                     int bytesSent = 0;
 
-                                    positionDondeCae = 6;
-
                                     while (bytesSent < requestBytes.Length)
                                     {
-                                        positionDondeCae = 71;
                                         bytesSent += await gameSocketClient.SenderSocket.SendAsync(requestBytes.AsMemory(bytesSent), SocketFlags.None);
                                     }
-
-                                    positionDondeCae = 7;
 
                                     Console.WriteLine("Sending..." + inputCommand + " count: " + requestBytes.Length);
                                     //await Task.Delay(TimeSpan.FromSeconds(1));
                                     inputCommand = String.Empty;
                                 }
-                                l_stateObjects.Clear();
+                                //l_stateObjects.Clear();
                             }
                         }
                     }
@@ -389,7 +370,7 @@ namespace MMO_Client.Code.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error SendAsync: Number Flag: " + positionDondeCae + " Message: " + ex.Message);
+                Console.WriteLine("Error SendAsync: " + ex.Message);
             }
             finally
             {

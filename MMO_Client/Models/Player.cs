@@ -5,6 +5,7 @@ namespace MMO_Client.Code.Models
 {
     public class Player : Puppet
     {
+        //No usados en este proyecto, al menos de momento
         public static string WP = string.Empty;
         public static string LS = string.Empty;
         public static string RS = string.Empty;
