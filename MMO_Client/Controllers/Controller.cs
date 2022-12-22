@@ -151,8 +151,42 @@ namespace MMO_Client.Code.Controllers
             UpdatingCamera();
             worldController.WorldController_Tick();
             playerController.PlayerController_Tick();
-            ConnectionManager.l_instrucciones.Clear();
+            //ConnectionManager.Queue_Instrucciones.Clear();
+            ActualizarConDataDelServer();
         }
+
+        #region Del Juego
+        public bool ActualizarConDataDelServer()
+        {
+            try
+            {
+                string item = string.Empty;
+                
+                while(ConnectionManager.Queue_Instrucciones.TryDequeue(out item))
+                {
+                    string typeOf = item.Substring(0, 2);
+                    switch (typeOf)
+                    {
+                        case "MV":
+                            playerController.ProcessMovementFromServer(item);
+                            break;
+                        case "ST":
+                            playerController.ProcessShotFromServer(item);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error ActualizarConDataDelServer: "+ex.Message);
+                return false;
+            }
+        }
+        #endregion
 
         #region Utilitarios
         #region Preparativos

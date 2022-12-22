@@ -48,7 +48,7 @@ namespace MMO_Client.Code.Controllers
 
         //To receive socket calls (Both Systems)
         static Socket listeningSocket = null;//new Socket(SocketType.Stream, ProtocolType.Tcp);
-        public static List<string> l_instrucciones = new List<string>();
+        public static ConcurrentQueue<string> Queue_Instrucciones = new ConcurrentQueue<string>();
 
         #region Parameters Specific Old System
         public static string received = string.Empty;
@@ -274,7 +274,7 @@ namespace MMO_Client.Code.Controllers
                     
                     if (charCount > 0)
                     {
-                        ConnectionManager.l_instrucciones.Add(new string(responseChars).Replace("\0", ""));
+                        ConnectionManager.Queue_Instrucciones.Enqueue(new string(responseChars).Replace("\0", ""));
                         await Console.Out.WriteAsync("Received (StreamReader): " + responseChars.AsMemory(0, charCount));
                     }
 
@@ -422,7 +422,7 @@ namespace MMO_Client.Code.Controllers
                         isLoginSuccessfull = true;
                     }
 
-                    ConnectionManager.l_instrucciones.Add(new string(responseChars).Replace("\0", ""));
+                    ConnectionManager.Queue_Instrucciones.Enqueue(new string(responseChars).Replace("\0", ""));
 
                     // Print the contents of the 'responseChars' buffer to Console.Out
                     await Console.Out.WriteAsync("Received: " + responseChars.AsMemory(0, charCount));

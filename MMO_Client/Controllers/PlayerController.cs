@@ -508,31 +508,42 @@ namespace MMO_Client.Controllers
             nosend:
 
                 //Console.WriteLine("moveInstructions: "+ moveInstructions);
-                foreach (string item in ConnectionManager.l_instrucciones.ToList())
-                {
-                    if (!string.IsNullOrWhiteSpace(item))
-                    {
-                        if (item.Contains("MV"))
-                        {
-                            string tempString = UtilityAssistant.ExtractValues(item, "MV");
-                            //item = item.Replace("MV:" + tempString, "");
-                            //item = item.Trim();
-                            //Console.WriteLine("Mov Extraído: " + tempString);
-                            if (!string.IsNullOrWhiteSpace(tempString))
-                            {
-                                Vector3 v3MvInstr = new SerializedVector3(tempString).ConvertToVector3();
-                                Player.PLAYER.Entity.Transform.Position = v3MvInstr;
-                                //return moveInstructions;
-                            }
-                        }
-                    }
-                }
                 return string.Empty;
             }
             catch (Exception ex)
             {
                 Log.Error("Error string MovementOnline(): " + ex.Message);
                 return string.Empty;
+            }
+        }
+
+        //Process the answer to the online movement interactions
+        public bool ProcessMovementFromServer(string item)
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(item))
+                {
+                    if (item.Contains("MV"))
+                    {
+                        string tempString = UtilityAssistant.ExtractValues(item, "MV");
+                        //item = item.Replace("MV:" + tempString, "");
+                        //item = item.Trim();
+                        //Console.WriteLine("Mov Extraído: " + tempString);
+                        if (!string.IsNullOrWhiteSpace(tempString))
+                        {
+                            Vector3 v3MvInstr = new SerializedVector3(tempString).ConvertToVector3();
+                            Player.PLAYER.Entity.Transform.Position = v3MvInstr;
+                            //return moveInstructions;
+                        }
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error ProcessMovementFromServer(string): " + ex.Message);
+                return false;
             }
         }
 
@@ -1109,68 +1120,78 @@ namespace MMO_Client.Controllers
                 }
                 //continueshot:
 
-                //Console.WriteLine("moveInstructions: "+ moveInstructions);
-                foreach (string item in ConnectionManager.l_instrucciones.ToList())
-                {
-                    if (!string.IsNullOrWhiteSpace(item))
-                    {
-                        if (item.Contains("ST"))
-                        {
-                            string tempString = UtilityAssistant.ExtractValues(item, "ST");
-                            if (!string.IsNullOrWhiteSpace(tempString))
-                            {
-                                if (!string.IsNullOrWhiteSpace(tempString))
-                                {
-                                    ShotTotalState STS = ShotTotalState.CreateFromJson(tempString);
-
-                                    //Shot shot = Interfaz.Models.Shot.CreateFromJson(tempString);
-                                    //Console.WriteLine("Shot: " + shot.ToJson());
-                                    //l_bullets.Add(new Pares<List<Entity>, Bullet>(instance, new Bullet(entUse.Name, initialposition, moddif)));
-
-                                    if (STS.l_shots != null)
-                                    {
-                                        if (STS.l_shots.Count > 0)
-                                        {
-                                            foreach (Shot shot in STS.l_shots)
-                                            {
-                                                int intbllt = l_bulletsOnline.Count;
-                                                l_bulletsOnline.Add(new Bullet(shot.Id, shot.LN, UtilityAssistant.ConvertVector3NumericToStride(shot.WPos), UtilityAssistant.ConvertVector3NumericToStride(shot.Mdf)));
-                                                l_bulletsOnline[intbllt].ProyectileBody = Controller.controller.GetPrefab("Bullet")[0];
-                                                l_bulletsOnline[intbllt].ProyectileBody.Transform.Position = l_bulletsOnline[intbllt].InitialPosition;
-                                                UtilityAssistant.RotateTo(l_bulletsOnline[intbllt].ProyectileBody, (l_bulletsOnline[intbllt].ProyectileBody.Transform.Position + l_bulletsOnline[intbllt].MovementModifier));
-                                            }
-                                        }
-                                    }
-
-                                    if (STS.l_shotsUpdates != null)
-                                    {
-                                        if (STS.l_shotsUpdates.Count > 0)
-                                        {
-                                            foreach (ShotUpdate shtUp in STS.l_shotsUpdates)
-                                            {
-                                                foreach (Bullet bllt in l_bulletsOnline)
-                                                {
-                                                    if (shtUp.Id == bllt.id)
-                                                    {
-                                                        bllt.Position = UtilityAssistant.ConvertVector3NumericToStride(shtUp.Pos);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                                //return shotInstructions;
-                            }
-                        }
-                    }
-                }
-
                 return string.Empty;
             }
             catch (Exception ex)
             {
                 Log.Error("Error string ShotOnline(): " + ex.Message);
                 return string.Empty;
+            }
+        }
+
+        //Process the answer to the online shot interactions
+        public bool ProcessShotFromServer(string item)
+        {
+            try
+            {
+                //Console.WriteLine("moveInstructions: "+ moveInstructions)
+                if (!string.IsNullOrWhiteSpace(item))
+                {
+                    if (item.Contains("ST"))
+                    {
+                        string tempString = UtilityAssistant.ExtractValues(item, "ST");
+                        if (!string.IsNullOrWhiteSpace(tempString))
+                        {
+                            if (!string.IsNullOrWhiteSpace(tempString))
+                            {
+                                ShotTotalState STS = ShotTotalState.CreateFromJson(tempString);
+
+                                //Shot shot = Interfaz.Models.Shot.CreateFromJson(tempString);
+                                //Console.WriteLine("Shot: " + shot.ToJson());
+                                //l_bullets.Add(new Pares<List<Entity>, Bullet>(instance, new Bullet(entUse.Name, initialposition, moddif)));
+
+                                if (STS.l_shots != null)
+                                {
+                                    if (STS.l_shots.Count > 0)
+                                    {
+                                        foreach (Shot shot in STS.l_shots)
+                                        {
+                                            int intbllt = l_bulletsOnline.Count;
+                                            l_bulletsOnline.Add(new Bullet(shot.Id, shot.LN, UtilityAssistant.ConvertVector3NumericToStride(shot.WPos), UtilityAssistant.ConvertVector3NumericToStride(shot.Mdf)));
+                                            l_bulletsOnline[intbllt].ProyectileBody = Controller.controller.GetPrefab("Bullet")[0];
+                                            l_bulletsOnline[intbllt].ProyectileBody.Transform.Position = l_bulletsOnline[intbllt].InitialPosition;
+                                            UtilityAssistant.RotateTo(l_bulletsOnline[intbllt].ProyectileBody, (l_bulletsOnline[intbllt].ProyectileBody.Transform.Position + l_bulletsOnline[intbllt].MovementModifier));
+                                        }
+                                    }
+                                }
+
+                                if (STS.l_shotsUpdates != null)
+                                {
+                                    if (STS.l_shotsUpdates.Count > 0)
+                                    {
+                                        foreach (ShotUpdate shtUp in STS.l_shotsUpdates)
+                                        {
+                                            foreach (Bullet bllt in l_bulletsOnline)
+                                            {
+                                                if (shtUp.Id == bllt.id)
+                                                {
+                                                    bllt.Position = UtilityAssistant.ConvertVector3NumericToStride(shtUp.Pos);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            //return shotInstructions;
+                        }
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error ProcessShotFromServer(string): " + ex.Message);
+                return false;
             }
         }
 
