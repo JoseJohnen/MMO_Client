@@ -136,7 +136,7 @@ namespace MMO_Client.Code.Models
 
         public void Shot()
         {
-            Controller.controller.playerController.Shot(this);
+            Controller.controller.playerController.ShotOffline(this);
         }
     }
 

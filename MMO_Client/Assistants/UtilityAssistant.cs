@@ -727,11 +727,11 @@ namespace MMO_Client.Code.Assistants
         {
             try
             {
-                //float x1 = ent.Entity.Transform.Position.X;
-                //float y1 = ent.Entity.Transform.Position.Y;
+                //float x1 = ent.Entity.Transform.position.X;
+                //float y1 = ent.Entity.Transform.position.Y;
 
-                //float x2 = plyr.Transform.Position.X;
-                //float y2 = plyr.Transform.Position.Y;
+                //float x2 = plyr.Transform.position.X;
+                //float y2 = plyr.Transform.position.Y;
 
                 double a = c;
                 double b = d;
@@ -941,7 +941,7 @@ namespace MMO_Client.Code.Assistants
             {
                 return 0f;
             }
-            //double slope = Convert.ToDouble(((procDest.Y - obj.FindChild("Gun").Transform.Position.Y) / (procDest.X - obj.FindChild("Gun").Transform.Position.X)));
+            //double slope = Convert.ToDouble(((procDest.Y - obj.FindChild("Gun").Transform.position.Y) / (procDest.X - obj.FindChild("Gun").Transform.position.X)));
             //double radiant = Math.Atan(slope);
             double radiant = Math.Atan2((procDest.Y - obj.Transform.Position.Y), (procDest.X - obj.Transform.Position.X));
             return radiant; //((radiant * 180) / Math.PI); //Degrees
@@ -1178,7 +1178,7 @@ namespace MMO_Client.Code.Assistants
         /*void ManualLookAt(Entity obj, Vector3 target)
         {
 
-            if (target != obj.Transform.Position)
+            if (target != obj.Transform.position)
             {
                 Vector3 viewForward = Vector3.Zero;
                 Vector3 viewUp = Vector3.Zero;
@@ -1186,7 +1186,7 @@ namespace MMO_Client.Code.Assistants
 
 
                 // Create viewVector
-                viewForward = target - obj.Transform.Position;
+                viewForward = target - obj.Transform.position;
 
                 // normalize viewVector
                 viewForward.Normalize();
@@ -1416,10 +1416,10 @@ namespace MMO_Client.Code.Assistants
                 //object obtOfType = Activator.CreateInstance(typ); //Requires parameterless constructor.
 
                 /*((Furniture)obtOfType).Entity.Name = a[0];
-                ((Furniture)obtOfType).Entity.Transform.Position = UtilityAssistant.XmlToClass<SerializedVector3>(a[1]).ConvertToVector3();
+                ((Furniture)obtOfType).Entity.Transform.position = UtilityAssistant.XmlToClass<SerializedVector3>(a[1]).ConvertToVector3();
                 ((Furniture)obtOfType).Entity.Transform.Rotation = UtilityAssistant.XmlToClass<Quaternion>(a[2]);*/
 
-                //Controller.controller.worldController.FurnitureCreate(a[3], Position: UtilityAssistant.XmlToClass<SerializedVector3>(a[1]).ConvertToVector3(), Rotation: UtilityAssistant.XmlToClass<Quaternion>(a[2]));
+                //Controller.controller.worldController.FurnitureCreate(a[3], position: UtilityAssistant.XmlToClass<SerializedVector3>(a[1]).ConvertToVector3(), Rotation: UtilityAssistant.XmlToClass<Quaternion>(a[2]));
                 //Controller.ActiveScene.Entities.Add(((Furniture)obtOfType).Entity);
                 string typeName = a[3].Replace("MMO_Client.Models.FurnitureModels.", "");
 

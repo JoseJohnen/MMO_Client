@@ -11,9 +11,8 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Linq;
 using Interfaz.Models;
-using SharpDX.MediaFoundation;
-using static Stride.Audio.AudioLayer;
 using System.Collections.Concurrent;
+using MMO_Client.Code.Models;
 
 namespace MMO_Client.Code.Controllers
 {
@@ -49,10 +48,14 @@ namespace MMO_Client.Code.Controllers
         //To receive socket calls (Both Systems)
         static Socket listeningSocket = null;//new Socket(SocketType.Stream, ProtocolType.Tcp);
         public static ConcurrentQueue<string> Queue_Instrucciones = new ConcurrentQueue<string>();
+        public static ConcurrentQueue<string> Queue_Answers = new ConcurrentQueue<string>();
+
+        private static bool bolReceiveAsync = false;
+        private static bool bolReceiveSteamAsync = false;
 
         #region Parameters Specific Old System
         public static string received = string.Empty;
-        public static List<StateObject> l_stateObjects = new List<StateObject>();
+        //public static List<StateObject> l_stateObjects = new List<StateObject>();
         private static Thread receivingThread;
         private static bool receiving = false;
         private static Socket client = null;
@@ -63,40 +66,108 @@ namespace MMO_Client.Code.Controllers
         private static readonly string httpUrl = "http://127.0.0.1:8000/api/login";
 
         internal static bool isLoginSuccessfull = false;
+
+        //Variables a borrar después
+        private static string MailTest = "some@email.com";
+        //--FIN-- Variables a borrar después
+
         public override void Start()
         {
             Services.AddService(this);
             Instance = this;
 
-            Task.Run(() => PrepareListeningSocket());
+            Task.Run(() => PrepareListeningSocketAsync());
 
-            //SendStartAsync();
+            //SendStartAsync()
 
             LogInSocket();
             Task.Run(() => SendAsync(url, PortToSend));
         }
 
         #region Listening Socket
-        private async static void PrepareListeningSocket()
+        private static async Task PrepareListeningSocketAsync()
         {
-            listeningSocket = new Socket(SocketType.Stream, ProtocolType.Tcp);
-            listeningSocket.Bind(new IPEndPoint(IPAddress.Any, PortToReceive));
-            listeningSocket.Listen();
-            asncCallBack = new AsyncCallback(AcceptCallback);
-
-            DateTime startingTime = DateTime.Now;
-            TimeSpan timeLapse = new TimeSpan(0, 0, 25); //in Seconds
-
-            do
+            try
             {
-                listeningSocket.BeginAccept(asncCallBack, listeningSocket);
-                if (DateTime.Now - startingTime > timeLapse)
+                listeningSocket = new Socket(SocketType.Stream, ProtocolType.Tcp);
+                listeningSocket.Bind(new IPEndPoint(IPAddress.Any, PortToReceive));
+                listeningSocket.Listen(2);
+
+                bool isListening = true;
+
+                Socket MisteriousSocket = null;
+                do
                 {
-                    startingTime = DateTime.Now;
-                    Console.WriteLine("Its Listening!!!: " + DateTime.Now);
-                }
+                    MisteriousSocket = await listeningSocket.AcceptAsync();
+                    if (MisteriousSocket != null)
+                    {
+                        if (gameSocketClient.ReceiveAccepted == 0)
+                        {
+                            if (gameSocketClient.StreamSocket == null)
+                            {
+                                gameSocketClient.StreamSocket = MisteriousSocket;
+                                if (gameSocketClient.StreamNetwork == null)
+                                {
+                                    gameSocketClient.StreamNetwork = new NetworkStream(gameSocketClient.StreamSocket);
+                                    Console.WriteLine("gameSocketClient.StreamNetwork is set?: " + (gameSocketClient.StreamNetwork != null));
+                                }
+                                Task.Run(() => ReceiveSteamAsync());
+                                gameSocketClient.ReceiveAccepted++;
+                                Console.WriteLine("ReceivedAccepted (Stream): {0} Socket Received Type:  {1}", gameSocketClient.ReceiveAccepted, MisteriousSocket.SocketType);
+                            }
+                        }
+                        else
+                        {
+                            if (gameSocketClient.ListenerSocket == null)
+                            {
+                                gameSocketClient.ListenerSocket = MisteriousSocket;
+                                Console.WriteLine("gameSocketClient.ListenerSocket is set?: "+ (gameSocketClient.ListenerSocket != null));
+                            }
+                            Task.Run(() => ReceiveAsync());
+                            gameSocketClient.ReceiveAccepted++;
+                            Console.WriteLine("ReceivedAccepted (Normal): {0} Socket Received Type:  {1}", gameSocketClient.ReceiveAccepted, MisteriousSocket.SocketType);
+                        }
+
+                        if (gameSocketClient.ReceiveAccepted == 2)
+                        {
+                            if (listeningSocket != null)
+                            {
+                                if (listeningSocket.Connected)
+                                {
+                                    listeningSocket.Close();
+                                    isListening = false;
+                                    Console.WriteLine("2 Connections Confirmed, listening Socket connection status: "+listeningSocket.Connected);
+                                }
+                            }
+                        }
+                    }
+                } while (isListening);
+
             }
-            while (true);
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error PrepareListeningSocketAsync: " + ex.Message);
+                Task.Run(() => PrepareListeningSocketAsync());
+            }
+        }
+
+        #region Old Listening Socket
+        private static void PrepareListeningSocketEvent()
+        {
+            try
+            {
+                listeningSocket = new Socket(SocketType.Stream, ProtocolType.Tcp);
+                listeningSocket.Bind(new IPEndPoint(IPAddress.Any, PortToReceive));
+                listeningSocket.Listen();
+                asncCallBack = new AsyncCallback(AcceptCallback);
+
+                listeningSocket.BeginAccept(asncCallBack, listeningSocket);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error PrepareListeningSocketEvent: " + ex.Message);
+                PrepareListeningSocketEvent();
+            }
         }
 
         public static void AcceptCallback(IAsyncResult ar)
@@ -104,26 +175,48 @@ namespace MMO_Client.Code.Controllers
             try
             {
                 // Get the socket that handles the client request.
-                Socket listener = (Socket)ar.AsyncState;
+                //Socket listener = (Socket)ar.AsyncState;
 
                 if (gameSocketClient != null)
                 {
-                    gameSocketClient.ListenerSocket = listener.EndAccept(ar);
-                    if(gameSocketClient.StreamSocket == null)
+                    if (gameSocketClient.ListenerSocket == null)
                     {
-                        gameSocketClient.StreamSocket = new NetworkStream(gameSocketClient.ListenerSocket);
+                        Console.WriteLine("ListenerSocket is not null now i assume: " + (gameSocketClient.ListenerSocket != null));
+                        gameSocketClient.ListenerSocket = ((Socket)ar.AsyncState).EndAccept(ar);
+                        gameSocketClient.ReceiveAccepted++;
+                        Console.WriteLine("AcceptCallback ReceivedAccepted: " + gameSocketClient.ReceiveAccepted);
+                        Task.Run(() => ReceiveAsync());
+
+                        listeningSocket.BeginAccept(asncCallBack, listeningSocket);
+                    }
+                    else
+                    {
+                        if (gameSocketClient.StreamSocket == null)
+                        {
+                            gameSocketClient.StreamSocket = ((Socket)ar.AsyncState).EndAccept(ar);
+                            if (gameSocketClient.StreamNetwork == null)
+                            {
+                                gameSocketClient.StreamNetwork = new NetworkStream(gameSocketClient.StreamSocket);
+                            }
+                            gameSocketClient.ReceiveAccepted++;
+                            Console.WriteLine("AcceptCallback ReceivedAccepted: " + gameSocketClient.ReceiveAccepted);
+                            Task.Run(() => ReceiveSteamAsync());
+
+                            listeningSocket.BeginAccept(asncCallBack, listeningSocket);
+                        }
                     }
                 }
 
                 // Create the state object.
                 //ReceiveStartAsync();
-                Task.Run(() => ReceiveSteamAsync());
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error AcceptCallback(IAsyncResult): " + ex.Message);
+                gameSocketClient.ReceiveAccepted = 0;
             }
         }
+        #endregion
         #endregion
 
         #region Send - Receive Operations
@@ -153,18 +246,18 @@ namespace MMO_Client.Code.Controllers
                         await gameSocketClient.SenderSocket.ConnectAsync(remoteHost, remotePort);
                     }
 
-                    if (gameSocketClient.StreamSocket == null)
+                    if (gameSocketClient.StreamNetwork == null)
                     {
                         if (!gameSocketClient.SenderSocket.Connected)
                         {
                             await gameSocketClient.SenderSocket.ConnectAsync(remoteHost, remotePort);
                         }
-                        gameSocketClient.StreamSocket = new NetworkStream(gameSocketClient.SenderSocket);
+                        gameSocketClient.StreamNetwork = new NetworkStream(gameSocketClient.SenderSocket);
                     }
                 }
 
                 bool stopUpdateProcessing = false;
-                Task.Run(() => ReceiveSteamAsync());
+                //Task.Run(() => ReceiveSteamAsync());
                 while (stopUpdateProcessing == false)
                 {
                     if (gameSocketClient != null)
@@ -189,7 +282,7 @@ namespace MMO_Client.Code.Controllers
 
                                     byte[] requestBytes = Encoding.ASCII.GetBytes(item);
 
-                                    await gameSocketClient.StreamSocket.WriteAsync(requestBytes, 0, requestBytes.Length);
+                                    await gameSocketClient.StreamNetwork.WriteAsync(requestBytes, 0, requestBytes.Length);
 
                                     Console.WriteLine("Sending (Stream)..." + item + " count: " + requestBytes.Length);
                                     //gameSocketClient.l_SendQueueMessages.Remove(item);
@@ -227,27 +320,28 @@ namespace MMO_Client.Code.Controllers
 
                 int size = 1000;
 
-                if (gameSocketClient.StreamSocket == null)
+                if (gameSocketClient.StreamNetwork == null)
                 {
-                    gameSocketClient.StreamSocket = new NetworkStream(gameSocketClient.ListenerSocket);
+                    gameSocketClient.StreamNetwork = new NetworkStream(gameSocketClient.StreamSocket);
                 }
 
+                bolReceiveSteamAsync = true;
                 while (true)
                 {
-                    if (gameSocketClient.ListenerSocket.Available > size)
+                    if (gameSocketClient.StreamSocket.Available > size)
                     {
-                        size = gameSocketClient.ListenerSocket.Available;
+                        size = gameSocketClient.StreamSocket.Available;
                         responseBytes = new byte[size];
                         responseChars = new char[size];
                     }
 
                     List<byte> allData = new List<byte>();
                     int numBytesRead = 0;
-                    if (gameSocketClient.StreamSocket.DataAvailable && gameSocketClient.StreamSocket.CanRead)
+                    if (gameSocketClient.StreamNetwork.DataAvailable && gameSocketClient.StreamNetwork.CanRead)
                     {
                         do
                         {
-                            numBytesRead = await gameSocketClient.StreamSocket.ReadAsync(responseBytes, 0, responseBytes.Length);
+                            numBytesRead = await gameSocketClient.StreamNetwork.ReadAsync(responseBytes, 0, responseBytes.Length);
 
                             if (numBytesRead == responseBytes.Length)
                             {
@@ -257,7 +351,7 @@ namespace MMO_Client.Code.Controllers
                             {
                                 allData.AddRange(responseBytes.Take(numBytesRead));
                             }
-                        } while (gameSocketClient.StreamSocket.DataAvailable);
+                        } while (gameSocketClient.StreamNetwork.DataAvailable);
                     }
 
                     // Convert byteCount bytes to ASCII characters using the 'responseChars' buffer as destination
@@ -265,13 +359,13 @@ namespace MMO_Client.Code.Controllers
 
                     if (charCount == 0) continue;
 
-
                     if (responseChars.AsSpan(0, responseChars.Length).SequenceEqual("LOGIN_TRUE"))
                     {
+                        Player.PLAYER.Entity.Name = MailTest;
                         retrySend = false;
                         isLoginSuccessfull = true;
                     }
-                    
+
                     if (charCount > 0)
                     {
                         ConnectionManager.Queue_Instrucciones.Enqueue(new string(responseChars).Replace("\0", ""));
@@ -397,11 +491,12 @@ namespace MMO_Client.Code.Controllers
 
                 retryRecv = true;
                 int size = 1000;
+                bolReceiveAsync = true;
                 while (true)
                 {
-                    if (listeningSocket.Available > size)
+                    if (gameSocketClient.ListenerSocket.Available > size)
                     {
-                        size = listeningSocket.Available;
+                        size = gameSocketClient.ListenerSocket.Available;
                         responseBytes = new byte[size];
                         responseChars = new char[size];
                     }
@@ -418,11 +513,12 @@ namespace MMO_Client.Code.Controllers
                     //Console.WriteLine(new String(responseChars).Replace("\0", "") == "LOGIN_TRUE");
                     if (new String(responseChars).Replace("\0", "") == "LOGIN_TRUE")
                     {
+                        Player.PLAYER.Entity.Name = MailTest;
                         retrySend = false;
                         isLoginSuccessfull = true;
                     }
 
-                    ConnectionManager.Queue_Instrucciones.Enqueue(new string(responseChars).Replace("\0", ""));
+                    ConnectionManager.Queue_Answers.Enqueue(new string(responseChars).Replace("\0", ""));
 
                     // Print the contents of the 'responseChars' buffer to Console.Out
                     await Console.Out.WriteAsync("Received: " + responseChars.AsMemory(0, charCount));
@@ -505,7 +601,7 @@ namespace MMO_Client.Code.Controllers
 
                 retrySend = false;
                 Message msg = new Message();
-                msg.Text = "some@email.com";
+                msg.Text = MailTest;
                 string strMsg = msg.ToJson();
                 //StateObject stObj = new StateObject();
                 //stObj.addData(strMsg);
@@ -626,7 +722,7 @@ namespace MMO_Client.Code.Controllers
         {
             StartClient();
             //l_stateObjects.Clear(); //Just start connection, therefore need a clean buffer.
-            await Task.Run(WhileRunning);
+            //await Task.Run(WhileRunning);
         }
 
         public void StartClient()
@@ -705,7 +801,7 @@ namespace MMO_Client.Code.Controllers
             }
         }
 
-        public static StateObject PrepareData()
+        /*public static StateObject PrepareData()
         {
             try
             {
@@ -792,7 +888,7 @@ namespace MMO_Client.Code.Controllers
 
                                 item.sb.Clear();
                             }
-                            l_stateObjects.Clear();
+                            //l_stateObjects.Clear();
                             //inputCommand = Console.ReadLine();
                         }
                     }
@@ -818,7 +914,7 @@ namespace MMO_Client.Code.Controllers
                     }
                 }
             }
-        }
+        }*/
 
         public bool ReceiveByOtherThread(Socket client)
         {

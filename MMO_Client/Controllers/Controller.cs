@@ -10,7 +10,7 @@ using MMO_Client.Controllers;
 using Stride.Core.IO;
 using Stride.Rendering;
 using Interfaz.Models;
-
+using System.Threading.Tasks;
 
 namespace MMO_Client.Code.Controllers
 {
@@ -56,6 +56,9 @@ namespace MMO_Client.Code.Controllers
         public bool isLoginInProcess = false;
         public bool isLoginSuccessfull = false;
         public DateTime dtIsLoginInProcess = DateTime.Now;
+
+        public static TaskStatus dataAnswer = TaskStatus.Created;
+        public static TaskStatus dataContinous = TaskStatus.Created;
 
         public Entity CursorPos = null;
 
@@ -143,6 +146,7 @@ namespace MMO_Client.Code.Controllers
             PreparingCameras();
             PrepareUI();
 
+
             //TODO: Delete when login is Added
         }
 
@@ -152,17 +156,83 @@ namespace MMO_Client.Code.Controllers
             worldController.WorldController_Tick();
             playerController.PlayerController_Tick();
             //ConnectionManager.Queue_Instrucciones.Clear();
-            ActualizarConDataDelServer();
+            ActualizarConData();
         }
 
         #region Del Juego
+        public bool ActualizarConData()
+        {
+            try
+            {
+                if (ConnectionManager.Queue_Answers.Count > 0)
+                {
+                    dataAnswer = Task.Run(() => ActualizarConDataDeRespuesta()).Status;
+                }
+                //else
+                //{
+                //    Console.WriteLine("ActualizarConDataDeRespuesta Status: "+dataAnswer + " Time: "+DateTime.Now.ToString());
+                //}
+
+                if (ConnectionManager.Queue_Answers.Count > 0)
+                {
+                    dataContinous = Task.Run(() => ActualizarConDataDelServer()).Status;
+                }
+                //else
+                //{
+                //    Console.WriteLine("ActualizarConDataDelServer Status: " + dataContinous + " Time: " + DateTime.Now.ToString());
+                //}
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error ActualizarConData: " + ex.Message);
+                return false;
+            }
+        }
+
         public bool ActualizarConDataDelServer()
         {
             try
             {
                 string item = string.Empty;
-                
-                while(ConnectionManager.Queue_Instrucciones.TryDequeue(out item))
+
+                while (ConnectionManager.Queue_Instrucciones.TryDequeue(out item))
+                {
+                    string typeOf = item.Substring(0, 2);
+                    switch (typeOf)
+                    {
+                        case "MV":
+                            playerController.ProcessMovementFromServer(item);
+                            break;
+                        case "SM":
+                            playerController.ProcessShotFromServer(item);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error ActualizarConDataDelServer: " + ex.Message);
+                return false;
+            }
+            //finally
+            //{
+            //    Console.WriteLine("Finally ActualizarConDataDelServer");
+            //}
+        }
+
+        public bool ActualizarConDataDeRespuesta()
+        {
+            try
+            {
+                string item = string.Empty;
+
+                while (ConnectionManager.Queue_Answers.TryDequeue(out item))
                 {
                     string typeOf = item.Substring(0, 2);
                     switch (typeOf)
@@ -182,9 +252,13 @@ namespace MMO_Client.Code.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error ActualizarConDataDelServer: "+ex.Message);
+                Console.WriteLine("Error ActualizarConDataDeRespuesta: " + ex.Message);
                 return false;
             }
+            //finally
+            //{
+            //    Console.WriteLine("Finally ActualizarConDataDeRespuesta");
+            //}
         }
         #endregion
 
@@ -349,7 +423,7 @@ namespace MMO_Client.Code.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error PrepareUI: "+ex.Message);
+                Console.WriteLine("Error PrepareUI: " + ex.Message);
             }
         }
 
@@ -371,7 +445,7 @@ namespace MMO_Client.Code.Controllers
                 {
                     isLoginSuccessfull = true;
                     uIComponent.Enabled = false;
-                    ConnectionManager.l_stateObjects.Clear();
+                    //ConnectionManager.l_stateObjects.Clear();
                     playerController.PlayerCharacterStart();
                     ConnectionManager.Instance.WhenLoginIsSuccessfullAsync();
                     NextCamera();
@@ -454,7 +528,7 @@ namespace MMO_Client.Code.Controllers
 
             foreach (var camera in cameraDb)
             {
-                if(string.IsNullOrWhiteSpace(camera.Name))
+                if (string.IsNullOrWhiteSpace(camera.Name))
                 {
                     camera.Name = "";
                 }

@@ -140,7 +140,7 @@ namespace MMO_Client.Models.PuppetModels
             {
                 if (((IPuppetWithDetector)this).IfDetectPlayer())
                 {
-                    //UtilityAssistant.RotateToDirection(this.Entity, Controller.controller.playerController.player.Transform.Position);
+                    //UtilityAssistant.RotateToDirection(this.Entity, Controller.controller.playerController.player.Transform.position);
                     //this.Shot();
                 }
             }

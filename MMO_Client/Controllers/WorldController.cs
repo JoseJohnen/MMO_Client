@@ -49,10 +49,10 @@ namespace MMO_Client
 
             //FurnitureCreate("Ground", l_planets[0],Vector3.Zero);
             //List<Entity> instance6 = vase.Instantiate();
-            ////instance4.First().Transform.Position = Vector3.Zero;
+            ////instance4.First().Transform.position = Vector3.Zero;
             //instance6.First().Get<SpriteComponent>().Enabled = false;
-            //instance6.First().Transform.Position.X = -14.750f;
-            //instance6.First().Transform.Position.Y = -1.228f;
+            //instance6.First().Transform.position.X = -14.750f;
+            //instance6.First().Transform.position.Y = -1.228f;
             //Entity.Scene.Entities.AddRange(instance6);
             //l_l_instanciatedEntitys.Add(instance6);
 
@@ -360,12 +360,12 @@ namespace MMO_Client
 
                 plnt.L_worlds[iX, iZ, iY].SetPosition(centralTile.Entity.Transform.Position);
                 //TODO: Check if it's worth it, and if it is, how to do than the tiles have the world as a parent, it doesn't seem necesary, at least for now.
-                //plnt.l_worlds[iX, iZ, iY].Entity.Transform.Position.X = iX;
-                //plnt.l_worlds[iX, iZ, iY].Entity.Transform.Position.X = (iX + 7);
-                //plnt.l_worlds[iX, iZ, iY].Entity.Transform.Position.Y = iY;
-                //plnt.l_worlds[iX, iZ, iY].Entity.Transform.Position.Y = (iY + 7);
-                //plnt.l_worlds[iX, iZ, iY].Entity.Transform.Position.Z = iZ;
-                //plnt.l_worlds[iX, iZ, iY].Entity.Transform.Position.Z = (iZ + 7);
+                //plnt.l_worlds[iX, iZ, iY].Entity.Transform.position.X = iX;
+                //plnt.l_worlds[iX, iZ, iY].Entity.Transform.position.X = (iX + 7);
+                //plnt.l_worlds[iX, iZ, iY].Entity.Transform.position.Y = iY;
+                //plnt.l_worlds[iX, iZ, iY].Entity.Transform.position.Y = (iY + 7);
+                //plnt.l_worlds[iX, iZ, iY].Entity.Transform.position.Z = iZ;
+                //plnt.l_worlds[iX, iZ, iY].Entity.Transform.position.Z = (iZ + 7);
 
                 iX++;
                 if (iX == Xdim)
@@ -597,7 +597,7 @@ namespace MMO_Client
                 };
 
                 /*Entity nEnt = new Entity("New Entity");
-                nEnt.Transform.Position = new Vector3(3f, 5f, 0f);
+                nEnt.Transform.position = new Vector3(3f, 5f, 0f);
                 nEnt.Transform.RotationEulerXYZ = new Vector3(3f, 5f, 0f);
                 Quaternion aa = nEnt.Transform.Rotation;
                 Quaternion b = aa;

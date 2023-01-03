@@ -16174,8 +16174,8 @@
     },
     "Interfaz/1.0.0": {
       "type": "project",
-      "path": "../../../Interfaz/Interfaz.csproj",
-      "msbuildProject": "../../../Interfaz/Interfaz.csproj"
+      "path": "../../../Visual_Studio/Interfaz/Interfaz.csproj",
+      "msbuildProject": "../../../Visual_Studio/Interfaz/Interfaz.csproj"
     },
     "MMO_Client/1.0.0": {
       "type": "project",

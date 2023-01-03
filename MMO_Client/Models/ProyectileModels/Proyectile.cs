@@ -10,7 +10,7 @@ namespace MMO_Client.Code.Models
         public int id = 0;
         public string NameLauncher = string.Empty;
         public Vector3 InitialPosition = Vector3.Zero;
-        public Vector3 Position = Vector3.Zero;
+        private Vector3 position = Vector3.Zero;
         public Vector3 MovementModifier = Vector3.Zero;
         public float Damage = 10f;
 
@@ -18,7 +18,9 @@ namespace MMO_Client.Code.Models
         public Entity ProyectileBody;
 
         public DateTime LastUpdate = DateTime.Now;
-        public TimeSpan Velocity = new TimeSpan(0,0,0,0,1);
+        public TimeSpan Velocity = new TimeSpan(0, 0, 0, 0, 1);
+
+        public Vector3 Position { get => position; set { position = value; if (ProyectileBody != null) { ProyectileBody.Transform.Position = position; } } }
 
         public Proyectile(int id, string NameLauncher, Vector3 InitialPosition, Vector3 MovementModifier, float Damage, DateTime LastUpdate = default(DateTime), TimeSpan Velocity = default(TimeSpan))
         {
@@ -29,7 +31,7 @@ namespace MMO_Client.Code.Models
             this.MovementModifier = MovementModifier;
             this.Damage = Damage;
             this.LastUpdate = LastUpdate;
-            this.Velocity = Velocity == default(TimeSpan) ? new TimeSpan(0,0,0,0,1) : Velocity ;
+            this.Velocity = Velocity == default(TimeSpan) ? new TimeSpan(0, 0, 0, 0, 1) : Velocity;
             this.ProyectileBody = null;
         }
 

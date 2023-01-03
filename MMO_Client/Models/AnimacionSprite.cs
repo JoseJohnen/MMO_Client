@@ -151,7 +151,7 @@ namespace MMO_Client.Code.Models
 
             UtilityAssistant.LookAtAlt2(ent, plyr.Transform.Position);
 
-            //Vector3 diff = UtilityAssistant.DistanceModifierByVectorComparison(ent.Transform.Position, (ent.Transform.Position - plyr.Transform.Position));
+            //Vector3 diff = UtilityAssistant.DistanceModifierByVectorComparison(ent.Transform.position, (ent.Transform.position - plyr.Transform.position));
             Vector3 diff = PositionOfPlayerRelativeToDoomGuy(ent, plyr);
             /*Console.ForegroundColor = ConsoleColor.Cyan;
             Console.Write("\r{0}%   ", "differencial: " + diff);
@@ -172,7 +172,7 @@ namespace MMO_Client.Code.Models
             float cameraRot = Controller.controller.GetActiveCamera().Entity.Transform.Rotation.X;
             float doomGuyRot = ent.Entity.Transform.Rotation.X;
             float result = doomGuyRot - cameraRot;
-            //Vector3 diff = UtilityAssistant.DistanceModifierByVectorComparison(ent.Entity.Transform.Position, (ent.Entity.Transform.Position - plyr.Transform.Position));
+            //Vector3 diff = UtilityAssistant.DistanceModifierByVectorComparison(ent.Entity.Transform.position, (ent.Entity.Transform.position - plyr.Transform.position));
             return result;
         }
 
@@ -207,12 +207,12 @@ namespace MMO_Client.Code.Models
 
                 //ppt.Body.Get<SpriteComponent>().CurrentSprite =
                 //Quaternion po1s = ppt.Body.Transform.Rotation;
-                //UtilityAssistant.ManualLookAt(ppt.Body, plyr.Transform.Position);
+                //UtilityAssistant.ManualLookAt(ppt.Body, plyr.Transform.position);
 
 
-                //UtilityAssistant.RotateTo(ppt.Body, plyr.Transform.Position);
+                //UtilityAssistant.RotateTo(ppt.Body, plyr.Transform.position);
                 UtilityAssistant.LookAtAlt2(ppt.Entity, plyr.Transform.WorldMatrix.TranslationVector);
-                //ppt.Entity.Transform.WorldMatrix.TranslationVector = plyr.Transform.Position;
+                //ppt.Entity.Transform.WorldMatrix.TranslationVector = plyr.Transform.position;
 
                 //Quaternion po2s = ppt.Body.Transform.Rotation;
 

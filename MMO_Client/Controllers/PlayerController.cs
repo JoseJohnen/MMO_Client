@@ -56,7 +56,7 @@ namespace MMO_Client.Controllers
                 Controller.controller.playerController = this;
 
                 PlayerCharacterStart();
-                //player.Transform.Position = new Vector3(7, 0, 2);
+                //player.Transform.position = new Vector3(7, 0, 2);
 
                 //Prefab model = Content.Load<Prefab>("Prefabs/DoomGuy");
                 //Quaternion qtrn = new Quaternion();
@@ -205,21 +205,21 @@ namespace MMO_Client.Controllers
                     if (item.Name == "weapon")
                     {
                         Player.PLAYER.Weapon = item;
-                        //ConnectionManager.AddInstruction("WP:" + weapon.Transform.Position.ToString());
+                        //ConnectionManager.AddInstruction("WP:" + weapon.Transform.position.ToString());
                         Player.WP = Player.PLAYER.Weapon.Transform.Position.ToString();
                         continue;
                     }
                     if (item.Name == "L-Shoulder")
                     {
                         Player.PLAYER.LeftShoulder = item;
-                        //ConnectionManager.AddInstruction("LS:" + LeftShoulder.Transform.Position.ToString());
+                        //ConnectionManager.AddInstruction("LS:" + LeftShoulder.Transform.position.ToString());
                         Player.LS = Player.PLAYER.LeftShoulder.Transform.Position.ToString();
                         continue;
                     }
                     if (item.Name == "R-Shoulder")
                     {
                         Player.PLAYER.RightShoulder = item;
-                        //ConnectionManager.AddInstruction("RS:" + RightShoulder.Transform.Position.ToString());
+                        //ConnectionManager.AddInstruction("RS:" + RightShoulder.Transform.position.ToString());
                         Player.RS = Player.PLAYER.RightShoulder.Transform.Position.ToString();
                         continue;
                     }
@@ -227,14 +227,14 @@ namespace MMO_Client.Controllers
                     if (item.Name == "Gun")
                     {
                         Player.PLAYER.Gun = item;
-                        //ConnectionManager.AddInstruction("WP:" + weapon.Transform.Position.ToString());
+                        //ConnectionManager.AddInstruction("WP:" + weapon.Transform.position.ToString());
                         Player.GNPS = Player.PLAYER.Gun.Transform.Position.ToString();
                         Player.GNRT = Player.PLAYER.Gun.Transform.Rotation.ToString();
                         continue;
                     }
                 }
 
-                //ConnectionManager.AddInstruction("PS:" + player.Transform.Position.ToString());
+                //ConnectionManager.AddInstruction("PS:" + player.Transform.position.ToString());
                 //ConnectionManager.AddInstruction("RT:" + player.Transform.Rotation.ToString());
                 Player.PS = Player.PLAYER.Entity.Transform.Position.ToString();
                 //player.Transform.Rotation.X = -90;
@@ -700,7 +700,7 @@ namespace MMO_Client.Controllers
                         cms.Item1 = cms.Item2.AnimSprite.LugarAnimacionEspecificaPorNombre("Moving");
                         return;
                     }
-                    //player.Transform.Position = Area.MoveMeThereOnlyIfValid(l_ActiveAreaFurniture[0].L_AreaDefiners, player, modifier);
+                    //player.Transform.position = Area.MoveMeThereOnlyIfValid(l_ActiveAreaFurniture[0].L_AreaDefiners, player, modifier);
                     return;
                 }
             }
@@ -853,9 +853,9 @@ namespace MMO_Client.Controllers
                     if (DetectPlayer(charmanfs))
                     {
                         MoveInPlayerDirection(charmanfs);
-                        /*Vector3 originalPosition = charmanfs.Entity.Transform.Position;
+                        /*Vector3 originalPosition = charmanfs.Entity.Transform.position;
                         Cuarteto<int, AnimacionSprite, Entity, TimeSpan> cms = l_AnimacionesEntitys.Where(c => c.Item3.Name == charmanfs.Entity.Name).First();
-                        if (charmanfs.Entity.Transform.Position != originalPosition)
+                        if (charmanfs.Entity.Transform.position != originalPosition)
                         {
                             cms.Item1 = cms.Item2.LugarAnimacionEspecificaPorNombre("Moving");
                             return;
@@ -865,9 +865,9 @@ namespace MMO_Client.Controllers
                     else
                     {
                         MoveRandom(charmanfs);
-                        /*Vector3 originalPosition = charmanfs.Item2.Transform.Position;
+                        /*Vector3 originalPosition = charmanfs.Item2.Transform.position;
                         Cuarteto<int, AnimacionSprite, Entity, TimeSpan> cms = l_AnimacionesEntitys.Where(c => c.Item3.Name == charmanfs.Item2.Name).First();
-                        if (charmanfs.Item2.Transform.Position != originalPosition)
+                        if (charmanfs.Item2.Transform.position != originalPosition)
                         {
                             cms.Item1 = cms.Item2.LugarAnimacionEspecificaPorNombre("Moving");
                             return;
@@ -1137,53 +1137,75 @@ namespace MMO_Client.Controllers
                 //Console.WriteLine("moveInstructions: "+ moveInstructions)
                 if (!string.IsNullOrWhiteSpace(item))
                 {
-                    if (item.Contains("ST"))
+                    //Individual Answer Shots
+                    /*if (item.Contains("ST:"))
                     {
                         string tempString = UtilityAssistant.ExtractValues(item, "ST");
                         if (!string.IsNullOrWhiteSpace(tempString))
                         {
-                            if (!string.IsNullOrWhiteSpace(tempString))
+                            Shot shot = Shot.CreateFromJson(tempString);
+
+                            //Console.WriteLine("Shot: " + shot.ToJson());
+
+                            int intbllt = l_bulletsOnline.Count;
+                            l_bulletsOnline.Add(new Bullet(shot.Id, shot.LN, UtilityAssistant.ConvertVector3NumericToStride(shot.WPos), UtilityAssistant.ConvertVector3NumericToStride(shot.Mdf)));
+                            List<Entity> l_ent = Controller.controller.GetPrefab("Bullet");
+                            l_bulletsOnline[intbllt].ProyectileBody = l_ent[0];
+                            l_bulletsOnline[intbllt].ProyectileBody.Transform.Position = l_bulletsOnline[intbllt].InitialPosition;
+                            UtilityAssistant.RotateTo(l_bulletsOnline[intbllt].ProyectileBody, (l_bulletsOnline[intbllt].ProyectileBody.Transform.Position + l_bulletsOnline[intbllt].MovementModifier));
+                            Entity.Scene.Entities.AddRange(l_ent);
+
+                            //return shotInstructions;
+                        }
+                    }*/
+
+                    //World Update Shots and those shot by others
+                    if (item.Contains("SM:"))
+                    {
+                        string tempString = UtilityAssistant.ExtractValues(item, "SM");
+                        if (!string.IsNullOrWhiteSpace(tempString))
+                        {
+                            ShotTotalState STS = ShotTotalState.CreateFromJson(tempString);
+
+                            //Shot shot = Interfaz.Models.Shot.CreateFromJson(tempString);
+                            //Console.WriteLine("Shot: " + shot.ToJson());
+                            //l_bullets.Add(new Pares<List<Entity>, Bullet>(instance, new Bullet(entUse.Name, initialposition, moddif)));
+
+                            if (STS.l_shots != null)
                             {
-                                ShotTotalState STS = ShotTotalState.CreateFromJson(tempString);
-
-                                //Shot shot = Interfaz.Models.Shot.CreateFromJson(tempString);
-                                //Console.WriteLine("Shot: " + shot.ToJson());
-                                //l_bullets.Add(new Pares<List<Entity>, Bullet>(instance, new Bullet(entUse.Name, initialposition, moddif)));
-
-                                if (STS.l_shots != null)
+                                if (STS.l_shots.Count > 0)
                                 {
-                                    if (STS.l_shots.Count > 0)
+                                    foreach (Shot shot in STS.l_shots)
                                     {
-                                        foreach (Shot shot in STS.l_shots)
-                                        {
-                                            int intbllt = l_bulletsOnline.Count;
-                                            l_bulletsOnline.Add(new Bullet(shot.Id, shot.LN, UtilityAssistant.ConvertVector3NumericToStride(shot.WPos), UtilityAssistant.ConvertVector3NumericToStride(shot.Mdf)));
-                                            l_bulletsOnline[intbllt].ProyectileBody = Controller.controller.GetPrefab("Bullet")[0];
-                                            l_bulletsOnline[intbllt].ProyectileBody.Transform.Position = l_bulletsOnline[intbllt].InitialPosition;
-                                            UtilityAssistant.RotateTo(l_bulletsOnline[intbllt].ProyectileBody, (l_bulletsOnline[intbllt].ProyectileBody.Transform.Position + l_bulletsOnline[intbllt].MovementModifier));
-                                        }
+                                        int intbllt = l_bulletsOnline.Count;
+                                        l_bulletsOnline.Add(new Bullet(shot.Id, shot.LN, UtilityAssistant.ConvertVector3NumericToStride(shot.WPos), UtilityAssistant.ConvertVector3NumericToStride(shot.Mdf)));
+                                        List<Entity> l_ent = Controller.controller.GetPrefab("Bullet");
+                                        l_bulletsOnline[intbllt].ProyectileBody = l_ent[0];
+                                        l_bulletsOnline[intbllt].ProyectileBody.Transform.Position = l_bulletsOnline[intbllt].InitialPosition;
+                                        UtilityAssistant.RotateTo(l_bulletsOnline[intbllt].ProyectileBody, (l_bulletsOnline[intbllt].ProyectileBody.Transform.Position + l_bulletsOnline[intbllt].MovementModifier));
+                                        Entity.Scene.Entities.AddRange(l_ent);
                                     }
                                 }
+                            }
 
-                                if (STS.l_shotsUpdates != null)
+                            if (STS.l_shotsUpdates != null)
+                            {
+                                if (STS.l_shotsUpdates.Count > 0)
                                 {
-                                    if (STS.l_shotsUpdates.Count > 0)
+                                    foreach (ShotUpdate shtUp in STS.l_shotsUpdates)
                                     {
-                                        foreach (ShotUpdate shtUp in STS.l_shotsUpdates)
+                                        foreach (Bullet bllt in l_bulletsOnline)
                                         {
-                                            foreach (Bullet bllt in l_bulletsOnline)
+                                            if (shtUp.Id == bllt.id)
                                             {
-                                                if (shtUp.Id == bllt.id)
-                                                {
-                                                    bllt.Position = UtilityAssistant.ConvertVector3NumericToStride(shtUp.Pos);
-                                                }
+                                                bllt.Position = UtilityAssistant.ConvertVector3NumericToStride(shtUp.Pos);
                                             }
                                         }
                                     }
                                 }
                             }
-                            //return shotInstructions;
                         }
+                        //return shotInstructions;
                     }
                 }
                 return true;
@@ -1196,7 +1218,7 @@ namespace MMO_Client.Controllers
         }
 
         //Solve shot interactions (Offline)
-        public void Shot(Puppet pppt = null, Puppet target = null)
+        public void ShotOffline(Puppet pppt = null, Puppet target = null)
         {
             try
             {
@@ -1241,7 +1263,7 @@ namespace MMO_Client.Controllers
                     instance.First().Transform.Position = pppt.Entity.Transform.Position;
                     initialposition = pppt.Entity.Transform.WorldMatrix.TranslationVector;
                     moddif = pppt.Weapon.Transform.WorldMatrix.TranslationVector - pppt.Entity.Transform.WorldMatrix.TranslationVector;
-                    //Vector3 trgt = target != null ? UtilityAssistant.DistanceModifierByCartesianVectorComparison(target.Entity.Transform.Position, pppt.Entity.Transform.Position) : UtilityAssistant.DistanceModifierByCartesianVectorComparison(player.Transform.Position, pppt.Entity.Transform.Position);
+                    //Vector3 trgt = target != null ? UtilityAssistant.DistanceModifierByCartesianVectorComparison(target.Entity.Transform.position, pppt.Entity.Transform.position) : UtilityAssistant.DistanceModifierByCartesianVectorComparison(player.Transform.position, pppt.Entity.Transform.position);
                     //moddif = trgt;
                 }
 
@@ -1334,11 +1356,11 @@ namespace MMO_Client.Controllers
                     return -1; //it means problems
                 }
                 float Radius = 0.5f;
-                if ((bllt.Item1[0].Transform.Position.Z <= player.Transform.Position.Z + Radius) && (bllt.Item1[0].Transform.Position.Z >= player.Transform.Position.Z - Radius))
+                if ((bllt.Item1[0].Transform.position.Z <= player.Transform.position.Z + Radius) && (bllt.Item1[0].Transform.position.Z >= player.Transform.position.Z - Radius))
                 {
-                    if ((bllt.Item1[0].Transform.Position.X <= player.Transform.Position.X + Radius) && (bllt.Item1[0].Transform.Position.X >= player.Transform.Position.X - Radius))
+                    if ((bllt.Item1[0].Transform.position.X <= player.Transform.position.X + Radius) && (bllt.Item1[0].Transform.position.X >= player.Transform.position.X - Radius))
                     {
-                        if ((bllt.Item1[0].Transform.Position.Y <= player.Transform.Position.Y + Radius) && (bllt.Item1[0].Transform.Position.Y >= player.Transform.Position.Y - Radius))
+                        if ((bllt.Item1[0].Transform.position.Y <= player.Transform.position.Y + Radius) && (bllt.Item1[0].Transform.position.Y >= player.Transform.position.Y - Radius))
                         {
                             if (bllt.Item2.NameLauncher != player.Name)
                             {
@@ -1378,11 +1400,11 @@ namespace MMO_Client.Controllers
                     return -1; //it means problems
                 }
                 float Radius = enmy.MPKillBox / 2;
-                //if ((bllt.Item1[0].Transform.Position.Z <= enmy.Entity.Transform.Position.Z + Radius) && (bllt.Item1[0].Transform.Position.Z >= enmy.Entity.Transform.Position.Z - Radius))
+                //if ((bllt.Item1[0].Transform.position.Z <= enmy.Entity.Transform.position.Z + Radius) && (bllt.Item1[0].Transform.position.Z >= enmy.Entity.Transform.position.Z - Radius))
                 //{
-                //    if ((bllt.Item1[0].Transform.Position.X <= enmy.Entity.Transform.Position.X + Radius) && (bllt.Item1[0].Transform.Position.X >= enmy.Entity.Transform.Position.X - Radius))
+                //    if ((bllt.Item1[0].Transform.position.X <= enmy.Entity.Transform.position.X + Radius) && (bllt.Item1[0].Transform.position.X >= enmy.Entity.Transform.position.X - Radius))
                 //    {
-                //        if ((bllt.Item1[0].Transform.Position.Y <= enmy.Entity.Transform.Position.Y + Radius) && (bllt.Item1[0].Transform.Position.Y >= enmy.Entity.Transform.Position.Y - Radius))
+                //        if ((bllt.Item1[0].Transform.position.Y <= enmy.Entity.Transform.position.Y + Radius) && (bllt.Item1[0].Transform.position.Y >= enmy.Entity.Transform.position.Y - Radius))
                 //        {
 
                 //Si la distancia es menos que la mitad del radio, entonces esta en el área de impacto

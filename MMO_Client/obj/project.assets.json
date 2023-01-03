@@ -11676,8 +11676,8 @@
     },
     "Interfaz/1.0.0": {
       "type": "project",
-      "path": "../../../Interfaz/Interfaz.csproj",
-      "msbuildProject": "../../../Interfaz/Interfaz.csproj"
+      "path": "../../../Visual_Studio/Interfaz/Interfaz.csproj",
+      "msbuildProject": "../../../Visual_Studio/Interfaz/Interfaz.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -11727,8 +11727,8 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "E:\\Cod_Pers\\Interfaz\\Interfaz.csproj": {
-              "projectPath": "E:\\Cod_Pers\\Interfaz\\Interfaz.csproj"
+            "E:\\Cod_Pers\\Visual_Studio\\Interfaz\\Interfaz.csproj": {
+              "projectPath": "E:\\Cod_Pers\\Visual_Studio\\Interfaz\\Interfaz.csproj"
             }
           }
         }
