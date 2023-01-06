@@ -13,6 +13,7 @@ using System.Linq;
 using Interfaz.Models;
 using System.Collections.Concurrent;
 using MMO_Client.Code.Models;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace MMO_Client.Code.Controllers
 {
@@ -312,6 +313,98 @@ namespace MMO_Client.Code.Controllers
 
         static async Task ReceiveSteamAsync()
         {
+            int size = 1000;
+            int charCount = 0;
+            try
+            {
+                int baseSize = 1024;
+                byte[] responseBytes = new byte[baseSize];
+                char[] responseChars = new char[baseSize];
+
+
+                if (gameSocketClient.StreamNetwork == null)
+                {
+                    gameSocketClient.StreamNetwork = new NetworkStream(gameSocketClient.StreamSocket);
+                }
+
+                bolReceiveSteamAsync = true;
+                List<byte> allData = new List<byte>();
+                while (true)
+                {
+                    if (gameSocketClient.StreamSocket.Available > size)
+                    {
+                        size = gameSocketClient.StreamSocket.Available;
+                        responseBytes = new byte[size];
+                        responseChars = new char[size];
+                    }
+
+                    int numBytesRead = 0;
+                    if (gameSocketClient.StreamNetwork.DataAvailable && gameSocketClient.StreamNetwork.CanRead)
+                    {
+                        do
+                        {
+                            numBytesRead = await gameSocketClient.StreamNetwork.ReadAsync(responseBytes, 0, responseBytes.Length);
+
+                            if (numBytesRead == responseBytes.Length)
+                            {
+                                allData.AddRange(responseBytes);
+                                break;
+                            }
+                            else if (numBytesRead > 0 && numBytesRead < responseBytes.Length)
+                            {
+                                allData.AddRange(responseBytes.Take(numBytesRead));
+                                break;
+                            }
+                            else if (numBytesRead > responseBytes.Length)
+                            {
+                                allData.AddRange(responseBytes.Take(numBytesRead));
+                            }
+                        } while (gameSocketClient.StreamNetwork.DataAvailable && numBytesRead != 0);
+                    }
+
+                    // Convert byteCount bytes to ASCII characters using the 'responseChars' buffer as destination
+                    charCount = Encoding.ASCII.GetChars(allData.ToArray(), 0, numBytesRead, responseChars, 0);
+
+                    // Convert byteCount DIRECTLY TO A CLASS
+                    //BinaryFormatter formatter = new BinaryFormatter();
+                    //formatter.Serialize(fs, addresses);
+                    //charCount = Encoding.ASCII.GetChars(allData.ToArray(), 0, numBytesRead, responseChars, 0);
+
+                    if (charCount == 0) continue;
+
+                    if (responseChars.AsSpan(0, responseChars.Length).SequenceEqual("LOGIN_TRUE"))
+                    {
+                        Player.PLAYER.Entity.Name = MailTest;
+                        retrySend = false;
+                        isLoginSuccessfull = true;
+                    }
+
+                    if (charCount > 0)
+                    {
+                        ConnectionManager.Queue_Instrucciones.Enqueue(new string(responseChars).Replace("\0", ""));
+                        await Console.Out.WriteAsync("Received (StreamReader): size: " + size + " charCount: " + charCount + " responseChar: " + responseChars.AsMemory(0, charCount));
+                    }
+
+                    allData.Clear();
+                    responseBytes = new byte[baseSize];
+                    responseChars = new char[baseSize];
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error ReceiveSteamAsync: size: " + size + " charCount: " + charCount + " Message: "+ ex.Message);
+            }
+            finally
+            {
+                if (gameSocketClient != null)
+                {
+                    gameSocketClient.CloseConnection();
+                }
+            }
+        }
+
+        /*static async Task ReceiveChunkSteamAsync()
+        {
             try
             {
                 int baseSize = 1024;
@@ -387,7 +480,7 @@ namespace MMO_Client.Code.Controllers
                     gameSocketClient.CloseConnection();
                 }
             }
-        }
+        }*/
 
         static async Task SendAsync(string remoteHost, int remotePort)
         {

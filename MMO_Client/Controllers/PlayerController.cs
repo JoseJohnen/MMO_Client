@@ -411,9 +411,9 @@ namespace MMO_Client.Controllers
                         l_entitysCharacters[position].RShoulder = item;
                         continue;
                     }
-                    /*if (item.Name == "Sprite")
+                    /*if (itemParameter.Name == "Sprite")
                     {
-                        l_entitysCharacters[position].Sprite = item;
+                        l_entitysCharacters[position].Sprite = itemParameter;
                         continue;
                     }*/
                 }
@@ -527,8 +527,8 @@ namespace MMO_Client.Controllers
                     if (item.Contains("MV"))
                     {
                         string tempString = UtilityAssistant.ExtractValues(item, "MV");
-                        //item = item.Replace("MV:" + tempString, "");
-                        //item = item.Trim();
+                        //itemParameter = itemParameter.Replace("MV:" + tempString, "");
+                        //itemParameter = itemParameter.Trim();
                         //Console.WriteLine("Mov Extraído: " + tempString);
                         if (!string.IsNullOrWhiteSpace(tempString))
                         {
@@ -1130,17 +1130,18 @@ namespace MMO_Client.Controllers
         }
 
         //Process the answer to the online shot interactions
-        public bool ProcessShotFromServer(string item)
+        public bool ProcessShotFromServer(string itemParameter)
         {
+            string[] strArray = null;
             try
             {
                 //Console.WriteLine("moveInstructions: "+ moveInstructions)
-                if (!string.IsNullOrWhiteSpace(item))
+                if (!string.IsNullOrWhiteSpace(itemParameter))
                 {
                     //Individual Answer Shots
-                    /*if (item.Contains("ST:"))
+                    /*if (itemParameter.Contains("ST:"))
                     {
-                        string tempString = UtilityAssistant.ExtractValues(item, "ST");
+                        string tempString = UtilityAssistant.ExtractValues(itemParameter, "ST");
                         if (!string.IsNullOrWhiteSpace(tempString))
                         {
                             Shot shot = Shot.CreateFromJson(tempString);
@@ -1160,45 +1161,70 @@ namespace MMO_Client.Controllers
                     }*/
 
                     //World Update Shots and those shot by others
-                    if (item.Contains("SM:"))
+                    if (itemParameter.Contains("SM:"))
                     {
-                        string tempString = UtilityAssistant.ExtractValues(item, "SM");
+                        string tempString = UtilityAssistant.ExtractValues(itemParameter, "SM");
+
                         if (!string.IsNullOrWhiteSpace(tempString))
                         {
-                            ShotTotalState STS = ShotTotalState.CreateFromJson(tempString);
-
-                            //Shot shot = Interfaz.Models.Shot.CreateFromJson(tempString);
-                            //Console.WriteLine("Shot: " + shot.ToJson());
-                            //l_bullets.Add(new Pares<List<Entity>, Bullet>(instance, new Bullet(entUse.Name, initialposition, moddif)));
-
-                            if (STS.l_shots != null)
+                            if (itemParameter.Contains("SM:"))
                             {
-                                if (STS.l_shots.Count > 0)
+                                strArray = itemParameter.Split("SM:", StringSplitOptions.RemoveEmptyEntries);
+                                Console.WriteLine("------------SM Duplication Detected!!!!: Lenght: " + strArray.Length + " ------------");
+                                for (int i = 0; i < strArray.Length; i++)
                                 {
-                                    foreach (Shot shot in STS.l_shots)
-                                    {
-                                        int intbllt = l_bulletsOnline.Count;
-                                        l_bulletsOnline.Add(new Bullet(shot.Id, shot.LN, UtilityAssistant.ConvertVector3NumericToStride(shot.WPos), UtilityAssistant.ConvertVector3NumericToStride(shot.Mdf)));
-                                        List<Entity> l_ent = Controller.controller.GetPrefab("Bullet");
-                                        l_bulletsOnline[intbllt].ProyectileBody = l_ent[0];
-                                        l_bulletsOnline[intbllt].ProyectileBody.Transform.Position = l_bulletsOnline[intbllt].InitialPosition;
-                                        UtilityAssistant.RotateTo(l_bulletsOnline[intbllt].ProyectileBody, (l_bulletsOnline[intbllt].ProyectileBody.Transform.Position + l_bulletsOnline[intbllt].MovementModifier));
-                                        Entity.Scene.Entities.AddRange(l_ent);
-                                    }
+                                    Console.WriteLine(" strArray[" + i + "]: " + strArray[i]);
                                 }
+                                Console.WriteLine("------------JSON BASE------------");
+                                Console.WriteLine(itemParameter);
+                                Console.WriteLine("------------Fin tratamiento de Duplicación SM------------");
+                            }
+                            else
+                            {
+                                strArray = new string[1];
+                                strArray[0] = itemParameter;
                             }
 
-                            if (STS.l_shotsUpdates != null)
+                            foreach (string item in strArray)
                             {
-                                if (STS.l_shotsUpdates.Count > 0)
+                                ShotTotalState[] l_STS = ShotTotalState.CreateFromJson(tempString);
+
+                                //Shot shot = Interfaz.Models.Shot.CreateFromJson(tempString);
+                                //Console.WriteLine("Shot: " + shot.ToJson());
+                                //l_bullets.Add(new Pares<List<Entity>, Bullet>(instance, new Bullet(entUse.Name, initialposition, moddif)));
+
+                                foreach (ShotTotalState STS in l_STS)
                                 {
-                                    foreach (ShotUpdate shtUp in STS.l_shotsUpdates)
+                                    if (STS.l_shots != null)
                                     {
-                                        foreach (Bullet bllt in l_bulletsOnline)
+                                        if (STS.l_shots.Count > 0)
                                         {
-                                            if (shtUp.Id == bllt.id)
+                                            foreach (Shot shot in STS.l_shots)
                                             {
-                                                bllt.Position = UtilityAssistant.ConvertVector3NumericToStride(shtUp.Pos);
+                                                int intbllt = l_bulletsOnline.Count;
+                                                l_bulletsOnline.Add(new Bullet(shot.Id, shot.LN, UtilityAssistant.ConvertVector3NumericToStride(shot.WPos), UtilityAssistant.ConvertVector3NumericToStride(shot.Mdf)));
+                                                List<Entity> l_ent = Controller.controller.GetPrefab("Bullet");
+                                                l_bulletsOnline[intbllt].ProyectileBody = l_ent[0];
+                                                l_bulletsOnline[intbllt].ProyectileBody.Transform.Position = l_bulletsOnline[intbllt].InitialPosition;
+                                                UtilityAssistant.RotateTo(l_bulletsOnline[intbllt].ProyectileBody, (l_bulletsOnline[intbllt].ProyectileBody.Transform.Position + l_bulletsOnline[intbllt].MovementModifier));
+                                                Entity.Scene.Entities.AddRange(l_ent);
+                                            }
+                                        }
+                                    }
+
+                                    if (STS.l_shotsUpdates != null)
+                                    {
+                                        if (STS.l_shotsUpdates.Count > 0)
+                                        {
+                                            foreach (ShotUpdate shtUp in STS.l_shotsUpdates)
+                                            {
+                                                foreach (Bullet bllt in l_bulletsOnline)
+                                                {
+                                                    if (shtUp.Id == bllt.id)
+                                                    {
+                                                        bllt.Position = UtilityAssistant.ConvertVector3NumericToStride(shtUp.Pos);
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -1477,7 +1503,7 @@ namespace MMO_Client.Controllers
                         return;
                     }
 
-                    //Not needed for now, because return on the main function without a '2' already cause to jump to the next item
+                    //Not needed for now, because return on the main function without a '2' already cause to jump to the next itemParameter
                     //i leave it here however as a reminder, if for some reason in the future i needed to make explicit the continue thing
                     //if(result == 2)
                     //{
@@ -1566,26 +1592,26 @@ namespace MMO_Client.Controllers
             try
             {
                 ppt.PrefabSkeleton = Content.Load<Prefab>("Prefabs/" + ppt.GetType().Name.ToString());
-                foreach (Entity item in ppt.Entity.GetChildren())
+                foreach (Entity itemParameter in ppt.Entity.GetChildren())
                 {
-                    if (item.Name == "Camera")
+                    if (itemParameter.Name == "Camera")
                     {
-                        Camera = item;
+                        Camera = itemParameter;
                         continue;
                     }
-                    if (item.Name == "weapon")
+                    if (itemParameter.Name == "weapon")
                     {
-                        weapon = item;
+                        weapon = itemParameter;
                         continue;
                     }
-                    if (item.Name == "L-Shoulder")
+                    if (itemParameter.Name == "L-Shoulder")
                     {
-                        LeftShoulder = item;
+                        LeftShoulder = itemParameter;
                         continue;
                     }
-                    if (item.Name == "R-Shoulder")
+                    if (itemParameter.Name == "R-Shoulder")
                     {
-                        RightShoulder = item;
+                        RightShoulder = itemParameter;
                         continue;
                     }
                 }
