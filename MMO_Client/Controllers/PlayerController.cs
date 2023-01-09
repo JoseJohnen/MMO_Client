@@ -1195,11 +1195,11 @@ namespace MMO_Client.Controllers
 
                                 foreach (ShotTotalState STS in l_STS)
                                 {
-                                    if (STS.l_shots != null)
+                                    if (STS.l_shotsCreated != null)
                                     {
-                                        if (STS.l_shots.Count > 0)
+                                        if (STS.l_shotsCreated.Count > 0)
                                         {
-                                            foreach (Shot shot in STS.l_shots)
+                                            foreach (Shot shot in STS.l_shotsCreated)
                                             {
                                                 int intbllt = l_bulletsOnline.Count;
                                                 l_bulletsOnline.Add(new Bullet(shot.Id, shot.LN, UtilityAssistant.ConvertVector3NumericToStride(shot.WPos), UtilityAssistant.ConvertVector3NumericToStride(shot.Mdf)));
@@ -1207,16 +1207,16 @@ namespace MMO_Client.Controllers
                                                 l_bulletsOnline[intbllt].ProyectileBody = l_ent[0];
                                                 l_bulletsOnline[intbllt].ProyectileBody.Transform.Position = l_bulletsOnline[intbllt].InitialPosition;
                                                 UtilityAssistant.RotateTo(l_bulletsOnline[intbllt].ProyectileBody, (l_bulletsOnline[intbllt].ProyectileBody.Transform.Position + l_bulletsOnline[intbllt].MovementModifier));
-                                                Entity.Scene.Entities.AddRange(l_ent);
+                                                Entity.Scene.Entities.Add(l_bulletsOnline[intbllt].ProyectileBody);
                                             }
                                         }
                                     }
 
-                                    if (STS.l_shotsUpdates != null)
+                                    if (STS.l_shotsPosUpdates != null)
                                     {
-                                        if (STS.l_shotsUpdates.Count > 0)
+                                        if (STS.l_shotsPosUpdates.Count > 0)
                                         {
-                                            foreach (ShotUpdate shtUp in STS.l_shotsUpdates)
+                                            foreach (ShotPosUpdate shtUp in STS.l_shotsPosUpdates)
                                             {
                                                 foreach (Bullet bllt in l_bulletsOnline)
                                                 {
@@ -1228,10 +1228,30 @@ namespace MMO_Client.Controllers
                                             }
                                         }
                                     }
+
+                                    if (STS.l_shotsStates != null)
+                                    {
+                                        if (STS.l_shotsStates.Count > 0)
+                                        {
+                                            foreach (ShotState shtSt in STS.l_shotsStates)
+                                            {
+                                                foreach (Bullet bllt in l_bulletsOnline)
+                                                {
+                                                    if (shtSt.Id == bllt.id)
+                                                    {
+                                                        if (shtSt.State == StateOfTheShot.Destroyed)
+                                                        {
+                                                            Entity.Scene.Entities.Remove(bllt.ProyectileBody);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
+                            //return shotInstructions;
                         }
-                        //return shotInstructions;
                     }
                 }
                 return true;

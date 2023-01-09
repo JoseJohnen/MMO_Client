@@ -173,7 +173,7 @@ namespace MMO_Client.Code.Controllers
                 //    Console.WriteLine("ActualizarConDataDeRespuesta Status: "+dataAnswer + " Time: "+DateTime.Now.ToString());
                 //}
 
-                if (ConnectionManager.Queue_Answers.Count > 0)
+                if (ConnectionManager.Queue_Instrucciones.Count > 0)
                 {
                     dataContinous = Task.Run(() => ActualizarConDataDelServer()).Status;
                 }
@@ -203,7 +203,7 @@ namespace MMO_Client.Code.Controllers
                     switch (typeOf)
                     {
                         case "MV":
-                            playerController.ProcessMovementFromServer(item);
+                            //playerController.ProcessMovementFromServer(item);
                             break;
                         case "SM":
                             playerController.ProcessShotFromServer(item);
@@ -241,7 +241,7 @@ namespace MMO_Client.Code.Controllers
                             playerController.ProcessMovementFromServer(item);
                             break;
                         case "ST":
-                            playerController.ProcessShotFromServer(item);
+                            //playerController.ProcessShotFromServer(item);
                             break;
                         default:
                             break;
