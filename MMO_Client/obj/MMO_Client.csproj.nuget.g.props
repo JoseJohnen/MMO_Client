@@ -5,20 +5,20 @@
     <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
     <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
     <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
-    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\jjohn\.nuget\packages\;D:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages</NuGetPackageFolders>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\Jose Johnen\.nuget\packages\;D:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages</NuGetPackageFolders>
     <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
-    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.3.1</NuGetToolVersion>
+    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.4.0</NuGetToolVersion>
   </PropertyGroup>
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <SourceRoot Include="C:\Users\jjohn\.nuget\packages\" />
+    <SourceRoot Include="C:\Users\Jose Johnen\.nuget\packages\" />
     <SourceRoot Include="D:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages\" />
   </ItemGroup>
   <ImportGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' AND '$(ExcludeRestorePackageImports)' != 'true' ">
     <Import Project="$(NuGetPackageRoot)stride.core\4.1.0.1734\buildTransitive\Stride.Core.props" Condition="Exists('$(NuGetPackageRoot)stride.core\4.1.0.1734\buildTransitive\Stride.Core.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' AND '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgStride_Core Condition=" '$(PkgStride_Core)' == '' ">C:\Users\jjohn\.nuget\packages\stride.core\4.1.0.1734</PkgStride_Core>
-    <PkgMicrosoft_CodeAnalysis_Analyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_Analyzers)' == '' ">C:\Users\jjohn\.nuget\packages\microsoft.codeanalysis.analyzers\3.0.0</PkgMicrosoft_CodeAnalysis_Analyzers>
-    <PkgStride_Core_Assets_CompilerApp Condition=" '$(PkgStride_Core_Assets_CompilerApp)' == '' ">C:\Users\jjohn\.nuget\packages\stride.core.assets.compilerapp\4.1.0.1734</PkgStride_Core_Assets_CompilerApp>
+    <PkgStride_Core Condition=" '$(PkgStride_Core)' == '' ">C:\Users\Jose Johnen\.nuget\packages\stride.core\4.1.0.1734</PkgStride_Core>
+    <PkgMicrosoft_CodeAnalysis_Analyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_Analyzers)' == '' ">C:\Users\Jose Johnen\.nuget\packages\microsoft.codeanalysis.analyzers\3.0.0</PkgMicrosoft_CodeAnalysis_Analyzers>
+    <PkgStride_Core_Assets_CompilerApp Condition=" '$(PkgStride_Core_Assets_CompilerApp)' == '' ">C:\Users\Jose Johnen\.nuget\packages\stride.core.assets.compilerapp\4.1.0.1734</PkgStride_Core_Assets_CompilerApp>
   </PropertyGroup>
 </Project>

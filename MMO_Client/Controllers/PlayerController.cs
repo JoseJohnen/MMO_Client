@@ -16,6 +16,7 @@ using Controller = MMO_Client.Code.Controllers.Controller;
 using Quaternion = Stride.Core.Mathematics.Quaternion;
 using Interfaz.Models;
 using Stride.Core;
+using System.Collections.Concurrent;
 
 namespace MMO_Client.Controllers
 {
@@ -28,7 +29,14 @@ namespace MMO_Client.Controllers
         public List<Pares<List<Entity>, Bullet>> l_bullets = new List<Pares<List<Entity>, Bullet>>();
 
         [DataMemberIgnore]
-        public List<Bullet> l_bulletsOnline = new List<Bullet>();
+        public ConcurrentDictionary<int, Bullet> dic_bulletsOnline = new ConcurrentDictionary<int, Bullet>();
+
+        [DataMemberIgnore]
+        public ConcurrentQueue<Shot> q_PendingShotsCreatedRun = new ConcurrentQueue<Shot>();
+        [DataMemberIgnore]
+        public ConcurrentQueue<ShotPosUpdate> q_PendingShotPosUpdateRun = new ConcurrentQueue<ShotPosUpdate>();
+        [DataMemberIgnore]
+        public ConcurrentQueue<ShotState> q_PendingShotStateToRun = new ConcurrentQueue<ShotState>();
 
         public Area ActiveArea;
         public List<Area> l_ActiveAreaFurniture;
@@ -117,8 +125,259 @@ namespace MMO_Client.Controllers
 
             MovementOnline();
             ShotOnline();
-
+            //ShotAndProyectileProcessing();
             Animacion();
+            Preguntar();
+        }
+
+        private void Preguntar()
+        {
+            try
+            {
+                PreguntaObj prtObj = new PreguntaObj();
+
+                //TODO: ¿Cuál es el criterio para enviar las preguntas?
+                //- Tiempo de las balas
+                //- Que no hayan balas, y si es así, cada medio segundo
+                prtObj.l_id_bullets_preguntando.Add(1);
+                prtObj.l_id_bullets_preguntando.Add(2);
+                prtObj.l_id_bullets_preguntando.Add(3);
+                if (dic_bulletsOnline.Count <= 0)
+                {
+                    if (DateTime.Now - lastFrame > new TimeSpan(0,0,0,0,50))
+                    {
+                        ConnectionManager.gameSocketClient.l_SendBigMessages.Enqueue("PR:"+prtObj.ToJson());
+                        lastFrame = DateTime.Now;
+                    }
+                }
+                else
+                {
+                    prtObj.l_id_bullets_preguntando.AddRange(dic_bulletsOnline.Keys.ToList());
+                    foreach (Bullet item in dic_bulletsOnline.Values)
+                    {
+                        if(DateTime.Now - item.LastUpdate >= item.Velocity)
+                        {
+                            ConnectionManager.gameSocketClient.l_SendBigMessages.Enqueue("PR:" + prtObj.ToJson());
+                            return;
+                        }
+                    }
+                }
+
+                //while (dic_bulletsOnline.TryGetValue(index, out bllt))
+                //{
+
+                //}
+            }
+            catch (Exception ex)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error Preguntar(): " + ex.Message);
+                Console.ResetColor();
+            }
+        }
+
+        /*public void ShotAndProyectileProcessing()
+        {
+            try
+            {
+                int result = 0;
+                if (UpdateBullets())
+                {
+                    result++;
+                }
+
+                if (CreateBullets())
+                {
+                    result++;
+                }
+
+                if (EliminateBullets())
+                {
+                    result++;
+                }
+
+                //If the message was processed on a perfect way
+                if (result == 3)
+                {
+                    foreach (KeyValuePair<int, Message> item in Message.dic_ActiveMessages)
+                    {
+                        ConnectionManager.gameSocketClient.l_SendQueueMessages.Enqueue(item.Value.ToJson());
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error UpdateBullets(): " + ex.Message);
+                Console.ResetColor();
+            }
+        }*/
+
+        private bool UpdateBullets(List<ShotPosUpdate> l_shotPosUpdates)
+        {
+            try
+            {
+                bool result = false;
+                List<ShotPosUpdate> l_shtUpd = l_shotPosUpdates.ToList();
+                List<Trios<int, Bullet, ShotPosUpdate>> l_tempBulletOnline = new();
+                ConcurrentDictionary<int, Bullet> dictionaryFrom = new ConcurrentDictionary<int, Bullet>();
+                ConcurrentDictionary<int, Bullet> dictionaryTo = new ConcurrentDictionary<int, Bullet>(dic_bulletsOnline);
+                foreach (ShotPosUpdate shtUpd in l_shtUpd)
+                {
+                    foreach (KeyValuePair<int, Bullet> bllt in dictionaryTo)
+                    {
+                        if (shtUpd.Id == bllt.Key)
+                        {
+                            l_tempBulletOnline.Add(new Trios<int, Bullet, ShotPosUpdate>(shtUpd.Id, bllt.Value, shtUpd));
+                            //bllt.Value.Position = UtilityAssistant.ConvertVector3NumericToStride(shtUpd.Pos);
+                        }
+                    }
+                }
+                l_shotPosUpdates.Clear();
+                foreach (Trios<int, Bullet, ShotPosUpdate> item in l_tempBulletOnline)
+                {
+                    item.Item2.Position = UtilityAssistant.ConvertVector3NumericToStride(item.Item3.Pos);
+                }
+
+                dictionaryFrom = new ConcurrentDictionary<int, Bullet>(l_tempBulletOnline.ToDictionary(c => c.Item1, c => c.Item2));
+                foreach (KeyValuePair<int, Bullet> item in dictionaryFrom.ToList())
+                {
+                    dictionaryTo.AddOrUpdate(item.Key,
+                        addValueFactory: (ky) =>
+                    {
+                        ky = dic_bulletsOnline.Count();
+                        return item.Value;
+                    },
+                        updateValueFactory: (ky, oldVle) =>
+                    {
+                        oldVle = item.Value;
+                        return item.Value;
+                    });
+                }
+                dic_bulletsOnline.Clear();
+                dic_bulletsOnline = new ConcurrentDictionary<int, Bullet>(dictionaryTo);
+                /*ShotPosUpdate shtUpd = new ShotPosUpdate();
+                while (q_PendingShotPosUpdateRun.TryDequeue(out shtUpd))
+                {
+                    foreach (KeyValuePair<int, Bullet> bllt in dic_bulletsOnline)
+                    {
+                        if (shtUpd.Id == bllt.Key)
+                        {
+                            bllt.Value.Position = UtilityAssistant.ConvertVector3NumericToStride(shtUpd.Pos);
+                        }
+                    }
+                }*/
+                result = true;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error UpdateBullets(): " + ex.Message);
+                Console.ResetColor();
+                return false;
+            }
+        }
+
+        private bool CreateBullets(List<Shot> l_shots)
+        {
+            try
+            {
+                bool result = false;
+                //Shot sht = new Shot();
+                //while (q_PendingShotsCreatedRun.TryDequeue(out sht))
+                //{
+                foreach (Shot sht in l_shots)
+                {
+                    Bullet bullet = new Bullet(sht.Id, sht.LN, UtilityAssistant.ConvertVector3NumericToStride(sht.WPos), UtilityAssistant.ConvertVector3NumericToStride(sht.Mdf));
+                    List<Entity> l_ent = Controller.controller.GetPrefab("Bullet");
+                    bullet.ProyectileBody = l_ent[0];
+                    bullet.ProyectileBody.Transform.Position = bullet.InitialPosition;
+                    UtilityAssistant.RotateTo(bullet.ProyectileBody, (bullet.ProyectileBody.Transform.Position + bullet.MovementModifier));
+                    dic_bulletsOnline.TryAdd(sht.Id, bullet);
+                    //dic_bulletsOnline[intbllt].ProyectileBody.Transform.Position = dic_bulletsOnline[intbllt].InitialPosition;
+                    //UtilityAssistant.RotateTo(dic_bulletsOnline[intbllt].ProyectileBody, (dic_bulletsOnline[intbllt].ProyectileBody.Transform.Position + dic_bulletsOnline[intbllt].MovementModifier));
+                    Entity.Scene.Entities.Add(bullet.ProyectileBody);
+                }
+                result = true;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error CreateBullets(): " + ex.Message);
+                Console.ResetColor();
+                return false;
+            }
+        }
+
+        private bool EliminateBullets(List<ShotState> l_shotStates)
+        {
+            try
+            {
+                bool result = false;
+                float evaluatorX = 0;
+                float evaluatorY = 0;
+                float evaluatorZ = 0;
+                float distance = 25;
+                //ShotState sst = null;
+                //while (q_PendingShotStateToRun.TryDequeue(out sst))
+                //{
+                foreach (ShotState sst in l_shotStates)
+                {
+                    foreach (KeyValuePair<int, Bullet> bllt in dic_bulletsOnline)
+                    {
+                        if (sst.Id == bllt.Key)
+                        {
+                            if (sst.State == StateOfTheShot.Destroyed)
+                            {
+                                if (bllt.Value != null)
+                                {
+                                    Entity.Scene.Entities.Remove(bllt.Value.ProyectileBody);
+                                    dic_bulletsOnline.TryRemove(bllt);
+                                    //dic_bulletsOnline.Select(c => c.Value).ToList().RemoveAll(v => v.id == sst.Id);
+                                }
+                            }
+                        }
+
+                        evaluatorX = UtilityAssistant.DistanceComparitorByAxis(bllt.Value.InitialPosition.X, bllt.Value.ProyectileBody.Transform.Position.X);
+                        evaluatorY = UtilityAssistant.DistanceComparitorByAxis(bllt.Value.InitialPosition.Y, bllt.Value.ProyectileBody.Transform.Position.Y);
+                        evaluatorZ = UtilityAssistant.DistanceComparitorByAxis(bllt.Value.InitialPosition.Z, bllt.Value.ProyectileBody.Transform.Position.Z);
+
+                        if (evaluatorX >= distance || evaluatorY >= distance || evaluatorZ >= distance)
+                        {
+                            Entity.Scene.Entities.Remove(bllt.Value.ProyectileBody);
+                        }
+                    }
+
+                }
+                result = true;
+                return result;
+
+                /*List<Entity> l_entitys = Entity.Scene.Entities.Where(c => c.Name == "Bullet").ToList();
+                if (l_entitys.Count > dic_bulletsOnline.Count)
+                {
+                    List<Entity> l_t_entitiesToDelete = l_entitys.Where(c => dic_bulletsOnline.All(c2 => c2.ProyectileBody.Id != c.Id)).ToList();
+                    foreach (Entity item in l_t_entitiesToDelete)
+                    {
+                        foreach (Entity itm in l_entitys)
+                        {
+                            if (item.Id == itm.Id)
+                            {
+                                Entity.Scene.Entities.Remove(itm);
+                            }
+                        }
+                    }
+                }*/
+            }
+            catch (Exception ex)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error EliminateBullets(): " + ex.Message);
+                Console.ResetColor();
+                return false;
+            }
         }
 
         /*internal static void SetInstrucciones(string returned)
@@ -518,14 +777,16 @@ namespace MMO_Client.Controllers
         }
 
         //Process the answer to the online movement interactions
-        public bool ProcessMovementFromServer(string item)
+        public bool ProcessMovementFromServer(string item, Message message, out Message messageOut)
         {
             try
             {
+                messageOut = message;
                 if (!string.IsNullOrWhiteSpace(item))
                 {
                     if (item.Contains("MV"))
                     {
+                        messageOut.Status = StatusMessage.Delivered;
                         string tempString = UtilityAssistant.ExtractValues(item, "MV");
                         //itemParameter = itemParameter.Replace("MV:" + tempString, "");
                         //itemParameter = itemParameter.Trim();
@@ -536,6 +797,7 @@ namespace MMO_Client.Controllers
                             Player.PLAYER.Entity.Transform.Position = v3MvInstr;
                             //return moveInstructions;
                         }
+                        messageOut.Status = StatusMessage.Executed;
                     }
                 }
                 return true;
@@ -543,6 +805,8 @@ namespace MMO_Client.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine("Error ProcessMovementFromServer(string): " + ex.Message);
+                messageOut = new Message();
+                messageOut.Status = StatusMessage.Error;
                 return false;
             }
         }
@@ -1130,9 +1394,12 @@ namespace MMO_Client.Controllers
         }
 
         //Process the answer to the online shot interactions
-        public bool ProcessShotFromServer(string itemParameter)
+        public bool ProcessShotFromServer(Message message, out Message message1)
         {
             string[] strArray = null;
+            string itemParameter = message.Text;
+            message1 = message;
+            message1.Status = StatusMessage.Delivered;
             try
             {
                 //Console.WriteLine("moveInstructions: "+ moveInstructions)
@@ -1148,12 +1415,12 @@ namespace MMO_Client.Controllers
 
                             //Console.WriteLine("Shot: " + shot.ToJson());
 
-                            int intbllt = l_bulletsOnline.Count;
-                            l_bulletsOnline.Add(new Bullet(shot.Id, shot.LN, UtilityAssistant.ConvertVector3NumericToStride(shot.WPos), UtilityAssistant.ConvertVector3NumericToStride(shot.Mdf)));
+                            int intbllt = dic_bulletsOnline.Count;
+                            dic_bulletsOnline.Add(new Bullet(shot.Id, shot.LN, UtilityAssistant.ConvertVector3NumericToStride(shot.WPos), UtilityAssistant.ConvertVector3NumericToStride(shot.Mdf)));
                             List<Entity> l_ent = Controller.controller.GetPrefab("Bullet");
-                            l_bulletsOnline[intbllt].ProyectileBody = l_ent[0];
-                            l_bulletsOnline[intbllt].ProyectileBody.Transform.Position = l_bulletsOnline[intbllt].InitialPosition;
-                            UtilityAssistant.RotateTo(l_bulletsOnline[intbllt].ProyectileBody, (l_bulletsOnline[intbllt].ProyectileBody.Transform.Position + l_bulletsOnline[intbllt].MovementModifier));
+                            dic_bulletsOnline[intbllt].ProyectileBody = l_ent[0];
+                            dic_bulletsOnline[intbllt].ProyectileBody.Transform.Position = dic_bulletsOnline[intbllt].InitialPosition;
+                            UtilityAssistant.RotateTo(dic_bulletsOnline[intbllt].ProyectileBody, (dic_bulletsOnline[intbllt].ProyectileBody.Transform.Position + dic_bulletsOnline[intbllt].MovementModifier));
                             Entity.Scene.Entities.AddRange(l_ent);
 
                             //return shotInstructions;
@@ -1164,7 +1431,7 @@ namespace MMO_Client.Controllers
                     if (itemParameter.Contains("SM:"))
                     {
                         string tempString = UtilityAssistant.ExtractValues(itemParameter, "SM");
-
+                        //Console.WriteLine("Evaluate if it's Null or Whitespace");
                         if (!string.IsNullOrWhiteSpace(tempString))
                         {
                             if (itemParameter.Contains("SM:"))
@@ -1185,6 +1452,10 @@ namespace MMO_Client.Controllers
                                 strArray[0] = itemParameter;
                             }
 
+                            //Check if the Message was successfully processed
+                            int result = 0;
+
+                            //Console.WriteLine("foreach item strArray");
                             foreach (string item in strArray)
                             {
                                 ShotTotalState[] l_STS = ShotTotalState.CreateFromJson(tempString);
@@ -1193,64 +1464,123 @@ namespace MMO_Client.Controllers
                                 //Console.WriteLine("Shot: " + shot.ToJson());
                                 //l_bullets.Add(new Pares<List<Entity>, Bullet>(instance, new Bullet(entUse.Name, initialposition, moddif)));
 
+                                //Console.WriteLine("foreach STS l_STS");
                                 foreach (ShotTotalState STS in l_STS)
                                 {
-                                    if (STS.l_shotsCreated != null)
+                                    /*if (STS.l_shotsCreated != null)
                                     {
                                         if (STS.l_shotsCreated.Count > 0)
                                         {
-                                            foreach (Shot shot in STS.l_shotsCreated)
+                                            if (CreateBullets(STS.l_shotsCreated))
                                             {
-                                                int intbllt = l_bulletsOnline.Count;
-                                                l_bulletsOnline.Add(new Bullet(shot.Id, shot.LN, UtilityAssistant.ConvertVector3NumericToStride(shot.WPos), UtilityAssistant.ConvertVector3NumericToStride(shot.Mdf)));
-                                                List<Entity> l_ent = Controller.controller.GetPrefab("Bullet");
-                                                l_bulletsOnline[intbllt].ProyectileBody = l_ent[0];
-                                                l_bulletsOnline[intbllt].ProyectileBody.Transform.Position = l_bulletsOnline[intbllt].InitialPosition;
-                                                UtilityAssistant.RotateTo(l_bulletsOnline[intbllt].ProyectileBody, (l_bulletsOnline[intbllt].ProyectileBody.Transform.Position + l_bulletsOnline[intbllt].MovementModifier));
-                                                Entity.Scene.Entities.Add(l_bulletsOnline[intbllt].ProyectileBody);
+                                                result++;
                                             }
                                         }
-                                    }
+                                        else
+                                        {
+                                            result++;
+                                        }
+                                    }*/
 
                                     if (STS.l_shotsPosUpdates != null)
                                     {
                                         if (STS.l_shotsPosUpdates.Count > 0)
                                         {
-                                            foreach (ShotPosUpdate shtUp in STS.l_shotsPosUpdates)
+                                            if (UpdateBullets(STS.l_shotsPosUpdates))
                                             {
-                                                foreach (Bullet bllt in l_bulletsOnline)
-                                                {
-                                                    if (shtUp.Id == bllt.id)
-                                                    {
-                                                        bllt.Position = UtilityAssistant.ConvertVector3NumericToStride(shtUp.Pos);
-                                                    }
-                                                }
+                                                result++;
                                             }
+                                            /*foreach (ShotPosUpdate shtPsUpd in STS.l_shotsPosUpdates)
+                                            {
+                                                q_PendingShotPosUpdateRun.Enqueue(shtPsUpd);
+                                            }*/
+                                        }
+                                        else
+                                        {
+                                            result++;
                                         }
                                     }
 
-                                    if (STS.l_shotsStates != null)
+                                    /*if (STS.l_shotsStates != null)
                                     {
                                         if (STS.l_shotsStates.Count > 0)
                                         {
-                                            foreach (ShotState shtSt in STS.l_shotsStates)
+                                            if (EliminateBullets(STS.l_shotsStates))
                                             {
-                                                foreach (Bullet bllt in l_bulletsOnline)
-                                                {
-                                                    if (shtSt.Id == bllt.id)
-                                                    {
-                                                        if (shtSt.State == StateOfTheShot.Destroyed)
-                                                        {
-                                                            Entity.Scene.Entities.Remove(bllt.ProyectileBody);
-                                                        }
-                                                    }
-                                                }
+                                                result++;
                                             }
                                         }
-                                    }
+                                        else
+                                        {
+                                            result++;
+                                        }
+                                    }*/
+
+
                                 }
+
+                                message1.Status = StatusMessage.Executed;
+                                //if (result >= 3)
+                                //{
+                                //    message1.Status = StatusMessage.Executed;
+                                //}
+
                             }
                             //return shotInstructions;
+                        }
+                    }
+                }
+
+                if (message1.Status != StatusMessage.Executed)
+                {
+                    StateMessage stMsg = new StateMessage(message1.IdMsg, message1.Status);
+                    return false;
+                }
+                //If it is Executed
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error ProcessShotFromServer(string): " + ex.Message);
+                Console.ResetColor();
+                message1 = new Message();
+                message1.Status = StatusMessage.Error;
+                return false;
+            }
+        }
+
+        public bool CreateShot(string itemParameter, Message message, out Message messageOut)
+        {
+            try
+            {
+                messageOut = message;
+                if (!string.IsNullOrWhiteSpace(itemParameter))
+                {
+                    if (itemParameter.Contains("ST:"))
+                    {
+                        messageOut.Status = StatusMessage.Delivered;
+                        string tempString = UtilityAssistant.ExtractValues(itemParameter, "ST");
+                        //Console.WriteLine("Evaluate if it's Null or Whitespace");
+                        if (!string.IsNullOrWhiteSpace(tempString))
+                        {
+                            Shot shot = Shot.CreateFromJson(tempString);
+                            Bullet bullet = new Bullet(shot.Id, shot.LN, UtilityAssistant.ConvertVector3NumericToStride(shot.WPos), UtilityAssistant.ConvertVector3NumericToStride(shot.Mdf));
+                            List<Entity> l_ent = Controller.controller.GetPrefab("Bullet");
+                            bullet.ProyectileBody = l_ent[0];
+                            bullet.ProyectileBody.Transform.Position = bullet.InitialPosition;
+                            UtilityAssistant.RotateTo(bullet.ProyectileBody, (bullet.ProyectileBody.Transform.Position + bullet.MovementModifier));
+                            dic_bulletsOnline.TryAdd(bullet.id, bullet);
+                            //dic_bulletsOnline[intbllt].ProyectileBody.Transform.Position = dic_bulletsOnline[intbllt].InitialPosition;
+                            //UtilityAssistant.RotateTo(dic_bulletsOnline[intbllt].ProyectileBody, (dic_bulletsOnline[intbllt].ProyectileBody.Transform.Position + dic_bulletsOnline[intbllt].MovementModifier));
+                            Entity.Scene.Entities.Add(bullet.ProyectileBody);
+                        }
+                        messageOut.Status = StatusMessage.Executed;
+
+                        if (messageOut.Status != StatusMessage.Executed)
+                        {
+                            StateMessage stMsg = new StateMessage(messageOut.IdMsg, messageOut.Status);
+                            return false;
                         }
                     }
                 }
@@ -1258,8 +1588,151 @@ namespace MMO_Client.Controllers
             }
             catch (Exception ex)
             {
+                Console.BackgroundColor = ConsoleColor.Red;
                 Console.WriteLine("Error ProcessShotFromServer(string): " + ex.Message);
+                Console.ResetColor();
+                messageOut = new Message();
+                messageOut.Status = StatusMessage.Error;
                 return false;
+            }
+        }
+
+        public void DestroyShot(string itemParameter, Message message, out Message messageOut)
+        {
+            try
+            {
+                float distance = 25; //TODO: Reeplace with a value inside the proyectile Someday
+                messageOut = message;
+                if (!string.IsNullOrWhiteSpace(itemParameter))
+                {
+                    if (itemParameter.Contains("SS:"))
+                    {
+                        messageOut.Status = StatusMessage.Delivered;
+                        string tempString = UtilityAssistant.ExtractValues(itemParameter, "SS");
+                        //Console.WriteLine("Evaluate if it's Null or Whitespace");
+                        if (!string.IsNullOrWhiteSpace(tempString))
+                        {
+                            ShotState sst = ShotState.CreateFromJson(tempString);
+                            //foreach (KeyValuePair<int, Bullet> bllt in dic_bulletsOnline)
+                            Bullet bllt = null;
+                            int index = 0;
+                            do
+                            {
+                                if (bllt != null)
+                                {
+                                    if (sst.State != StateOfTheShot.JustCreated)
+                                    {
+                                        if (sst.Id == bllt.id)
+                                        {
+                                            Bullet bullet = null;
+                                            if (sst.State == StateOfTheShot.Destroyed)
+                                            {
+                                                messageOut.Status = StatusMessage.Delivered;
+                                                //KeyValuePair<int, Bullet> kvp = dic_bulletsOnline.Where(C => C.Key == index).First();
+                                                if (dic_bulletsOnline.TryRemove(index, out bullet))
+                                                {
+                                                    Entity.Scene.Entities.Remove(bllt.ProyectileBody);
+                                                }
+                                                //dic_bulletsOnline.Select(c => c.Value).ToList().RemoveAll(v => v.id == sst.Id);
+                                            }
+                                            else
+                                            {
+                                                float evaluatorX = UtilityAssistant.DistanceComparitorByAxis(bllt.InitialPosition.X, bllt.ProyectileBody.Transform.Position.X);
+                                                float evaluatorY = UtilityAssistant.DistanceComparitorByAxis(bllt.InitialPosition.Y, bllt.ProyectileBody.Transform.Position.Y);
+                                                float evaluatorZ = UtilityAssistant.DistanceComparitorByAxis(bllt.InitialPosition.Z, bllt.ProyectileBody.Transform.Position.Z);
+
+                                                if (evaluatorX >= distance || evaluatorY >= distance || evaluatorZ >= distance)
+                                                {
+                                                    //KeyValuePair<int, Bullet> kvp = dic_bulletsOnline.Where(C => C.Key == index).First();
+                                                    if (dic_bulletsOnline.TryRemove(index, out bullet))
+                                                    {
+                                                        Entity.Scene.Entities.Remove(bllt.ProyectileBody);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        messageOut.Status = StatusMessage.Executed;
+                                    }
+                                }
+
+                                if (index < dic_bulletsOnline.Count)
+                                {
+                                    index++;
+                                }
+                            }
+                            while (dic_bulletsOnline.TryGetValue(index, out bllt));
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error DestroyShot(string): " + ex.Message);
+                Console.ResetColor();
+                messageOut = new Message();
+                messageOut.Status = StatusMessage.Error;
+            }
+        }
+
+        public void ProcessShotTotalState(ShotTotalState STS)
+        {
+            try
+            {
+                /*if (STS.l_shotsCreated != null)
+                {
+                    if (STS.l_shotsCreated.Count > 0)
+                    {
+                        foreach (Shot shot in STS.l_shotsCreated)
+                        {
+                            Bullet bullet = new Bullet(shot.Id, shot.LN, UtilityAssistant.ConvertVector3NumericToStride(shot.WPos), UtilityAssistant.ConvertVector3NumericToStride(shot.Mdf));
+                            List<Entity> l_ent = Controller.controller.GetPrefab("Bullet");
+                            bullet.ProyectileBody = l_ent[0];
+                            bullet.ProyectileBody.Transform.Position = bullet.InitialPosition;
+                            UtilityAssistant.RotateTo(bullet.ProyectileBody, (bullet.ProyectileBody.Transform.Position + bullet.MovementModifier));
+                            dic_bulletsOnline.TryAdd(dic_bulletsOnline.Count, bullet);
+                            //dic_bulletsOnline[intbllt].ProyectileBody.Transform.Position = dic_bulletsOnline[intbllt].InitialPosition;
+                            //UtilityAssistant.RotateTo(dic_bulletsOnline[intbllt].ProyectileBody, (dic_bulletsOnline[intbllt].ProyectileBody.Transform.Position + dic_bulletsOnline[intbllt].MovementModifier));
+                            Entity.Scene.Entities.Add(bullet.ProyectileBody);
+                        }
+                    }
+                }*/
+
+                //Console.WriteLine("the l_shotsPosUpdates");
+                if (STS.l_shotsPosUpdates != null)
+                {
+                    if (STS.l_shotsPosUpdates.Count > 0)
+                    {
+                        foreach (ShotPosUpdate shtUp in STS.l_shotsPosUpdates)
+                        {
+                            foreach (KeyValuePair<int, Bullet> bllt in dic_bulletsOnline)
+                            {
+                                if (shtUp.Id == bllt.Key)
+                                {
+                                    bllt.Value.Position = UtilityAssistant.ConvertVector3NumericToStride(shtUp.Pos);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //Console.WriteLine("the l_shotsStates");
+                /*if (STS.l_shotsStates != null)
+                {
+                    if (STS.l_shotsStates.Count > 0)
+                    {
+                        foreach (ShotState shtSt in STS.l_shotsStates)
+                        {
+                            q_PendingShotStateToRun.Enqueue(shtSt);
+                        }
+                    }
+                }*/
+            }
+            catch (Exception ex)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error ProcessShotTotalState(string): " + ex.Message);
+                Console.ResetColor();
             }
         }
 

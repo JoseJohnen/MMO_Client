@@ -5676,59 +5676,6 @@
         "tools/net6.0-windows7.0/Stride.NuGetLoader.pdb",
         "tools/net6.0-windows7.0/Stride.NuGetLoader.runtimeconfig.json",
         "tools/net6.0-windows7.0/System.ComponentModel.Composition.dll",
-        "tools/net6.0-windows7.0/log/shader_BrightFilterShader_67f997824d23daf686c644c14b036406.hlsl",
-        "tools/net6.0-windows7.0/log/shader_ColorCombinerEffect_cb4404017adf8a7e9bdc2fec4e1103f3.hlsl",
-        "tools/net6.0-windows7.0/log/shader_ColorTransformGroupEffect_331a796f2445031fab2c277c64547cc8.hlsl",
-        "tools/net6.0-windows7.0/log/shader_FXAAShaderEffect_8895a3309d74a4983413f447bbdc72b4.hlsl",
-        "tools/net6.0-windows7.0/log/shader_FlareArtifactEffect_b597f38811a1bd124ba127ac82a9b113.hlsl",
-        "tools/net6.0-windows7.0/log/shader_FlareReplicate_7d6fcce7a7eed3f8fcc77fbd9d779bb5.hlsl",
-        "tools/net6.0-windows7.0/log/shader_GaussianBlurEffect_02da5964b0a07f6d76d23edce64736a3.hlsl",
-        "tools/net6.0-windows7.0/log/shader_GaussianBlurEffect_9859a8c2614c6cf4157cad9329258ac2.hlsl",
-        "tools/net6.0-windows7.0/log/shader_GaussianBlurEffect_9b8d20ab178589a6e5cd1f841b729979.hlsl",
-        "tools/net6.0-windows7.0/log/shader_GaussianBlurEffect_b89c3ff45a9165289051541876f49113.hlsl",
-        "tools/net6.0-windows7.0/log/shader_ImageScalerEffect_4ae2e6009b4862e6c265da5ab943ac9c.hlsl",
-        "tools/net6.0-windows7.0/log/shader_ImageSuperSamplerScalerEffect_8f26d6bf91f9e2daf0fb8a4ceebc2e8c.hlsl",
-        "tools/net6.0-windows7.0/log/shader_LambertianPrefilteringSHNoComputeEffectPass1_1c3923f7922ed8adac4b74952b5215b4.hlsl",
-        "tools/net6.0-windows7.0/log/shader_LambertianPrefilteringSHNoComputePass2_4260941ce61eb073584036c7c3703eb2.hlsl",
-        "tools/net6.0-windows7.0/log/shader_LightStreakEffect_ca508ed7f5d4f50d4989df730ae3da6f.hlsl",
-        "tools/net6.0-windows7.0/log/shader_LuminanceLogShader_48b105e392afcefcf74801d3871250b2.hlsl",
-        "tools/net6.0-windows7.0/log/shader_ParticleEffect_bcfe83afc1e4465892aeaf6e1d27340f.hlsl",
-        "tools/net6.0-windows7.0/log/shader_ParticleEffect_fdb4cae3bcc9dffdaaaa71873c4388fc.hlsl",
-        "tools/net6.0-windows7.0/log/shader_RadiancePrefilteringGGXNoComputeEffect_8275c76d611a2814d43b83fae801b030.hlsl",
-        "tools/net6.0-windows7.0/log/shader_RangeCompressorShader_179cd7962c5388d1a66f96e04e24d0d0.hlsl",
-        "tools/net6.0-windows7.0/log/shader_RangeDecompressorShader_2bcddff355e45721015bcd6bc9565046.hlsl",
-        "tools/net6.0-windows7.0/log/shader_SkyboxShaderCubemap_a094ace51184f434136b7b9dc8b79e55.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_18e29892543b9a1a7bdcbe289ae782b0.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_44099be6241b91550793b7fa6e201527.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_67ed1b71334f40c5a92b2eb185b440cd.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_6dd3a392c69f73d7f984e3b8707c42ea.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_8e5a90edb8b20ee5957483d0785bd45c.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_8e86d65fc47d301453aac58fd23d0899.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_ShadowMapCaster_073c7a4ff60ff1e167325c5133dabcb5.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_ShadowMapCaster_09f5516d57c132df08fcde4d72630b40.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_ShadowMapCaster_1336821f8300dd4f8acea4100684a49b.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_ShadowMapCaster_148b35b572b511c1e27d548e043d4bcd.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_ShadowMapCaster_1b07c062329ae6a2729b62403f7c9cc2.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_ShadowMapCaster_2e3f61fdfb9fd940509898f6fc357df6.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_ShadowMapCaster_33b72b0cb25ecd3df95d98f73946d63b.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_ShadowMapCaster_420c5e4a3fd62918be04225b3ce7845b.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_ShadowMapCaster_4d59a95e70189fbe0066c36b3ed906d0.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_ShadowMapCaster_556617e169108fd5a264ed2abfd32e52.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_ShadowMapCaster_5af4f43491a1e405ec28a0005434bb47.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_ShadowMapCaster_5b1d2d2eb3ec7b372b1228f33f930830.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_ShadowMapCaster_5e1eea856a2145d1d781dd354d6a9d1b.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_ShadowMapCaster_6b5bb9ff7c77b83247be7e2ab13fc6ce.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_ShadowMapCaster_9329b8490798789b10623bb6a9ac51fb.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_ShadowMapCaster_9b98350639ecc722f5eaa06d4ca26e11.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_ShadowMapCaster_a029d4d2addcf1249cef332d323fdafa.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_ShadowMapCaster_b3398060ba952bd7c1bf00551bd2161e.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_ShadowMapCaster_d7de7801d9a308e5e246ce0ed839df0a.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_ShadowMapCaster_f043843517711e5dad685290c8757f24.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_cdb57875f564305c50069c5c64668dbc.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_d90bd481a7170438e32571ce0179f6a5.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_da9397d3d4fddad766ed85d8cc770efc.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_ea4a6e702ffc33863ad95a69c177ba26.hlsl",
-        "tools/net6.0-windows7.0/log/shader_StrideForwardShadingEffect_f1b38e3cb84844ff8134b2c04ddb6cdf.hlsl",
         "tools/netstandard2.0/Stride.MSBuild.Tasks.deps.json",
         "tools/netstandard2.0/Stride.MSBuild.Tasks.dll",
         "tools/netstandard2.0/Stride.MSBuild.Tasks.dll.hash",
@@ -11694,7 +11641,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jjohn\\.nuget\\packages\\": {},
+    "C:\\Users\\Jose Johnen\\.nuget\\packages\\": {},
     "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
@@ -11703,7 +11650,7 @@
       "projectUniqueName": "E:\\Cod_Pers\\Stride\\MMO_Client\\MMO_Client\\MMO_Client.csproj",
       "projectName": "MMO_Client",
       "projectPath": "E:\\Cod_Pers\\Stride\\MMO_Client\\MMO_Client\\MMO_Client.csproj",
-      "packagesPath": "C:\\Users\\jjohn\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\Jose Johnen\\.nuget\\packages\\",
       "outputPath": "E:\\Cod_Pers\\Stride\\MMO_Client\\MMO_Client\\obj\\",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
@@ -11711,15 +11658,13 @@
         "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\jjohn\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "D:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "D:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Jose Johnen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "D:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config"
       ],
       "originalTargetFrameworks": [
         "net6.0-windows"
       ],
       "sources": {
-        "D:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "D:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
@@ -11793,7 +11738,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "D:\\Program Files\\dotnet\\sdk\\6.0.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "D:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }

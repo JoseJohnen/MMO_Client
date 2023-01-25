@@ -1,0 +1,22 @@
+!PrefabAsset
+Id: b4589130-5409-48d3-8321-a33773c53703
+SerializedVersion: {Stride: 3.1.0.1}
+Tags: []
+Hierarchy:
+    RootParts:
+        - ref!! 23d54eda-aa4c-44cf-84f8-d801edc74638
+    Parts:
+        -   Entity:
+                Id: 23d54eda-aa4c-44cf-84f8-d801edc74638
+                Name: Bullet
+                Components:
+                    7b2254bb081f8e0ce168b916ce197d1b: !TransformComponent
+                        Id: 377aafa3-1052-4b01-a697-6c019726f063
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 0.025, Y: 0.025, Z: 0.025}
+                        Children: {}
+                    ba169ed6da667e2fd2e93f4820d76456: !ModelComponent
+                        Id: 798ffb00-b00c-4dc2-979c-944313ada0b7
+                        Model: 7831ed4a-7449-4b5c-8665-9033c56b990a:Models/AIM120D
+                        Materials: {}

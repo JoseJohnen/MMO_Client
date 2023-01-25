@@ -11,6 +11,7 @@ using Stride.Core.IO;
 using Stride.Rendering;
 using Interfaz.Models;
 using System.Threading.Tasks;
+using Interfaz.Utilities;
 
 namespace MMO_Client.Code.Controllers
 {
@@ -175,7 +176,10 @@ namespace MMO_Client.Code.Controllers
 
                 if (ConnectionManager.Queue_Instrucciones.Count > 0)
                 {
-                    dataContinous = Task.Run(() => ActualizarConDataDelServer()).Status;
+                    dataContinous = Task.Run(() =>
+                    {
+                        ActualizarConDataDelServer();
+                    }).Status;
                 }
                 //else
                 //{
@@ -196,17 +200,41 @@ namespace MMO_Client.Code.Controllers
             try
             {
                 string item = string.Empty;
-
                 while (ConnectionManager.Queue_Instrucciones.TryDequeue(out item))
                 {
-                    string typeOf = item.Substring(0, 2);
+                    //uint index = 0;
+                    //bool indexWasSuccessfull = false;
+                    item = UtilityAssistant.ExtractValues(item, "MS");
+                    Message nwMsg = Message.CreateFromJson(item);
+                    //do
+                    //{
+                    //    index = (uint)Message.dic_ActiveMessages.Count;
+                    //    indexWasSuccessfull = Message.dic_ActiveMessages.TryAdd(index, nwMsg);
+                    //}
+                    //while (indexWasSuccessfull == false);
+                    //bool resultOfSearchDic = Message.dic_ActiveMessages.TryGetValue(index, out nwMsg);
+                    //if (resultOfSearchDic == false)
+                    //{
+                    //    return false;
+                    //}
+                    if (string.IsNullOrWhiteSpace(nwMsg.Text))
+                    {
+                        return false;
+                    }
+
+                    string typeOf = nwMsg.Text.Substring(0, 2);
                     switch (typeOf)
                     {
-                        case "MV":
+                        case "LO":
+                            Console.WriteLine("LOGIN_TRUE: FOR NOW: TODO!!!");
                             //playerController.ProcessMovementFromServer(item);
                             break;
                         case "SM":
-                            playerController.ProcessShotFromServer(item);
+                            /*if(playerController.ProcessShotFromServer(nwMsg, out nwMsg))
+                            {
+                                StateMessage stMsg = new StateMessage(nwMsg.IdMsg, nwMsg.Status);
+                                ConnectionManager.gameSocketClient.l_SendQueueMessages.Enqueue(new Message("SM:" + stMsg.ToJson()).ToJson());
+                            }*/
                             break;
                         default:
                             break;
@@ -231,17 +259,51 @@ namespace MMO_Client.Code.Controllers
             try
             {
                 string item = string.Empty;
-
                 while (ConnectionManager.Queue_Answers.TryDequeue(out item))
                 {
-                    string typeOf = item.Substring(0, 2);
+                    //uint index = 0;
+                    //bool indexWasSuccessfull = false;
+                    string tempString = UtilityAssistant.ExtractValues(item, "MS");
+                    Message nwMsg = Message.CreateFromJson(tempString);
+                    //do
+                    //{
+                    //    index = (uint)Message.dic_ActiveMessages.Count;
+                    //    indexWasSuccessfull = Message.dic_ActiveMessages.TryAdd(index, nwMsg);
+                    //}
+                    //while (indexWasSuccessfull == false);
+                    //bool resultOfSearchDic = Message.dic_ActiveMessages.TryGetValue(index, out nwMsg);
+                    //if (resultOfSearchDic == false)
+                    //{
+                    //    return false;
+                    //}
+                    if (string.IsNullOrWhiteSpace(nwMsg.Text))
+                    {
+                        return false;
+                    }
+
+                    string typeOf = nwMsg.Text.Substring(0, 2);
                     switch (typeOf)
                     {
                         case "MV":
-                            playerController.ProcessMovementFromServer(item);
+                            playerController.ProcessMovementFromServer(nwMsg.Text, nwMsg, out nwMsg);
                             break;
                         case "ST":
-                            //playerController.ProcessShotFromServer(item);
+                            /*if (playerController.CreateShot(nwMsg.Text, nwMsg, out nwMsg))
+                            {
+                                StateMessage stMsg1 = new StateMessage(nwMsg.IdMsg, nwMsg.Status);
+                                ConnectionManager.gameSocketClient.l_SendQueueMessages.Enqueue("MS:" + stMsg1.ToJson());
+                            }*/
+                            break;
+                        case "SS":
+                            //playerController.DestroyShot(nwMsg.Text, nwMsg, out nwMsg);
+                            //StateMessage stMsg2 = new StateMessage(nwMsg.IdMsg, nwMsg.Status);
+                            //ConnectionManager.gameSocketClient.l_SendQueueMessages.Enqueue("MS:" + stMsg2.ToJson());
+                            break;
+                        case "PY":
+                            if(typeOf.Equals("PYST"))
+                            {
+                                Console.WriteLine("PYST Received!!: "+ nwMsg.Text);
+                            }
                             break;
                         default:
                             break;
