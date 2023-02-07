@@ -17,6 +17,10 @@ using Quaternion = Stride.Core.Mathematics.Quaternion;
 using Interfaz.Models;
 using Stride.Core;
 using System.Collections.Concurrent;
+using System.Windows.Interop;
+using Interfaz.Utilities;
+using UtilityAssistant = MMO_Client.Code.Assistants.UtilityAssistant;
+using SerializedVector3 = MMO_Client.Code.Models.SerializedVector3;
 
 namespace MMO_Client.Controllers
 {
@@ -139,14 +143,11 @@ namespace MMO_Client.Controllers
                 //TODO: ¿Cuál es el criterio para enviar las preguntas?
                 //- Tiempo de las balas
                 //- Que no hayan balas, y si es así, cada medio segundo
-                prtObj.l_id_bullets_preguntando.Add(1);
-                prtObj.l_id_bullets_preguntando.Add(2);
-                prtObj.l_id_bullets_preguntando.Add(3);
                 if (dic_bulletsOnline.Count <= 0)
                 {
-                    if (DateTime.Now - lastFrame > new TimeSpan(0,0,0,0,50))
+                    if (DateTime.Now - lastFrame > new TimeSpan(0, 0, 0, 0, 50))
                     {
-                        ConnectionManager.gameSocketClient.l_SendBigMessages.Enqueue("PR:"+prtObj.ToJson());
+                        ConnectionManager.gameSocketClient.l_SendBigMessages.Enqueue("PR:" + prtObj.ToJson());
                         lastFrame = DateTime.Now;
                     }
                 }
@@ -155,7 +156,7 @@ namespace MMO_Client.Controllers
                     prtObj.l_id_bullets_preguntando.AddRange(dic_bulletsOnline.Keys.ToList());
                     foreach (Bullet item in dic_bulletsOnline.Values)
                     {
-                        if(DateTime.Now - item.LastUpdate >= item.Velocity)
+                        if (DateTime.Now - item.LastUpdate >= item.Velocity)
                         {
                             ConnectionManager.gameSocketClient.l_SendBigMessages.Enqueue("PR:" + prtObj.ToJson());
                             return;
@@ -176,6 +177,7 @@ namespace MMO_Client.Controllers
             }
         }
 
+        #region UpCrElBullets
         /*public void ShotAndProyectileProcessing()
         {
             try
@@ -384,6 +386,7 @@ namespace MMO_Client.Controllers
         {
             instrucciones = returned;
         }*/
+        #endregion
         #endregion
 
         #region Animaciones
@@ -670,9 +673,9 @@ namespace MMO_Client.Controllers
                         l_entitysCharacters[position].RShoulder = item;
                         continue;
                     }
-                    /*if (itemParameter.Name == "Sprite")
+                    /*if (itemParam.Name == "Sprite")
                     {
-                        l_entitysCharacters[position].Sprite = itemParameter;
+                        l_entitysCharacters[position].Sprite = itemParam;
                         continue;
                     }*/
                 }
@@ -695,6 +698,9 @@ namespace MMO_Client.Controllers
         {
             try
             {
+                DebugText.Print("Posicion (TranslationVector) thingy1: " + Controller.controller.thingy1.Transform.WorldMatrix.TranslationVector, new Int2(200, 130));
+                DebugText.Print("Posicion (TranslationVector) thingy2: " + Controller.controller.thingy2.Transform.WorldMatrix.TranslationVector, new Int2(200, 150));
+                DebugText.Print("Difference: " + (Controller.controller.thingy1.Transform.WorldMatrix.TranslationVector - Controller.controller.thingy2.Transform.WorldMatrix.TranslationVector), new Int2(200, 170));
                 // We display the entity's name and its local and world position on screen
                 DebugText.Print("Posicion (TranslationVector) Player: " + Player.PLAYER.Entity.Transform.WorldMatrix.TranslationVector, new Int2(200, 430));
                 DebugText.Print("Posicion (Local) Player: " + Player.PLAYER.Entity.Transform.Position, new Int2(200, 450));
@@ -788,8 +794,8 @@ namespace MMO_Client.Controllers
                     {
                         messageOut.Status = StatusMessage.Delivered;
                         string tempString = UtilityAssistant.ExtractValues(item, "MV");
-                        //itemParameter = itemParameter.Replace("MV:" + tempString, "");
-                        //itemParameter = itemParameter.Trim();
+                        //itemParam = itemParam.Replace("MV:" + tempString, "");
+                        //itemParam = itemParam.Trim();
                         //Console.WriteLine("Mov Extraído: " + tempString);
                         if (!string.IsNullOrWhiteSpace(tempString))
                         {
@@ -812,7 +818,7 @@ namespace MMO_Client.Controllers
         }
 
         //Solve Movement of player only (Offline)
-        public void MovementSinglePlayer(UtilityAssistant.Axis AxistToIgnore = UtilityAssistant.Axis.Y)
+        public void MovementSinglePlayer(Code.Assistants.UtilityAssistant.Axis AxistToIgnore = Code.Assistants.UtilityAssistant.Axis.Y)
         {
             try
             {
@@ -1393,163 +1399,92 @@ namespace MMO_Client.Controllers
             }
         }
 
-        //Process the answer to the online shot interactions
-        public bool ProcessShotFromServer(Message message, out Message message1)
+        public bool ProcesarConversarObj(string text, Message nwMsg, out Message messageOut)
         {
-            string[] strArray = null;
-            string itemParameter = message.Text;
-            message1 = message;
-            message1.Status = StatusMessage.Delivered;
+            messageOut = nwMsg;
             try
             {
-                //Console.WriteLine("moveInstructions: "+ moveInstructions)
-                if (!string.IsNullOrWhiteSpace(itemParameter))
+                if (!string.IsNullOrWhiteSpace(text))
                 {
-                    //Individual Answer Shots
-                    /*if (itemParameter.Contains("ST:"))
+                    messageOut.Status = StatusMessage.Delivered;
+                    string tempString = Interfaz.Utilities.UtilityAssistant.ExtractValues(text, "CO");
+                    tempString = Interfaz.Utilities.UtilityAssistant.CleanJSON(tempString);
+                    string strTemp = string.Empty;
+                    if (!string.IsNullOrWhiteSpace(tempString))
                     {
-                        string tempString = UtilityAssistant.ExtractValues(itemParameter, "ST");
-                        if (!string.IsNullOrWhiteSpace(tempString))
+                        if (string.IsNullOrWhiteSpace(tempString))
                         {
-                            Shot shot = Shot.CreateFromJson(tempString);
-
-                            //Console.WriteLine("Shot: " + shot.ToJson());
-
-                            int intbllt = dic_bulletsOnline.Count;
-                            dic_bulletsOnline.Add(new Bullet(shot.Id, shot.LN, UtilityAssistant.ConvertVector3NumericToStride(shot.WPos), UtilityAssistant.ConvertVector3NumericToStride(shot.Mdf)));
-                            List<Entity> l_ent = Controller.controller.GetPrefab("Bullet");
-                            dic_bulletsOnline[intbllt].ProyectileBody = l_ent[0];
-                            dic_bulletsOnline[intbllt].ProyectileBody.Transform.Position = dic_bulletsOnline[intbllt].InitialPosition;
-                            UtilityAssistant.RotateTo(dic_bulletsOnline[intbllt].ProyectileBody, (dic_bulletsOnline[intbllt].ProyectileBody.Transform.Position + dic_bulletsOnline[intbllt].MovementModifier));
-                            Entity.Scene.Entities.AddRange(l_ent);
-
-                            //return shotInstructions;
+                            return false;
                         }
-                    }*/
 
-                    //World Update Shots and those shot by others
-                    if (itemParameter.Contains("SM:"))
-                    {
-                        string tempString = UtilityAssistant.ExtractValues(itemParameter, "SM");
-                        //Console.WriteLine("Evaluate if it's Null or Whitespace");
-                        if (!string.IsNullOrWhiteSpace(tempString))
+                        ConversacionObj convObj = ConversacionObj.CreateFromJson(tempString);
+                        foreach (Shot btc in convObj.L_Bullets_to_create)
                         {
-                            if (itemParameter.Contains("SM:"))
-                            {
-                                strArray = itemParameter.Split("SM:", StringSplitOptions.RemoveEmptyEntries);
-                                Console.WriteLine("------------SM Duplication Detected!!!!: Lenght: " + strArray.Length + " ------------");
-                                for (int i = 0; i < strArray.Length; i++)
-                                {
-                                    Console.WriteLine(" strArray[" + i + "]: " + strArray[i]);
-                                }
-                                Console.WriteLine("------------JSON BASE------------");
-                                Console.WriteLine(itemParameter);
-                                Console.WriteLine("------------Fin tratamiento de Duplicación SM------------");
-                            }
-                            else
-                            {
-                                strArray = new string[1];
-                                strArray[0] = itemParameter;
-                            }
-
-                            //Check if the Message was successfully processed
-                            int result = 0;
-
-                            //Console.WriteLine("foreach item strArray");
-                            foreach (string item in strArray)
-                            {
-                                ShotTotalState[] l_STS = ShotTotalState.CreateFromJson(tempString);
-
-                                //Shot shot = Interfaz.Models.Shot.CreateFromJson(tempString);
-                                //Console.WriteLine("Shot: " + shot.ToJson());
-                                //l_bullets.Add(new Pares<List<Entity>, Bullet>(instance, new Bullet(entUse.Name, initialposition, moddif)));
-
-                                //Console.WriteLine("foreach STS l_STS");
-                                foreach (ShotTotalState STS in l_STS)
-                                {
-                                    /*if (STS.l_shotsCreated != null)
-                                    {
-                                        if (STS.l_shotsCreated.Count > 0)
-                                        {
-                                            if (CreateBullets(STS.l_shotsCreated))
-                                            {
-                                                result++;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            result++;
-                                        }
-                                    }*/
-
-                                    if (STS.l_shotsPosUpdates != null)
-                                    {
-                                        if (STS.l_shotsPosUpdates.Count > 0)
-                                        {
-                                            if (UpdateBullets(STS.l_shotsPosUpdates))
-                                            {
-                                                result++;
-                                            }
-                                            /*foreach (ShotPosUpdate shtPsUpd in STS.l_shotsPosUpdates)
-                                            {
-                                                q_PendingShotPosUpdateRun.Enqueue(shtPsUpd);
-                                            }*/
-                                        }
-                                        else
-                                        {
-                                            result++;
-                                        }
-                                    }
-
-                                    /*if (STS.l_shotsStates != null)
-                                    {
-                                        if (STS.l_shotsStates.Count > 0)
-                                        {
-                                            if (EliminateBullets(STS.l_shotsStates))
-                                            {
-                                                result++;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            result++;
-                                        }
-                                    }*/
-
-
-                                }
-
-                                message1.Status = StatusMessage.Executed;
-                                //if (result >= 3)
-                                //{
-                                //    message1.Status = StatusMessage.Executed;
-                                //}
-
-                            }
-                            //return shotInstructions;
+                            CreateBullet(btc, messageOut, out messageOut);
                         }
+
+                        foreach (ShotPosUpdate btc in convObj.L_Bullets_to_update)
+                        {
+                            UpdateShot(btc, messageOut, out messageOut);
+                        }
+
+                        foreach (ShotState btc in convObj.L_Bullets_to_change_state)
+                        {
+                            DestroyShot(btc, messageOut, out messageOut);
+                        }
+
                     }
                 }
 
-                if (message1.Status != StatusMessage.Executed)
-                {
-                    StateMessage stMsg = new StateMessage(message1.IdMsg, message1.Status);
-                    return false;
-                }
-                //If it is Executed
                 return true;
             }
             catch (Exception ex)
             {
                 Console.BackgroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error ProcessShotFromServer(string): " + ex.Message);
+                Console.WriteLine("Error ProcesarConversarObj(string, Message, out Message): " + ex.Message);
                 Console.ResetColor();
-                message1 = new Message();
-                message1.Status = StatusMessage.Error;
+                messageOut = new Message();
+                messageOut.Status = StatusMessage.Error;
                 return false;
             }
         }
 
+        #region
+        public bool CreateBullet(Shot shot, Message message, out Message messageOut)
+        {
+            try
+            {
+                messageOut = message;
+                if (shot.Equals(default(Shot)))
+                {
+                    return false;
+                }
+
+
+                Bullet bullet = new Bullet(shot.Id, shot.LN, UtilityAssistant.ConvertVector3NumericToStride(shot.WPos), UtilityAssistant.ConvertVector3NumericToStride(shot.Mdf));
+                List<Entity> l_ent = Controller.controller.GetPrefab("Bullet");
+                bullet.ProyectileBody = l_ent[0];
+                bullet.ProyectileBody.Transform.Position = bullet.InitialPosition;
+                UtilityAssistant.RotateTo(bullet.ProyectileBody, (bullet.ProyectileBody.Transform.Position + bullet.MovementModifier));
+                dic_bulletsOnline.TryAdd(bullet.id, bullet);
+                //dic_bulletsOnline[intbllt].ProyectileBody.Transform.Position = dic_bulletsOnline[intbllt].InitialPosition;
+                //UtilityAssistant.RotateTo(dic_bulletsOnline[intbllt].ProyectileBody, (dic_bulletsOnline[intbllt].ProyectileBody.Transform.Position + dic_bulletsOnline[intbllt].MovementModifier));
+                Entity.Scene.Entities.Add(bullet.ProyectileBody);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error CreateBullet(string): " + ex.Message);
+                Console.ResetColor();
+                messageOut = new Message();
+                messageOut.Status = StatusMessage.Error;
+                return false;
+            }
+        }
+        #endregion
+
+        #region Create Update y Destroy Shot Methods
         public bool CreateShot(string itemParameter, Message message, out Message messageOut)
         {
             try
@@ -1589,7 +1524,7 @@ namespace MMO_Client.Controllers
             catch (Exception ex)
             {
                 Console.BackgroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error ProcessShotFromServer(string): " + ex.Message);
+                Console.WriteLine("Error CreateShot(string): " + ex.Message);
                 Console.ResetColor();
                 messageOut = new Message();
                 messageOut.Status = StatusMessage.Error;
@@ -1597,73 +1532,109 @@ namespace MMO_Client.Controllers
             }
         }
 
-        public void DestroyShot(string itemParameter, Message message, out Message messageOut)
+        //Process the answer to the online shot interactions (Ex ProcessShotFromServer)
+        public bool UpdateShot(ShotPosUpdate itemParameter, Message message, out Message message1)
+        {
+            string[] strArray = null;
+            message1 = message;
+            message1.Status = StatusMessage.Delivered;
+            try
+            {
+                if (itemParameter.Id == 0 && itemParameter.Pos == System.Numerics.Vector3.Zero)
+                {
+                    return false;
+                }
+
+                Bullet bllt = null;
+                Bullet blltNew = null;
+
+                dic_bulletsOnline.TryGetValue(itemParameter.Id, out bllt);
+                if (bllt != null)
+                {
+                    blltNew = bllt;
+                    blltNew.Position = UtilityAssistant.ConvertVector3NumericToStride(itemParameter.Pos);
+                    if (dic_bulletsOnline.TryUpdate(itemParameter.Id, blltNew, bllt))
+                    {
+                        Console.WriteLine("\n\nUpdate of ShotPosUpdate Successfull!");
+                    }
+                }
+
+                message1.Status = StatusMessage.Executed;
+                if (message1.Status != StatusMessage.Executed)
+                {
+                    StateMessage stMsg = new StateMessage(message1.IdMsg, message1.Status);
+                    return false;
+                }
+                //If it is Executed
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error UpdateShot(string): " + ex.Message);
+                Console.ResetColor();
+                message1 = new Message();
+                message1.Status = StatusMessage.Error;
+                return false;
+            }
+        }
+
+        public void DestroyShot(ShotState sst, Message message, out Message messageOut)
         {
             try
             {
                 float distance = 25; //TODO: Reeplace with a value inside the proyectile Someday
                 messageOut = message;
-                if (!string.IsNullOrWhiteSpace(itemParameter))
-                {
-                    if (itemParameter.Contains("SS:"))
-                    {
-                        messageOut.Status = StatusMessage.Delivered;
-                        string tempString = UtilityAssistant.ExtractValues(itemParameter, "SS");
-                        //Console.WriteLine("Evaluate if it's Null or Whitespace");
-                        if (!string.IsNullOrWhiteSpace(tempString))
-                        {
-                            ShotState sst = ShotState.CreateFromJson(tempString);
-                            //foreach (KeyValuePair<int, Bullet> bllt in dic_bulletsOnline)
-                            Bullet bllt = null;
-                            int index = 0;
-                            do
-                            {
-                                if (bllt != null)
-                                {
-                                    if (sst.State != StateOfTheShot.JustCreated)
-                                    {
-                                        if (sst.Id == bllt.id)
-                                        {
-                                            Bullet bullet = null;
-                                            if (sst.State == StateOfTheShot.Destroyed)
-                                            {
-                                                messageOut.Status = StatusMessage.Delivered;
-                                                //KeyValuePair<int, Bullet> kvp = dic_bulletsOnline.Where(C => C.Key == index).First();
-                                                if (dic_bulletsOnline.TryRemove(index, out bullet))
-                                                {
-                                                    Entity.Scene.Entities.Remove(bllt.ProyectileBody);
-                                                }
-                                                //dic_bulletsOnline.Select(c => c.Value).ToList().RemoveAll(v => v.id == sst.Id);
-                                            }
-                                            else
-                                            {
-                                                float evaluatorX = UtilityAssistant.DistanceComparitorByAxis(bllt.InitialPosition.X, bllt.ProyectileBody.Transform.Position.X);
-                                                float evaluatorY = UtilityAssistant.DistanceComparitorByAxis(bllt.InitialPosition.Y, bllt.ProyectileBody.Transform.Position.Y);
-                                                float evaluatorZ = UtilityAssistant.DistanceComparitorByAxis(bllt.InitialPosition.Z, bllt.ProyectileBody.Transform.Position.Z);
 
-                                                if (evaluatorX >= distance || evaluatorY >= distance || evaluatorZ >= distance)
-                                                {
-                                                    //KeyValuePair<int, Bullet> kvp = dic_bulletsOnline.Where(C => C.Key == index).First();
-                                                    if (dic_bulletsOnline.TryRemove(index, out bullet))
-                                                    {
-                                                        Entity.Scene.Entities.Remove(bllt.ProyectileBody);
-                                                    }
-                                                }
-                                            }
+                messageOut.Status = StatusMessage.Delivered;
+                //foreach (KeyValuePair<int, Bullet> bllt in dic_bulletsOnline)
+                Bullet bllt = null;
+                int index = 0;
+                do
+                {
+                    if (bllt != null)
+                    {
+                        if (sst.State != StateOfTheShot.JustCreated)
+                        {
+                            if (sst.Id == bllt.id)
+                            {
+                                Bullet bullet = null;
+                                if (sst.State == StateOfTheShot.Destroyed)
+                                {
+                                    messageOut.Status = StatusMessage.Delivered;
+                                    //KeyValuePair<int, Bullet> kvp = dic_bulletsOnline.Where(C => C.Key == index).First();
+                                    if (dic_bulletsOnline.TryRemove(index, out bullet))
+                                    {
+                                        Entity.Scene.Entities.Remove(bllt.ProyectileBody);
+                                    }
+                                    //dic_bulletsOnline.Select(c => c.Value).ToList().RemoveAll(v => v.id == sst.Id);
+                                }
+                                else
+                                {
+                                    float evaluatorX = UtilityAssistant.DistanceComparitorByAxis(bllt.InitialPosition.X, bllt.ProyectileBody.Transform.Position.X);
+                                    float evaluatorY = UtilityAssistant.DistanceComparitorByAxis(bllt.InitialPosition.Y, bllt.ProyectileBody.Transform.Position.Y);
+                                    float evaluatorZ = UtilityAssistant.DistanceComparitorByAxis(bllt.InitialPosition.Z, bllt.ProyectileBody.Transform.Position.Z);
+
+                                    if (evaluatorX >= distance || evaluatorY >= distance || evaluatorZ >= distance)
+                                    {
+                                        //KeyValuePair<int, Bullet> kvp = dic_bulletsOnline.Where(C => C.Key == index).First();
+                                        if (dic_bulletsOnline.TryRemove(index, out bullet))
+                                        {
+                                            Entity.Scene.Entities.Remove(bllt.ProyectileBody);
                                         }
-                                        messageOut.Status = StatusMessage.Executed;
                                     }
                                 }
-
-                                if (index < dic_bulletsOnline.Count)
-                                {
-                                    index++;
-                                }
                             }
-                            while (dic_bulletsOnline.TryGetValue(index, out bllt));
+                            messageOut.Status = StatusMessage.Executed;
                         }
                     }
+
+                    if (index < dic_bulletsOnline.Count)
+                    {
+                        index++;
+                    }
                 }
+                while (dic_bulletsOnline.TryGetValue(index, out bllt));
             }
             catch (Exception ex)
             {
@@ -1674,7 +1645,9 @@ namespace MMO_Client.Controllers
                 messageOut.Status = StatusMessage.Error;
             }
         }
+        #endregion
 
+        #region Varios Shots no usados
         public void ProcessShotTotalState(ShotTotalState STS)
         {
             try
@@ -1996,7 +1969,7 @@ namespace MMO_Client.Controllers
                         return;
                     }
 
-                    //Not needed for now, because return on the main function without a '2' already cause to jump to the next itemParameter
+                    //Not needed for now, because return on the main function without a '2' already cause to jump to the next itemParam
                     //i leave it here however as a reminder, if for some reason in the future i needed to make explicit the continue thing
                     //if(result == 2)
                     //{
@@ -2056,6 +2029,7 @@ namespace MMO_Client.Controllers
             }
         }
         #endregion
+        #endregion
 
         #region Camera Specific Functions
         //Allow to change the next camera in the CameraList
@@ -2085,26 +2059,26 @@ namespace MMO_Client.Controllers
             try
             {
                 ppt.PrefabSkeleton = Content.Load<Prefab>("Prefabs/" + ppt.GetType().Name.ToString());
-                foreach (Entity itemParameter in ppt.Entity.GetChildren())
+                foreach (Entity itemParam in ppt.Entity.GetChildren())
                 {
-                    if (itemParameter.Name == "Camera")
+                    if (itemParam.Name == "Camera")
                     {
-                        Camera = itemParameter;
+                        Camera = itemParam;
                         continue;
                     }
-                    if (itemParameter.Name == "weapon")
+                    if (itemParam.Name == "weapon")
                     {
-                        weapon = itemParameter;
+                        weapon = itemParam;
                         continue;
                     }
-                    if (itemParameter.Name == "L-Shoulder")
+                    if (itemParam.Name == "L-Shoulder")
                     {
-                        LeftShoulder = itemParameter;
+                        LeftShoulder = itemParam;
                         continue;
                     }
-                    if (itemParameter.Name == "R-Shoulder")
+                    if (itemParam.Name == "R-Shoulder")
                     {
-                        RightShoulder = itemParameter;
+                        RightShoulder = itemParam;
                         continue;
                     }
                 }

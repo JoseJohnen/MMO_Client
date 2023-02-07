@@ -12,6 +12,9 @@ using Stride.Rendering;
 using Interfaz.Models;
 using System.Threading.Tasks;
 using Interfaz.Utilities;
+using MMO_Client.Code.Models;
+using Stride.Core.Mathematics;
+using System.Text.RegularExpressions;
 
 namespace MMO_Client.Code.Controllers
 {
@@ -100,6 +103,9 @@ namespace MMO_Client.Code.Controllers
 
         //private Dictionary<string, Sound> DicMusic = new Dictionary<string, Sound>();
         //private Dictionary<string, Sound> DicEffect = new Dictionary<string, Sound>();
+
+        public Entity thingy1;
+        public Entity thingy2;
         public override void Start()
         {
             //Preparing to work itself
@@ -204,8 +210,66 @@ namespace MMO_Client.Code.Controllers
                 {
                     //uint index = 0;
                     //bool indexWasSuccessfull = false;
+                    if (Regex.Matches(item, "MS:").Count > 1)
+                    {
+                        string[] tempStrArray = item.Split("MS:");
+                        foreach (string tmpString in tempStrArray)
+                        {
+                            ConnectionManager.Queue_Instrucciones.Enqueue(tmpString);
+                        }
+                        item = tempStrArray[0];
+                    }
+
+                    if (Regex.Matches(item, "}{").Count > 0)
+                    {
+                        item = item.Replace("}{", "}|°|MS:{");
+                        string[] tempStrArray = item.Split("|°|");
+                        foreach (string tmpString in tempStrArray)
+                        {
+                            ConnectionManager.Queue_Instrucciones.Enqueue(tmpString);
+                        }
+                        item = tempStrArray[0];
+                    }
+
+                    if (item.Contains("LG:"))
+                    {
+                        Console.WriteLine("DAU");
+                    }
+
                     item = UtilityAssistant.ExtractValues(item, "MS");
                     Message nwMsg = Message.CreateFromJson(item);
+
+                    if (nwMsg.IdRef > 0)
+                    {
+                        Message.dic_ActiveMessages.TryAdd(nwMsg.IdMsg, nwMsg);
+
+                        List<Message> l_messages = Message.dic_ActiveMessages.Where(c => c.Value.IdRef == nwMsg.IdRef).Select(c => c.Value).ToList();
+                        Message frsMsg = l_messages.Where(c => c.IdMsg == 1).First();
+
+                        if (frsMsg != null)
+                        {
+                            int tamanoTotal = Convert.ToInt32(frsMsg.TextOriginal.Replace("LG:", ""));
+                            l_messages = l_messages.Distinct(new DistinctMessageComparer()).ToList();
+                            if (l_messages.Where(c => c.IdRef == nwMsg.IdRef && c.IdMsg != 1).Sum(c => c.Length) == tamanoTotal)
+                            {
+                                uint actualIndex = frsMsg.IdMsg;
+                                string textRecopilado = string.Empty;
+                                Message compiledMessage = Message.CreateMessage("");
+
+                                foreach (Message m in l_messages.OrderBy(c => c.IdMsg))
+                                {
+                                    if (m.IdMsg == (actualIndex + 1))
+                                    {
+                                        textRecopilado += m.TextOriginal;
+                                        actualIndex++;
+                                    }
+                                }
+
+                                compiledMessage.Text = textRecopilado;
+                            }
+                        }
+                    }
+
                     //do
                     //{
                     //    index = (uint)Message.dic_ActiveMessages.Count;
@@ -217,12 +281,13 @@ namespace MMO_Client.Code.Controllers
                     //{
                     //    return false;
                     //}
-                    if (string.IsNullOrWhiteSpace(nwMsg.Text))
+
+                    if (string.IsNullOrWhiteSpace(nwMsg.TextOriginal))
                     {
                         return false;
                     }
 
-                    string typeOf = nwMsg.Text.Substring(0, 2);
+                    string typeOf = nwMsg.TextOriginal.Substring(0, 2);
                     switch (typeOf)
                     {
                         case "LO":
@@ -263,6 +328,19 @@ namespace MMO_Client.Code.Controllers
                 {
                     //uint index = 0;
                     //bool indexWasSuccessfull = false;
+                    if (Regex.Matches(item, "MS:").Count > 1)
+                    {
+                        string[] tempStrArray = item.Split("MS:");
+                        item = tempStrArray[0];
+                    }
+
+                    if (Regex.Matches(item, "}{").Count > 0)
+                    {
+                        item = item.Replace("}{", "}|°|{");
+                        string[] tempStrArray = item.Split("|°|");
+                        item = tempStrArray[0];
+                    }
+
                     string tempString = UtilityAssistant.ExtractValues(item, "MS");
                     Message nwMsg = Message.CreateFromJson(tempString);
                     //do
@@ -276,16 +354,16 @@ namespace MMO_Client.Code.Controllers
                     //{
                     //    return false;
                     //}
-                    if (string.IsNullOrWhiteSpace(nwMsg.Text))
+                    if (string.IsNullOrWhiteSpace(nwMsg.TextOriginal))
                     {
                         return false;
                     }
 
-                    string typeOf = nwMsg.Text.Substring(0, 2);
+                    string typeOf = nwMsg.TextOriginal.Substring(0, 2);
                     switch (typeOf)
                     {
                         case "MV":
-                            playerController.ProcessMovementFromServer(nwMsg.Text, nwMsg, out nwMsg);
+                            playerController.ProcessMovementFromServer(nwMsg.TextOriginal, nwMsg, out nwMsg);
                             break;
                         case "ST":
                             /*if (playerController.CreateShot(nwMsg.Text, nwMsg, out nwMsg))
@@ -299,10 +377,14 @@ namespace MMO_Client.Code.Controllers
                             //StateMessage stMsg2 = new StateMessage(nwMsg.IdMsg, nwMsg.Status);
                             //ConnectionManager.gameSocketClient.l_SendQueueMessages.Enqueue("MS:" + stMsg2.ToJson());
                             break;
+                        case "CO":
+                            playerController.ProcesarConversarObj(nwMsg.TextOriginal, nwMsg, out nwMsg);
+                            Console.WriteLine(" ");
+                            break;
                         case "PY":
-                            if(typeOf.Equals("PYST"))
+                            if (typeOf.Equals("PYST"))
                             {
-                                Console.WriteLine("PYST Received!!: "+ nwMsg.Text);
+                                Console.WriteLine("PYST Received!!: " + nwMsg.Text);
                             }
                             break;
                         default:

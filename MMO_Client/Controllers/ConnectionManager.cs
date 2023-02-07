@@ -13,6 +13,7 @@ using System.Linq;
 using Interfaz.Models;
 using System.Collections.Concurrent;
 using MMO_Client.Code.Models;
+using Interfaz.Utilities;
 
 namespace MMO_Client.Code.Controllers
 {
@@ -218,7 +219,7 @@ namespace MMO_Client.Code.Controllers
 
                                     await gameSocketClient.StreamNetwork.WriteAsync(requestBytes, 0, requestBytes.Length);
 
-                                    Console.WriteLine("Sending (Stream)..." + item + " count: " + requestBytes.Length);
+                                    Console.WriteLine("\n\nSending (Stream)..." + item + " count: " + requestBytes.Length);
                                     //gameSocketClient.l_SendQueueMessages.Remove(item);
                                     //await Task.Delay(TimeSpan.FromSeconds(1));
                                 }
@@ -253,6 +254,12 @@ namespace MMO_Client.Code.Controllers
                 int baseSize = 1024;
                 byte[] responseBytes = new byte[baseSize];
                 char[] responseChars = new char[baseSize];
+
+                if(gameSocketClient.StreamSocket == null)
+                {
+                    return;
+                    //This will refuse to start until there is a StreamSocket ready
+                }
 
                 if (gameSocketClient.StreamNetwork == null)
                 {
@@ -304,17 +311,37 @@ namespace MMO_Client.Code.Controllers
 
                     if (charCount == 0) continue;
 
+                    string responseString = new String(responseChars).Replace("\0", "");
+                    string first3Char = string.Empty;
+                    if (responseString.IndexOf(":") <= 6)
+                    {
+                        first3Char = responseString.Substring(0, responseString.IndexOf(":")+1);
+                        responseString = UtilityAssistant.CleanJSON(responseString);
+                    }
+
+                    //En desuso
                     if (responseChars.AsSpan(0, responseChars.Length).SequenceEqual("LOGIN_TRUE"))
                     {
                         Player.PLAYER.Entity.Name = MailTest;
                         retrySend = false;
                         isLoginSuccessfull = true;
                     }
+                    //Fin en desuso
 
                     if (charCount > 0)
                     {
-                        ConnectionManager.Queue_Instrucciones.Enqueue(new string(responseChars).Replace("\0", ""));
-                        await Console.Out.WriteAsync("Received (StreamReader): size: " + size + " charCount: " + charCount + " responseChar: " + responseChars.AsMemory(0, charCount));
+                        string answer = responseString;
+                        if (first3Char.Contains(":") && !first3Char.Contains("{") && !responseString.Contains(first3Char))
+                        {
+                            answer = first3Char + responseString;
+                        }
+                        ConnectionManager.Queue_Instrucciones.Enqueue(answer);
+                        Console.BackgroundColor = ConsoleColor.Blue;
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("\n\nSize of the Receivede (Stream) message is: " + answer.Length + " total");
+                        Console.ResetColor();
+                        //await Console.Out.WriteAsync("\n\nReceived (StreamReader): size: " + size + " charCount: " + charCount + " responseChar: " + responseChars.AsMemory(0, charCount));
+                        await Console.Out.WriteAsync("\n\nReceived (StreamReader): size: " + size + " charCount: " + charCount + " responseString: first3Char: " + first3Char + " \n\n "  + responseString);
                     }
 
                     allData.Clear();
@@ -398,7 +425,7 @@ namespace MMO_Client.Code.Controllers
                                         bytesSent += await gameSocketClient.SenderSocket.SendAsync(requestBytes.AsMemory(bytesSent), SocketFlags.None);
                                     }
 
-                                    Console.WriteLine("\nSending..." + inputCommand + " count: " + requestBytes.Length);
+                                    Console.WriteLine("\n\nSending..." + inputCommand + " count: " + requestBytes.Length);
                                     //await Task.Delay(TimeSpan.FromSeconds(1));
                                     inputCommand = String.Empty;
                                 }
@@ -457,22 +484,39 @@ namespace MMO_Client.Code.Controllers
 
                     //Console.WriteLine("new String(responseChars): " + new String(responseChars).Replace("\0",""));
                     //Console.WriteLine(new String(responseChars).Replace("\0", "") == "LOGIN_TRUE");
-                    if (new String(responseChars).Replace("\0", "") == "LOGIN_TRUE")
+
+                    string responseString = new String(responseChars).Replace("\0", "");
+                    string first3Char = string.Empty;
+                    if (responseString.IndexOf(":") <= 6)
+                    {
+                        first3Char = responseString.Substring(0, responseString.IndexOf(":") + 1);
+                        responseString = UtilityAssistant.CleanJSON(responseString);
+                    }
+
+                    //En desuso
+                    if (responseString.Replace("\0", "") == "LOGIN_TRUE")
                     {
                         Player.PLAYER.Entity.Name = MailTest;
                         retrySend = false;
                         isLoginSuccessfull = true;
                     }
+                    //Fin en desuso
 
-                    if(new string(responseChars).Contains("ST") && !new string(responseChars).Contains("MS:"))
+                    if(responseString.Contains("ST") && !responseString.Contains("MS:"))
                     {
                         Console.WriteLine("ENtro, COMO CHUCHA A ACA!");
                     }
 
-                    ConnectionManager.Queue_Answers.Enqueue(new string(responseChars).Replace("\0", ""));
+                    string answer = responseString;
+                    if(first3Char.Contains(":") && !first3Char.Contains("{") && !responseString.Contains(first3Char))
+                    {
+                        answer = first3Char + responseString;
+                    }
+                    ConnectionManager.Queue_Answers.Enqueue(answer);
 
                     // Print the contents of the 'responseChars' buffer to Console.Out
-                    await Console.Out.WriteAsync("Received: " + responseChars.AsMemory(0, charCount));
+                    //await Console.Out.WriteAsync("\n\nReceived: " + responseChars.AsMemory(0, charCount));
+                    await Console.Out.WriteAsync("\n\nReceived: first3Char: " + first3Char + " \n\n " + answer);
                     responseBytes = new byte[1000];
                     responseChars = new char[1000];
                 }

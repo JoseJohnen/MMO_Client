@@ -15,6 +15,8 @@ Hierarchy:
         - ref!! e3c8c343-7723-4e41-8b3b-675f7d161585
         - ref!! b4ede24e-d573-4636-95fb-f81001224eec
         - ref!! 5952a4f6-2fd7-4275-ab6a-236ac12709b4
+        - ref!! 4ab985bc-88fc-4342-830d-51f0d2d03c24
+        - ref!! ff1888cf-9910-4a2e-a4f7-a14c5db3a6f8
     Parts:
         -   Entity:
                 Id: 2f4a3abc-56e1-43dd-bc33-5531a5d5763f
@@ -30,6 +32,17 @@ Hierarchy:
                         Id: ea668b6a-a9c3-42e5-84b1-04aead031f1b
                         Model: 870ab9a4-cdee-4f74-929d-a8e4468a2cc5:Ground
                         Materials: {}
+        -   Entity:
+                Id: 4ab985bc-88fc-4342-830d-51f0d2d03c24
+                Name: Bullet
+                Components:
+                    72fb13ad69abeebd6dfa25f536f151ca: !TransformComponent
+                        Id: 71c4395c-2e29-46a5-94de-bc086ccb2f77
+                        Position: {X: -3.7507575, Y: 9.536743E-07, Z: -1.5586153}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            35433662f61e1eea6837dafc42afb16b: ref!! c3799c1a-4a1b-4b99-b498-1651dae8ad2a
         -   Entity:
                 Id: 4b9637a0-f1ea-48cd-bcc4-3d8b157c2292
                 Name: Skybox
@@ -115,6 +128,24 @@ Hierarchy:
                         Projection: Perspective
                         Slot: 8b4c8539-e21b-4b67-bd6a-8165175f9896
         -   Entity:
+                Id: ae8ee2f9-017e-4d55-bc2d-2b5e390ff938
+                Name: Bullet
+                Components:
+                    7b2254bb081f8e0ce168b916ce197d1b: !TransformComponent
+                        Id: 6988c1c0-3fbf-4190-89c5-c3763447ab12
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 0.025, Y: 0.025, Z: 0.025}
+                        Children: {}
+                    ba169ed6da667e2fd2e93f4820d76456: !ModelComponent
+                        Id: 956a6f7f-eb33-46bc-a735-d69f8345168f
+                        Model: 7831ed4a-7449-4b5c-8665-9033c56b990a:Models/AIM120D
+                        Materials: {}
+            Base:
+                BasePartAsset: b4589130-5409-48d3-8321-a33773c53703:Prefabs/Bullet
+                BasePartId: 23d54eda-aa4c-44cf-84f8-d801edc74638
+                InstanceId: 02d58b3d-0ee7-4a45-a54d-dadf2f7e2f74
+        -   Entity:
                 Id: b4ede24e-d573-4636-95fb-f81001224eec
                 Name: WorldController
                 Components:
@@ -133,6 +164,24 @@ Hierarchy:
                         l_areaLimits: {}
                         l_areaTeleports: {}
                         l_areaFurnitures: {}
+        -   Entity:
+                Id: e16e2fcc-1627-4610-889a-fd4beb15a011
+                Name: Bullet
+                Components:
+                    7b2254bb081f8e0ce168b916ce197d1b: !TransformComponent
+                        Id: c3799c1a-4a1b-4b99-b498-1651dae8ad2a
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 0.025, Y: 0.025, Z: 0.025}
+                        Children: {}
+                    ba169ed6da667e2fd2e93f4820d76456: !ModelComponent
+                        Id: 353c96a5-1f5e-465c-9085-2373fd73bd3f
+                        Model: 7831ed4a-7449-4b5c-8665-9033c56b990a:Models/AIM120D
+                        Materials: {}
+            Base:
+                BasePartAsset: b4589130-5409-48d3-8321-a33773c53703:Prefabs/Bullet
+                BasePartId: 23d54eda-aa4c-44cf-84f8-d801edc74638
+                InstanceId: f328e974-e22d-4abc-a40c-6c85f155d442
         -   Entity:
                 Id: e3c8c343-7723-4e41-8b3b-675f7d161585
                 Name: PlayerController
@@ -185,5 +234,18 @@ Hierarchy:
                         CursorPos: ref!! 671c67b1-8617-4412-a55b-d4159559587a
                         lastPositionBeforeMove: 2022-12-14T19:14:45.7305245
                         page: null
+                        thingy1: ref!! 4ab985bc-88fc-4342-830d-51f0d2d03c24
+                        thingy2: ref!! ff1888cf-9910-4a2e-a4f7-a14c5db3a6f8
                         MainSceneImages: null
                         TextoFueraDeCutscene: false
+        -   Entity:
+                Id: ff1888cf-9910-4a2e-a4f7-a14c5db3a6f8
+                Name: Bullet
+                Components:
+                    21cfb7b070e31388993ccf7c9951ecb8: !TransformComponent
+                        Id: eacda336-392a-4d53-84ba-15aa26b08784
+                        Position: {X: -3.7731614, Y: 0.0, Z: 0.59210104}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            4f19514330bcd01536c0e4cdf8c977e4: ref!! 6988c1c0-3fbf-4190-89c5-c3763447ab12

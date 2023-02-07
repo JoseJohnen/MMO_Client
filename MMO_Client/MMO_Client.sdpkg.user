@@ -218,7 +218,7 @@ Settings:
             LightProbeBounces: 1
             SceneLoaded: false
         b4589130-5409-48d3-8321-a33773c53703:
-            CamPosition: {X: 4.0, Y: 2.0, Z: 4.0}
+            CamPosition: {X: 5.6392307, Y: 2.6211658, Z: 5.6392303}
             CamPitchYaw: {X: -0.2617994, Y: 0.7853982}
             CamProjection: Perspective
             CamVerticalFieldOfView: 45.0
