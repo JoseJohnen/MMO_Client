@@ -32,6 +32,8 @@ namespace MMO_Client.Controllers
 
         public List<Pares<List<Entity>, Bullet>> l_bullets = new List<Pares<List<Entity>, Bullet>>();
 
+        public static bool isQuestionAsked = false;
+
         [DataMemberIgnore]
         public ConcurrentDictionary<int, Bullet> dic_bulletsOnline = new ConcurrentDictionary<int, Bullet>();
 
@@ -138,6 +140,12 @@ namespace MMO_Client.Controllers
         {
             try
             {
+                /*if(isQuestionAsked)
+                {
+                    return;
+                }*/
+                isQuestionAsked = true;
+
                 PreguntaObj prtObj = new PreguntaObj();
 
                 //TODO: ¿Cuál es el criterio para enviar las preguntas?
@@ -1386,6 +1394,7 @@ namespace MMO_Client.Controllers
                             }
                         }*/
                         ConnectionManager.AddInstruction("ST:" + byteData);
+                        isQuestionAsked = false;
                     }
                 }
                 //continueshot:
@@ -1433,6 +1442,7 @@ namespace MMO_Client.Controllers
                             DestroyShot(btc, messageOut, out messageOut);
                         }
 
+                        isQuestionAsked = false;
                     }
                 }
 
@@ -1445,6 +1455,7 @@ namespace MMO_Client.Controllers
                 Console.ResetColor();
                 messageOut = new Message();
                 messageOut.Status = StatusMessage.Error;
+                isQuestionAsked = false;
                 return false;
             }
         }

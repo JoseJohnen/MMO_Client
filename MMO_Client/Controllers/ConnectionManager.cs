@@ -219,7 +219,7 @@ namespace MMO_Client.Code.Controllers
 
                                     await gameSocketClient.StreamNetwork.WriteAsync(requestBytes, 0, requestBytes.Length);
 
-                                    Console.WriteLine("\n\nSending (Stream)..." + item + " count: " + requestBytes.Length);
+                                    Console.WriteLine("\n\n " + DateTime.Now.ToString() + " Sending (Stream)..." + item + " count: " + requestBytes.Length);
                                     //gameSocketClient.l_SendQueueMessages.Remove(item);
                                     //await Task.Delay(TimeSpan.FromSeconds(1));
                                 }
@@ -338,10 +338,10 @@ namespace MMO_Client.Code.Controllers
                         ConnectionManager.Queue_Instrucciones.Enqueue(answer);
                         Console.BackgroundColor = ConsoleColor.Blue;
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine("\n\nSize of the Receivede (Stream) message is: " + answer.Length + " total");
+                        Console.WriteLine("\n\n " + DateTime.Now.ToString() + " Size of the Receivede (Stream) message is: " + answer.Length + " total");
                         Console.ResetColor();
                         //await Console.Out.WriteAsync("\n\nReceived (StreamReader): size: " + size + " charCount: " + charCount + " responseChar: " + responseChars.AsMemory(0, charCount));
-                        await Console.Out.WriteAsync("\n\nReceived (StreamReader): size: " + size + " charCount: " + charCount + " responseString: first3Char: " + first3Char + " \n\n "  + responseString);
+                        await Console.Out.WriteAsync("\n\n " + DateTime.Now.ToString() + " Received (StreamReader): size: " + size + " charCount: " + charCount + " responseString: first3Char: " + first3Char + " \n\n "  + responseString);
                     }
 
                     allData.Clear();
@@ -425,7 +425,7 @@ namespace MMO_Client.Code.Controllers
                                         bytesSent += await gameSocketClient.SenderSocket.SendAsync(requestBytes.AsMemory(bytesSent), SocketFlags.None);
                                     }
 
-                                    Console.WriteLine("\n\nSending..." + inputCommand + " count: " + requestBytes.Length);
+                                    Console.WriteLine("\n\n "+DateTime.Now.ToString()+" Sending..." + inputCommand + " count: " + requestBytes.Length);
                                     //await Task.Delay(TimeSpan.FromSeconds(1));
                                     inputCommand = String.Empty;
                                 }
@@ -516,7 +516,7 @@ namespace MMO_Client.Code.Controllers
 
                     // Print the contents of the 'responseChars' buffer to Console.Out
                     //await Console.Out.WriteAsync("\n\nReceived: " + responseChars.AsMemory(0, charCount));
-                    await Console.Out.WriteAsync("\n\nReceived: first3Char: " + first3Char + " \n\n " + answer);
+                    await Console.Out.WriteAsync("\n\n " + DateTime.Now.ToString() + " Received: first3Char: " + first3Char + " \n\n " + answer);
                     responseBytes = new byte[1000];
                     responseChars = new char[1000];
                 }

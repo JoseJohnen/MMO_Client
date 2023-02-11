@@ -210,65 +210,70 @@ namespace MMO_Client.Code.Controllers
                 {
                     //uint index = 0;
                     //bool indexWasSuccessfull = false;
+
+                    #region Region: Por si hay "Lag Spikes" y llega mas de un mensaje juntos
                     if (Regex.Matches(item, "MS:").Count > 1)
                     {
                         string[] tempStrArray = item.Split("MS:");
-                        foreach (string tmpString in tempStrArray)
+                        string[] strLessZero = new string[(tempStrArray.Length - 1)];
+
+                        item = tempStrArray[0];
+                        for (int i = 0; i < tempStrArray.Length; i++)
+                        {
+                            if (i > 0)
+                            {
+                                strLessZero[(i - 1)] = tempStrArray[i];
+                            }
+                        }
+
+                        foreach (string tmpString in strLessZero)
                         {
                             ConnectionManager.Queue_Instrucciones.Enqueue(tmpString);
                         }
-                        item = tempStrArray[0];
                     }
 
                     if (Regex.Matches(item, "}{").Count > 0)
                     {
                         item = item.Replace("}{", "}|°|MS:{");
                         string[] tempStrArray = item.Split("|°|");
-                        foreach (string tmpString in tempStrArray)
+                        item = tempStrArray[0];
+
+                        if(tempStrArray.Length <= 1)
+                        {
+                            goto msg;
+                        }
+
+                        string[] strLessZero = new string[(tempStrArray.Length - 1)];
+
+                        for (int i = 0; i < tempStrArray.Length; i++)
+                        {
+                            if (i > 0)
+                            {
+                                strLessZero[(i - 1)] = tempStrArray[i];
+                            }
+                        }
+
+                        foreach (string tmpString in strLessZero)
                         {
                             ConnectionManager.Queue_Instrucciones.Enqueue(tmpString);
                         }
-                        item = tempStrArray[0];
                     }
+                    #endregion
 
-                    if (item.Contains("LG:"))
-                    {
-                        Console.WriteLine("DAU");
-                    }
-
+                    msg:
                     item = UtilityAssistant.ExtractValues(item, "MS");
                     Message nwMsg = Message.CreateFromJson(item);
 
+                    //Por si llegan de a pedacitos: TODO: Requiere testear y pulir bien
                     if (nwMsg.IdRef > 0)
                     {
-                        Message.dic_ActiveMessages.TryAdd(nwMsg.IdMsg, nwMsg);
-
-                        List<Message> l_messages = Message.dic_ActiveMessages.Where(c => c.Value.IdRef == nwMsg.IdRef).Select(c => c.Value).ToList();
-                        Message frsMsg = l_messages.Where(c => c.IdMsg == 1).First();
-
-                        if (frsMsg != null)
+                        nwMsg = Message.ConsolidateMessages(nwMsg);
+                        if(nwMsg == null)
                         {
-                            int tamanoTotal = Convert.ToInt32(frsMsg.TextOriginal.Replace("LG:", ""));
-                            l_messages = l_messages.Distinct(new DistinctMessageComparer()).ToList();
-                            if (l_messages.Where(c => c.IdRef == nwMsg.IdRef && c.IdMsg != 1).Sum(c => c.Length) == tamanoTotal)
-                            {
-                                uint actualIndex = frsMsg.IdMsg;
-                                string textRecopilado = string.Empty;
-                                Message compiledMessage = Message.CreateMessage("");
-
-                                foreach (Message m in l_messages.OrderBy(c => c.IdMsg))
-                                {
-                                    if (m.IdMsg == (actualIndex + 1))
-                                    {
-                                        textRecopilado += m.TextOriginal;
-                                        actualIndex++;
-                                    }
-                                }
-
-                                compiledMessage.Text = textRecopilado;
-                            }
+                            return false;
                         }
                     }
+                    //END TODO
 
                     //do
                     //{
@@ -294,13 +299,17 @@ namespace MMO_Client.Code.Controllers
                             Console.WriteLine("LOGIN_TRUE: FOR NOW: TODO!!!");
                             //playerController.ProcessMovementFromServer(item);
                             break;
-                        case "SM":
-                            /*if(playerController.ProcessShotFromServer(nwMsg, out nwMsg))
-                            {
-                                StateMessage stMsg = new StateMessage(nwMsg.IdMsg, nwMsg.Status);
-                                ConnectionManager.gameSocketClient.l_SendQueueMessages.Enqueue(new Message("SM:" + stMsg.ToJson()).ToJson());
-                            }*/
+                        case "CO":
+                            playerController.ProcesarConversarObj(nwMsg.TextOriginal, nwMsg, out nwMsg);
+                            Console.WriteLine(" ");
                             break;
+                        /*case "SM":
+                          if(playerController.ProcessShotFromServer(nwMsg, out nwMsg))
+                           {
+                               StateMessage stMsg = new StateMessage(nwMsg.IdMsg, nwMsg.Status);
+                               ConnectionManager.gameSocketClient.l_SendQueueMessages.Enqueue(new Message("SM:" + stMsg.ToJson()).ToJson());
+                           }
+                        break;*/
                         default:
                             break;
                     }
@@ -376,10 +385,6 @@ namespace MMO_Client.Code.Controllers
                             //playerController.DestroyShot(nwMsg.Text, nwMsg, out nwMsg);
                             //StateMessage stMsg2 = new StateMessage(nwMsg.IdMsg, nwMsg.Status);
                             //ConnectionManager.gameSocketClient.l_SendQueueMessages.Enqueue("MS:" + stMsg2.ToJson());
-                            break;
-                        case "CO":
-                            playerController.ProcesarConversarObj(nwMsg.TextOriginal, nwMsg, out nwMsg);
-                            Console.WriteLine(" ");
                             break;
                         case "PY":
                             if (typeOf.Equals("PYST"))
