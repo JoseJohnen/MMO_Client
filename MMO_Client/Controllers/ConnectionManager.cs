@@ -14,6 +14,7 @@ using Interfaz.Models;
 using System.Collections.Concurrent;
 using MMO_Client.Code.Models;
 using Interfaz.Utilities;
+using System.Text.RegularExpressions;
 
 namespace MMO_Client.Code.Controllers
 {
@@ -122,7 +123,7 @@ namespace MMO_Client.Code.Controllers
                             if (gameSocketClient.ListenerSocket == null)
                             {
                                 gameSocketClient.ListenerSocket = MisteriousSocket;
-                                Console.WriteLine("gameSocketClient.ListenerSocket is set?: "+ (gameSocketClient.ListenerSocket != null));
+                                Console.WriteLine("gameSocketClient.ListenerSocket is set?: " + (gameSocketClient.ListenerSocket != null));
                             }
                             Task.Run(() => ReceiveAsync());
                             gameSocketClient.ReceiveAccepted++;
@@ -138,7 +139,7 @@ namespace MMO_Client.Code.Controllers
                                 {
                                     listeningSocket.Close();
                                     isListening = false;
-                                    Console.WriteLine("2 Connections Confirmed, listening Socket connection status: "+listeningSocket.Connected);
+                                    Console.WriteLine("2 Connections Confirmed, listening Socket connection status: " + listeningSocket.Connected);
                                 }
                             }
                         }
@@ -255,7 +256,7 @@ namespace MMO_Client.Code.Controllers
                 byte[] responseBytes = new byte[baseSize];
                 char[] responseChars = new char[baseSize];
 
-                if(gameSocketClient.StreamSocket == null)
+                if (gameSocketClient.StreamSocket == null)
                 {
                     return;
                     //This will refuse to start until there is a StreamSocket ready
@@ -315,7 +316,7 @@ namespace MMO_Client.Code.Controllers
                     string first3Char = string.Empty;
                     if (responseString.IndexOf(":") <= 6)
                     {
-                        first3Char = responseString.Substring(0, responseString.IndexOf(":")+1);
+                        first3Char = responseString.Substring(0, responseString.IndexOf(":") + 1);
                         responseString = UtilityAssistant.CleanJSON(responseString);
                     }
 
@@ -330,18 +331,81 @@ namespace MMO_Client.Code.Controllers
 
                     if (charCount > 0)
                     {
-                        string answer = responseString;
-                        if (first3Char.Contains(":") && !first3Char.Contains("{") && !responseString.Contains(first3Char))
+                        string[] strResp = new string[1];
+                        string answer = string.Empty;
+                        if (responseString.Contains("IdMsg"))
                         {
-                            answer = first3Char + responseString;
+                            Message msgResult = new Message();
+                            if (Regex.Matches("IdMsg", responseString).Count >= 2)
+                            {
+                                if (responseString.Contains("}{"))
+                                {
+                                    responseString = responseString.Replace("}{", "}|°|{");
+                                    strResp = responseString.Split("|°|", StringSplitOptions.RemoveEmptyEntries);
+                                    foreach (string item in strResp)
+                                    {
+                                        if (first3Char.Contains(":") && !first3Char.Contains("{") && !responseString.Contains(first3Char))
+                                        {
+                                            answer = first3Char + item;
+                                        }
+
+                                        if (!ConsolidateMessage.CheckJSONMessageIfMatch(responseString, out msgResult))
+                                        {
+                                            ConnectionManager.Queue_Instrucciones.Enqueue(answer);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    answer = responseString;
+                                    if (first3Char.Contains(":") && !first3Char.Contains("{") && !responseString.Contains(first3Char))
+                                    {
+                                        answer = first3Char + responseString;
+                                    }
+
+                                    if (!ConsolidateMessage.CheckJSONMessageIfMatch(responseString, out msgResult))
+                                    {
+                                        ConnectionManager.Queue_Instrucciones.Enqueue(answer);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                answer = responseString;
+                                if (first3Char.Contains(":") && !first3Char.Contains("{") && !responseString.Contains(first3Char))
+                                {
+                                    answer = first3Char + responseString;
+                                }
+
+                                if (!ConsolidateMessage.CheckJSONMessageIfMatch(responseString, out msgResult))
+                                {
+                                    ConnectionManager.Queue_Instrucciones.Enqueue(answer);
+                                }
+                            }
+
+                            if (msgResult != null)
+                            {
+                                if (!string.IsNullOrWhiteSpace(msgResult.text))
+                                {
+                                    ConnectionManager.Queue_Instrucciones.Enqueue("MS:" + msgResult.ToJson());
+                                }
+                            }
                         }
-                        ConnectionManager.Queue_Instrucciones.Enqueue(answer);
+                        else
+                        {
+                            answer = responseString;
+                            if (first3Char.Contains(":") && !first3Char.Contains("{") && !responseString.Contains(first3Char))
+                            {
+                                answer = first3Char + responseString;
+                            }
+                            ConnectionManager.Queue_Instrucciones.Enqueue(answer);
+                        }
                         Console.BackgroundColor = ConsoleColor.Blue;
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("\n\n " + DateTime.Now.ToString() + " Size of the Receivede (Stream) message is: " + answer.Length + " total");
                         Console.ResetColor();
                         //await Console.Out.WriteAsync("\n\nReceived (StreamReader): size: " + size + " charCount: " + charCount + " responseChar: " + responseChars.AsMemory(0, charCount));
-                        await Console.Out.WriteAsync("\n\n " + DateTime.Now.ToString() + " Received (StreamReader): size: " + size + " charCount: " + charCount + " responseString: first3Char: " + first3Char + " \n\n "  + responseString);
+                        await Console.Out.WriteAsync("\n\n " + DateTime.Now.ToString() + " Received (StreamReader): size: " + size + " charCount: " + charCount + " responseString: first3Char: " + first3Char + " \n\n " + responseString);
                     }
 
                     allData.Clear();
@@ -351,7 +415,7 @@ namespace MMO_Client.Code.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error ReceiveSteamAsync: size: " + size + " charCount: " + charCount + " Message: "+ ex.Message);
+                Console.WriteLine("Error ReceiveSteamAsync: size: " + size + " charCount: " + charCount + " Message: " + ex.Message);
             }
             finally
             {
@@ -425,7 +489,7 @@ namespace MMO_Client.Code.Controllers
                                         bytesSent += await gameSocketClient.SenderSocket.SendAsync(requestBytes.AsMemory(bytesSent), SocketFlags.None);
                                     }
 
-                                    Console.WriteLine("\n\n "+DateTime.Now.ToString()+" Sending..." + inputCommand + " count: " + requestBytes.Length);
+                                    Console.WriteLine("\n\n " + DateTime.Now.ToString() + " Sending..." + inputCommand + " count: " + requestBytes.Length);
                                     //await Task.Delay(TimeSpan.FromSeconds(1));
                                     inputCommand = String.Empty;
                                 }
@@ -502,13 +566,13 @@ namespace MMO_Client.Code.Controllers
                     }
                     //Fin en desuso
 
-                    if(responseString.Contains("ST") && !responseString.Contains("MS:"))
+                    if (responseString.Contains("ST") && !responseString.Contains("MS:"))
                     {
                         Console.WriteLine("ENtro, COMO CHUCHA A ACA!");
                     }
 
                     string answer = responseString;
-                    if(first3Char.Contains(":") && !first3Char.Contains("{") && !responseString.Contains(first3Char))
+                    if (first3Char.Contains(":") && !first3Char.Contains("{") && !responseString.Contains(first3Char))
                     {
                         answer = first3Char + responseString;
                     }

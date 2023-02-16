@@ -265,14 +265,16 @@ namespace MMO_Client.Code.Controllers
                     Message nwMsg = Message.CreateFromJson(item);
 
                     //Por si llegan de a pedacitos: TODO: Requiere testear y pulir bien
-                    if (nwMsg.IdRef > 0)
+                    //R: Ya no va, en su lugar ConsolidateMessage es la clase que hace todo esto y lo trabaja
+                    //fuera del loop regular de mensajes, cuando termina incorpora el mensaje armado al loop regular
+                    /*if (nwMsg.IdRef > 0)
                     {
                         nwMsg = Message.ConsolidateMessages(nwMsg);
                         if(nwMsg == null)
                         {
                             return false;
                         }
-                    }
+                    }*/
                     //END TODO
 
                     //do

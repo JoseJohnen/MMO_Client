@@ -148,6 +148,16 @@ namespace MMO_Client.Controllers
 
                 PreguntaObj prtObj = new PreguntaObj();
 
+                MissingMessages mMsg = new MissingMessages();
+                if(MissingMessages.q_MissingMessages.Count > 0)
+                {
+                    while (MissingMessages.q_MissingMessages.TryDequeue(out mMsg))
+                    {
+                        ConnectionManager.gameSocketClient.l_SendQueueMessages.Enqueue("MM:" + mMsg.ToJson());
+                    }
+                    return;
+                }
+
                 //TODO: ¿Cuál es el criterio para enviar las preguntas?
                 //- Tiempo de las balas
                 //- Que no hayan balas, y si es así, cada medio segundo
