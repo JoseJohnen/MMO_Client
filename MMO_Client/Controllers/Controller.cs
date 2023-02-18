@@ -164,6 +164,7 @@ namespace MMO_Client.Code.Controllers
             playerController.PlayerController_Tick();
             //ConnectionManager.Queue_Instrucciones.Clear();
             ActualizarConData();
+            
         }
 
         #region Del Juego
@@ -171,6 +172,8 @@ namespace MMO_Client.Code.Controllers
         {
             try
             {
+                ConsolidateMessage.CheckMissingMessages();
+
                 if (ConnectionManager.Queue_Answers.Count > 0)
                 {
                     dataAnswer = Task.Run(() => ActualizarConDataDeRespuesta()).Status;
@@ -267,14 +270,14 @@ namespace MMO_Client.Code.Controllers
                     //Por si llegan de a pedacitos: TODO: Requiere testear y pulir bien
                     //R: Ya no va, en su lugar ConsolidateMessage es la clase que hace todo esto y lo trabaja
                     //fuera del loop regular de mensajes, cuando termina incorpora el mensaje armado al loop regular
-                    /*if (nwMsg.IdRef > 0)
+                    if (nwMsg.IdRef > 0)
                     {
-                        nwMsg = Message.ConsolidateMessages(nwMsg);
+                        /*nwMsg = Message.ConsolidateMessages(nwMsg);
                         if(nwMsg == null)
                         {
                             return false;
-                        }
-                    }*/
+                        }*/
+                    }
                     //END TODO
 
                     //do

@@ -84,6 +84,7 @@ namespace MMO_Client.Code.Controllers
 
             LogInSocket();
             Task.Run(() => SendAsync(url, PortToSend));
+            //Task.Run(() => ConsolidateMessage.CheckMissingMessages());
         }
 
         #region Listening Socket
@@ -317,41 +318,95 @@ namespace MMO_Client.Code.Controllers
                     if (responseString.IndexOf(":") <= 6)
                     {
                         first3Char = responseString.Substring(0, responseString.IndexOf(":") + 1);
-                        responseString = UtilityAssistant.CleanJSON(responseString);
-                    }
 
-                    //En desuso
-                    if (responseChars.AsSpan(0, responseChars.Length).SequenceEqual("LOGIN_TRUE"))
-                    {
-                        Player.PLAYER.Entity.Name = MailTest;
-                        retrySend = false;
-                        isLoginSuccessfull = true;
-                    }
-                    //Fin en desuso
-
-                    if (charCount > 0)
-                    {
-                        string[] strResp = new string[1];
-                        string answer = string.Empty;
-                        if (responseString.Contains("IdMsg"))
+                        //Limpiando un poco por cosas que el CleanJSON no tiene responsabilidad de limpiar (como repeticiones)
+                        List<string> l_strings = new List<string>();
+                        if (responseString.Contains("MS:"))
                         {
-                            Message msgResult = new Message();
-                            if (Regex.Matches("IdMsg", responseString).Count >= 2)
+                            //Entro aqui? entonces quiere decir que quedan mas MS: aparte del inicial, estos ya solo deberían ser limpiados
+                            responseString = responseString.Replace("MS:", "");
+                        }
+                        if (responseString.Contains("}{"))
+                        {
+                            responseString = responseString.Replace("}{", "}|°|{");
+                        }
+                        string[] strArray = responseString.Split("|°|", StringSplitOptions.RemoveEmptyEntries);
+                        l_strings.AddRange(strArray);
+                        l_strings = l_strings.Distinct().ToList();
+                        //END Special Cleaning
+
+                        foreach (string strPreClean in l_strings)
+                        {
+                            responseString = UtilityAssistant.CleanJSON(strPreClean);
+
+                            //En desuso
+                            if (responseChars.AsSpan(0, responseChars.Length).SequenceEqual("LOGIN_TRUE"))
                             {
-                                if (responseString.Contains("}{"))
+                                Player.PLAYER.Entity.Name = MailTest;
+                                retrySend = false;
+                                isLoginSuccessfull = true;
+                            }
+                            //Fin en desuso
+
+                            if (charCount > 0)
+                            {
+                                string[] strResp = new string[1];
+                                string answer = string.Empty;
+                                if (responseString.Contains("IdMsg"))
                                 {
-                                    responseString = responseString.Replace("}{", "}|°|{");
-                                    strResp = responseString.Split("|°|", StringSplitOptions.RemoveEmptyEntries);
-                                    foreach (string item in strResp)
+                                    Message msgResult = new Message();
+                                    if (Regex.Matches("IdMsg", responseString).Count >= 2)
                                     {
+                                        if (responseString.Contains("}{"))
+                                        {
+                                            responseString = responseString.Replace("}{", "}|°|{");
+                                            strResp = responseString.Split("|°|", StringSplitOptions.RemoveEmptyEntries);
+                                            foreach (string item in strResp)
+                                            {
+                                                if (first3Char.Contains(":") && !first3Char.Contains("{") && !responseString.Contains(first3Char))
+                                                {
+                                                    answer = first3Char + item;
+                                                }
+
+                                                if (!ConsolidateMessage.CheckJSONMessageIfMatch(responseString, out msgResult))
+                                                {
+                                                    ConnectionManager.Queue_Instrucciones.Enqueue(answer);
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            answer = responseString;
+                                            if (first3Char.Contains(":") && !first3Char.Contains("{") && !responseString.Contains(first3Char))
+                                            {
+                                                answer = first3Char + responseString;
+                                            }
+
+                                            if (!ConsolidateMessage.CheckJSONMessageIfMatch(responseString, out msgResult))
+                                            {
+                                                ConnectionManager.Queue_Instrucciones.Enqueue(answer);
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        answer = responseString;
                                         if (first3Char.Contains(":") && !first3Char.Contains("{") && !responseString.Contains(first3Char))
                                         {
-                                            answer = first3Char + item;
+                                            answer = first3Char + responseString;
                                         }
 
                                         if (!ConsolidateMessage.CheckJSONMessageIfMatch(responseString, out msgResult))
                                         {
                                             ConnectionManager.Queue_Instrucciones.Enqueue(answer);
+                                        }
+                                    }
+
+                                    if (msgResult != null)
+                                    {
+                                        if (!string.IsNullOrWhiteSpace(msgResult.text))
+                                        {
+                                            ConnectionManager.Queue_Instrucciones.Enqueue("MS:" + msgResult.ToJson());
                                         }
                                     }
                                 }
@@ -363,49 +418,17 @@ namespace MMO_Client.Code.Controllers
                                         answer = first3Char + responseString;
                                     }
 
-                                    if (!ConsolidateMessage.CheckJSONMessageIfMatch(responseString, out msgResult))
-                                    {
-                                        ConnectionManager.Queue_Instrucciones.Enqueue(answer);
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                answer = responseString;
-                                if (first3Char.Contains(":") && !first3Char.Contains("{") && !responseString.Contains(first3Char))
-                                {
-                                    answer = first3Char + responseString;
-                                }
-
-                                if (!ConsolidateMessage.CheckJSONMessageIfMatch(responseString, out msgResult))
-                                {
                                     ConnectionManager.Queue_Instrucciones.Enqueue(answer);
                                 }
+                                Console.BackgroundColor = ConsoleColor.Blue;
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.WriteLine("\n\n " + DateTime.Now.ToString() + " Size of the Receivede (Stream) message is: " + answer.Length + " total");
+                                Console.ResetColor();
+                                //await Console.Out.WriteAsync("\n\nReceived (StreamReader): size: " + size + " charCount: " + charCount + " responseChar: " + responseChars.AsMemory(0, charCount));
+                                await Console.Out.WriteAsync("\n\n " + DateTime.Now.ToString() + " Received (StreamReader): size: " + size + " charCount: " + charCount + " responseString: first3Char: " + first3Char + " \n\n " + responseString);
                             }
 
-                            if (msgResult != null)
-                            {
-                                if (!string.IsNullOrWhiteSpace(msgResult.text))
-                                {
-                                    ConnectionManager.Queue_Instrucciones.Enqueue("MS:" + msgResult.ToJson());
-                                }
-                            }
                         }
-                        else
-                        {
-                            answer = responseString;
-                            if (first3Char.Contains(":") && !first3Char.Contains("{") && !responseString.Contains(first3Char))
-                            {
-                                answer = first3Char + responseString;
-                            }
-                            ConnectionManager.Queue_Instrucciones.Enqueue(answer);
-                        }
-                        Console.BackgroundColor = ConsoleColor.Blue;
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine("\n\n " + DateTime.Now.ToString() + " Size of the Receivede (Stream) message is: " + answer.Length + " total");
-                        Console.ResetColor();
-                        //await Console.Out.WriteAsync("\n\nReceived (StreamReader): size: " + size + " charCount: " + charCount + " responseChar: " + responseChars.AsMemory(0, charCount));
-                        await Console.Out.WriteAsync("\n\n " + DateTime.Now.ToString() + " Received (StreamReader): size: " + size + " charCount: " + charCount + " responseString: first3Char: " + first3Char + " \n\n " + responseString);
                     }
 
                     allData.Clear();
