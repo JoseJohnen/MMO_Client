@@ -272,11 +272,17 @@ namespace MMO_Client.Code.Controllers
                     //fuera del loop regular de mensajes, cuando termina incorpora el mensaje armado al loop regular
                     if (nwMsg.IdRef > 0)
                     {
-                        /*nwMsg = Message.ConsolidateMessages(nwMsg);
-                        if(nwMsg == null)
-                        {
-                            return false;
-                        }*/
+                        //Cuando pasen los parcial message acá por algúna razon, como pasan a veces por algún motivo
+                        //Entonces se continúa con el siguiente elemento.
+
+                        //TODO: Asegurar que esos que pasan por acá fueron registrados debidamente, pues si fueron registrados 
+                        //todo bien, pero si no lo han sido, hay que entonces ACÁ registrarlos y después continuar la iteración
+                        //este "if" es un mecánismo de emergencia en cualquier caso.
+
+                        //Firme sospecha de que los mensajes que entran acá son remanente de las preguntas para consolidar
+                        
+                        Console.WriteLine("Entro nwMsg.IdRef > 0: item: " + item +"\n\n");
+                        continue;
                     }
                     //END TODO
 

@@ -352,6 +352,8 @@ namespace MMO_Client.Code.Controllers
                             {
                                 string[] strResp = new string[1];
                                 string answer = string.Empty;
+
+                                string tstString = string.Empty;
                                 if (responseString.Contains("IdMsg"))
                                 {
                                     Message msgResult = new Message();
@@ -370,7 +372,16 @@ namespace MMO_Client.Code.Controllers
 
                                                 if (!ConsolidateMessage.CheckJSONMessageIfMatch(responseString, out msgResult))
                                                 {
-                                                    ConnectionManager.Queue_Instrucciones.Enqueue(answer);
+                                                    if (msgResult != null)
+                                                    {
+                                                        if (UtilityAssistant.TryBase64Decode(msgResult.text, out tstString))
+                                                        {
+                                                            if (!string.IsNullOrWhiteSpace(tstString))
+                                                            {
+                                                                ConnectionManager.Queue_Instrucciones.Enqueue(answer);
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
@@ -384,7 +395,16 @@ namespace MMO_Client.Code.Controllers
 
                                             if (!ConsolidateMessage.CheckJSONMessageIfMatch(responseString, out msgResult))
                                             {
-                                                ConnectionManager.Queue_Instrucciones.Enqueue(answer);
+                                                if (msgResult != null)
+                                                {
+                                                    if (UtilityAssistant.TryBase64Decode(msgResult.text, out tstString))
+                                                    {
+                                                        if (!string.IsNullOrWhiteSpace(tstString))
+                                                        {
+                                                            ConnectionManager.Queue_Instrucciones.Enqueue(answer);
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -398,15 +418,30 @@ namespace MMO_Client.Code.Controllers
 
                                         if (!ConsolidateMessage.CheckJSONMessageIfMatch(responseString, out msgResult))
                                         {
-                                            ConnectionManager.Queue_Instrucciones.Enqueue(answer);
+                                            if (msgResult != null)
+                                            {
+                                                if (UtilityAssistant.TryBase64Decode(msgResult.text, out tstString))
+                                                {
+                                                    if (!string.IsNullOrWhiteSpace(tstString))
+                                                    {
+                                                        ConnectionManager.Queue_Instrucciones.Enqueue(answer);
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
 
                                     if (msgResult != null)
                                     {
-                                        if (!string.IsNullOrWhiteSpace(msgResult.text))
+                                        if (UtilityAssistant.TryBase64Decode(msgResult.text, out tstString))
                                         {
-                                            ConnectionManager.Queue_Instrucciones.Enqueue("MS:" + msgResult.ToJson());
+                                            if (msgResult != null)
+                                            {
+                                                if (!string.IsNullOrWhiteSpace(tstString))
+                                                {
+                                                    ConnectionManager.Queue_Instrucciones.Enqueue("MS:" + msgResult.ToJson());
+                                                }
+                                            }
                                         }
                                     }
                                 }

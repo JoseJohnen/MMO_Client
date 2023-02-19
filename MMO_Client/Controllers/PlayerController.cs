@@ -35,7 +35,7 @@ namespace MMO_Client.Controllers
         public static bool isQuestionAsked = false;
 
         [DataMemberIgnore]
-        public ConcurrentDictionary<int, Bullet> dic_bulletsOnline = new ConcurrentDictionary<int, Bullet>();
+        public static ConcurrentDictionary<string, Bullet> dic_bulletsOnline = new ConcurrentDictionary<string, Bullet>();
 
         [DataMemberIgnore]
         public ConcurrentQueue<Shot> q_PendingShotsCreatedRun = new ConcurrentQueue<Shot>();
@@ -165,7 +165,7 @@ namespace MMO_Client.Controllers
                 {
                     if (DateTime.Now - lastFrame > new TimeSpan(0, 0, 0, 0, 50))
                     {
-                        ConnectionManager.gameSocketClient.l_SendBigMessages.Enqueue("PR:" + prtObj.ToJson());
+                        //ConnectionManager.gameSocketClient.l_SendBigMessages.Enqueue("PR:" + prtObj.ToJson());
                         lastFrame = DateTime.Now;
                     }
                 }
@@ -176,16 +176,11 @@ namespace MMO_Client.Controllers
                     {
                         if (DateTime.Now - item.LastUpdate >= item.Velocity)
                         {
-                            ConnectionManager.gameSocketClient.l_SendBigMessages.Enqueue("PR:" + prtObj.ToJson());
+                            //ConnectionManager.gameSocketClient.l_SendBigMessages.Enqueue("PR:" + prtObj.ToJson());
                             return;
                         }
                     }
                 }
-
-                //while (dic_bulletsOnline.TryGetValue(index, out bllt))
-                //{
-
-                //}
             }
             catch (Exception ex)
             {
@@ -240,33 +235,33 @@ namespace MMO_Client.Controllers
             {
                 bool result = false;
                 List<ShotPosUpdate> l_shtUpd = l_shotPosUpdates.ToList();
-                List<Trios<int, Bullet, ShotPosUpdate>> l_tempBulletOnline = new();
-                ConcurrentDictionary<int, Bullet> dictionaryFrom = new ConcurrentDictionary<int, Bullet>();
-                ConcurrentDictionary<int, Bullet> dictionaryTo = new ConcurrentDictionary<int, Bullet>(dic_bulletsOnline);
+                List<Trios<string, Bullet, ShotPosUpdate>> l_tempBulletOnline = new();
+                ConcurrentDictionary<string, Bullet> dictionaryFrom = new ConcurrentDictionary<string, Bullet>();
+                ConcurrentDictionary<string, Bullet> dictionaryTo = new ConcurrentDictionary<string, Bullet>(dic_bulletsOnline);
                 foreach (ShotPosUpdate shtUpd in l_shtUpd)
                 {
-                    foreach (KeyValuePair<int, Bullet> bllt in dictionaryTo)
+                    foreach (KeyValuePair<string, Bullet> bllt in dictionaryTo)
                     {
                         if (shtUpd.Id == bllt.Key)
                         {
-                            l_tempBulletOnline.Add(new Trios<int, Bullet, ShotPosUpdate>(shtUpd.Id, bllt.Value, shtUpd));
+                            l_tempBulletOnline.Add(new Trios<string, Bullet, ShotPosUpdate>(shtUpd.Id, bllt.Value, shtUpd));
                             //bllt.Value.Position = UtilityAssistant.ConvertVector3NumericToStride(shtUpd.Pos);
                         }
                     }
                 }
                 l_shotPosUpdates.Clear();
-                foreach (Trios<int, Bullet, ShotPosUpdate> item in l_tempBulletOnline)
+                foreach (Trios<string, Bullet, ShotPosUpdate> item in l_tempBulletOnline)
                 {
                     item.Item2.Position = UtilityAssistant.ConvertVector3NumericToStride(item.Item3.Pos);
                 }
 
-                dictionaryFrom = new ConcurrentDictionary<int, Bullet>(l_tempBulletOnline.ToDictionary(c => c.Item1, c => c.Item2));
-                foreach (KeyValuePair<int, Bullet> item in dictionaryFrom.ToList())
+                dictionaryFrom = new ConcurrentDictionary<string, Bullet>(l_tempBulletOnline.ToDictionary(c => c.Item1, c => c.Item2));
+                foreach (KeyValuePair<string, Bullet> item in dictionaryFrom.ToList())
                 {
                     dictionaryTo.AddOrUpdate(item.Key,
                         addValueFactory: (ky) =>
                     {
-                        ky = dic_bulletsOnline.Count();
+                        ky = item.Key; //dic_bulletsOnline.Count();
                         return item.Value;
                     },
                         updateValueFactory: (ky, oldVle) =>
@@ -276,7 +271,7 @@ namespace MMO_Client.Controllers
                     });
                 }
                 dic_bulletsOnline.Clear();
-                dic_bulletsOnline = new ConcurrentDictionary<int, Bullet>(dictionaryTo);
+                dic_bulletsOnline = new ConcurrentDictionary<string, Bullet>(dictionaryTo);
                 /*ShotPosUpdate shtUpd = new ShotPosUpdate();
                 while (q_PendingShotPosUpdateRun.TryDequeue(out shtUpd))
                 {
@@ -346,7 +341,7 @@ namespace MMO_Client.Controllers
                 //{
                 foreach (ShotState sst in l_shotStates)
                 {
-                    foreach (KeyValuePair<int, Bullet> bllt in dic_bulletsOnline)
+                    foreach (KeyValuePair<string, Bullet> bllt in dic_bulletsOnline)
                     {
                         if (sst.Id == bllt.Key)
                         {
@@ -1561,7 +1556,7 @@ namespace MMO_Client.Controllers
             message1.Status = StatusMessage.Delivered;
             try
             {
-                if (itemParameter.Id == 0 && itemParameter.Pos == System.Numerics.Vector3.Zero)
+                if (string.IsNullOrWhiteSpace(itemParameter.Id) && itemParameter.Pos == System.Numerics.Vector3.Zero)
                 {
                     return false;
                 }
@@ -1610,7 +1605,7 @@ namespace MMO_Client.Controllers
                 messageOut.Status = StatusMessage.Delivered;
                 //foreach (KeyValuePair<int, Bullet> bllt in dic_bulletsOnline)
                 Bullet bllt = null;
-                int index = 0;
+                string index = string.Empty;
                 do
                 {
                     if (bllt != null)
@@ -1650,10 +1645,10 @@ namespace MMO_Client.Controllers
                         }
                     }
 
-                    if (index < dic_bulletsOnline.Count)
+                    /*if (index < dic_bulletsOnline.Count)
                     {
                         index++;
-                    }
+                    }*/
                 }
                 while (dic_bulletsOnline.TryGetValue(index, out bllt));
             }
@@ -1699,7 +1694,7 @@ namespace MMO_Client.Controllers
                     {
                         foreach (ShotPosUpdate shtUp in STS.l_shotsPosUpdates)
                         {
-                            foreach (KeyValuePair<int, Bullet> bllt in dic_bulletsOnline)
+                            foreach (KeyValuePair<string, Bullet> bllt in dic_bulletsOnline)
                             {
                                 if (shtUp.Id == bllt.Key)
                                 {
@@ -1786,8 +1781,8 @@ namespace MMO_Client.Controllers
                 }
 
                 Entity.Scene.Entities.AddRange(instance);
-                int id = l_bullets.Count;
-                l_bullets.Add(new Pares<List<Entity>, Bullet>(instance, new Bullet(id, entUse.Name, initialposition, moddif)));
+                //int id = l_bullets.Count;
+                l_bullets.Add(new Pares<List<Entity>, Bullet>(instance, new Bullet("", entUse.Name, initialposition, moddif)));
                 //}
                 //}
             }
@@ -1823,7 +1818,7 @@ namespace MMO_Client.Controllers
                         Entity.Scene.Entities.AddRange(instance);
 
                         int id = l_bullets.Count;
-                        l_bullets.Add(new Pares<List<Entity>, Bullet>(instance, new Bullet(id, Player.PLAYER.Entity.Name, Player.PLAYER.Weapon.Transform.WorldMatrix.TranslationVector, a)));
+                        l_bullets.Add(new Pares<List<Entity>, Bullet>(instance, new Bullet("", Player.PLAYER.Entity.Name, Player.PLAYER.Weapon.Transform.WorldMatrix.TranslationVector, a)));
                     }
                 }
             }
