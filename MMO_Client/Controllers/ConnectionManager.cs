@@ -450,7 +450,10 @@ namespace MMO_Client.Code.Controllers
                                     answer = responseString;
                                     if (first3Char.Contains(":") && !first3Char.Contains("{") && !responseString.Contains(first3Char))
                                     {
-                                        answer = first3Char + responseString;
+                                        if(!string.IsNullOrWhiteSpace(responseString))
+                                        {
+                                            answer = first3Char + responseString;
+                                        }
                                     }
 
                                     ConnectionManager.Queue_Instrucciones.Enqueue(answer);

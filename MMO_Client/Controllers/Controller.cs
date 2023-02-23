@@ -12,8 +12,6 @@ using Stride.Rendering;
 using Interfaz.Models;
 using System.Threading.Tasks;
 using Interfaz.Utilities;
-using MMO_Client.Code.Models;
-using Stride.Core.Mathematics;
 using System.Text.RegularExpressions;
 
 namespace MMO_Client.Code.Controllers
@@ -172,7 +170,18 @@ namespace MMO_Client.Code.Controllers
         {
             try
             {
-                ConsolidateMessage.CheckMissingMessages();
+                List<Message> l_msgs = ConsolidateMessage.CheckMissingMessages();
+
+                if(l_msgs != null)
+                {
+                    if(l_msgs.Count > 0)
+                    {
+                        foreach (Message item in l_msgs)
+                        {
+                            ConnectionManager.Queue_Instrucciones.Enqueue("MS:"+ item.ToJson());
+                        }
+                    }
+                }
 
                 if (ConnectionManager.Queue_Answers.Count > 0)
                 {
@@ -209,8 +218,17 @@ namespace MMO_Client.Code.Controllers
             try
             {
                 string item = string.Empty;
-                while (ConnectionManager.Queue_Instrucciones.TryDequeue(out item))
+                while (!ConnectionManager.Queue_Instrucciones.IsEmpty)
                 {
+                    if(!ConnectionManager.Queue_Instrucciones.TryDequeue(out item))
+                    {
+                        continue;
+                    }
+
+                    if (string.IsNullOrWhiteSpace(item))
+                    {
+                        continue;
+                    }
                     //uint index = 0;
                     //bool indexWasSuccessfull = false;
 
@@ -238,7 +256,7 @@ namespace MMO_Client.Code.Controllers
                     if (Regex.Matches(item, "}{").Count > 0)
                     {
                         item = item.Replace("}{", "}|°|MS:{");
-                        string[] tempStrArray = item.Split("|°|");
+                        string[] tempStrArray = item.Split("|°|", StringSplitOptions.RemoveEmptyEntries);
                         item = tempStrArray[0];
 
                         if(tempStrArray.Length <= 1)
@@ -300,7 +318,7 @@ namespace MMO_Client.Code.Controllers
 
                     if (string.IsNullOrWhiteSpace(nwMsg.TextOriginal))
                     {
-                        return false;
+                        continue;
                     }
 
                     string typeOf = nwMsg.TextOriginal.Substring(0, 2);
@@ -344,8 +362,13 @@ namespace MMO_Client.Code.Controllers
             try
             {
                 string item = string.Empty;
-                while (ConnectionManager.Queue_Answers.TryDequeue(out item))
+                while (!ConnectionManager.Queue_Answers.IsEmpty)
                 {
+                    if(!ConnectionManager.Queue_Answers.TryDequeue(out item))
+                    {
+                        continue;
+                    }
+
                     //uint index = 0;
                     //bool indexWasSuccessfull = false;
                     if (Regex.Matches(item, "MS:").Count > 1)

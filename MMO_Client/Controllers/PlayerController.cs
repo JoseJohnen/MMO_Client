@@ -165,7 +165,7 @@ namespace MMO_Client.Controllers
                 {
                     if (DateTime.Now - lastFrame > new TimeSpan(0, 0, 0, 0, 50))
                     {
-                        //ConnectionManager.gameSocketClient.l_SendBigMessages.Enqueue("PR:" + prtObj.ToJson());
+                        ConnectionManager.gameSocketClient.l_SendBigMessages.Enqueue("PR:" + prtObj.ToJson());
                         lastFrame = DateTime.Now;
                     }
                 }
@@ -176,7 +176,7 @@ namespace MMO_Client.Controllers
                     {
                         if (DateTime.Now - item.LastUpdate >= item.Velocity)
                         {
-                            //ConnectionManager.gameSocketClient.l_SendBigMessages.Enqueue("PR:" + prtObj.ToJson());
+                            ConnectionManager.gameSocketClient.l_SendBigMessages.Enqueue("PR:" + prtObj.ToJson());
                             return;
                         }
                     }
