@@ -13,6 +13,7 @@ using Interfaz.Models;
 using System.Threading.Tasks;
 using Interfaz.Utilities;
 using System.Text.RegularExpressions;
+using MMO_Client.Code.Models;
 
 namespace MMO_Client.Code.Controllers
 {
@@ -421,10 +422,9 @@ namespace MMO_Client.Code.Controllers
                             //ConnectionManager.gameSocketClient.l_SendQueueMessages.Enqueue("MS:" + stMsg2.ToJson());
                             break;
                         case "PY":
-                            if (typeOf.Equals("PYST"))
-                            {
-                                Console.WriteLine("PYST Received!!: " + nwMsg.Text);
-                            }
+                            Player plyr = Player.CreateFromJson(nwMsg.TextOriginal);
+                            Console.WriteLine("PYST Received!!: " + nwMsg.TextOriginal);
+                            var z = plyr;
                             break;
                         default:
                             break;

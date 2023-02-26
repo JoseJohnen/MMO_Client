@@ -204,7 +204,8 @@ namespace MMO_Client.Code.Controllers
                             if (gameSocketClient.l_SendBigMessages.Count > 0)
                             {
                                 string item = string.Empty;
-                                while (gameSocketClient.l_SendBigMessages.TryDequeue(out item))
+                                while (gameSocketClient.l_SendBigMessages.TryTake(out item))
+                                //while (gameSocketClient.l_SendBigMessages.TryDequeue(out item))
                                 {
                                     if (string.IsNullOrWhiteSpace(item))
                                     {
@@ -372,15 +373,9 @@ namespace MMO_Client.Code.Controllers
 
                                                 if (!ConsolidateMessage.CheckJSONMessageIfMatch(responseString, out msgResult))
                                                 {
-                                                    if (msgResult != null)
+                                                    if (Message.ValidTextFromJsonMsg(responseString))
                                                     {
-                                                        if (UtilityAssistant.TryBase64Decode(msgResult.text, out tstString))
-                                                        {
-                                                            if (!string.IsNullOrWhiteSpace(tstString))
-                                                            {
-                                                                ConnectionManager.Queue_Instrucciones.Enqueue(answer);
-                                                            }
-                                                        }
+                                                        ConnectionManager.Queue_Instrucciones.Enqueue(answer);
                                                     }
                                                 }
                                             }
@@ -395,15 +390,9 @@ namespace MMO_Client.Code.Controllers
 
                                             if (!ConsolidateMessage.CheckJSONMessageIfMatch(responseString, out msgResult))
                                             {
-                                                if (msgResult != null)
+                                                if (Message.ValidTextFromJsonMsg(responseString))
                                                 {
-                                                    if (UtilityAssistant.TryBase64Decode(msgResult.text, out tstString))
-                                                    {
-                                                        if (!string.IsNullOrWhiteSpace(tstString))
-                                                        {
-                                                            ConnectionManager.Queue_Instrucciones.Enqueue(answer);
-                                                        }
-                                                    }
+                                                    ConnectionManager.Queue_Instrucciones.Enqueue(answer);
                                                 }
                                             }
                                         }
@@ -418,15 +407,9 @@ namespace MMO_Client.Code.Controllers
 
                                         if (!ConsolidateMessage.CheckJSONMessageIfMatch(responseString, out msgResult))
                                         {
-                                            if (msgResult != null)
+                                            if (Message.ValidTextFromJsonMsg(responseString))
                                             {
-                                                if (UtilityAssistant.TryBase64Decode(msgResult.text, out tstString))
-                                                {
-                                                    if (!string.IsNullOrWhiteSpace(tstString))
-                                                    {
-                                                        ConnectionManager.Queue_Instrucciones.Enqueue(answer);
-                                                    }
-                                                }
+                                                ConnectionManager.Queue_Instrucciones.Enqueue(answer);
                                             }
                                         }
                                     }
@@ -435,12 +418,9 @@ namespace MMO_Client.Code.Controllers
                                     {
                                         if (UtilityAssistant.TryBase64Decode(msgResult.text, out tstString))
                                         {
-                                            if (msgResult != null)
+                                            if (!string.IsNullOrWhiteSpace(tstString))
                                             {
-                                                if (!string.IsNullOrWhiteSpace(tstString))
-                                                {
-                                                    ConnectionManager.Queue_Instrucciones.Enqueue("MS:" + msgResult.ToJson());
-                                                }
+                                                ConnectionManager.Queue_Instrucciones.Enqueue("MS:" + msgResult.ToJson());
                                             }
                                         }
                                     }
@@ -450,7 +430,7 @@ namespace MMO_Client.Code.Controllers
                                     answer = responseString;
                                     if (first3Char.Contains(":") && !first3Char.Contains("{") && !responseString.Contains(first3Char))
                                     {
-                                        if(!string.IsNullOrWhiteSpace(responseString))
+                                        if (!string.IsNullOrWhiteSpace(responseString))
                                         {
                                             answer = first3Char + responseString;
                                         }
@@ -525,7 +505,8 @@ namespace MMO_Client.Code.Controllers
                         {
                             if (gameSocketClient.l_SendQueueMessages.Count > 0)
                             {
-                                while (gameSocketClient.l_SendQueueMessages.TryDequeue(out item))
+                                while (gameSocketClient.l_SendQueueMessages.TryTake(out item))
+                                //while (gameSocketClient.l_SendQueueMessages.TryDequeue(out item))
                                 {
                                     if (string.IsNullOrWhiteSpace(item))
                                     {
@@ -688,10 +669,11 @@ namespace MMO_Client.Code.Controllers
 
                 if (gameSocketClient.l_SendQueueMessages == null)
                 {
-                    gameSocketClient.l_SendQueueMessages = new ConcurrentQueue<string>();
+                    gameSocketClient.l_SendQueueMessages = new BlockingCollection<string>();
                 }
 
-                gameSocketClient.l_SendQueueMessages.Enqueue(strMsg);
+                gameSocketClient.l_SendQueueMessages.TryAdd(strMsg);
+                //gameSocketClient.l_SendQueueMessages.Enqueue(strMsg);
 
                 return true;
             }
@@ -978,7 +960,8 @@ namespace MMO_Client.Code.Controllers
                 //l_stateObjects.Add(nwStObj);
 
                 //Dejar descomentado si se esta utilizando gameSocketClient
-                gameSocketClient.l_SendQueueMessages.Enqueue(instruction);
+                gameSocketClient.l_SendQueueMessages.TryAdd(instruction);
+                //gameSocketClient.l_SendQueueMessages.Enqueue(instruction);
                 return true;
             }
             catch (Exception ex)

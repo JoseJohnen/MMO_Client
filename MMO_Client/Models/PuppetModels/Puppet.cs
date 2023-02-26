@@ -55,7 +55,7 @@ namespace MMO_Client.Code.Models
         {
         }
 
-        public string ToJson()
+        public virtual string ToJson()
         {
             try
             {

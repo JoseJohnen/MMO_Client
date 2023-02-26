@@ -140,20 +140,21 @@ namespace MMO_Client.Controllers
         {
             try
             {
-                /*if(isQuestionAsked)
+                if (isQuestionAsked)
                 {
                     return;
-                }*/
+                }
                 isQuestionAsked = true;
 
                 PreguntaObj prtObj = new PreguntaObj();
 
                 MissingMessages mMsg = new MissingMessages();
-                if(MissingMessages.q_MissingMessages.Count > 0)
+                if (MissingMessages.q_MissingMessages.Count > 0)
                 {
                     while (MissingMessages.q_MissingMessages.TryDequeue(out mMsg))
                     {
-                        ConnectionManager.gameSocketClient.l_SendQueueMessages.Enqueue("MM:" + mMsg.ToJson());
+                        ConnectionManager.gameSocketClient.l_SendQueueMessages.TryAdd("MM:" + mMsg.ToJson());
+                        //ConnectionManager.gameSocketClient.l_SendQueueMessages.Enqueue("MM:" + mMsg.ToJson());
                     }
                     return;
                 }
@@ -165,7 +166,8 @@ namespace MMO_Client.Controllers
                 {
                     if (DateTime.Now - lastFrame > new TimeSpan(0, 0, 0, 0, 50))
                     {
-                        ConnectionManager.gameSocketClient.l_SendBigMessages.Enqueue("PR:" + prtObj.ToJson());
+                        ConnectionManager.gameSocketClient.l_SendBigMessages.TryAdd("PR:" + prtObj.ToJson());
+                        //ConnectionManager.gameSocketClient.l_SendBigMessages.Enqueue("PR:" + prtObj.ToJson());
                         lastFrame = DateTime.Now;
                     }
                 }
@@ -174,10 +176,15 @@ namespace MMO_Client.Controllers
                     prtObj.l_id_bullets_preguntando.AddRange(dic_bulletsOnline.Keys.ToList());
                     foreach (Bullet item in dic_bulletsOnline.Values)
                     {
-                        if (DateTime.Now - item.LastUpdate >= item.Velocity)
+                        if (DateTime.Now - lastFrame > new TimeSpan(0, 0, 0, 0, 50))
                         {
-                            ConnectionManager.gameSocketClient.l_SendBigMessages.Enqueue("PR:" + prtObj.ToJson());
-                            return;
+                            if (DateTime.Now - item.LastUpdate >= item.Velocity)
+                            {
+                                ConnectionManager.gameSocketClient.l_SendBigMessages.TryAdd("PR:" + prtObj.ToJson());
+                                //ConnectionManager.gameSocketClient.l_SendBigMessages.Enqueue("PR:" + prtObj.ToJson());
+                                return;
+                            }
+                            lastFrame = DateTime.Now;
                         }
                     }
                 }
@@ -1399,7 +1406,7 @@ namespace MMO_Client.Controllers
                             }
                         }*/
                         ConnectionManager.AddInstruction("ST:" + byteData);
-                        isQuestionAsked = false;
+                        //isQuestionAsked = false;
                     }
                 }
                 //continueshot:
@@ -1418,17 +1425,28 @@ namespace MMO_Client.Controllers
             messageOut = nwMsg;
             try
             {
+                bool result = false;
                 if (!string.IsNullOrWhiteSpace(text))
                 {
                     messageOut.Status = StatusMessage.Delivered;
                     string tempString = Interfaz.Utilities.UtilityAssistant.ExtractValues(text, "CO");
                     tempString = Interfaz.Utilities.UtilityAssistant.CleanJSON(tempString);
                     string strTemp = string.Empty;
+
+                    //Reduntante, porque ahora el return devuelve una variable y por tanto no necesita dos returns
+                    /*if (string.IsNullOrWhiteSpace(tempString))
+                    {
+                        return false;
+                    }*/
+
                     if (!string.IsNullOrWhiteSpace(tempString))
                     {
-                        if (string.IsNullOrWhiteSpace(tempString))
+                        if(tempString.Equals("PONG"))
                         {
-                            return false;
+                            //En este caso la idea es verificar que todo esta en orden, por eso se setea el isQuestionAsked y solo se retorna
+                            //true, porque el servidor ha dicho que no ha detectado novedades necesarias de comunicar
+                            isQuestionAsked = false;
+                            return true;
                         }
 
                         ConversacionObj convObj = ConversacionObj.CreateFromJson(tempString);
@@ -1446,12 +1464,11 @@ namespace MMO_Client.Controllers
                         {
                             DestroyShot(btc, messageOut, out messageOut);
                         }
-
-                        isQuestionAsked = false;
+                        result = true;
                     }
                 }
-
-                return true;
+                isQuestionAsked = false;
+                return result;
             }
             catch (Exception ex)
             {
