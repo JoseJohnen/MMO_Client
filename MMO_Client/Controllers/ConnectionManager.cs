@@ -78,8 +78,7 @@ namespace MMO_Client.Code.Controllers
             Services.AddService(this);
             Instance = this;
 
-            Task.Run(() => PrepareListeningSocketAsync());
-
+            Task.Run(() => PrepareListeningSocketHttpAsync());
             //SendStartAsync()
 
             LogInSocket();
@@ -88,6 +87,45 @@ namespace MMO_Client.Code.Controllers
         }
 
         #region Listening Socket
+
+        private static async Task PrepareListeningSocketHttpAsync()
+        {
+            try
+            {
+                listeningSocket = new Socket(SocketType.Stream, ProtocolType.Tcp);
+                listeningSocket.Bind(new IPEndPoint(IPAddress.Any, PortToReceive));
+                listeningSocket.Listen();
+
+                bool isListening = true;
+                Socket MisteriousSocket = null;
+                do
+                {
+                    MisteriousSocket = await listeningSocket.AcceptAsync();
+                    if(MisteriousSocket != null)
+                    {
+                        if(gameSocketClient.ListenerSocket == null)
+                        {
+                            gameSocketClient.ListenerSocket = MisteriousSocket;
+                            Task.Run(() => ReceiveAsync());
+                        }
+                    }
+
+                    if (listeningSocket.Connected)
+                    {
+                        listeningSocket.Close();
+                        isListening = false;
+                        Console.Out.WriteLineAsync("2 Connections Confirmed, listening Socket connection status: " + listeningSocket.Connected);
+                    }
+                }
+                while (isListening);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error PrepareListeningSocketHttpAsync: " + ex.Message);
+                Task.Run(() => PrepareListeningSocketHttpAsync());
+            }
+        }
+
         private static async Task PrepareListeningSocketAsync()
         {
             try
@@ -653,7 +691,7 @@ namespace MMO_Client.Code.Controllers
 
                 retrySend = false;
                 Message msg = new Message();
-                msg.Text = "EM:"+MailTest;
+                msg.Text = "EM:" + MailTest;
                 string strMsg = msg.ToJson();
                 //StateObject stObj = new StateObject();
                 //stObj.addData(strMsg);
@@ -672,7 +710,7 @@ namespace MMO_Client.Code.Controllers
                     gameSocketClient.l_SendQueueMessages = new BlockingCollection<string>();
                 }
 
-                gameSocketClient.l_SendQueueMessages.TryAdd("MS:"+strMsg);
+                gameSocketClient.l_SendQueueMessages.TryAdd("MS:" + strMsg);
                 //gameSocketClient.l_SendQueueMessages.Enqueue(strMsg);
 
                 return true;
@@ -959,7 +997,7 @@ namespace MMO_Client.Code.Controllers
                 //nwStObj.addData(instruction);Gundam Wing Endless Waltz ending
                 //l_stateObjects.Add(nwStObj);
                 Message msg = null;
-                if(!instruction.Contains("MS:"))
+                if (!instruction.Contains("MS:"))
                 {
                     msg = Message.CreateMessage(instruction, true);
                     instruction = "MS:" + msg.ToJson();

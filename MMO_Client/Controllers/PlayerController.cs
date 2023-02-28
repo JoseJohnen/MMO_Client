@@ -23,6 +23,7 @@ using UtilityAssistant = MMO_Client.Code.Assistants.UtilityAssistant;
 using SerializedVector3 = MMO_Client.Code.Models.SerializedVector3;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Net.Http;
 
 namespace MMO_Client.Controllers
 {
@@ -82,8 +83,10 @@ namespace MMO_Client.Controllers
                 //l_entitysCharacters[0].RealEnt.Transform.Rotation = qtrn;
 
                 lastFrame = DateTime.Now;
-                workerThread = new Thread(new ThreadStart(PreguntarWhile));
+                workerThread = new Thread(new ThreadStart(PreguntarWhileHttp));
                 workerThread.Start();
+                //Parallel.Invoke(PreguntarWhileHttp);
+
                 // Load a model (replace URL with valid URL)
 
                 //DirectoryInfo d = new DirectoryInfo(@"Prefabs/"); //Assuming Test is your Folder
@@ -138,6 +141,7 @@ namespace MMO_Client.Controllers
             //ShotAndProyectileProcessing();
             Animacion();
             //Parallel.Invoke(Preguntar);
+            //Parallel.Invoke(PreguntarWhileHttp);
             //Preguntar();
         }
 
@@ -275,6 +279,105 @@ namespace MMO_Client.Controllers
                 Console.Out.WriteLineAsync("Error Preguntar(): " + ex.Message);
                 Console.ResetColor();
             }
+        }
+
+        private async void PreguntarWhileHttp()
+        {
+            HttpClient client = new();
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
+            client.DefaultRequestHeaders.Add("User-Agent", "MMoClient");
+            HttpResponseMessage response = null;
+            do
+            {
+                try
+                {
+                    PreguntaObj prtObj = new PreguntaObj();
+                    //Console.Out.WriteLineAsync("\nPreguntando...\n");
+                    MissingMessages mMsg = new MissingMessages();
+                    if (MissingMessages.q_MissingMessages.Count > 0)
+                    {
+                        while (MissingMessages.q_MissingMessages.TryDequeue(out mMsg))
+                        {
+                            ConnectionManager.gameSocketClient.l_SendQueueMessages.TryAdd("MM:" + mMsg.ToJson());
+                        }
+                        continue;
+                    }
+
+                    if (isQuestionAsked)
+                    {
+                        if (DateTime.Now - lastFrame > new TimeSpan(0, 0, 0, 1, 50))
+                        {
+                            isQuestionAsked = false;
+                            lastFrame = DateTime.Now;
+                        }
+                        continue;
+                    }
+                    isQuestionAsked = true;
+
+                    //TODO: ¿Cuál es el criterio para enviar las preguntas?
+                    //- Tiempo de las balas
+                    //- Que no hayan balas, y si es así, cada medio segundo
+                    if (dic_bulletsOnline.Count <= 0)
+                    {
+                        if (DateTime.Now - lastFrame > new TimeSpan(0, 0, 0, 0, 50))
+                        {
+                            FormUrlEncodedContent stringContent = new(new[]
+                            {
+                                new KeyValuePair<string, string>("token","a"),
+                                new KeyValuePair<string, string>("strItem","PR:" + prtObj.ToJson()),
+                            });
+
+                            response = await client.PostAsync("https://localhost:7109/api/ContextDeliverer", stringContent);
+                            lastFrame = DateTime.Now;
+                        }
+                    }
+                    else
+                    {
+                        prtObj.l_id_bullets_preguntando.AddRange(dic_bulletsOnline.Keys.ToList());
+                        foreach (Bullet item in dic_bulletsOnline.Values)
+                        {
+                            if (DateTime.Now - lastFrame > new TimeSpan(0, 0, 0, 0, 50))
+                            {
+                                if (DateTime.Now - item.LastUpdate >= item.Velocity)
+                                {
+                                    FormUrlEncodedContent stringContent = new(new[]
+                                    {
+                                        new KeyValuePair<string, string>("token","a"),
+                                        new KeyValuePair<string, string>("strItem","PR:" + prtObj.ToJson()),
+                                    });
+
+                                    response = await client.PostAsync("https://localhost:7109/api/ContextDeliverer", stringContent);
+                                }
+                                lastFrame = DateTime.Now;
+                            }
+                        }
+                    }
+
+                    if(response != null)
+                    {
+                        //TODO: Esta variable debería ser de la clase padre (o algo así), cosa tal de que la información
+                        //pase para su procesamiento a su siguiente fase
+                        string resp = await response.Content.ReadAsStringAsync(); //" + resp + "
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.BackgroundColor = ConsoleColor.DarkGreen;
+                        Console.Out.WriteLineAsync(DateTime.Now.ToString() + " Preguntando response: " + resp);
+                        Console.WriteLine(DateTime.Now.ToString() + " Preguntando response: " + resp);
+                        Console.ResetColor();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.Out.WriteLineAsync("Error Preguntar(): " + ex.Message);
+                    Console.ResetColor();
+                }
+            }
+            while (true);
+            Console.BackgroundColor = ConsoleColor.DarkGreen;
+            Console.Out.WriteLineAsync("\n\nCERRADO EL BUCLE POR ALGUN MOTIVO (PREGUNTAR())\n\n");
+            Console.ResetColor();
         }
 
         #region UpCrElBullets
