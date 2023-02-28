@@ -21,6 +21,8 @@ using System.Windows.Interop;
 using Interfaz.Utilities;
 using UtilityAssistant = MMO_Client.Code.Assistants.UtilityAssistant;
 using SerializedVector3 = MMO_Client.Code.Models.SerializedVector3;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace MMO_Client.Controllers
 {
@@ -46,6 +48,7 @@ namespace MMO_Client.Controllers
 
         public Area ActiveArea;
         public List<Area> l_ActiveAreaFurniture;
+        public Thread workerThread = null;
 
         public List<Trios<int, Puppet, TimeSpan>> l_AnimacionesEntitys = new List<Trios<int, Puppet, TimeSpan>>();
         DateTime lastFrame = DateTime.Now;
@@ -79,7 +82,8 @@ namespace MMO_Client.Controllers
                 //l_entitysCharacters[0].RealEnt.Transform.Rotation = qtrn;
 
                 lastFrame = DateTime.Now;
-
+                workerThread = new Thread(new ThreadStart(PreguntarWhile));
+                workerThread.Start();
                 // Load a model (replace URL with valid URL)
 
                 //DirectoryInfo d = new DirectoryInfo(@"Prefabs/"); //Assuming Test is your Folder
@@ -133,21 +137,16 @@ namespace MMO_Client.Controllers
             ShotOnline();
             //ShotAndProyectileProcessing();
             Animacion();
-            Preguntar();
+            //Parallel.Invoke(Preguntar);
+            //Preguntar();
         }
 
         private void Preguntar()
         {
             try
             {
-                if (isQuestionAsked)
-                {
-                    return;
-                }
-                isQuestionAsked = true;
-
                 PreguntaObj prtObj = new PreguntaObj();
-
+                Console.Out.WriteLineAsync("\nPreguntando...\n");
                 MissingMessages mMsg = new MissingMessages();
                 if (MissingMessages.q_MissingMessages.Count > 0)
                 {
@@ -158,6 +157,17 @@ namespace MMO_Client.Controllers
                     }
                     return;
                 }
+
+                if (isQuestionAsked)
+                {
+                    if (DateTime.Now - lastFrame > new TimeSpan(0, 0, 0, 1, 50))
+                    {
+                        isQuestionAsked = false;
+                        lastFrame = DateTime.Now;
+                    }
+                    return;
+                }
+                isQuestionAsked = true;
 
                 //TODO: ¿Cuál es el criterio para enviar las preguntas?
                 //- Tiempo de las balas
@@ -192,7 +202,77 @@ namespace MMO_Client.Controllers
             catch (Exception ex)
             {
                 Console.BackgroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error Preguntar(): " + ex.Message);
+                Console.Out.WriteLineAsync("Error Preguntar(): " + ex.Message);
+                Console.ResetColor();
+            }
+        }
+
+        private void PreguntarWhile()
+        {
+            try
+            {
+                do
+                {
+                    PreguntaObj prtObj = new PreguntaObj();
+                    Console.Out.WriteLineAsync("\nPreguntando...\n");
+                    MissingMessages mMsg = new MissingMessages();
+                    if (MissingMessages.q_MissingMessages.Count > 0)
+                    {
+                        while (MissingMessages.q_MissingMessages.TryDequeue(out mMsg))
+                        {
+                            ConnectionManager.gameSocketClient.l_SendQueueMessages.TryAdd("MM:" + mMsg.ToJson());
+                            //ConnectionManager.gameSocketClient.l_SendQueueMessages.Enqueue("MM:" + mMsg.ToJson());
+                        }
+                        return;
+                    }
+
+                    if (isQuestionAsked)
+                    {
+                        if (DateTime.Now - lastFrame > new TimeSpan(0, 0, 0, 1, 50))
+                        {
+                            isQuestionAsked = false;
+                            lastFrame = DateTime.Now;
+                        }
+                        return;
+                    }
+                    isQuestionAsked = true;
+
+                    //TODO: ¿Cuál es el criterio para enviar las preguntas?
+                    //- Tiempo de las balas
+                    //- Que no hayan balas, y si es así, cada medio segundo
+                    if (dic_bulletsOnline.Count <= 0)
+                    {
+                        if (DateTime.Now - lastFrame > new TimeSpan(0, 0, 0, 0, 50))
+                        {
+                            ConnectionManager.gameSocketClient.l_SendBigMessages.TryAdd("PR:" + prtObj.ToJson());
+                            //ConnectionManager.gameSocketClient.l_SendBigMessages.Enqueue("PR:" + prtObj.ToJson());
+                            lastFrame = DateTime.Now;
+                        }
+                    }
+                    else
+                    {
+                        prtObj.l_id_bullets_preguntando.AddRange(dic_bulletsOnline.Keys.ToList());
+                        foreach (Bullet item in dic_bulletsOnline.Values)
+                        {
+                            if (DateTime.Now - lastFrame > new TimeSpan(0, 0, 0, 0, 50))
+                            {
+                                if (DateTime.Now - item.LastUpdate >= item.Velocity)
+                                {
+                                    ConnectionManager.gameSocketClient.l_SendBigMessages.TryAdd("PR:" + prtObj.ToJson());
+                                    //ConnectionManager.gameSocketClient.l_SendBigMessages.Enqueue("PR:" + prtObj.ToJson());
+                                    return;
+                                }
+                                lastFrame = DateTime.Now;
+                            }
+                        }
+                    }
+                }
+                while (true);
+            }
+            catch (Exception ex)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.Out.WriteLineAsync("Error Preguntar(): " + ex.Message);
                 Console.ResetColor();
             }
         }
@@ -830,7 +910,7 @@ namespace MMO_Client.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error ProcessMovementFromServer(string): " + ex.Message);
+                Console.Out.WriteLineAsync("Error ProcessMovementFromServer(string): " + ex.Message);
                 messageOut = new Message();
                 messageOut.Status = StatusMessage.Error;
                 return false;
@@ -1441,7 +1521,7 @@ namespace MMO_Client.Controllers
 
                     if (!string.IsNullOrWhiteSpace(tempString))
                     {
-                        if(tempString.Equals("PONG"))
+                        if (tempString.Equals("PONG"))
                         {
                             //En este caso la idea es verificar que todo esta en orden, por eso se setea el isQuestionAsked y solo se retorna
                             //true, porque el servidor ha dicho que no ha detectado novedades necesarias de comunicar

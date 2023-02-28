@@ -252,6 +252,7 @@ namespace MMO_Client.Code.Controllers
                         {
                             ConnectionManager.Queue_Instrucciones.Enqueue(tmpString);
                         }
+                        continue;
                     }
 
                     if (Regex.Matches(item, "}{").Count > 0)
@@ -279,6 +280,7 @@ namespace MMO_Client.Code.Controllers
                         {
                             ConnectionManager.Queue_Instrucciones.Enqueue(tmpString);
                         }
+                        continue;
                     }
                     #endregion
 

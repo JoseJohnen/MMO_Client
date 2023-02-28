@@ -222,7 +222,7 @@ namespace MMO_Client.Code.Controllers
 
                                     await gameSocketClient.StreamNetwork.WriteAsync(requestBytes, 0, requestBytes.Length);
 
-                                    Console.WriteLine("\n\n " + DateTime.Now.ToString() + " Sending (Stream)..." + item + " count: " + requestBytes.Length);
+                                    Console.Out.WriteLineAsync("\n\n " + DateTime.Now.ToString() + " Sending (Stream)..." + item + " count: " + requestBytes.Length);
                                     //gameSocketClient.l_SendQueueMessages.Remove(item);
                                     //await Task.Delay(TimeSpan.FromSeconds(1));
                                 }
@@ -234,7 +234,7 @@ namespace MMO_Client.Code.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error SendSteamAsync: " + ex.Message);
+                Console.Out.WriteLineAsync("Error SendSteamAsync: " + ex.Message);
             }
             finally
             {
@@ -440,7 +440,7 @@ namespace MMO_Client.Code.Controllers
                                 }
                                 Console.BackgroundColor = ConsoleColor.Blue;
                                 Console.ForegroundColor = ConsoleColor.Yellow;
-                                Console.WriteLine("\n\n " + DateTime.Now.ToString() + " Size of the Receivede (Stream) message is: " + answer.Length + " total");
+                                Console.Out.WriteLineAsync("\n\n " + DateTime.Now.ToString() + " Size of the Receivede (Stream) message is: " + answer.Length + " total");
                                 Console.ResetColor();
                                 //await Console.Out.WriteAsync("\n\nReceived (StreamReader): size: " + size + " charCount: " + charCount + " responseChar: " + responseChars.AsMemory(0, charCount));
                                 await Console.Out.WriteAsync("\n\n " + DateTime.Now.ToString() + " Received (StreamReader): size: " + size + " charCount: " + charCount + " responseString: first3Char: " + first3Char + " \n\n " + responseString);
@@ -456,7 +456,7 @@ namespace MMO_Client.Code.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error ReceiveSteamAsync: size: " + size + " charCount: " + charCount + " Message: " + ex.Message);
+                Console.Out.WriteLineAsync("Error ReceiveSteamAsync: size: " + size + " charCount: " + charCount + " Message: " + ex.Message);
             }
             finally
             {
@@ -531,7 +531,7 @@ namespace MMO_Client.Code.Controllers
                                         bytesSent += await gameSocketClient.SenderSocket.SendAsync(requestBytes.AsMemory(bytesSent), SocketFlags.None);
                                     }
 
-                                    Console.WriteLine("\n\n " + DateTime.Now.ToString() + " Sending..." + inputCommand + " count: " + requestBytes.Length);
+                                    Console.Out.WriteLineAsync("\n\n " + DateTime.Now.ToString() + " Sending..." + inputCommand + " count: " + requestBytes.Length);
                                     //await Task.Delay(TimeSpan.FromSeconds(1));
                                     inputCommand = String.Empty;
                                 }
@@ -543,7 +543,7 @@ namespace MMO_Client.Code.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error SendAsync: " + ex.Message);
+                Console.Out.WriteLineAsync("Error SendAsync: " + ex.Message);
             }
             finally
             {
@@ -653,7 +653,7 @@ namespace MMO_Client.Code.Controllers
 
                 retrySend = false;
                 Message msg = new Message();
-                msg.Text = MailTest;
+                msg.Text = "EM:"+MailTest;
                 string strMsg = msg.ToJson();
                 //StateObject stObj = new StateObject();
                 //stObj.addData(strMsg);
@@ -672,7 +672,7 @@ namespace MMO_Client.Code.Controllers
                     gameSocketClient.l_SendQueueMessages = new BlockingCollection<string>();
                 }
 
-                gameSocketClient.l_SendQueueMessages.TryAdd(strMsg);
+                gameSocketClient.l_SendQueueMessages.TryAdd("MS:"+strMsg);
                 //gameSocketClient.l_SendQueueMessages.Enqueue(strMsg);
 
                 return true;
@@ -958,6 +958,12 @@ namespace MMO_Client.Code.Controllers
                 //StateObject nwStObj = new StateObject();
                 //nwStObj.addData(instruction);Gundam Wing Endless Waltz ending
                 //l_stateObjects.Add(nwStObj);
+                Message msg = null;
+                if(!instruction.Contains("MS:"))
+                {
+                    msg = Message.CreateMessage(instruction, true);
+                    instruction = "MS:" + msg.ToJson();
+                }
 
                 //Dejar descomentado si se esta utilizando gameSocketClient
                 gameSocketClient.l_SendQueueMessages.TryAdd(instruction);
