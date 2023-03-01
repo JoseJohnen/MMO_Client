@@ -52,7 +52,7 @@ namespace MMO_Client.Controllers
         public Thread workerThread = null;
 
         public List<Trios<int, Puppet, TimeSpan>> l_AnimacionesEntitys = new List<Trios<int, Puppet, TimeSpan>>();
-        DateTime lastFrame = DateTime.Now;
+        static DateTime lastFrame = DateTime.Now;
 
         public Prefab shot;
 
@@ -84,6 +84,7 @@ namespace MMO_Client.Controllers
 
                 lastFrame = DateTime.Now;
                 workerThread = new Thread(new ThreadStart(PreguntarWhileHttp));
+                workerThread.IsBackground = true;
                 workerThread.Start();
                 //Parallel.Invoke(PreguntarWhileHttp);
 
@@ -117,32 +118,40 @@ namespace MMO_Client.Controllers
             }
         }
 
+        bool isLockOn = false;
         public void PlayerController_Tick()
         {
-            if (Player.PLAYER == default(Player))
+            try
             {
-                return;
-            }
-            if (Player.PLAYER.Weapon == null)
-            {
-                return;
-            }
-
-            if (!Controller.controller.isLoginSuccessfull && Controller.controller.isLoginInProcess)
-            {
-                if (DateTime.Now - Controller.controller.dtIsLoginInProcess > new TimeSpan(0, 0, 7))
+                if (Player.PLAYER == default(Player))
                 {
-                    Controller.controller.isLoginInProcess = false;
+                    return;
                 }
-            }
+                if (Player.PLAYER.Weapon == null)
+                {
+                    return;
+                }
 
-            MovementOnline();
-            ShotOnline();
-            //ShotAndProyectileProcessing();
-            Animacion();
-            //Parallel.Invoke(Preguntar);
-            //Parallel.Invoke(PreguntarWhileHttp);
-            //Preguntar();
+                if (!Controller.controller.isLoginSuccessfull && Controller.controller.isLoginInProcess)
+                {
+                    if (DateTime.Now - Controller.controller.dtIsLoginInProcess > new TimeSpan(0, 0, 7))
+                    {
+                        Controller.controller.isLoginInProcess = false;
+                    }
+                }
+
+                MovementOnline();
+                ShotOnline();
+                //ShotAndProyectileProcessing();
+                Animacion();
+                //Parallel.Invoke(Preguntar);
+                //Parallel.Invoke(PreguntarWhileHttp);
+                //Preguntar();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("PlayerController_Tick() Error: " + ex.Message);
+            }
         }
 
         private void Preguntar()
@@ -281,7 +290,7 @@ namespace MMO_Client.Controllers
             }
         }
 
-        private async void PreguntarWhileHttp()
+        internal static async void PreguntarWhileHttp()
         {
             HttpClient client = new();
             client.DefaultRequestHeaders.Accept.Clear();
@@ -321,7 +330,7 @@ namespace MMO_Client.Controllers
                     //- Que no hayan balas, y si es así, cada medio segundo
                     if (dic_bulletsOnline.Count <= 0)
                     {
-                        if (DateTime.Now - lastFrame > new TimeSpan(0, 0, 0, 0, 50))
+                        if (DateTime.Now - lastFrame > new TimeSpan(0, 0, 0, 0, 25))
                         {
                             FormUrlEncodedContent stringContent = new(new[]
                             {
@@ -338,7 +347,7 @@ namespace MMO_Client.Controllers
                         prtObj.l_id_bullets_preguntando.AddRange(dic_bulletsOnline.Keys.ToList());
                         foreach (Bullet item in dic_bulletsOnline.Values)
                         {
-                            if (DateTime.Now - lastFrame > new TimeSpan(0, 0, 0, 0, 50))
+                            if (DateTime.Now - lastFrame > new TimeSpan(0, 0, 0, 0, 25))
                             {
                                 if (DateTime.Now - item.LastUpdate >= item.Velocity)
                                 {
@@ -355,11 +364,14 @@ namespace MMO_Client.Controllers
                         }
                     }
 
-                    if(response != null)
+                    if (response != null)
                     {
                         //TODO: Esta variable debería ser de la clase padre (o algo así), cosa tal de que la información
                         //pase para su procesamiento a su siguiente fase
                         string resp = await response.Content.ReadAsStringAsync(); //" + resp + "
+                        Message nwMsg = Message.CreateFromJson(resp);
+                        PlayerController.ProcesarConversarObj(nwMsg.TextOriginal, nwMsg, out nwMsg);
+                        //ConnectionManager.Queue_Instrucciones.Enqueue(resp);
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.BackgroundColor = ConsoleColor.DarkGreen;
                         Console.Out.WriteLineAsync(DateTime.Now.ToString() + " Preguntando response: " + resp);
@@ -1603,11 +1615,12 @@ namespace MMO_Client.Controllers
             }
         }
 
-        public bool ProcesarConversarObj(string text, Message nwMsg, out Message messageOut)
+        public static bool ProcesarConversarObj(string text, Message nwMsg, out Message messageOut)
         {
             messageOut = nwMsg;
             try
             {
+                Console.Out.WriteLineAsync("ProcesarConversarObj");
                 bool result = false;
                 if (!string.IsNullOrWhiteSpace(text))
                 {
@@ -1628,7 +1641,7 @@ namespace MMO_Client.Controllers
                         {
                             //En este caso la idea es verificar que todo esta en orden, por eso se setea el isQuestionAsked y solo se retorna
                             //true, porque el servidor ha dicho que no ha detectado novedades necesarias de comunicar
-                            isQuestionAsked = false;
+                            //isQuestionAsked = false;
                             return true;
                         }
 
@@ -1666,7 +1679,7 @@ namespace MMO_Client.Controllers
         }
 
         #region
-        public bool CreateBullet(Shot shot, Message message, out Message messageOut)
+        public static bool CreateBullet(Shot shot, Message message, out Message messageOut)
         {
             try
             {
@@ -1685,7 +1698,7 @@ namespace MMO_Client.Controllers
                 dic_bulletsOnline.TryAdd(bullet.id, bullet);
                 //dic_bulletsOnline[intbllt].ProyectileBody.Transform.Position = dic_bulletsOnline[intbllt].InitialPosition;
                 //UtilityAssistant.RotateTo(dic_bulletsOnline[intbllt].ProyectileBody, (dic_bulletsOnline[intbllt].ProyectileBody.Transform.Position + dic_bulletsOnline[intbllt].MovementModifier));
-                Entity.Scene.Entities.Add(bullet.ProyectileBody);
+                Controller.controller.Entity.Scene.Entities.Add(bullet.ProyectileBody);
                 return true;
             }
             catch (Exception ex)
@@ -1749,7 +1762,7 @@ namespace MMO_Client.Controllers
         }
 
         //Process the answer to the online shot interactions (Ex ProcessShotFromServer)
-        public bool UpdateShot(ShotPosUpdate itemParameter, Message message, out Message message1)
+        public static bool UpdateShot(ShotPosUpdate itemParameter, Message message, out Message message1)
         {
             string[] strArray = null;
             message1 = message;
@@ -1795,7 +1808,7 @@ namespace MMO_Client.Controllers
             }
         }
 
-        public void DestroyShot(ShotState sst, Message message, out Message messageOut)
+        public static void DestroyShot(ShotState sst, Message message, out Message messageOut)
         {
             try
             {
@@ -1806,41 +1819,48 @@ namespace MMO_Client.Controllers
                 //foreach (KeyValuePair<int, Bullet> bllt in dic_bulletsOnline)
                 Bullet bllt = null;
                 string index = string.Empty;
-                do
+                while (dic_bulletsOnline.TryGetValue(sst.Id, out bllt))
                 {
                     if (bllt != null)
                     {
                         if (sst.State != StateOfTheShot.JustCreated)
                         {
-                            if (sst.Id == bllt.id)
+                            /*if (sst.Id == bllt.id) //Redundante
+                            {*/
+                            index = sst.Id;
+                            Bullet bullet = null;
+                            if (sst.State == StateOfTheShot.Destroyed)
                             {
-                                Bullet bullet = null;
-                                if (sst.State == StateOfTheShot.Destroyed)
+                                messageOut.Status = StatusMessage.Delivered;
+                                //KeyValuePair<int, Bullet> kvp = dic_bulletsOnline.Where(C => C.Key == index).First();
+                                if (dic_bulletsOnline.TryRemove(index, out bullet))
                                 {
-                                    messageOut.Status = StatusMessage.Delivered;
+                                    if (bullet != null)
+                                    {
+                                        Controller.controller.Entity.Scene.Entities.Remove(bullet.ProyectileBody);
+                                    }
+                                }
+                                //dic_bulletsOnline.Select(c => c.Value).ToList().RemoveAll(v => v.id == sst.Id);
+                            }
+                            /*else
+                            {
+                                float evaluatorX = UtilityAssistant.DistanceComparitorByAxis(bllt.InitialPosition.X, bllt.ProyectileBody.Transform.Position.X);
+                                float evaluatorY = UtilityAssistant.DistanceComparitorByAxis(bllt.InitialPosition.Y, bllt.ProyectileBody.Transform.Position.Y);
+                                float evaluatorZ = UtilityAssistant.DistanceComparitorByAxis(bllt.InitialPosition.Z, bllt.ProyectileBody.Transform.Position.Z);
+
+                                if (evaluatorX >= distance || evaluatorY >= distance || evaluatorZ >= distance)
+                                {
                                     //KeyValuePair<int, Bullet> kvp = dic_bulletsOnline.Where(C => C.Key == index).First();
                                     if (dic_bulletsOnline.TryRemove(index, out bullet))
                                     {
-                                        Entity.Scene.Entities.Remove(bllt.ProyectileBody);
-                                    }
-                                    //dic_bulletsOnline.Select(c => c.Value).ToList().RemoveAll(v => v.id == sst.Id);
-                                }
-                                else
-                                {
-                                    float evaluatorX = UtilityAssistant.DistanceComparitorByAxis(bllt.InitialPosition.X, bllt.ProyectileBody.Transform.Position.X);
-                                    float evaluatorY = UtilityAssistant.DistanceComparitorByAxis(bllt.InitialPosition.Y, bllt.ProyectileBody.Transform.Position.Y);
-                                    float evaluatorZ = UtilityAssistant.DistanceComparitorByAxis(bllt.InitialPosition.Z, bllt.ProyectileBody.Transform.Position.Z);
-
-                                    if (evaluatorX >= distance || evaluatorY >= distance || evaluatorZ >= distance)
-                                    {
-                                        //KeyValuePair<int, Bullet> kvp = dic_bulletsOnline.Where(C => C.Key == index).First();
-                                        if (dic_bulletsOnline.TryRemove(index, out bullet))
+                                        if (bullet != null)
                                         {
-                                            Entity.Scene.Entities.Remove(bllt.ProyectileBody);
+                                            Controller.controller.Entity.Scene.Entities.Remove(bullet.ProyectileBody);
                                         }
                                     }
                                 }
-                            }
+                            }*/
+                            //}
                             messageOut.Status = StatusMessage.Executed;
                         }
                     }
@@ -1850,7 +1870,6 @@ namespace MMO_Client.Controllers
                         index++;
                     }*/
                 }
-                while (dic_bulletsOnline.TryGetValue(index, out bllt));
             }
             catch (Exception ex)
             {

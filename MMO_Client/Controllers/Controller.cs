@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Interfaz.Utilities;
 using System.Text.RegularExpressions;
 using MMO_Client.Code.Models;
+using Stride.Input;
 
 namespace MMO_Client.Code.Controllers
 {
@@ -152,7 +153,6 @@ namespace MMO_Client.Code.Controllers
             PreparingCameras();
             PrepareUI();
 
-
             //TODO: Delete when login is Added
         }
 
@@ -163,7 +163,6 @@ namespace MMO_Client.Code.Controllers
             playerController.PlayerController_Tick();
             //ConnectionManager.Queue_Instrucciones.Clear();
             ActualizarConData();
-            
         }
 
         #region Del Juego
@@ -193,13 +192,13 @@ namespace MMO_Client.Code.Controllers
                 //    Console.WriteLine("ActualizarConDataDeRespuesta Status: "+dataAnswer + " Time: "+DateTime.Now.ToString());
                 //}
 
-                if (ConnectionManager.Queue_Instrucciones.Count > 0)
+                /*if (ConnectionManager.Queue_Instrucciones.Count > 0)
                 {
                     dataContinous = Task.Run(() =>
                     {
                         ActualizarConDataDelServer();
                     }).Status;
-                }
+                }*/
                 //else
                 //{
                 //    Console.WriteLine("ActualizarConDataDelServer Status: " + dataContinous + " Time: " + DateTime.Now.ToString());
@@ -332,7 +331,7 @@ namespace MMO_Client.Code.Controllers
                             //playerController.ProcessMovementFromServer(item);
                             break;
                         case "CO":
-                            playerController.ProcesarConversarObj(nwMsg.TextOriginal, nwMsg, out nwMsg);
+                            PlayerController.ProcesarConversarObj(nwMsg.TextOriginal, nwMsg, out nwMsg);
                             Console.WriteLine(" ");
                             break;
                         /*case "SM":
