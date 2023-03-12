@@ -192,13 +192,13 @@ namespace MMO_Client.Code.Controllers
                 //    Console.WriteLine("ActualizarConDataDeRespuesta Status: "+dataAnswer + " Time: "+DateTime.Now.ToString());
                 //}
 
-                /*if (ConnectionManager.Queue_Instrucciones.Count > 0)
+                if (ConnectionManager.Queue_Instrucciones.Count > 0)
                 {
                     dataContinous = Task.Run(() =>
                     {
                         ActualizarConDataDelServer();
                     }).Status;
-                }*/
+                }
                 //else
                 //{
                 //    Console.WriteLine("ActualizarConDataDelServer Status: " + dataContinous + " Time: " + DateTime.Now.ToString());
@@ -229,8 +229,6 @@ namespace MMO_Client.Code.Controllers
                     {
                         continue;
                     }
-                    //uint index = 0;
-                    //bool indexWasSuccessfull = false;
 
                     #region Region: Por si hay "Lag Spikes" y llega mas de un mensaje juntos
                     if (Regex.Matches(item, "MS:").Count > 1)
@@ -306,18 +304,6 @@ namespace MMO_Client.Code.Controllers
                     }
                     //END TODO
 
-                    //do
-                    //{
-                    //    index = (uint)Message.dic_ActiveMessages.Count;
-                    //    indexWasSuccessfull = Message.dic_ActiveMessages.TryAdd(index, nwMsg);
-                    //}
-                    //while (indexWasSuccessfull == false);
-                    //bool resultOfSearchDic = Message.dic_ActiveMessages.TryGetValue(index, out nwMsg);
-                    //if (resultOfSearchDic == false)
-                    //{
-                    //    return false;
-                    //}
-
                     if (string.IsNullOrWhiteSpace(nwMsg.TextOriginal))
                     {
                         continue;
@@ -328,19 +314,14 @@ namespace MMO_Client.Code.Controllers
                     {
                         case "LO":
                             Console.WriteLine("LOGIN_TRUE: FOR NOW: TODO!!!");
-                            //playerController.ProcessMovementFromServer(item);
                             break;
                         case "CO":
                             PlayerController.ProcesarConversarObj(nwMsg.TextOriginal, nwMsg, out nwMsg);
                             Console.WriteLine(" ");
                             break;
-                        /*case "SM":
-                          if(playerController.ProcessShotFromServer(nwMsg, out nwMsg))
-                           {
-                               StateMessage stMsg = new StateMessage(nwMsg.IdMsg, nwMsg.Status);
-                               ConnectionManager.gameSocketClient.l_SendQueueMessages.Enqueue(new Message("SM:" + stMsg.ToJson()).ToJson());
-                           }
-                        break;*/
+                        case "US":
+                            playerController.UpdateShot(nwMsg.TextOriginal, nwMsg, out nwMsg);
+                            break;
                         default:
                             break;
                     }
@@ -412,11 +393,6 @@ namespace MMO_Client.Code.Controllers
                             break;
                         case "CS":
                             playerController.CreateShot(nwMsg.TextOriginal, nwMsg, out nwMsg);
-                            break;
-                        case "US":
-                            playerController.UpdateShot(nwMsg.TextOriginal, nwMsg, out nwMsg);
-                            //StateMessage stMsg2 = new StateMessage(nwMsg.IdMsg, nwMsg.Status);
-                            //ConnectionManager.gameSocketClient.l_SendQueueMessages.Enqueue("MS:" + stMsg2.ToJson());
                             break;
                         case "DS":
                             playerController.DestroyShot(nwMsg.TextOriginal, nwMsg, out nwMsg);

@@ -40,6 +40,10 @@ namespace MMO_Client.Controllers
 
         [DataMemberIgnore]
         public static ConcurrentDictionary<string, Bullet> dic_bulletsOnline = new ConcurrentDictionary<string, Bullet>();
+        [DataMemberIgnore]
+        public ConcurrentQueue<Entity> q_NewEntitiesToScene = new ConcurrentQueue<Entity>();
+        [DataMemberIgnore]
+        public ConcurrentQueue<Entity> q_RemoveEntitiesFromScene = new ConcurrentQueue<Entity>();
 
         [DataMemberIgnore]
         public ConcurrentQueue<Shot> q_PendingShotsCreatedRun = new ConcurrentQueue<Shot>();
@@ -47,6 +51,7 @@ namespace MMO_Client.Controllers
         public ConcurrentQueue<ShotPosUpdate> q_PendingShotPosUpdateRun = new ConcurrentQueue<ShotPosUpdate>();
         [DataMemberIgnore]
         public ConcurrentQueue<ShotState> q_PendingShotStateToRun = new ConcurrentQueue<ShotState>();
+        
 
         public Area ActiveArea;
         public List<Area> l_ActiveAreaFurniture;
@@ -163,7 +168,13 @@ namespace MMO_Client.Controllers
         {
             try
             {
-                foreach (KeyValuePair<string,Bullet> item in dic_bulletsOnline)
+                Entity ent = null;
+                while(q_RemoveEntitiesFromScene.TryDequeue(out ent))
+                {
+                    Entity.Scene.Entities.Remove(ent);
+                }
+
+                foreach (KeyValuePair<string,Bullet> item in dic_bulletsOnline.Reverse())
                 {
                     if(DateTime.Now - item.Value.LastUpdate >= new TimeSpan(0,0,3))
                     {
@@ -174,9 +185,14 @@ namespace MMO_Client.Controllers
                     }
                 }
 
-                foreach (Entity item in Entity.Scene.Entities.Where(c => dic_bulletsOnline.Values.All(c2 => ("Bullet_"+c2.id) != c.Name) && c.Name.Contains("Bullet_")).ToList()) // Entity.Scene.Entities.Where(c => !excludedIDs.Contains(c.Name) && c.Name.Contains("Bullet")).Reverse())
+                foreach (Entity item in Entity.Scene.Entities.Where(c => dic_bulletsOnline.Values.All(c2 => ("Bullet_"+c2.id) != c.Name) && c.Name.Contains("Bullet_")).Reverse()) // Entity.Scene.Entities.Where(c => !excludedIDs.Contains(c.Name) && c.Name.Contains("Bullet")).Reverse())
                 {
                     Entity.Scene.Entities.Remove(item);
+                }
+
+                while(q_NewEntitiesToScene.TryDequeue(out ent))
+                {
+                    Entity.Scene.Entities.Add(ent);
                 }
 
             }
@@ -1910,7 +1926,10 @@ namespace MMO_Client.Controllers
                             dic_bulletsOnline.TryAdd(bullet.id, bullet);
                             //dic_bulletsOnline[intbllt].ProyectileBody.Transform.Position = dic_bulletsOnline[intbllt].InitialPosition;
                             //UtilityAssistant.RotateTo(dic_bulletsOnline[intbllt].ProyectileBody, (dic_bulletsOnline[intbllt].ProyectileBody.Transform.Position + dic_bulletsOnline[intbllt].MovementModifier));
-                            Entity.Scene.Entities.Add(bullet.ProyectileBody);
+
+
+                            //Entity.Scene.Entities.Add(bullet.ProyectileBody);
+                            q_NewEntitiesToScene.Enqueue(bullet.ProyectileBody);
                         }
                         messageOut.Status = StatusMessage.Executed;
 
@@ -2032,7 +2051,8 @@ namespace MMO_Client.Controllers
                                                 {
                                                     if (Entity.Scene.Entities.Contains(bullet.ProyectileBody))
                                                     {
-                                                        Entity.Scene.Entities.Reverse().RemoveDisposeBy(bullet.ProyectileBody);
+                                                        //Entity.Scene.Entities.Remove(bullet.ProyectileBody);
+                                                        q_RemoveEntitiesFromScene.Enqueue(bullet.ProyectileBody);
                                                     }
                                                 }
                                             }

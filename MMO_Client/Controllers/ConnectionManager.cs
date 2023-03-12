@@ -78,7 +78,8 @@ namespace MMO_Client.Code.Controllers
             Services.AddService(this);
             Instance = this;
 
-            Task.Run(() => PrepareListeningSocketHttpAsync());
+            //Task.Run(() => PrepareListeningSocketHttpAsync());
+            Task.Run(() => PrepareListeningSocketAsync());
             //SendStartAsync()
 
             LogInSocket();
@@ -97,6 +98,7 @@ namespace MMO_Client.Code.Controllers
                 listeningSocket.Listen();
 
                 bool isListening = true;
+                bool isConnected = false;
                 Socket MisteriousSocket = null;
                 do
                 {
@@ -105,12 +107,21 @@ namespace MMO_Client.Code.Controllers
                     {
                         if(gameSocketClient.ListenerSocket == null)
                         {
-                            gameSocketClient.ListenerSocket = MisteriousSocket;
-                            Task.Run(() => ReceiveAsync());
+                            if(!isConnected)
+                            {
+                                gameSocketClient.ListenerSocket = MisteriousSocket;
+                                Task.Run(() => ReceiveAsync());
+                                isConnected = true;
+                            }
+                            else
+                            {
+                                gameSocketClient.StreamSocket = MisteriousSocket;
+                                Task.Run(() => ReceiveSteamAsync());
+                            }
                         }
                     }
 
-                    if (listeningSocket.Connected)
+                    if (listeningSocket.Connected && gameSocketClient.StreamSocket != null)
                     {
                         listeningSocket.Close();
                         isListening = false;
@@ -173,7 +184,7 @@ namespace MMO_Client.Code.Controllers
                         {
                             if (listeningSocket != null)
                             {
-                                Task.Run(() => SendSteamAsync(url, PortToSend));
+                                //Task.Run(() => SendSteamAsync(url, PortToSend));
                                 if (listeningSocket.Connected)
                                 {
                                     listeningSocket.Close();
