@@ -81,6 +81,10 @@ namespace MMO_Client.Controllers
                 //Quaternion.RotationY(90, out qtrn);
                 EnemyNPCStart("DoomGuy");
                 //l_entitysCharacters[0].RealEnt.Transform.Rotation = qtrn;
+                //Message messageOut = new Message();
+                //Shot shot = new Shot();
+                //shot.Id = "\"aaa\"";
+                //CreateBullet(shot, messageOut, out messageOut);
 
                 lastFrame = DateTime.Now;
                 workerThread = new Thread(new ThreadStart(PreguntarWhileHttp));
@@ -118,7 +122,6 @@ namespace MMO_Client.Controllers
             }
         }
 
-        bool isLockOn = false;
         public void PlayerController_Tick()
         {
             try
@@ -290,6 +293,7 @@ namespace MMO_Client.Controllers
             }
         }
 
+        private static bool isRunning = false;
         internal static async void PreguntarWhileHttp()
         {
             HttpClient client = new();
@@ -303,7 +307,7 @@ namespace MMO_Client.Controllers
                 try
                 {
                     PreguntaObj prtObj = new PreguntaObj();
-                    //Console.Out.WriteLineAsync("\nPreguntando...\n");
+                    Console.Out.WriteLineAsync("\nPreguntando...\n");
                     MissingMessages mMsg = new MissingMessages();
                     if (MissingMessages.q_MissingMessages.Count > 0)
                     {
@@ -332,10 +336,11 @@ namespace MMO_Client.Controllers
                     {
                         if (DateTime.Now - lastFrame > new TimeSpan(0, 0, 0, 0, 25))
                         {
+                            string a = "PR:" + prtObj.ToJson();
                             FormUrlEncodedContent stringContent = new(new[]
                             {
                                 new KeyValuePair<string, string>("token","a"),
-                                new KeyValuePair<string, string>("strItem","PR:" + prtObj.ToJson()),
+                                new KeyValuePair<string, string>("strItem",a),
                             });
 
                             response = await client.PostAsync("https://localhost:7109/api/ContextDeliverer", stringContent);
@@ -369,14 +374,24 @@ namespace MMO_Client.Controllers
                         //TODO: Esta variable debería ser de la clase padre (o algo así), cosa tal de que la información
                         //pase para su procesamiento a su siguiente fase
                         string resp = await response.Content.ReadAsStringAsync(); //" + resp + "
+                        if(resp.Equals("1"))
+                        {
+                            return;
+                        }
+                        //resp = "MS:{\"Length\":6000,\"IdRef\":0,\"IdMsg\":0,\"text\":\"Q086eyJsX2J1bGxldHNfdG9fY3JlYXRlIiA6IFt7IklkIjoieENrVmR4dE1IcyIsIkxOIjoiUGxheWVyIiwiVHlwZSI6Ik5CIiwiT3JQb3MiOiI8MHwwfC0wLjU\\u002BIiwiV1BvcyI6IjwwfDB8LTAuNT4iLCJNZGYiOiI8MHwwfC0wLjU\\u002BIn0seyJJZCI6IlUySXM5cFVKNHQiLCJMTiI6IlBsYXllciIsIlR5cGUiOiJOQiIsIk9yUG9zIjoiPDB8MHwtMC41PiIsIldQb3MiOiI8MHwwfC0wLjU\\u002BIiwiTWRmIjoiPDB8MHwtMC41PiJ9LHsiSWQiOiI0Y3BMVHJZVDhuIiwiTE4iOiJQbGF5ZXIiLCJUeXBlIjoiTkIiLCJPclBvcyI6IjwwfDB8LTAuNT4iLCJXUG9zIjoiPDB8MHwtMC41PiIsIk1kZiI6IjwwfDB8LTAuNT4ifSx7IklkIjoiVDZOV2FjbXl3MCIsIkxOIjoiUGxheWVyIiwiVHlwZSI6Ik5CIiwiT3JQb3MiOiI8MHwwfC0wLjU\\u002BIiwiV1BvcyI6IjwwfDB8LTAuNT4iLCJNZGYiOiI8MHwwfC0wLjU\\u002BIn0seyJJZCI6IlpBaG5mdWZCQ3AiLCJMTiI6IlBsYXllciIsIlR5cGUiOiJOQiIsIk9yUG9zIjoiPDB8MHwtMC41PiIsIldQb3MiOiI8MHwwfC0wLjU\\u002BIiwiTWRmIjoiPDB8MHwtMC41PiJ9LHsiSWQiOiJkRk1GY0hxZkE5IiwiTE4iOiJQbGF5ZXIiLCJUeXBlIjoiTkIiLCJPclBvcyI6IjwwfDB8LTAuNT4iLCJXUG9zIjoiPDB8MHwtMC41PiIsIk1kZiI6IjwwfDB8LTAuNT4ifSx7IklkIjoiV1ZkOUVMekVLUSIsIkxOIjoiUGxheWVyIiwiVHlwZSI6Ik5CIiwiT3JQb3MiOiI8MHwwfC0wLjU\\u002BIiwiV1BvcyI6IjwwfDB8LTAuNT4iLCJNZGYiOiI8MHwwfC0wLjU\\u002BIn0seyJJZCI6ImRXVDV1OFdKbEIiLCJMTiI6IlBsYXllciIsIlR5cGUiOiJOQiIsIk9yUG9zIjoiPDB8MHwtMC41PiIsIldQb3MiOiI8MHwwfC0wLjU\\u002BIiwiTWRmIjoiPDB8MHwtMC41PiJ9LHsiSWQiOiJRdDM4dlpXbmJUIiwiTE4iOiJQbGF5ZXIiLCJUeXBlIjoiTkIiLCJPclBvcyI6IjwwfDB8LTAuNT4iLCJXUG9zIjoiPDB8MHwtMC41PiIsIk1kZiI6IjwwfDB8LTAuNT4ifSx7IklkIjoiN2dVcWtmNDNTYiIsIkxOIjoiUGxheWVyIiwiVHlwZSI6Ik5CIiwiT3JQb3MiOiI8MHwwfC0wLjU\\u002BIiwiV1BvcyI6IjwwfDB8LTAuNT4iLCJNZGYiOiI8MHwwfC0wLjU\\u002BIn0seyJJZCI6IlFwTjhaMHZUTmMiLCJMTiI6IlBsYXllciIsIlR5cGUiOiJOQiIsIk9yUG9zIjoiPDB8MHwtMC41PiIsIldQb3MiOiI8MHwwfC0wLjU\\u002BIiwiTWRmIjoiPDB8MHwtMC41PiJ9LHsiSWQiOiJNOXJ0cGFyZjNpIiwiTE4iOiJQbGF5ZXIiLCJUeXBlIjoiTkIiLCJPclBvcyI6IjwwfDB8LTAuNT4iLCJXUG9zIjoiPDB8MHwtMC41PiIsIk1kZiI6IjwwfDB8LTAuNT4ifSx7IklkIjoiQ2Fpa29qejJhbiIsIkxOIjoiUGxheWVyIiwiVHlwZSI6Ik5CIiwiT3JQb3MiOiI8MHwwfC0wLjU\\u002BIiwiV1BvcyI6IjwwfDB8LTAuNT4iLCJNZGYiOiI8MHwwfC0wLjU\\u002BIn0seyJJZCI6ImNNT0R0ZmFWWGgiLCJMTiI6IlBsYXllciIsIlR5cGUiOiJOQiIsIk9yUG9zIjoiPDB8MHwtMC41PiIsIldQb3MiOiI8MHwwfC0wLjU\\u002BIiwiTWRmIjoiPDB8MHwtMC41PiJ9LHsiSWQiOiJrUzJObkJ2T2pVIiwiTE4iOiJQbGF5ZXIiLCJUeXBlIjoiTkIiLCJPclBvcyI6IjwwfDB8LTAuNT4iLCJXUG9zIjoiPDB8MHwtMC41PiIsIk1kZiI6IjwwfDB8LTAuNT4ifSx7IklkIjoid2RSYTVUMUtweiIsIkxOIjoiUGxheWVyIiwiVHlwZSI6Ik5CIiwiT3JQb3MiOiI8MHwwfC0wLjU\\u002BIiwiV1BvcyI6IjwwfDB8LTAuNT4iLCJNZGYiOiI8MHwwfC0wLjU\\u002BIn0seyJJZCI6IjNpbTlyY1NTeWgiLCJMTiI6IlBsYXllciIsIlR5cGUiOiJOQiIsIk9yUG9zIjoiPDB8MHwtMC41PiIsIldQb3MiOiI8MHwwfC0wLjU\\u002BIiwiTWRmIjoiPDB8MHwtMC41PiJ9LHsiSWQiOiJtQkR0VW1FbkNvIiwiTE4iOiJQbGF5ZXIiLCJUeXBlIjoiTkIiLCJPclBvcyI6IjwwfDB8LTAuNT4iLCJXUG9zIjoiPDB8MHwtMC41PiIsIk1kZiI6IjwwfDB8LTAuNT4ifSx7IklkIjoiOVVOQ09pSEVXViIsIkxOIjoiUGxheWVyIiwiVHlwZSI6Ik5CIiwiT3JQb3MiOiI8MHwwfC0wLjU\\u002BIiwiV1BvcyI6IjwwfDB8LTAuNT4iLCJNZGYiOiI8MHwwfC0wLjU\\u002BIn0seyJJZCI6ImhobWFaMTRCZ00iLCJMTiI6IlBsYXllciIsIlR5cGUiOiJOQiIsIk9yUG9zIjoiPDB8MHwtMC41PiIsIldQb3MiOiI8MHwwfC0wLjU\\u002BIiwiTWRmIjoiPDB8MHwtMC41PiJ9LHsiSWQiOiJ6NkliRGxwY3ZTIiwiTE4iOiJQbGF5ZXIiLCJUeXBlIjoiTkIiLCJPclBvcyI6IjwwfDB8LTAuNT4iLCJXUG9zIjoiPDB8MHwtMC41PiIsIk1kZiI6IjwwfDB8LTAuNT4ifSx7IklkIjoiVklmVVM4VmRiTCIsIkxOIjoiUGxheWVyIiwiVHlwZSI6Ik5CIiwiT3JQb3MiOiI8MHwwfC0wLjU\\u002BIiwiV1BvcyI6IjwwfDB8LTAuNT4iLCJNZGYiOiI8MHwwfC0wLjU\\u002BIn0seyJJZCI6InZsV2VYQzVhTFEiLCJMTiI6IlBsYXllciIsIlR5cGUiOiJOQiIsIk9yUG9zIjoiPDB8MHwtMC41PiIsIldQb3MiOiI8MHwwfC0wLjU\\u002BIiwiTWRmIjoiPDB8MHwtMC41PiJ9LHsiSWQiOiJkUk5pNWljNlpDIiwiTE4iOiJQbGF5ZXIiLCJUeXBlIjoiTkIiLCJPclBvcyI6IjwwfDB8LTAuNT4iLCJXUG9zIjoiPDB8MHwtMC41PiIsIk1kZiI6IjwwfDB8LTAuNT4ifSx7IklkIjoiUTJQM2dXZ2FrcSIsIkxOIjoiUGxheWVyIiwiVHlwZSI6Ik5CIiwiT3JQb3MiOiI8MHwwfC0wLjU\\u002BIiwiV1BvcyI6IjwwfDB8LTAuNT4iLCJNZGYiOiI8MHwwfC0wLjU\\u002BIn0seyJJZCI6ImhacW5tU1FDRzgiLCJMTiI6IlBsYXllciIsIlR5cGUiOiJOQiIsIk9yUG9zIjoiPDB8MHwtMC41PiIsIldQb3MiOiI8MHwwfC0wLjU\\u002BIiwiTWRmIjoiPDB8MHwtMC41PiJ9LHsiSWQiOiJpc2R4emJSVlJIIiwiTE4iOiJQbGF5ZXIiLCJUeXBlIjoiTkIiLCJPclBvcyI6IjwwfDB8LTAuNT4iLCJXUG9zIjoiPDB8MHwtMC41PiIsIk1kZiI6IjwwfDB8LTAuNT4ifSx7IklkIjoieFR0WlA3dVU2UCIsIkxOIjoiUGxheWVyIiwiVHlwZSI6Ik5CIiwiT3JQb3MiOiI8MHwwfC0wLjU\\u002BIiwiV1BvcyI6IjwwfDB8LTAuNT4iLCJNZGYiOiI8MHwwfC0wLjU\\u002BIn0seyJJZCI6IkNRcEdGMVp3dFUiLCJMTiI6IlBsYXllciIsIlR5cGUiOiJOQiIsIk9yUG9zIjoiPDB8MHwtMC41PiIsIldQb3MiOiI8MHwwfC0wLjU\\u002BIiwiTWRmIjoiPDB8MHwtMC41PiJ9LHsiSWQiOiJpamFUeHo2Z0tCIiwiTE4iOiJQbGF5ZXIiLCJUeXBlIjoiTkIiLCJPclBvcyI6IjwwfDB8LTAuNT4iLCJXUG9zIjoiPDB8MHwtMC41PiIsIk1kZiI6IjwwfDB8LTAuNT4ifSx7IklkIjoiMmRtcnlNZEsyVSIsIkxOIjoiUGxheWVyIiwiVHlwZSI6Ik5CIiwiT3JQb3MiOiI8MHwwfC0wLjU\\u002BIiwiV1BvcyI6IjwwfDB8LTAuNT4iLCJNZGYiOiI8MHwwfC0wLjU\\u002BIn0seyJJZCI6IkdTa2RwUVRKcnoiLCJMTiI6IlBsYXllciIsIlR5cGUiOiJOQiIsIk9yUG9zIjoiPDB8MHwtMC41PiIsIldQb3MiOiI8MHwwfC0wLjU\\u002BIiwiTWRmIjoiPDB8MHwtMC41PiJ9LHsiSWQiOiJObWFVcThXNzhNIiwiTE4iOiJQbGF5ZXIiLCJUeXBlIjoiTkIiLCJPclBvcyI6IjwwfDB8LTAuNT4iLCJXUG9zIjoiPDB8MHwtMC41PiIsIk1kZiI6IjwwfDB8LTAuNT4ifSx7IklkIjoibkxzUXNaYU1NYiIsIkxOIjoiUGxheWVyIiwiVHlwZSI6Ik5CIiwiT3JQb3MiOiI8MHwwfC0wLjU\\u002BIiwiV1BvcyI6IjwwfDB8LTAuNT4iLCJNZGYiOiI8MHwwfC0wLjU\\u002BIn0seyJJZCI6IlBieldFUHRoeTgiLCJMTiI6IlBsYXllciIsIlR5cGUiOiJOQiIsIk9yUG9zIjoiPDB8MHwtMC41PiIsIldQb3MiOiI8MHwwfC0wLjU\\u002BIiwiTWRmIjoiPDB8MHwtMC41PiJ9LHsiSWQiOiJZNnMyYTF3UERBIiwiTE4iOiJQbGF5ZXIiLCJUeXBlIjoiTkIiLCJPclBvcyI6IjwwfDB8LTAuNT4iLCJXUG9zIjoiPDB8MHwtMC41PiIsIk1kZiI6IjwwfDB8LTAuNT4ifSx7IklkIjoiMXZveldNbWtvRSIsIkxOIjoiUGxheWVyIiwiVHlwZSI6Ik5CIiwiT3JQb3MiOiI8MHwwfC0wLjU\\u002BIiwiV1BvcyI6IjwwfDB8LTAuNT4iLCJNZGYiOiI8MHwwfC0wLjU\\u002BIn0seyJJZCI6IlFqTUJ1aDNWZ0ciLCJMTiI6IlBsYXllciIsIlR5cGUiOiJOQiIsIk9yUG9zIjoiPDB8MHwtMC41PiIsIldQb3MiOiI8MHwwfC0wLjU\\u002BIiwiTWRmIjoiPDB8MHwtMC41PiJ9LHsiSWQiOiJOUFE3bDh2MGlTIiwiTE4iOiJQbGF5ZXIiLCJUeXBlIjoiTkIiLCJPclBvcyI6IjwwfDB8LTAuNT4iLCJXUG9zIjoiPDB8MHwtMC41PiIsIk1kZiI6IjwwfDB8LTAuNT4ifSx7IklkIjoiRFdmVEtsVFJIMSIsIkxOIjoiUGxheWVyIiwiVHlwZSI6Ik5CIiwiT3JQb3MiOiI8MHwwfC0wLjU\\u002BIiwiV1BvcyI6IjwwfDB8LTAuNT4iLCJNZGYiOiI8MHwwfC0wLjU\\u002BIn0seyJJZCI6IlZlSTExZjg4Mm4iLCJMTiI6IlBsYXllciIsIlR5cGUiOiJOQiIsIk9yUG9zIjoiPDB8MHwtMC41PiIsIldQb3MiOiI8MHwwfC0wLjU\\u002BIiwiTWRmIjoiPDB8MHwtMC41PiJ9XSwibF9idWxsZXRzX3RvX3VwZGF0ZSIgOiBbXSwibF9idWxsZXRzX3RvX2NoYW5nZV9zdGF0ZSIgOiBbeyJJZCI6IjIiLCJTdGF0ZSI6MX0seyJJZCI6IjMiLCJTdGF0ZSI6MX0seyJJZCI6IjQiLCJTdGF0ZSI6MX1dfQ==\"}";
                         Message nwMsg = Message.CreateFromJson(resp);
-                        PlayerController.ProcesarConversarObj(nwMsg.TextOriginal, nwMsg, out nwMsg);
-                        //ConnectionManager.Queue_Instrucciones.Enqueue(resp);
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.BackgroundColor = ConsoleColor.DarkGreen;
-                        Console.Out.WriteLineAsync(DateTime.Now.ToString() + " Preguntando response: " + resp);
-                        Console.WriteLine(DateTime.Now.ToString() + " Preguntando response: " + resp);
-                        Console.ResetColor();
+
+                        if(!isRunning)
+                        {
+                            PlayerController.ProcesarConversarObj(nwMsg.TextOriginal, nwMsg, out nwMsg);
+                            //ConnectionManager.Queue_Instrucciones.Enqueue(resp);
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.BackgroundColor = ConsoleColor.DarkGreen;
+                            Console.Out.WriteLineAsync(DateTime.Now.ToString() + " Preguntando response: " + resp);
+                            //Console.WriteLine(DateTime.Now.ToString() + " Preguntando response: " + resp);
+                            Console.ResetColor();
+                            isRunning = false;
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -1618,6 +1633,7 @@ namespace MMO_Client.Controllers
         public static bool ProcesarConversarObj(string text, Message nwMsg, out Message messageOut)
         {
             messageOut = nwMsg;
+            isRunning = true;
             try
             {
                 Console.Out.WriteLineAsync("ProcesarConversarObj");
@@ -1627,7 +1643,7 @@ namespace MMO_Client.Controllers
                     messageOut.Status = StatusMessage.Delivered;
                     string tempString = Interfaz.Utilities.UtilityAssistant.ExtractValues(text, "CO");
                     tempString = Interfaz.Utilities.UtilityAssistant.CleanJSON(tempString);
-                    string strTemp = string.Empty;
+                    //string strTemp = string.Empty;
 
                     //Reduntante, porque ahora el return devuelve una variable y por tanto no necesita dos returns
                     /*if (string.IsNullOrWhiteSpace(tempString))
@@ -1648,7 +1664,7 @@ namespace MMO_Client.Controllers
                         ConversacionObj convObj = ConversacionObj.CreateFromJson(tempString);
                         foreach (Shot btc in convObj.L_Bullets_to_create)
                         {
-                            CreateBullet(btc, messageOut, out messageOut);
+                            Controller.controller.playerController.CreateBullet(btc, messageOut, out messageOut);
                         }
 
                         foreach (ShotPosUpdate btc in convObj.L_Bullets_to_update)
@@ -1674,12 +1690,13 @@ namespace MMO_Client.Controllers
                 messageOut = new Message();
                 messageOut.Status = StatusMessage.Error;
                 isQuestionAsked = false;
+                isRunning = false;
                 return false;
             }
         }
 
         #region
-        public static bool CreateBullet(Shot shot, Message message, out Message messageOut)
+        public bool CreateBullet(Shot shot, Message message, out Message messageOut)
         {
             try
             {
@@ -1689,8 +1706,8 @@ namespace MMO_Client.Controllers
                     return false;
                 }
 
-
-                Bullet bullet = new Bullet(shot.Id, shot.LN, UtilityAssistant.ConvertVector3NumericToStride(shot.WPos), UtilityAssistant.ConvertVector3NumericToStride(shot.Mdf));
+                string shotId = shot.Id.Replace("\"","");
+                Bullet bullet = new Bullet(shotId, shot.LN, UtilityAssistant.ConvertVector3NumericToStride(shot.WPos), UtilityAssistant.ConvertVector3NumericToStride(shot.Mdf));
                 List<Entity> l_ent = Controller.controller.GetPrefab("Bullet");
                 bullet.ProyectileBody = l_ent[0];
                 bullet.ProyectileBody.Transform.Position = bullet.InitialPosition;
@@ -1698,12 +1715,17 @@ namespace MMO_Client.Controllers
                 dic_bulletsOnline.TryAdd(bullet.id, bullet);
                 //dic_bulletsOnline[intbllt].ProyectileBody.Transform.Position = dic_bulletsOnline[intbllt].InitialPosition;
                 //UtilityAssistant.RotateTo(dic_bulletsOnline[intbllt].ProyectileBody, (dic_bulletsOnline[intbllt].ProyectileBody.Transform.Position + dic_bulletsOnline[intbllt].MovementModifier));
-                Controller.controller.Entity.Scene.Entities.Add(bullet.ProyectileBody);
+                Entity.Scene.Entities.Add(bullet.ProyectileBody);
+
+                //Entity.Scene.Entities.AddRange(instance);
+                //Entity.Scene.Entities.Add(((Puppet)obtOfType).Entity);
+                //Entity.Scene.Entities.AddRange(l_ent);
                 return true;
             }
             catch (Exception ex)
             {
                 Console.BackgroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Error CreateBullet(string): " + ex.Message);
                 Console.ResetColor();
                 messageOut = new Message();
