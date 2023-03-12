@@ -410,15 +410,16 @@ namespace MMO_Client.Code.Controllers
                         case "MV":
                             playerController.ProcessMovementFromServer(nwMsg.TextOriginal, nwMsg, out nwMsg);
                             break;
-                        case "ST":
-                            /*if (playerController.CreateShot(nwMsg.Text, nwMsg, out nwMsg))
-                            {
-                                StateMessage stMsg1 = new StateMessage(nwMsg.IdMsg, nwMsg.Status);
-                                ConnectionManager.gameSocketClient.l_SendQueueMessages.Enqueue("MS:" + stMsg1.ToJson());
-                            }*/
+                        case "CS":
+                            playerController.CreateShot(nwMsg.TextOriginal, nwMsg, out nwMsg);
                             break;
-                        case "SS":
-                            //playerController.DestroyShot(nwMsg.Text, nwMsg, out nwMsg);
+                        case "US":
+                            playerController.UpdateShot(nwMsg.TextOriginal, nwMsg, out nwMsg);
+                            //StateMessage stMsg2 = new StateMessage(nwMsg.IdMsg, nwMsg.Status);
+                            //ConnectionManager.gameSocketClient.l_SendQueueMessages.Enqueue("MS:" + stMsg2.ToJson());
+                            break;
+                        case "DS":
+                            playerController.DestroyShot(nwMsg.TextOriginal, nwMsg, out nwMsg);
                             //StateMessage stMsg2 = new StateMessage(nwMsg.IdMsg, nwMsg.Status);
                             //ConnectionManager.gameSocketClient.l_SendQueueMessages.Enqueue("MS:" + stMsg2.ToJson());
                             break;
