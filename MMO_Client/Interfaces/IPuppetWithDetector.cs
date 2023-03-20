@@ -9,7 +9,7 @@ namespace MMO_Client.Code.Interfaces
     {
         public float DetectionArea { get; set; }
 
-        public bool DetectInRange(Entity ent)
+        /*public bool DetectInRange(Entity ent)
         {
             if (Player.PLAYER.Entity  == null)
             {
@@ -51,6 +51,6 @@ namespace MMO_Client.Code.Interfaces
                 return true;
             }
             return false;
-        }
+        }*/
     }
 }

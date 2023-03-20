@@ -79,6 +79,24 @@
             True if UX has requested re-centering. 
             </summary>
         </member>
+        <member name="M:Stride.VirtualReality.OpenVR.SkipInit``1(``0@)">
+            <summary>Bypasses definite assignment rules for a given reference.
+            <para>A thin wrapper around <see cref="M:System.Runtime.CompilerServices.Unsafe.SkipInit``1(``0@)"/> for the sole purpose of making it usable in an expression.</para></summary>
+            <typeparam name="T">The type of the reference.</typeparam>
+            <param name="value">The reference whose initialization should be skipped.</param>
+            <returns>The reference to <paramref name="value"/>.</returns>
+            <remarks>Take care to ensure that the struct has been initialized appropriately, otherwise the struct's fields could contain uninitialized data from the stack.</remarks>
+        </member>
+        <member name="M:Stride.VirtualReality.OpenXRHmd.CheckResult(Silk.NET.OpenXR.Result,System.String)">
+            <summary>
+            A simple function which throws an exception if the given OpenXR result indicates an error has been raised.
+            </summary>
+            <param name="result">The OpenXR result in question.</param>
+            <returns>
+            The same result passed in, just in case it's meaningful and we just want to use this to filter out errors.
+            </returns>
+            <exception cref="T:System.Exception">An exception for the given result if it indicates an error.</exception>
+        </member>
         <member name="M:Stride.VirtualReality.TouchController.IsPressedDown(Stride.VirtualReality.TouchControllerButton)">
             <summary>
             Returns true if in this frame the button switched to pressed state

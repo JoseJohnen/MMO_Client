@@ -8832,7 +8832,7 @@
             </exception>
             <exception cref="T:System.InvalidOperationException">The vertex buffer must contain at least the TEXCOORD</exception>
             <remarks>
-            The original vertex buffer must contain at least a TEXCOORD[0-9] attribute in order for this method to work. 
+            The original vertex buffer must contain at least a TEXCOORD[0-9] attribute in order for this method to work.
             This method will copy the value of the first existing TEXCOORD found in the vertex buffer to the newly created TEXCOORDS.
             </remarks>
         </member>

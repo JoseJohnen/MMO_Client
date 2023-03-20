@@ -19,8 +19,11 @@ RootAssets:
     - 7831ed4a-7449-4b5c-8665-9033c56b990a:Models/AIM120D
     - 7d44cc93-8767-4a89-aad9-82e9b90e114d:Prefabs/DoomGuy
     - 7dbf55d9-8f19-4468-93be-fcff03782368:UI/UIPage
+    - a9c32b3f-ed5b-49a1-bb33-32e1c27c5bba:Sprites/Marine
     - b4589130-5409-48d3-8321-a33773c53703:Prefabs/Bullet
     - b81a483c-3906-48ee-8e2d-39d44cf84307:Prefabs/RealEnt
+    - ba7f9e49-9cd7-407f-82f8-7bdc9d6b4b0e:Sprites/Pinkie
     - d3f59efa-4dd1-4407-b3ab-8aeb0d287cad:Prefabs/Player
     - d6281e6d-7a1a-42bc-b011-f9cd028b1bf1:Prefabs/Character
     - ee11f642-d70c-4eb6-88c8-ebe22c076c08:Models/Cylinder
+    - ef27c531-e410-4ca0-87b1-7a7739b913ab:Sprites/Imp

@@ -144,3 +144,4 @@ E:\Cod_Pers\Stride\MMO_Client\MMO_Client.Windows\obj\Debug\win-x64\refint\MMO_Cl
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client.Windows\obj\Debug\win-x64\MMO_Client.Windows.pdb
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client.Windows\obj\Debug\win-x64\MMO_Client.Windows.genruntimeconfig.cache
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client.Windows\obj\Debug\win-x64\ref\MMO_Client.Windows.dll
+E:\Cod_Pers\Stride\MMO_Client\Bin\Windows\Debug\win-x64\openxr_loader.dll

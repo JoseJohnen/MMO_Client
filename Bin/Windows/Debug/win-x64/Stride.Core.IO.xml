@@ -227,8 +227,14 @@
             Returns the list of files from the specified path.
             </summary>
             <param name="path">The path.</param>
-            <param name="searchPattern">The search pattern.</param>
-            <param name="searchOption">The search option.</param>
+            <param name="searchPattern">
+            The search string to match against the names of files in <paramref name="path"/>.
+            This parameter can contain a combination of valid literal path and wildcard (* and ?) characters,
+            but it doesn't support regular expressions.
+            </param>
+            <param name="searchOption">
+            One of the enumeration values that specifies whether the search operation should include all subdirectories or only the current directory.
+            </param>
             <returns>A list of files from the specified path</returns>
         </member>
         <member name="M:Stride.Core.IO.IVirtualFileProvider.CreateDirectory(System.String)">
@@ -645,7 +651,7 @@
             <param name="startPosition">The start position.</param>
             <param name="endPosition">The end position.</param>
             <param name="disposeInternalStream">if set to <c>true</c> this instance has ownership of the internal stream and will dispose it].</param>
-            <exception cref="T:System.ArgumentException">startPosition and endPosition doesn't fit inside current bounds</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">startPosition and endPosition doesn't fit inside current bounds</exception>
             <exception cref="T:System.NotSupportedException">Attempted to create a VirtualFileStream from a Stream which doesn't support seeking.</exception>
         </member>
         <member name="P:Stride.Core.Serialization.VirtualFileStream.CanRead">
@@ -669,20 +675,34 @@
         <member name="M:Stride.Core.Serialization.VirtualFileStream.Read(System.Byte[],System.Int32,System.Int32)">
             <inheritdoc/>
         </member>
+        <member name="M:Stride.Core.Serialization.VirtualFileStream.Read(System.Span{System.Byte})">
+            <inheritdoc/>
+        </member>
         <member name="M:Stride.Core.Serialization.VirtualFileStream.ReadByte">
             <inheritdoc/>
         </member>
         <member name="M:Stride.Core.Serialization.VirtualFileStream.Seek(System.Int64,System.IO.SeekOrigin)">
             <inheritdoc/>
+            <exception cref="T:System.IO.IOException">The <paramref name="offset"/> and <paramref name="origin"/>
+            would seek to a position before the start of the stream or after the end.</exception>
         </member>
         <member name="M:Stride.Core.Serialization.VirtualFileStream.SetLength(System.Int64)">
             <inheritdoc/>
         </member>
         <member name="M:Stride.Core.Serialization.VirtualFileStream.Write(System.Byte[],System.Int32,System.Int32)">
             <inheritdoc/>
+            <exception cref="T:System.IO.IOException">The remaining capacity in the stream
+            is not large enough to write the specified <paramref name="buffer"/>.</exception>
+        </member>
+        <member name="M:Stride.Core.Serialization.VirtualFileStream.Write(System.ReadOnlySpan{System.Byte})">
+            <inheritdoc/>
+            <exception cref="T:System.IO.IOException">The remaining capacity in the stream
+            is not large enough to write the specified <paramref name="buffer"/>.</exception>
         </member>
         <member name="M:Stride.Core.Serialization.VirtualFileStream.WriteByte(System.Byte)">
             <inheritdoc/>
+            <exception cref="T:System.IO.IOException">The remaining capacity in the stream
+            is not large enough to write the specified <paramref name="buffer"/>.</exception>
         </member>
         <member name="T:Stride.StrideVersion">
             <summary>

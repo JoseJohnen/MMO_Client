@@ -27,6 +27,35 @@
           "lib/netstandard1.0/_._": {}
         }
       },
+      "K4os.Compression.LZ4/1.2.16": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0/K4os.Compression.LZ4.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net5.0/K4os.Compression.LZ4.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "K4os.Compression.LZ4.Legacy/1.2.16": {
+        "type": "package",
+        "dependencies": {
+          "K4os.Compression.LZ4": "1.2.16"
+        },
+        "compile": {
+          "lib/net5.0/K4os.Compression.LZ4.Legacy.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net5.0/K4os.Compression.LZ4.Legacy.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.Bcl.AsyncInterfaces/1.1.0": {
         "type": "package",
         "compile": {
@@ -271,7 +300,7 @@
           }
         }
       },
-      "Microsoft.NETCore.Platforms/3.1.0": {
+      "Microsoft.NETCore.Platforms/3.1.4": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -1084,6 +1113,23 @@
           }
         }
       },
+      "Silk.NET.OpenXR/2.10.1": {
+        "type": "package",
+        "dependencies": {
+          "Silk.NET.Core": "2.10.1",
+          "Silk.NET.Maths": "2.10.1"
+        },
+        "compile": {
+          "lib/net5.0/Silk.NET.OpenXR.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net5.0/Silk.NET.OpenXR.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Silk.NET.SDL/2.10.1": {
         "type": "package",
         "dependencies": {
@@ -1156,12 +1202,12 @@
           }
         }
       },
-      "Stride/4.1.0.1734": {
+      "Stride/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Core.Mathematics": "4.1.0.1734",
-          "Stride.Core.Serialization": "4.1.0.1734",
-          "System.Drawing.Common": "4.7.0"
+          "Stride.Core.Mathematics": "4.1.0.1805",
+          "Stride.Core.Serialization": "4.1.0.1805",
+          "System.Drawing.Common": "4.7.2"
         },
         "compile": {
           "lib/net6.0/Stride.dll": {
@@ -1174,7 +1220,7 @@
           }
         }
       },
-      "Stride.Assets/4.1.0.1734": {
+      "Stride.Assets/4.1.0.1805": {
         "type": "package",
         "dependencies": {
           "Microsoft.Build": "17.0.0",
@@ -1183,15 +1229,15 @@
           "Microsoft.CodeAnalysis.Workspaces.MSBuild": "3.6.0",
           "SSH.NET": "2016.1.0",
           "SharpDX.Direct2D1": "4.2.0",
-          "Stride": "4.1.0.1734",
-          "Stride.Core.Assets": "4.1.0.1734",
-          "Stride.Core.ProjectTemplating": "4.1.0.1734",
-          "Stride.Engine": "4.1.0.1734",
-          "Stride.Navigation": "4.1.0.1734",
-          "Stride.Physics": "4.1.0.1734",
-          "Stride.TextureConverter": "4.1.0.1734",
-          "Stride.UI": "4.1.0.1734",
-          "Stride.Video": "4.1.0.1734",
+          "Stride": "4.1.0.1805",
+          "Stride.Core.Assets": "4.1.0.1805",
+          "Stride.Core.ProjectTemplating": "4.1.0.1805",
+          "Stride.Engine": "4.1.0.1805",
+          "Stride.Navigation": "4.1.0.1805",
+          "Stride.Physics": "4.1.0.1805",
+          "Stride.TextureConverter": "4.1.0.1805",
+          "Stride.UI": "4.1.0.1805",
+          "Stride.Video": "4.1.0.1805",
           "System.AppContext": "4.3.0",
           "System.Collections.Immutable": "6.0.0",
           "System.Console": "4.3.1",
@@ -1236,10 +1282,10 @@
           }
         }
       },
-      "Stride.Assets.Models/4.1.0.1734": {
+      "Stride.Assets.Models/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Assets": "4.1.0.1734"
+          "Stride.Assets": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0-windows7.0/_._": {}
@@ -1248,11 +1294,11 @@
           "lib/net6.0-windows7.0/_._": {}
         }
       },
-      "Stride.Audio/4.1.0.1734": {
+      "Stride.Audio/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride": "4.1.0.1734",
-          "Stride.Native": "4.1.0.1734"
+          "Stride": "4.1.0.1805",
+          "Stride.Native": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Audio.dll": {
@@ -1265,7 +1311,7 @@
           }
         }
       },
-      "Stride.Core/4.1.0.1734": {
+      "Stride.Core/4.1.0.1805": {
         "type": "package",
         "dependencies": {
           "Microsoft.NETCore.Platforms": "3.1.0",
@@ -1287,14 +1333,14 @@
           "buildTransitive/Stride.Core.targets": {}
         }
       },
-      "Stride.Core.Assets/4.1.0.1734": {
+      "Stride.Core.Assets/4.1.0.1805": {
         "type": "package",
         "dependencies": {
           "Microsoft.Build": "17.0.0",
           "Microsoft.Build.Locator": "1.4.1",
           "Microsoft.Build.Utilities.Core": "17.0.0",
-          "Stride.Core.BuildEngine.Common": "4.1.0.1734",
-          "Stride.Core.Packages": "4.1.0.1734",
+          "Stride.Core.BuildEngine.Common": "4.1.0.1805",
+          "Stride.Core.Packages": "4.1.0.1805",
           "System.Reflection.Emit": "4.7.0",
           "System.Threading.Tasks.Dataflow": "4.10.0"
         },
@@ -1309,15 +1355,15 @@
           }
         }
       },
-      "Stride.Core.Assets.CompilerApp/4.1.0.1734": {
+      "Stride.Core.Assets.CompilerApp/4.1.0.1805": {
         "type": "package",
         "dependencies": {
           "Mono.Options": "5.3.0.1",
-          "Stride.Assets.Models": "4.1.0.1734",
-          "Stride.Particles": "4.1.0.1734",
-          "Stride.Physics": "4.1.0.1734",
-          "Stride.SpriteStudio.Offline": "4.1.0.1734",
-          "Stride.UI": "4.1.0.1734"
+          "Stride.Assets.Models": "4.1.0.1805",
+          "Stride.Particles": "4.1.0.1805",
+          "Stride.Physics": "4.1.0.1805",
+          "Stride.SpriteStudio.Offline": "4.1.0.1805",
+          "Stride.UI": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0-windows7.0/_._": {
@@ -1333,11 +1379,11 @@
           "buildTransitive/Stride.Core.Assets.CompilerApp.targets": {}
         }
       },
-      "Stride.Core.BuildEngine.Common/4.1.0.1734": {
+      "Stride.Core.BuildEngine.Common/4.1.0.1805": {
         "type": "package",
         "dependencies": {
           "ServiceWire": "5.3.4",
-          "Stride.Core.Design": "4.1.0.1734"
+          "Stride.Core.Design": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0-windows7.0/_._": {
@@ -1350,7 +1396,7 @@
           }
         }
       },
-      "Stride.Core.Design/4.1.0.1734": {
+      "Stride.Core.Design/4.1.0.1805": {
         "type": "package",
         "dependencies": {
           "Microsoft.CSharp": "4.7.0",
@@ -1358,9 +1404,9 @@
           "Microsoft.VisualStudio.Setup.Configuration.Interop": "2.3.2262-g94fae01e",
           "NuGet.Configuration": "6.0.0",
           "SharpDX": "4.2.0",
-          "Stride.Core.Mathematics": "4.1.0.1734",
-          "Stride.Core.Serialization": "4.1.0.1734",
-          "Stride.Core.Yaml": "4.1.0.1734",
+          "Stride.Core.Mathematics": "4.1.0.1805",
+          "Stride.Core.Serialization": "4.1.0.1805",
+          "Stride.Core.Yaml": "4.1.0.1805",
           "System.Management": "4.7.0"
         },
         "compile": {
@@ -1374,10 +1420,10 @@
           }
         }
       },
-      "Stride.Core.IO/4.1.0.1734": {
+      "Stride.Core.IO/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Core": "4.1.0.1734"
+          "Stride.Core": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Core.IO.dll": {
@@ -1390,10 +1436,10 @@
           }
         }
       },
-      "Stride.Core.Mathematics/4.1.0.1734": {
+      "Stride.Core.Mathematics/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Core": "4.1.0.1734"
+          "Stride.Core": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Core.Mathematics.dll": {
@@ -1406,10 +1452,10 @@
           }
         }
       },
-      "Stride.Core.MicroThreading/4.1.0.1734": {
+      "Stride.Core.MicroThreading/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Core": "4.1.0.1734"
+          "Stride.Core": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Core.MicroThreading.dll": {
@@ -1422,14 +1468,14 @@
           }
         }
       },
-      "Stride.Core.Packages/4.1.0.1734": {
+      "Stride.Core.Packages/4.1.0.1805": {
         "type": "package",
         "dependencies": {
           "NuGet.Commands": "6.0.0",
           "NuGet.PackageManagement": "6.0.0",
           "NuGet.Protocol": "6.0.0",
           "NuGet.Resolver": "6.0.0",
-          "Stride.Core.Design": "4.1.0.1734",
+          "Stride.Core.Design": "4.1.0.1805",
           "System.IO.Compression": "4.3.0"
         },
         "compile": {
@@ -1443,10 +1489,10 @@
           }
         }
       },
-      "Stride.Core.ProjectTemplating/4.1.0.1734": {
+      "Stride.Core.ProjectTemplating/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Core.Design": "4.1.0.1734",
+          "Stride.Core.Design": "4.1.0.1805",
           "Stride.Mono.TextTemplating": "2.1.0-preview-0009-g0d0b6db3ca"
         },
         "compile": {
@@ -1460,10 +1506,10 @@
           }
         }
       },
-      "Stride.Core.Reflection/4.1.0.1734": {
+      "Stride.Core.Reflection/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Core.Serialization": "4.1.0.1734"
+          "Stride.Core.Serialization": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/_._": {
@@ -1476,11 +1522,12 @@
           }
         }
       },
-      "Stride.Core.Serialization/4.1.0.1734": {
+      "Stride.Core.Serialization/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Core.IO": "4.1.0.1734",
-          "Stride.Core.MicroThreading": "4.1.0.1734"
+          "K4os.Compression.LZ4.Legacy": "1.2.16",
+          "Stride.Core.IO": "4.1.0.1805",
+          "Stride.Core.MicroThreading": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Core.Serialization.dll": {
@@ -1493,11 +1540,11 @@
           }
         }
       },
-      "Stride.Core.Shaders/4.1.0.1734": {
+      "Stride.Core.Shaders/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Core": "4.1.0.1734",
-          "Stride.Irony": "4.1.0.1734"
+          "Stride.Core": "4.1.0.1805",
+          "Stride.Irony": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/CppNet.dll": {},
@@ -1512,10 +1559,10 @@
           }
         }
       },
-      "Stride.Core.Yaml/4.1.0.1734": {
+      "Stride.Core.Yaml/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Core.Reflection": "4.1.0.1734"
+          "Stride.Core.Reflection": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/_._": {
@@ -1528,13 +1575,13 @@
           }
         }
       },
-      "Stride.Engine/4.1.0.1734": {
+      "Stride.Engine/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Audio": "4.1.0.1734",
-          "Stride.Rendering": "4.1.0.1734",
-          "Stride.Shaders.Compiler": "4.1.0.1734",
-          "Stride.VirtualReality": "4.1.0.1734",
+          "Stride.Audio": "4.1.0.1805",
+          "Stride.Rendering": "4.1.0.1805",
+          "Stride.Shaders.Compiler": "4.1.0.1805",
+          "Stride.VirtualReality": "4.1.0.1805",
           "System.Threading.Tasks.Dataflow": "4.10.0",
           "System.ValueTuple": "4.5.0"
         },
@@ -1549,10 +1596,10 @@
           }
         }
       },
-      "Stride.Games/4.1.0.1734": {
+      "Stride.Games/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Graphics": "4.1.0.1734"
+          "Stride.Graphics": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0-windows7.0/Stride.Games.dll": {
@@ -1568,7 +1615,7 @@
           "Microsoft.WindowsDesktop.App"
         ]
       },
-      "Stride.Graphics/4.1.0.1734": {
+      "Stride.Graphics/4.1.0.1805": {
         "type": "package",
         "dependencies": {
           "SharpDX.D3DCompiler": "4.2.0",
@@ -1578,9 +1625,9 @@
           "Silk.NET.OpenGLES": "2.10.1",
           "Silk.NET.OpenGLES.Extensions.EXT": "2.10.1",
           "Silk.NET.Sdl": "2.10.1",
-          "Stride": "4.1.0.1734",
-          "Stride.Native": "4.1.0.1734",
-          "Stride.Shaders": "4.1.0.1734",
+          "Stride": "4.1.0.1805",
+          "Stride.Native": "4.1.0.1805",
+          "Stride.Shaders": "4.1.0.1805",
           "Stride.SharpFont": "1.0.0",
           "System.Memory": "4.5.4",
           "Vortice.Vulkan": "1.2.167"
@@ -1599,12 +1646,12 @@
           "buildTransitive/Stride.Graphics.targets": {}
         }
       },
-      "Stride.Input/4.1.0.1734": {
+      "Stride.Input/4.1.0.1805": {
         "type": "package",
         "dependencies": {
           "SharpDX.DirectInput": "4.2.0",
           "SharpDX.XInput": "4.2.0",
-          "Stride.Games": "4.1.0.1734"
+          "Stride.Games": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0-windows7.0/Stride.Input.dll": {
@@ -1620,7 +1667,7 @@
           "Microsoft.WindowsDesktop.App"
         ]
       },
-      "Stride.Irony/4.1.0.1734": {
+      "Stride.Irony/4.1.0.1805": {
         "type": "package",
         "compile": {
           "lib/net6.0/Stride.Irony.dll": {
@@ -1645,10 +1692,10 @@
           "lib/netstandard2.0/_._": {}
         }
       },
-      "Stride.Native/4.1.0.1734": {
+      "Stride.Native/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Core.Mathematics": "4.1.0.1734"
+          "Stride.Core.Mathematics": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Native.dll": {
@@ -1661,10 +1708,10 @@
           }
         }
       },
-      "Stride.Navigation/4.1.0.1734": {
+      "Stride.Navigation/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Physics": "4.1.0.1734"
+          "Stride.Physics": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Navigation.dll": {
@@ -1677,10 +1724,10 @@
           }
         }
       },
-      "Stride.Particles/4.1.0.1734": {
+      "Stride.Particles/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Engine": "4.1.0.1734"
+          "Stride.Engine": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Particles.dll": {
@@ -1693,10 +1740,10 @@
           }
         }
       },
-      "Stride.Physics/4.1.0.1734": {
+      "Stride.Physics/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Engine": "4.1.0.1734"
+          "Stride.Engine": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/BulletSharp.NetStandard.dll": {},
@@ -1711,11 +1758,11 @@
           }
         }
       },
-      "Stride.Rendering/4.1.0.1734": {
+      "Stride.Rendering/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Games": "4.1.0.1734",
-          "Stride.Native": "4.1.0.1734"
+          "Stride.Games": "4.1.0.1805",
+          "Stride.Native": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Rendering.dll": {
@@ -1728,10 +1775,10 @@
           }
         }
       },
-      "Stride.Shaders/4.1.0.1734": {
+      "Stride.Shaders/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride": "4.1.0.1734"
+          "Stride": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Shaders.dll": {
@@ -1744,11 +1791,11 @@
           }
         }
       },
-      "Stride.Shaders.Compiler/4.1.0.1734": {
+      "Stride.Shaders.Compiler/4.1.0.1805": {
         "type": "package",
         "dependencies": {
           "SharpDX.D3DCompiler": "4.2.0",
-          "Stride.Shaders.Parser": "4.1.0.1734"
+          "Stride.Shaders.Parser": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Shaders.Compiler.dll": {
@@ -1761,11 +1808,11 @@
           }
         }
       },
-      "Stride.Shaders.Parser/4.1.0.1734": {
+      "Stride.Shaders.Parser/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Core.Shaders": "4.1.0.1734",
-          "Stride.Shaders": "4.1.0.1734"
+          "Stride.Core.Shaders": "4.1.0.1805",
+          "Stride.Shaders": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Shaders.Parser.dll": {
@@ -1794,11 +1841,11 @@
           }
         }
       },
-      "Stride.SpriteStudio.Offline/4.1.0.1734": {
+      "Stride.SpriteStudio.Offline/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Assets": "4.1.0.1734",
-          "Stride.SpriteStudio.Runtime": "4.1.0.1734"
+          "Stride.Assets": "4.1.0.1805",
+          "Stride.SpriteStudio.Runtime": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0-windows7.0/_._": {
@@ -1811,10 +1858,10 @@
           }
         }
       },
-      "Stride.SpriteStudio.Runtime/4.1.0.1734": {
+      "Stride.SpriteStudio.Runtime/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Engine": "4.1.0.1734"
+          "Stride.Engine": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/_._": {
@@ -1827,10 +1874,10 @@
           }
         }
       },
-      "Stride.TextureConverter/4.1.0.1734": {
+      "Stride.TextureConverter/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Graphics": "4.1.0.1734"
+          "Stride.Graphics": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0-windows7.0/_._": {
@@ -1843,10 +1890,10 @@
           }
         }
       },
-      "Stride.UI/4.1.0.1734": {
+      "Stride.UI/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Engine": "4.1.0.1734"
+          "Stride.Engine": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.UI.dll": {
@@ -1859,14 +1906,14 @@
           }
         }
       },
-      "Stride.Video/4.1.0.1734": {
+      "Stride.Video/4.1.0.1805": {
         "type": "package",
         "dependencies": {
           "FFmpeg.AutoGen": "3.4.0.2",
           "SharpDX.Direct3D11": "4.2.0",
           "SharpDX.Direct3D12": "4.2.0",
           "SharpDX.MediaFoundation": "4.2.0",
-          "Stride.Engine": "4.1.0.1734"
+          "Stride.Engine": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Video.dll": {
@@ -1879,22 +1926,25 @@
           }
         }
       },
-      "Stride.VirtualReality/4.1.0.1734": {
+      "Stride.VirtualReality/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Games": "4.1.0.1734",
-          "Stride.Graphics": "4.1.0.1734",
-          "Stride.Input": "4.1.0.1734"
+          "Silk.NET.OpenXR": "2.10.1",
+          "Stride.Games": "4.1.0.1805",
+          "Stride.Graphics": "4.1.0.1805",
+          "Stride.Input": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.VirtualReality.dll": {
             "related": ".pdb;.ssdeps;.usrdoc;.xml"
-          }
+          },
+          "lib/net6.0/openxr_loader.dll": {}
         },
         "runtime": {
           "lib/net6.0/Stride.VirtualReality.dll": {
             "related": ".pdb;.ssdeps;.usrdoc;.xml"
-          }
+          },
+          "lib/net6.0/openxr_loader.dll": {}
         }
       },
       "System.AppContext/4.3.0": {
@@ -2272,10 +2322,10 @@
           }
         }
       },
-      "System.Drawing.Common/4.7.0": {
+      "System.Drawing.Common/4.7.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.0",
+          "Microsoft.NETCore.Platforms": "3.1.4",
           "Microsoft.Win32.SystemEvents": "4.7.0"
         },
         "compile": {
@@ -3755,13 +3805,13 @@
         "dependencies": {
           "Interfaz": "1.0.0",
           "Newtonsoft.Json": "13.0.2",
-          "Stride.Core.Assets.CompilerApp": "4.1.0.1734",
-          "Stride.Engine": "4.1.0.1734",
-          "Stride.Navigation": "4.1.0.1734",
-          "Stride.Particles": "4.1.0.1734",
-          "Stride.Physics": "4.1.0.1734",
-          "Stride.UI": "4.1.0.1734",
-          "Stride.Video": "4.1.0.1734"
+          "Stride.Core.Assets.CompilerApp": "4.1.0.1805",
+          "Stride.Engine": "4.1.0.1805",
+          "Stride.Navigation": "4.1.0.1805",
+          "Stride.Particles": "4.1.0.1805",
+          "Stride.Physics": "4.1.0.1805",
+          "Stride.UI": "4.1.0.1805",
+          "Stride.Video": "4.1.0.1805"
         },
         "compile": {
           "bin/placeholder/MMO_Client.dll": {}
@@ -3795,6 +3845,35 @@
         },
         "runtime": {
           "lib/netstandard1.0/_._": {}
+        }
+      },
+      "K4os.Compression.LZ4/1.2.16": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0/K4os.Compression.LZ4.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net5.0/K4os.Compression.LZ4.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "K4os.Compression.LZ4.Legacy/1.2.16": {
+        "type": "package",
+        "dependencies": {
+          "K4os.Compression.LZ4": "1.2.16"
+        },
+        "compile": {
+          "lib/net5.0/K4os.Compression.LZ4.Legacy.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net5.0/K4os.Compression.LZ4.Legacy.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.Bcl.AsyncInterfaces/1.1.0": {
@@ -4041,7 +4120,7 @@
           }
         }
       },
-      "Microsoft.NETCore.Platforms/3.1.0": {
+      "Microsoft.NETCore.Platforms/3.1.4": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -5066,6 +5145,23 @@
           }
         }
       },
+      "Silk.NET.OpenXR/2.10.1": {
+        "type": "package",
+        "dependencies": {
+          "Silk.NET.Core": "2.10.1",
+          "Silk.NET.Maths": "2.10.1"
+        },
+        "compile": {
+          "lib/net5.0/Silk.NET.OpenXR.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net5.0/Silk.NET.OpenXR.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Silk.NET.SDL/2.10.1": {
         "type": "package",
         "dependencies": {
@@ -5138,12 +5234,12 @@
           }
         }
       },
-      "Stride/4.1.0.1734": {
+      "Stride/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Core.Mathematics": "4.1.0.1734",
-          "Stride.Core.Serialization": "4.1.0.1734",
-          "System.Drawing.Common": "4.7.0"
+          "Stride.Core.Mathematics": "4.1.0.1805",
+          "Stride.Core.Serialization": "4.1.0.1805",
+          "System.Drawing.Common": "4.7.2"
         },
         "compile": {
           "lib/net6.0/Stride.dll": {
@@ -5156,7 +5252,7 @@
           }
         }
       },
-      "Stride.Assets/4.1.0.1734": {
+      "Stride.Assets/4.1.0.1805": {
         "type": "package",
         "dependencies": {
           "Microsoft.Build": "17.0.0",
@@ -5165,15 +5261,15 @@
           "Microsoft.CodeAnalysis.Workspaces.MSBuild": "3.6.0",
           "SSH.NET": "2016.1.0",
           "SharpDX.Direct2D1": "4.2.0",
-          "Stride": "4.1.0.1734",
-          "Stride.Core.Assets": "4.1.0.1734",
-          "Stride.Core.ProjectTemplating": "4.1.0.1734",
-          "Stride.Engine": "4.1.0.1734",
-          "Stride.Navigation": "4.1.0.1734",
-          "Stride.Physics": "4.1.0.1734",
-          "Stride.TextureConverter": "4.1.0.1734",
-          "Stride.UI": "4.1.0.1734",
-          "Stride.Video": "4.1.0.1734",
+          "Stride": "4.1.0.1805",
+          "Stride.Core.Assets": "4.1.0.1805",
+          "Stride.Core.ProjectTemplating": "4.1.0.1805",
+          "Stride.Engine": "4.1.0.1805",
+          "Stride.Navigation": "4.1.0.1805",
+          "Stride.Physics": "4.1.0.1805",
+          "Stride.TextureConverter": "4.1.0.1805",
+          "Stride.UI": "4.1.0.1805",
+          "Stride.Video": "4.1.0.1805",
           "System.AppContext": "4.3.0",
           "System.Collections.Immutable": "6.0.0",
           "System.Console": "4.3.1",
@@ -5218,10 +5314,10 @@
           }
         }
       },
-      "Stride.Assets.Models/4.1.0.1734": {
+      "Stride.Assets.Models/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Assets": "4.1.0.1734"
+          "Stride.Assets": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0-windows7.0/_._": {}
@@ -5230,11 +5326,11 @@
           "lib/net6.0-windows7.0/_._": {}
         }
       },
-      "Stride.Audio/4.1.0.1734": {
+      "Stride.Audio/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride": "4.1.0.1734",
-          "Stride.Native": "4.1.0.1734"
+          "Stride": "4.1.0.1805",
+          "Stride.Native": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Audio.dll": {
@@ -5247,7 +5343,7 @@
           }
         }
       },
-      "Stride.Core/4.1.0.1734": {
+      "Stride.Core/4.1.0.1805": {
         "type": "package",
         "dependencies": {
           "Microsoft.NETCore.Platforms": "3.1.0",
@@ -5269,14 +5365,14 @@
           "buildTransitive/Stride.Core.targets": {}
         }
       },
-      "Stride.Core.Assets/4.1.0.1734": {
+      "Stride.Core.Assets/4.1.0.1805": {
         "type": "package",
         "dependencies": {
           "Microsoft.Build": "17.0.0",
           "Microsoft.Build.Locator": "1.4.1",
           "Microsoft.Build.Utilities.Core": "17.0.0",
-          "Stride.Core.BuildEngine.Common": "4.1.0.1734",
-          "Stride.Core.Packages": "4.1.0.1734",
+          "Stride.Core.BuildEngine.Common": "4.1.0.1805",
+          "Stride.Core.Packages": "4.1.0.1805",
           "System.Reflection.Emit": "4.7.0",
           "System.Threading.Tasks.Dataflow": "4.10.0"
         },
@@ -5291,15 +5387,15 @@
           }
         }
       },
-      "Stride.Core.Assets.CompilerApp/4.1.0.1734": {
+      "Stride.Core.Assets.CompilerApp/4.1.0.1805": {
         "type": "package",
         "dependencies": {
           "Mono.Options": "5.3.0.1",
-          "Stride.Assets.Models": "4.1.0.1734",
-          "Stride.Particles": "4.1.0.1734",
-          "Stride.Physics": "4.1.0.1734",
-          "Stride.SpriteStudio.Offline": "4.1.0.1734",
-          "Stride.UI": "4.1.0.1734"
+          "Stride.Assets.Models": "4.1.0.1805",
+          "Stride.Particles": "4.1.0.1805",
+          "Stride.Physics": "4.1.0.1805",
+          "Stride.SpriteStudio.Offline": "4.1.0.1805",
+          "Stride.UI": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0-windows7.0/_._": {
@@ -5315,11 +5411,11 @@
           "buildTransitive/Stride.Core.Assets.CompilerApp.targets": {}
         }
       },
-      "Stride.Core.BuildEngine.Common/4.1.0.1734": {
+      "Stride.Core.BuildEngine.Common/4.1.0.1805": {
         "type": "package",
         "dependencies": {
           "ServiceWire": "5.3.4",
-          "Stride.Core.Design": "4.1.0.1734"
+          "Stride.Core.Design": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0-windows7.0/_._": {
@@ -5332,7 +5428,7 @@
           }
         }
       },
-      "Stride.Core.Design/4.1.0.1734": {
+      "Stride.Core.Design/4.1.0.1805": {
         "type": "package",
         "dependencies": {
           "Microsoft.CSharp": "4.7.0",
@@ -5340,9 +5436,9 @@
           "Microsoft.VisualStudio.Setup.Configuration.Interop": "2.3.2262-g94fae01e",
           "NuGet.Configuration": "6.0.0",
           "SharpDX": "4.2.0",
-          "Stride.Core.Mathematics": "4.1.0.1734",
-          "Stride.Core.Serialization": "4.1.0.1734",
-          "Stride.Core.Yaml": "4.1.0.1734",
+          "Stride.Core.Mathematics": "4.1.0.1805",
+          "Stride.Core.Serialization": "4.1.0.1805",
+          "Stride.Core.Yaml": "4.1.0.1805",
           "System.Management": "4.7.0"
         },
         "compile": {
@@ -5356,10 +5452,10 @@
           }
         }
       },
-      "Stride.Core.IO/4.1.0.1734": {
+      "Stride.Core.IO/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Core": "4.1.0.1734"
+          "Stride.Core": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Core.IO.dll": {
@@ -5372,10 +5468,10 @@
           }
         }
       },
-      "Stride.Core.Mathematics/4.1.0.1734": {
+      "Stride.Core.Mathematics/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Core": "4.1.0.1734"
+          "Stride.Core": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Core.Mathematics.dll": {
@@ -5388,10 +5484,10 @@
           }
         }
       },
-      "Stride.Core.MicroThreading/4.1.0.1734": {
+      "Stride.Core.MicroThreading/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Core": "4.1.0.1734"
+          "Stride.Core": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Core.MicroThreading.dll": {
@@ -5404,14 +5500,14 @@
           }
         }
       },
-      "Stride.Core.Packages/4.1.0.1734": {
+      "Stride.Core.Packages/4.1.0.1805": {
         "type": "package",
         "dependencies": {
           "NuGet.Commands": "6.0.0",
           "NuGet.PackageManagement": "6.0.0",
           "NuGet.Protocol": "6.0.0",
           "NuGet.Resolver": "6.0.0",
-          "Stride.Core.Design": "4.1.0.1734",
+          "Stride.Core.Design": "4.1.0.1805",
           "System.IO.Compression": "4.3.0"
         },
         "compile": {
@@ -5425,10 +5521,10 @@
           }
         }
       },
-      "Stride.Core.ProjectTemplating/4.1.0.1734": {
+      "Stride.Core.ProjectTemplating/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Core.Design": "4.1.0.1734",
+          "Stride.Core.Design": "4.1.0.1805",
           "Stride.Mono.TextTemplating": "2.1.0-preview-0009-g0d0b6db3ca"
         },
         "compile": {
@@ -5442,10 +5538,10 @@
           }
         }
       },
-      "Stride.Core.Reflection/4.1.0.1734": {
+      "Stride.Core.Reflection/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Core.Serialization": "4.1.0.1734"
+          "Stride.Core.Serialization": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/_._": {
@@ -5458,11 +5554,12 @@
           }
         }
       },
-      "Stride.Core.Serialization/4.1.0.1734": {
+      "Stride.Core.Serialization/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Core.IO": "4.1.0.1734",
-          "Stride.Core.MicroThreading": "4.1.0.1734"
+          "K4os.Compression.LZ4.Legacy": "1.2.16",
+          "Stride.Core.IO": "4.1.0.1805",
+          "Stride.Core.MicroThreading": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Core.Serialization.dll": {
@@ -5475,11 +5572,11 @@
           }
         }
       },
-      "Stride.Core.Shaders/4.1.0.1734": {
+      "Stride.Core.Shaders/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Core": "4.1.0.1734",
-          "Stride.Irony": "4.1.0.1734"
+          "Stride.Core": "4.1.0.1805",
+          "Stride.Irony": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/CppNet.dll": {},
@@ -5494,10 +5591,10 @@
           }
         }
       },
-      "Stride.Core.Yaml/4.1.0.1734": {
+      "Stride.Core.Yaml/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Core.Reflection": "4.1.0.1734"
+          "Stride.Core.Reflection": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/_._": {
@@ -5510,13 +5607,13 @@
           }
         }
       },
-      "Stride.Engine/4.1.0.1734": {
+      "Stride.Engine/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Audio": "4.1.0.1734",
-          "Stride.Rendering": "4.1.0.1734",
-          "Stride.Shaders.Compiler": "4.1.0.1734",
-          "Stride.VirtualReality": "4.1.0.1734",
+          "Stride.Audio": "4.1.0.1805",
+          "Stride.Rendering": "4.1.0.1805",
+          "Stride.Shaders.Compiler": "4.1.0.1805",
+          "Stride.VirtualReality": "4.1.0.1805",
           "System.Threading.Tasks.Dataflow": "4.10.0",
           "System.ValueTuple": "4.5.0"
         },
@@ -5531,10 +5628,10 @@
           }
         }
       },
-      "Stride.Games/4.1.0.1734": {
+      "Stride.Games/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Graphics": "4.1.0.1734"
+          "Stride.Graphics": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0-windows7.0/Stride.Games.dll": {
@@ -5550,7 +5647,7 @@
           "Microsoft.WindowsDesktop.App"
         ]
       },
-      "Stride.Graphics/4.1.0.1734": {
+      "Stride.Graphics/4.1.0.1805": {
         "type": "package",
         "dependencies": {
           "SharpDX.D3DCompiler": "4.2.0",
@@ -5560,9 +5657,9 @@
           "Silk.NET.OpenGLES": "2.10.1",
           "Silk.NET.OpenGLES.Extensions.EXT": "2.10.1",
           "Silk.NET.Sdl": "2.10.1",
-          "Stride": "4.1.0.1734",
-          "Stride.Native": "4.1.0.1734",
-          "Stride.Shaders": "4.1.0.1734",
+          "Stride": "4.1.0.1805",
+          "Stride.Native": "4.1.0.1805",
+          "Stride.Shaders": "4.1.0.1805",
           "Stride.SharpFont": "1.0.0",
           "System.Memory": "4.5.4",
           "Vortice.Vulkan": "1.2.167"
@@ -5581,12 +5678,12 @@
           "buildTransitive/Stride.Graphics.targets": {}
         }
       },
-      "Stride.Input/4.1.0.1734": {
+      "Stride.Input/4.1.0.1805": {
         "type": "package",
         "dependencies": {
           "SharpDX.DirectInput": "4.2.0",
           "SharpDX.XInput": "4.2.0",
-          "Stride.Games": "4.1.0.1734"
+          "Stride.Games": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0-windows7.0/Stride.Input.dll": {
@@ -5602,7 +5699,7 @@
           "Microsoft.WindowsDesktop.App"
         ]
       },
-      "Stride.Irony/4.1.0.1734": {
+      "Stride.Irony/4.1.0.1805": {
         "type": "package",
         "compile": {
           "lib/net6.0/Stride.Irony.dll": {
@@ -5627,10 +5724,10 @@
           "lib/netstandard2.0/_._": {}
         }
       },
-      "Stride.Native/4.1.0.1734": {
+      "Stride.Native/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Core.Mathematics": "4.1.0.1734"
+          "Stride.Core.Mathematics": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Native.dll": {
@@ -5643,10 +5740,10 @@
           }
         }
       },
-      "Stride.Navigation/4.1.0.1734": {
+      "Stride.Navigation/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Physics": "4.1.0.1734"
+          "Stride.Physics": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Navigation.dll": {
@@ -5659,10 +5756,10 @@
           }
         }
       },
-      "Stride.Particles/4.1.0.1734": {
+      "Stride.Particles/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Engine": "4.1.0.1734"
+          "Stride.Engine": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Particles.dll": {
@@ -5675,10 +5772,10 @@
           }
         }
       },
-      "Stride.Physics/4.1.0.1734": {
+      "Stride.Physics/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Engine": "4.1.0.1734"
+          "Stride.Engine": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/BulletSharp.NetStandard.dll": {},
@@ -5693,11 +5790,11 @@
           }
         }
       },
-      "Stride.Rendering/4.1.0.1734": {
+      "Stride.Rendering/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Games": "4.1.0.1734",
-          "Stride.Native": "4.1.0.1734"
+          "Stride.Games": "4.1.0.1805",
+          "Stride.Native": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Rendering.dll": {
@@ -5710,10 +5807,10 @@
           }
         }
       },
-      "Stride.Shaders/4.1.0.1734": {
+      "Stride.Shaders/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride": "4.1.0.1734"
+          "Stride": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Shaders.dll": {
@@ -5726,11 +5823,11 @@
           }
         }
       },
-      "Stride.Shaders.Compiler/4.1.0.1734": {
+      "Stride.Shaders.Compiler/4.1.0.1805": {
         "type": "package",
         "dependencies": {
           "SharpDX.D3DCompiler": "4.2.0",
-          "Stride.Shaders.Parser": "4.1.0.1734"
+          "Stride.Shaders.Parser": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Shaders.Compiler.dll": {
@@ -5743,11 +5840,11 @@
           }
         }
       },
-      "Stride.Shaders.Parser/4.1.0.1734": {
+      "Stride.Shaders.Parser/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Core.Shaders": "4.1.0.1734",
-          "Stride.Shaders": "4.1.0.1734"
+          "Stride.Core.Shaders": "4.1.0.1805",
+          "Stride.Shaders": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Shaders.Parser.dll": {
@@ -5776,11 +5873,11 @@
           }
         }
       },
-      "Stride.SpriteStudio.Offline/4.1.0.1734": {
+      "Stride.SpriteStudio.Offline/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Assets": "4.1.0.1734",
-          "Stride.SpriteStudio.Runtime": "4.1.0.1734"
+          "Stride.Assets": "4.1.0.1805",
+          "Stride.SpriteStudio.Runtime": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0-windows7.0/_._": {
@@ -5793,10 +5890,10 @@
           }
         }
       },
-      "Stride.SpriteStudio.Runtime/4.1.0.1734": {
+      "Stride.SpriteStudio.Runtime/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Engine": "4.1.0.1734"
+          "Stride.Engine": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/_._": {
@@ -5809,10 +5906,10 @@
           }
         }
       },
-      "Stride.TextureConverter/4.1.0.1734": {
+      "Stride.TextureConverter/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Graphics": "4.1.0.1734"
+          "Stride.Graphics": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0-windows7.0/_._": {
@@ -5825,10 +5922,10 @@
           }
         }
       },
-      "Stride.UI/4.1.0.1734": {
+      "Stride.UI/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Engine": "4.1.0.1734"
+          "Stride.Engine": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.UI.dll": {
@@ -5841,14 +5938,14 @@
           }
         }
       },
-      "Stride.Video/4.1.0.1734": {
+      "Stride.Video/4.1.0.1805": {
         "type": "package",
         "dependencies": {
           "FFmpeg.AutoGen": "3.4.0.2",
           "SharpDX.Direct3D11": "4.2.0",
           "SharpDX.Direct3D12": "4.2.0",
           "SharpDX.MediaFoundation": "4.2.0",
-          "Stride.Engine": "4.1.0.1734"
+          "Stride.Engine": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.Video.dll": {
@@ -5861,22 +5958,25 @@
           }
         }
       },
-      "Stride.VirtualReality/4.1.0.1734": {
+      "Stride.VirtualReality/4.1.0.1805": {
         "type": "package",
         "dependencies": {
-          "Stride.Games": "4.1.0.1734",
-          "Stride.Graphics": "4.1.0.1734",
-          "Stride.Input": "4.1.0.1734"
+          "Silk.NET.OpenXR": "2.10.1",
+          "Stride.Games": "4.1.0.1805",
+          "Stride.Graphics": "4.1.0.1805",
+          "Stride.Input": "4.1.0.1805"
         },
         "compile": {
           "lib/net6.0/Stride.VirtualReality.dll": {
             "related": ".pdb;.ssdeps;.usrdoc;.xml"
-          }
+          },
+          "lib/net6.0/openxr_loader.dll": {}
         },
         "runtime": {
           "lib/net6.0/Stride.VirtualReality.dll": {
             "related": ".pdb;.ssdeps;.usrdoc;.xml"
-          }
+          },
+          "lib/net6.0/openxr_loader.dll": {}
         }
       },
       "System.AppContext/4.3.0": {
@@ -6253,10 +6353,10 @@
           }
         }
       },
-      "System.Drawing.Common/4.7.0": {
+      "System.Drawing.Common/4.7.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.0",
+          "Microsoft.NETCore.Platforms": "3.1.4",
           "Microsoft.Win32.SystemEvents": "4.7.0"
         },
         "compile": {
@@ -7601,13 +7701,13 @@
         "dependencies": {
           "Interfaz": "1.0.0",
           "Newtonsoft.Json": "13.0.2",
-          "Stride.Core.Assets.CompilerApp": "4.1.0.1734",
-          "Stride.Engine": "4.1.0.1734",
-          "Stride.Navigation": "4.1.0.1734",
-          "Stride.Particles": "4.1.0.1734",
-          "Stride.Physics": "4.1.0.1734",
-          "Stride.UI": "4.1.0.1734",
-          "Stride.Video": "4.1.0.1734"
+          "Stride.Core.Assets.CompilerApp": "4.1.0.1805",
+          "Stride.Engine": "4.1.0.1805",
+          "Stride.Navigation": "4.1.0.1805",
+          "Stride.Particles": "4.1.0.1805",
+          "Stride.Physics": "4.1.0.1805",
+          "Stride.UI": "4.1.0.1805",
+          "Stride.Video": "4.1.0.1805"
         },
         "compile": {
           "bin/placeholder/MMO_Client.dll": {}
@@ -7644,6 +7744,52 @@
         "humanizer.core.2.2.0.nupkg.sha512",
         "humanizer.core.nuspec",
         "lib/netstandard1.0/Humanizer.dll"
+      ]
+    },
+    "K4os.Compression.LZ4/1.2.16": {
+      "sha512": "XLNQWNayxeMgd1gv0s6kZywM11kww7rTzu3nPGh8fQNblHGbFt79LC1Sk1/QQ8DIJb2Qfl2p+WlLIOWCSuyi8w==",
+      "type": "package",
+      "path": "k4os.compression.lz4/1.2.16",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "k4os.compression.lz4.1.2.16.nupkg.sha512",
+        "k4os.compression.lz4.nuspec",
+        "lib/net45/K4os.Compression.LZ4.dll",
+        "lib/net45/K4os.Compression.LZ4.xml",
+        "lib/net46/K4os.Compression.LZ4.dll",
+        "lib/net46/K4os.Compression.LZ4.xml",
+        "lib/net5.0/K4os.Compression.LZ4.dll",
+        "lib/net5.0/K4os.Compression.LZ4.xml",
+        "lib/netstandard1.6/K4os.Compression.LZ4.dll",
+        "lib/netstandard1.6/K4os.Compression.LZ4.xml",
+        "lib/netstandard2.0/K4os.Compression.LZ4.dll",
+        "lib/netstandard2.0/K4os.Compression.LZ4.xml",
+        "lib/netstandard2.1/K4os.Compression.LZ4.dll",
+        "lib/netstandard2.1/K4os.Compression.LZ4.xml"
+      ]
+    },
+    "K4os.Compression.LZ4.Legacy/1.2.16": {
+      "sha512": "296ZXOlUeknDXvIGNW+t3R3qnAqY3dW/7q6Nq+RlzJAj88qwzC37RsKvT47zm97WftiixJFIR6ZgHFzovQ8srQ==",
+      "type": "package",
+      "path": "k4os.compression.lz4.legacy/1.2.16",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "k4os.compression.lz4.legacy.1.2.16.nupkg.sha512",
+        "k4os.compression.lz4.legacy.nuspec",
+        "lib/net45/K4os.Compression.LZ4.Legacy.dll",
+        "lib/net45/K4os.Compression.LZ4.Legacy.xml",
+        "lib/net46/K4os.Compression.LZ4.Legacy.dll",
+        "lib/net46/K4os.Compression.LZ4.Legacy.xml",
+        "lib/net5.0/K4os.Compression.LZ4.Legacy.dll",
+        "lib/net5.0/K4os.Compression.LZ4.Legacy.xml",
+        "lib/netstandard1.6/K4os.Compression.LZ4.Legacy.dll",
+        "lib/netstandard1.6/K4os.Compression.LZ4.Legacy.xml",
+        "lib/netstandard2.0/K4os.Compression.LZ4.Legacy.dll",
+        "lib/netstandard2.0/K4os.Compression.LZ4.Legacy.xml",
+        "lib/netstandard2.1/K4os.Compression.LZ4.Legacy.dll",
+        "lib/netstandard2.1/K4os.Compression.LZ4.Legacy.xml"
       ]
     },
     "Microsoft.Bcl.AsyncInterfaces/1.1.0": {
@@ -8196,17 +8342,18 @@
         "notices/THIRDPARTYNOTICES.txt"
       ]
     },
-    "Microsoft.NETCore.Platforms/3.1.0": {
-      "sha512": "z7aeg8oHln2CuNulfhiLYxCVMPEwBl3rzicjvIX+4sUuCwvXw5oXQEtbiU2c0z4qYL5L3Kmx0mMA/+t/SbY67w==",
+    "Microsoft.NETCore.Platforms/3.1.4": {
+      "sha512": "9/y05/CuxE+j184Nr4KihhB9KcUkvGojmD4JV4Vt/mHhVZR+eOCD5WCM+CXye9K0OFMsaPXbN+IcaIpjgBGZmg==",
       "type": "package",
-      "path": "microsoft.netcore.platforms/3.1.0",
+      "path": "microsoft.netcore.platforms/3.1.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "lib/netstandard1.0/_._",
-        "microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+        "microsoft.netcore.platforms.3.1.4.nupkg.sha512",
         "microsoft.netcore.platforms.nuspec",
         "runtime.json",
         "useSharedDesignerContext.txt",
@@ -9792,6 +9939,27 @@
         "silkdotnet_v3.png"
       ]
     },
+    "Silk.NET.OpenXR/2.10.1": {
+      "sha512": "/5QQ0p6r09ZtVBh39yhJNOsNnYP+Oh4vnIyVRWgXnDqJF96RhMchvc7pGdSqdB/1cj4N7mATQyqygNXf7syJyQ==",
+      "type": "package",
+      "path": "silk.net.openxr/2.10.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net5.0/Silk.NET.OpenXR.dll",
+        "lib/net5.0/Silk.NET.OpenXR.xml",
+        "lib/netcoreapp3.1/Silk.NET.OpenXR.dll",
+        "lib/netcoreapp3.1/Silk.NET.OpenXR.xml",
+        "lib/netstandard2.0/Silk.NET.OpenXR.dll",
+        "lib/netstandard2.0/Silk.NET.OpenXR.xml",
+        "lib/netstandard2.1/Silk.NET.OpenXR.dll",
+        "lib/netstandard2.1/Silk.NET.OpenXR.xml",
+        "silk.net.openxr.2.10.1.nupkg.sha512",
+        "silk.net.openxr.nuspec",
+        "silkdotnet_v3.png"
+      ]
+    },
     "Silk.NET.SDL/2.10.1": {
       "sha512": "oJppPFDFm9B4jV57A8VtqTAZ7chO8GS27wBg24sbgfNT44dMGNGIGvnBnnDi2bOH01Lmfy87o7exEnYzc8Re0Q==",
       "type": "package",
@@ -9873,10 +10041,10 @@
         "sshnet.security.cryptography.nuspec"
       ]
     },
-    "Stride/4.1.0.1734": {
-      "sha512": "u0WZEsSj3iSAOEXCb3xDYCUGqfl6vkQSh6CBD7jf0j2yU0o36j05uo33ILqzx4jWqZ0ZiLuwCyvTvHAOOWHJDw==",
+    "Stride/4.1.0.1805": {
+      "sha512": "Jp980DRHY3kUiSXxopHPgXJ6R54e0AOcNV9N8SCsvjprvBQMMlMsrtk2iGyBhbrp4JzeaktcPdW1QtKAJ0bVZA==",
       "type": "package",
-      "path": "stride/4.1.0.1734",
+      "path": "stride/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -9884,23 +10052,23 @@
         "lib/net6.0-android31.0/Stride.pdb",
         "lib/net6.0-android31.0/Stride.usrdoc",
         "lib/net6.0-android31.0/Stride.xml",
-        "lib/net6.0-ios15.4/Stride.dll",
-        "lib/net6.0-ios15.4/Stride.pdb",
-        "lib/net6.0-ios15.4/Stride.usrdoc",
-        "lib/net6.0-ios15.4/Stride.xml",
+        "lib/net6.0-ios16.1/Stride.dll",
+        "lib/net6.0-ios16.1/Stride.pdb",
+        "lib/net6.0-ios16.1/Stride.usrdoc",
+        "lib/net6.0-ios16.1/Stride.xml",
         "lib/net6.0/Stride.dll",
         "lib/net6.0/Stride.pdb",
         "lib/net6.0/Stride.usrdoc",
         "lib/net6.0/Stride.xml",
         "nuget-icon.png",
-        "stride.4.1.0.1734.nupkg.sha512",
+        "stride.4.1.0.1805.nupkg.sha512",
         "stride.nuspec"
       ]
     },
-    "Stride.Assets/4.1.0.1734": {
-      "sha512": "cSiDLg6Qmnx9Jq0puo9p8aKHKrqbbCywIv7EgDqYR8eJGpJqtStxDbsOKTU7xXD7KPD8xgShjW3juMdBvY0O/A==",
+    "Stride.Assets/4.1.0.1805": {
+      "sha512": "kkK3i5R/zYzw0FnENkkHMaOGQ8irVlrt0V/hsm5jZdqQvWRFgjQVkeA0RwTgr9FxQmNgKtStKh7D1glsvwaiCQ==",
       "type": "package",
-      "path": "stride.assets/4.1.0.1734",
+      "path": "stride.assets/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -9917,14 +10085,14 @@
         "lib/net6.0-windows7.0/x64/VHACD.dll",
         "lib/net6.0-windows7.0/x86/VHACD.dll",
         "nuget-icon.png",
-        "stride.assets.4.1.0.1734.nupkg.sha512",
+        "stride.assets.4.1.0.1805.nupkg.sha512",
         "stride.assets.nuspec"
       ]
     },
-    "Stride.Assets.Models/4.1.0.1734": {
-      "sha512": "DrfM8IafVFOrmjMQB0m5jmQpqJIB9ilCFBZH4JoTJ5w+Plzp+TAaPi8OgkegkEdW6OZnQ+FXJ1U3t7v0P7Ws1g==",
+    "Stride.Assets.Models/4.1.0.1805": {
+      "sha512": "CvavK9mVsfqmZ0GfMgjpO4qq4akezVat6GohJ+caXLPHjUc3TR8wYSBHrk0ILsmJ3ryaO7WU1kB2UezLgokAEQ==",
       "type": "package",
-      "path": "stride.assets.models/4.1.0.1734",
+      "path": "stride.assets.models/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -9943,14 +10111,14 @@
         "lib/net6.0-windows7.0/x64/assimp-vc140-mt.dll",
         "lib/net6.0-windows7.0/x64/libfbxsdk.dll",
         "nuget-icon.png",
-        "stride.assets.models.4.1.0.1734.nupkg.sha512",
+        "stride.assets.models.4.1.0.1805.nupkg.sha512",
         "stride.assets.models.nuspec"
       ]
     },
-    "Stride.Audio/4.1.0.1734": {
-      "sha512": "Nb+Qu4VMBQX/dWlN9ElY/s3euiOu7vzmefBqwfPga9a3qOW3rsNe8WAThKAGD6Ba3vnYb2SVYsH3UcnOWqOkZQ==",
+    "Stride.Audio/4.1.0.1805": {
+      "sha512": "PuVxI8OhF8rdrfuRAoQ4W1X3SCjTCLtn1YJFSCt0ZpAYFsOhZhZA3ebajQqJ0Zvnk+efOHfb18K9/2L9eVOqyg==",
       "type": "package",
-      "path": "stride.audio/4.1.0.1734",
+      "path": "stride.audio/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -9963,14 +10131,14 @@
         "lib/net6.0-android31.0/armeabi-v7a/libstrideaudio.so",
         "lib/net6.0-android31.0/x86/libstrideaudio.so",
         "lib/net6.0-android31.0/x86_64/libstrideaudio.so",
-        "lib/net6.0-ios15.4/Stride.Audio.dll",
-        "lib/net6.0-ios15.4/Stride.Audio.pdb",
-        "lib/net6.0-ios15.4/Stride.Audio.ssdeps",
-        "lib/net6.0-ios15.4/Stride.Audio.usrdoc",
-        "lib/net6.0-ios15.4/Stride.Audio.xml",
-        "lib/net6.0-ios15.4/libCelt.a",
-        "lib/net6.0-ios15.4/libNativePath.a",
-        "lib/net6.0-ios15.4/libstrideaudio.a",
+        "lib/net6.0-ios16.1/Stride.Audio.dll",
+        "lib/net6.0-ios16.1/Stride.Audio.pdb",
+        "lib/net6.0-ios16.1/Stride.Audio.ssdeps",
+        "lib/net6.0-ios16.1/Stride.Audio.usrdoc",
+        "lib/net6.0-ios16.1/Stride.Audio.xml",
+        "lib/net6.0-ios16.1/libCelt.a",
+        "lib/net6.0-ios16.1/libNativePath.a",
+        "lib/net6.0-ios16.1/libstrideaudio.a",
         "lib/net6.0/Stride.Audio.dll",
         "lib/net6.0/Stride.Audio.pdb",
         "lib/net6.0/Stride.Audio.ssdeps",
@@ -9981,14 +10149,14 @@
         "lib/net6.0/win-x64/libstrideaudio.dll",
         "lib/net6.0/win-x86/libstrideaudio.dll",
         "nuget-icon.png",
-        "stride.audio.4.1.0.1734.nupkg.sha512",
+        "stride.audio.4.1.0.1805.nupkg.sha512",
         "stride.audio.nuspec"
       ]
     },
-    "Stride.Core/4.1.0.1734": {
-      "sha512": "0EXnT8mHrD+WgypMkLuZGN8W1CPgG3g80aWDV1swwXDDs63e+sg5DNkBfqssrkwI9sJMXjoVf9qv0EthdkPmKA==",
+    "Stride.Core/4.1.0.1805": {
+      "sha512": "oLvKa++lOvSPp02MHv695bHZIA0dlx4mKvFIZ0/6j5uOw/dmm8srJmiwCZVihkqQ91xUB+LpeXJcZ8/DEdU3GA==",
       "type": "package",
-      "path": "stride.core/4.1.0.1734",
+      "path": "stride.core/4.1.0.1805",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -10006,13 +10174,13 @@
         "lib/net6.0-android31.0/armeabi-v7a/libcore.so",
         "lib/net6.0-android31.0/x86/libcore.so",
         "lib/net6.0-android31.0/x86_64/libcore.so",
-        "lib/net6.0-ios15.4/Stride.Core.dll",
-        "lib/net6.0-ios15.4/Stride.Core.pdb",
-        "lib/net6.0-ios15.4/Stride.Core.ssdeps",
-        "lib/net6.0-ios15.4/Stride.Core.usrdoc",
-        "lib/net6.0-ios15.4/Stride.Core.xml",
-        "lib/net6.0-ios15.4/libNativePath.a",
-        "lib/net6.0-ios15.4/libcore.a",
+        "lib/net6.0-ios16.1/Stride.Core.dll",
+        "lib/net6.0-ios16.1/Stride.Core.pdb",
+        "lib/net6.0-ios16.1/Stride.Core.ssdeps",
+        "lib/net6.0-ios16.1/Stride.Core.usrdoc",
+        "lib/net6.0-ios16.1/Stride.Core.xml",
+        "lib/net6.0-ios16.1/libNativePath.a",
+        "lib/net6.0-ios16.1/libcore.a",
         "lib/net6.0/Stride.Core.dll",
         "lib/net6.0/Stride.Core.pdb",
         "lib/net6.0/Stride.Core.ssdeps",
@@ -10023,7 +10191,7 @@
         "lib/net6.0/win-x64/libcore.dll",
         "lib/net6.0/win-x86/libcore.dll",
         "nuget-icon.png",
-        "stride.core.4.1.0.1734.nupkg.sha512",
+        "stride.core.4.1.0.1805.nupkg.sha512",
         "stride.core.nuspec",
         "tools/AssemblyProcessor/net6/Mono.Cecil.Mdb.dll",
         "tools/AssemblyProcessor/net6/Mono.Cecil.Pdb.dll",
@@ -10058,10 +10226,10 @@
         "tools/AssemblyProcessor/netstandard2.0/System.Threading.dll"
       ]
     },
-    "Stride.Core.Assets/4.1.0.1734": {
-      "sha512": "gMWlhTlcdIvJkn/gNuC73VhwZCdZnHFRXK0dA4dMUvjIXP5L9OHsVzILHgTrgXIh2hcdSodzw5HqXtwL95smow==",
+    "Stride.Core.Assets/4.1.0.1805": {
+      "sha512": "gJC3jI63PVU4M7wA9jYaukDppwd6hhdJYpqZD1NpjpkB8E51jXZH9x8FROyjSSZj8HaTx5QQsc9gVNoNP6aifw==",
       "type": "package",
-      "path": "stride.core.assets/4.1.0.1734",
+      "path": "stride.core.assets/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -10070,14 +10238,14 @@
         "lib/net6.0-windows7.0/Stride.Core.Assets.usrdoc",
         "lib/net6.0-windows7.0/Stride.Core.Assets.xml",
         "nuget-icon.png",
-        "stride.core.assets.4.1.0.1734.nupkg.sha512",
+        "stride.core.assets.4.1.0.1805.nupkg.sha512",
         "stride.core.assets.nuspec"
       ]
     },
-    "Stride.Core.Assets.CompilerApp/4.1.0.1734": {
-      "sha512": "iTyC/y/xD+IHRCmGWwLMJtvyiNbjN5F+503lBPZ5IGCYW5m6h2l7rNarfN6LMlWsNNO0Vz78uf5T/tk1/aoXkA==",
+    "Stride.Core.Assets.CompilerApp/4.1.0.1805": {
+      "sha512": "s6z1+d//cDBfNNhGFNImWEDBHwSoPMUvNq3yqtU4QbTZj4sho49YS/ahIDEHCqilOyaItpBGtsqH0mxqs0PoVw==",
       "type": "package",
-      "path": "stride.core.assets.compilerapp/4.1.0.1734",
+      "path": "stride.core.assets.compilerapp/4.1.0.1805",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -10091,7 +10259,7 @@
         "lib/net6.0-windows7.0/Stride.Core.Assets.CompilerApp.usrdoc",
         "lib/net6.0-windows7.0/Stride.Core.Assets.CompilerApp.xml",
         "nuget-icon.png",
-        "stride.core.assets.compilerapp.4.1.0.1734.nupkg.sha512",
+        "stride.core.assets.compilerapp.4.1.0.1805.nupkg.sha512",
         "stride.core.assets.compilerapp.nuspec",
         "tools/net472/Stride.MSBuild.Tasks.dll",
         "tools/net472/Stride.MSBuild.Tasks.dll.hash",
@@ -10124,10 +10292,10 @@
         "tools/netstandard2.0/Stride.MSBuild.Tasks.pdb"
       ]
     },
-    "Stride.Core.BuildEngine.Common/4.1.0.1734": {
-      "sha512": "NEOGWTazDUKdwnc/bQsPHU2FjaXm1Jf2AYSXYh/dkklroC2axNjHSMGvFk16e3BPgvBg0NYGfm6mDW9ekKP9LA==",
+    "Stride.Core.BuildEngine.Common/4.1.0.1805": {
+      "sha512": "U7bME5utwYJWRfvmEDzHHzmhw1c3hBgBJYxiiDESo8R50GI8/Xhx6SSo3R+0Q/HGQ8/DPTkqkp7Ik7UmsABGqA==",
       "type": "package",
-      "path": "stride.core.buildengine.common/4.1.0.1734",
+      "path": "stride.core.buildengine.common/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -10136,14 +10304,14 @@
         "lib/net6.0-windows7.0/Stride.Core.BuildEngine.Common.usrdoc",
         "lib/net6.0-windows7.0/Stride.Core.BuildEngine.Common.xml",
         "nuget-icon.png",
-        "stride.core.buildengine.common.4.1.0.1734.nupkg.sha512",
+        "stride.core.buildengine.common.4.1.0.1805.nupkg.sha512",
         "stride.core.buildengine.common.nuspec"
       ]
     },
-    "Stride.Core.Design/4.1.0.1734": {
-      "sha512": "KKaKAQ4M8Y+KknsNsRUbfsePp3HMgEib98mZqQXE8HEJ5pX1JOPaxcrwCkK58bxktCvvHFZUx3V77zTS5dWeKg==",
+    "Stride.Core.Design/4.1.0.1805": {
+      "sha512": "M2m87k6Hw3OoXs5ZBswZuexCzQVB747zuq7Uc4OiNfBQ0Pl7dtA97FxQh4C136ntap9m7e+jZjZyPs77+5ZwHA==",
       "type": "package",
-      "path": "stride.core.design/4.1.0.1734",
+      "path": "stride.core.design/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -10152,14 +10320,14 @@
         "lib/net6.0-windows7.0/Stride.Core.Design.usrdoc",
         "lib/net6.0-windows7.0/Stride.Core.Design.xml",
         "nuget-icon.png",
-        "stride.core.design.4.1.0.1734.nupkg.sha512",
+        "stride.core.design.4.1.0.1805.nupkg.sha512",
         "stride.core.design.nuspec"
       ]
     },
-    "Stride.Core.IO/4.1.0.1734": {
-      "sha512": "5bPaccHGqx56nG+l3jIZPlZiIDwMTv3rHZAUD2Xe7EkKPLg4C9+bChNAzEnAQtHObONsW15WHxwVwpt0ZHZZyg==",
+    "Stride.Core.IO/4.1.0.1805": {
+      "sha512": "ywBURNHebeUNYwDe4efwc2Uib4sEB5bMllWaifubdmiXtAIvPGF6ayzAaVn9IyH6uTc/yWzpiw5d2e3uCJS1nQ==",
       "type": "package",
-      "path": "stride.core.io/4.1.0.1734",
+      "path": "stride.core.io/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -10167,23 +10335,23 @@
         "lib/net6.0-android31.0/Stride.Core.IO.pdb",
         "lib/net6.0-android31.0/Stride.Core.IO.usrdoc",
         "lib/net6.0-android31.0/Stride.Core.IO.xml",
-        "lib/net6.0-ios15.4/Stride.Core.IO.dll",
-        "lib/net6.0-ios15.4/Stride.Core.IO.pdb",
-        "lib/net6.0-ios15.4/Stride.Core.IO.usrdoc",
-        "lib/net6.0-ios15.4/Stride.Core.IO.xml",
+        "lib/net6.0-ios16.1/Stride.Core.IO.dll",
+        "lib/net6.0-ios16.1/Stride.Core.IO.pdb",
+        "lib/net6.0-ios16.1/Stride.Core.IO.usrdoc",
+        "lib/net6.0-ios16.1/Stride.Core.IO.xml",
         "lib/net6.0/Stride.Core.IO.dll",
         "lib/net6.0/Stride.Core.IO.pdb",
         "lib/net6.0/Stride.Core.IO.usrdoc",
         "lib/net6.0/Stride.Core.IO.xml",
         "nuget-icon.png",
-        "stride.core.io.4.1.0.1734.nupkg.sha512",
+        "stride.core.io.4.1.0.1805.nupkg.sha512",
         "stride.core.io.nuspec"
       ]
     },
-    "Stride.Core.Mathematics/4.1.0.1734": {
-      "sha512": "YoE/jymZWWSpSnh/VWO0Qs1jztRt5sXbXCx2swoP9a1zjw4kvtlCAJCZjCYDL9X6RebDY1tXNmrG8v9RieF6Xg==",
+    "Stride.Core.Mathematics/4.1.0.1805": {
+      "sha512": "McaIJue6nEElOJvRrRF8YyLrmATw0vazIMSEJnpuPCFGFvxA4TGwAvAbNC4P+fFIOG5s5EZwkqSMcN9bO8SrWQ==",
       "type": "package",
-      "path": "stride.core.mathematics/4.1.0.1734",
+      "path": "stride.core.mathematics/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -10191,23 +10359,23 @@
         "lib/net6.0-android31.0/Stride.Core.Mathematics.pdb",
         "lib/net6.0-android31.0/Stride.Core.Mathematics.usrdoc",
         "lib/net6.0-android31.0/Stride.Core.Mathematics.xml",
-        "lib/net6.0-ios15.4/Stride.Core.Mathematics.dll",
-        "lib/net6.0-ios15.4/Stride.Core.Mathematics.pdb",
-        "lib/net6.0-ios15.4/Stride.Core.Mathematics.usrdoc",
-        "lib/net6.0-ios15.4/Stride.Core.Mathematics.xml",
+        "lib/net6.0-ios16.1/Stride.Core.Mathematics.dll",
+        "lib/net6.0-ios16.1/Stride.Core.Mathematics.pdb",
+        "lib/net6.0-ios16.1/Stride.Core.Mathematics.usrdoc",
+        "lib/net6.0-ios16.1/Stride.Core.Mathematics.xml",
         "lib/net6.0/Stride.Core.Mathematics.dll",
         "lib/net6.0/Stride.Core.Mathematics.pdb",
         "lib/net6.0/Stride.Core.Mathematics.usrdoc",
         "lib/net6.0/Stride.Core.Mathematics.xml",
         "nuget-icon.png",
-        "stride.core.mathematics.4.1.0.1734.nupkg.sha512",
+        "stride.core.mathematics.4.1.0.1805.nupkg.sha512",
         "stride.core.mathematics.nuspec"
       ]
     },
-    "Stride.Core.MicroThreading/4.1.0.1734": {
-      "sha512": "cGNZQW7s8ofxjbTvoJzfrJokCTi9EXIQuNpso+1q1vYvulCYkn9BuW+JFZHC9USVKkoGFAgM8Jn5+Nus3IeogQ==",
+    "Stride.Core.MicroThreading/4.1.0.1805": {
+      "sha512": "fcsHuzFa9PkyNEr+5mGIgNpJD3HNnOO60jrQhAC1cwW45rMJ6RaVBm6Oxb7FFt8Zt3nFg4kz7NTlZpRgMxGs9w==",
       "type": "package",
-      "path": "stride.core.microthreading/4.1.0.1734",
+      "path": "stride.core.microthreading/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -10215,23 +10383,23 @@
         "lib/net6.0-android31.0/Stride.Core.MicroThreading.pdb",
         "lib/net6.0-android31.0/Stride.Core.MicroThreading.usrdoc",
         "lib/net6.0-android31.0/Stride.Core.MicroThreading.xml",
-        "lib/net6.0-ios15.4/Stride.Core.MicroThreading.dll",
-        "lib/net6.0-ios15.4/Stride.Core.MicroThreading.pdb",
-        "lib/net6.0-ios15.4/Stride.Core.MicroThreading.usrdoc",
-        "lib/net6.0-ios15.4/Stride.Core.MicroThreading.xml",
+        "lib/net6.0-ios16.1/Stride.Core.MicroThreading.dll",
+        "lib/net6.0-ios16.1/Stride.Core.MicroThreading.pdb",
+        "lib/net6.0-ios16.1/Stride.Core.MicroThreading.usrdoc",
+        "lib/net6.0-ios16.1/Stride.Core.MicroThreading.xml",
         "lib/net6.0/Stride.Core.MicroThreading.dll",
         "lib/net6.0/Stride.Core.MicroThreading.pdb",
         "lib/net6.0/Stride.Core.MicroThreading.usrdoc",
         "lib/net6.0/Stride.Core.MicroThreading.xml",
         "nuget-icon.png",
-        "stride.core.microthreading.4.1.0.1734.nupkg.sha512",
+        "stride.core.microthreading.4.1.0.1805.nupkg.sha512",
         "stride.core.microthreading.nuspec"
       ]
     },
-    "Stride.Core.Packages/4.1.0.1734": {
-      "sha512": "vwV58LlYeBLuxd1J1uxQgJ8KNKQquutQSPp4XHU9hTauAXHwrKhi2AhyradTpki34OUeDHzLpg/dalpCu1k2kw==",
+    "Stride.Core.Packages/4.1.0.1805": {
+      "sha512": "dM/bnYWarMWbuLdDUUfRSr5G40u44GRHAXvrcx5fygBw3ewQ+j/sSoZisHhT41s6+sXOXDwktDTgfkuRU6MQSw==",
       "type": "package",
-      "path": "stride.core.packages/4.1.0.1734",
+      "path": "stride.core.packages/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -10240,14 +10408,14 @@
         "lib/net6.0-windows7.0/Stride.Core.Packages.usrdoc",
         "lib/net6.0-windows7.0/Stride.Core.Packages.xml",
         "nuget-icon.png",
-        "stride.core.packages.4.1.0.1734.nupkg.sha512",
+        "stride.core.packages.4.1.0.1805.nupkg.sha512",
         "stride.core.packages.nuspec"
       ]
     },
-    "Stride.Core.ProjectTemplating/4.1.0.1734": {
-      "sha512": "x4c1vDAE5t5u/s9jJc3+4JcxFd23kArQBP2J7E5gcUPYZlytF13lKpdPHW8Gc6r9vGTNM4TaDQ50c/lE6yo68Q==",
+    "Stride.Core.ProjectTemplating/4.1.0.1805": {
+      "sha512": "4YUYzTnDRw+t3RF8IPABLFWyifu/TKA63TZPHnng3laWLtf0U1YoOpCUr7y/Oo7+L3t7rP3alG3v5Sray5e12A==",
       "type": "package",
-      "path": "stride.core.projecttemplating/4.1.0.1734",
+      "path": "stride.core.projecttemplating/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -10256,35 +10424,35 @@
         "lib/net6.0-windows7.0/Stride.Core.ProjectTemplating.usrdoc",
         "lib/net6.0-windows7.0/Stride.Core.ProjectTemplating.xml",
         "nuget-icon.png",
-        "stride.core.projecttemplating.4.1.0.1734.nupkg.sha512",
+        "stride.core.projecttemplating.4.1.0.1805.nupkg.sha512",
         "stride.core.projecttemplating.nuspec"
       ]
     },
-    "Stride.Core.Reflection/4.1.0.1734": {
-      "sha512": "vMziHoqqRlznW6jvyBAPOr/g0eloT58RzhIEKt4LTkc/svohyvkKHkhKq57Ppff5HBotGg50xMFWZMAJcRP46g==",
+    "Stride.Core.Reflection/4.1.0.1805": {
+      "sha512": "yB9+p2vWH7HHbzYqa8Rt3Gdaz5V/K/XHFSAhLUE6Xr5CCPc4+fTujWT/7UNjHR3ifKoRulO+y2aNoxaQdD3PDQ==",
       "type": "package",
-      "path": "stride.core.reflection/4.1.0.1734",
+      "path": "stride.core.reflection/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/net6.0-android31.0/Stride.Core.Reflection.dll",
         "lib/net6.0-android31.0/Stride.Core.Reflection.pdb",
         "lib/net6.0-android31.0/Stride.Core.Reflection.xml",
-        "lib/net6.0-ios15.4/Stride.Core.Reflection.dll",
-        "lib/net6.0-ios15.4/Stride.Core.Reflection.pdb",
-        "lib/net6.0-ios15.4/Stride.Core.Reflection.xml",
+        "lib/net6.0-ios16.1/Stride.Core.Reflection.dll",
+        "lib/net6.0-ios16.1/Stride.Core.Reflection.pdb",
+        "lib/net6.0-ios16.1/Stride.Core.Reflection.xml",
         "lib/net6.0/Stride.Core.Reflection.dll",
         "lib/net6.0/Stride.Core.Reflection.pdb",
         "lib/net6.0/Stride.Core.Reflection.xml",
         "nuget-icon.png",
-        "stride.core.reflection.4.1.0.1734.nupkg.sha512",
+        "stride.core.reflection.4.1.0.1805.nupkg.sha512",
         "stride.core.reflection.nuspec"
       ]
     },
-    "Stride.Core.Serialization/4.1.0.1734": {
-      "sha512": "3mP6HWS3ffvuN/Lq1vjC7+ih2aOpwUC9x2JRmfH9hu7kYDuCoTSAoOqfvonu1T0gudcZPF2rHDHEAg9Xy2CanA==",
+    "Stride.Core.Serialization/4.1.0.1805": {
+      "sha512": "N/1pSX6Shxnd90hGhPjuc8Pbm3DY2bDKYOvg5FY5ocwQRrsFy3Wgudo7jgFZixKVcHQzYJzntL+TRivT/hrCmA==",
       "type": "package",
-      "path": "stride.core.serialization/4.1.0.1734",
+      "path": "stride.core.serialization/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -10293,23 +10461,23 @@
         "lib/net6.0-android31.0/Stride.Core.Serialization.pdb",
         "lib/net6.0-android31.0/Stride.Core.Serialization.usrdoc",
         "lib/net6.0-android31.0/Stride.Core.Serialization.xml",
-        "lib/net6.0-ios15.4/Stride.Core.Serialization.dll",
-        "lib/net6.0-ios15.4/Stride.Core.Serialization.pdb",
-        "lib/net6.0-ios15.4/Stride.Core.Serialization.usrdoc",
-        "lib/net6.0-ios15.4/Stride.Core.Serialization.xml",
+        "lib/net6.0-ios16.1/Stride.Core.Serialization.dll",
+        "lib/net6.0-ios16.1/Stride.Core.Serialization.pdb",
+        "lib/net6.0-ios16.1/Stride.Core.Serialization.usrdoc",
+        "lib/net6.0-ios16.1/Stride.Core.Serialization.xml",
         "lib/net6.0/Stride.Core.Serialization.dll",
         "lib/net6.0/Stride.Core.Serialization.pdb",
         "lib/net6.0/Stride.Core.Serialization.usrdoc",
         "lib/net6.0/Stride.Core.Serialization.xml",
         "nuget-icon.png",
-        "stride.core.serialization.4.1.0.1734.nupkg.sha512",
+        "stride.core.serialization.4.1.0.1805.nupkg.sha512",
         "stride.core.serialization.nuspec"
       ]
     },
-    "Stride.Core.Shaders/4.1.0.1734": {
-      "sha512": "ucyMTN7J0ZWvN5bZxhuPO93Ft1onmOx8RWfIP+72dmUXXeb6jOZ4tBeCMa4TVq5wfjpsIbR0epN6pcQ94CY/yQ==",
+    "Stride.Core.Shaders/4.1.0.1805": {
+      "sha512": "4pRQb5xnj8Vo5B+6wXsgjZb2+EDVFUMC/OkkxyiEVFl+3e0OND6Sd7nCE2VSeJG9nYlYkpzbbXmUUerzI2cDpw==",
       "type": "package",
-      "path": "stride.core.shaders/4.1.0.1734",
+      "path": "stride.core.shaders/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -10318,25 +10486,25 @@
         "lib/net6.0-android31.0/Stride.Core.Shaders.pdb",
         "lib/net6.0-android31.0/Stride.Core.Shaders.usrdoc",
         "lib/net6.0-android31.0/Stride.Core.Shaders.xml",
-        "lib/net6.0-ios15.4/CppNet.dll",
-        "lib/net6.0-ios15.4/Stride.Core.Shaders.dll",
-        "lib/net6.0-ios15.4/Stride.Core.Shaders.pdb",
-        "lib/net6.0-ios15.4/Stride.Core.Shaders.usrdoc",
-        "lib/net6.0-ios15.4/Stride.Core.Shaders.xml",
+        "lib/net6.0-ios16.1/CppNet.dll",
+        "lib/net6.0-ios16.1/Stride.Core.Shaders.dll",
+        "lib/net6.0-ios16.1/Stride.Core.Shaders.pdb",
+        "lib/net6.0-ios16.1/Stride.Core.Shaders.usrdoc",
+        "lib/net6.0-ios16.1/Stride.Core.Shaders.xml",
         "lib/net6.0/CppNet.dll",
         "lib/net6.0/Stride.Core.Shaders.dll",
         "lib/net6.0/Stride.Core.Shaders.pdb",
         "lib/net6.0/Stride.Core.Shaders.usrdoc",
         "lib/net6.0/Stride.Core.Shaders.xml",
         "nuget-icon.png",
-        "stride.core.shaders.4.1.0.1734.nupkg.sha512",
+        "stride.core.shaders.4.1.0.1805.nupkg.sha512",
         "stride.core.shaders.nuspec"
       ]
     },
-    "Stride.Core.Yaml/4.1.0.1734": {
-      "sha512": "R/nOsZXd3MlsJ80uIHqPqHM27Fcf7IrxSDy0GtDdkApAwt8bKUJopcXYUKbZWuE3bOY+QApa4k835Bznhn3yyw==",
+    "Stride.Core.Yaml/4.1.0.1805": {
+      "sha512": "TZkoIgEdsjqqImeN/3awyYiTrMS65Kkf2TsOhglEQJb+tn5vBkG9mS6FbP+UWkgW2GtIM/2s2p/DD+oJnfF+JA==",
       "type": "package",
-      "path": "stride.core.yaml/4.1.0.1734",
+      "path": "stride.core.yaml/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -10344,14 +10512,14 @@
         "lib/net6.0/Stride.Core.Yaml.pdb",
         "lib/net6.0/Stride.Core.Yaml.xml",
         "nuget-icon.png",
-        "stride.core.yaml.4.1.0.1734.nupkg.sha512",
+        "stride.core.yaml.4.1.0.1805.nupkg.sha512",
         "stride.core.yaml.nuspec"
       ]
     },
-    "Stride.Engine/4.1.0.1734": {
-      "sha512": "sbH9UI2HHiubyDOhKqz0OrOqkbCIPpmjZkALAM4i2xkhJryrxN1D7364XFYHwzzmCi3bSy2EGuxdxLVWnqVGdA==",
+    "Stride.Engine/4.1.0.1805": {
+      "sha512": "2UqrtIW6BxILJxJtcWKnTeIBahLpHWNZSXeCFMjBiZXtxBtj3+HPGmqFzJdNF74T8nFOmChxyhHgSsHJo5rPuw==",
       "type": "package",
-      "path": "stride.engine/4.1.0.1734",
+      "path": "stride.engine/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -10359,16 +10527,16 @@
         "lib/net6.0-android31.0/Stride.Engine.pdb",
         "lib/net6.0-android31.0/Stride.Engine.usrdoc",
         "lib/net6.0-android31.0/Stride.Engine.xml",
-        "lib/net6.0-ios15.4/Stride.Engine.dll",
-        "lib/net6.0-ios15.4/Stride.Engine.pdb",
-        "lib/net6.0-ios15.4/Stride.Engine.usrdoc",
-        "lib/net6.0-ios15.4/Stride.Engine.xml",
+        "lib/net6.0-ios16.1/Stride.Engine.dll",
+        "lib/net6.0-ios16.1/Stride.Engine.pdb",
+        "lib/net6.0-ios16.1/Stride.Engine.usrdoc",
+        "lib/net6.0-ios16.1/Stride.Engine.xml",
         "lib/net6.0/Stride.Engine.dll",
         "lib/net6.0/Stride.Engine.pdb",
         "lib/net6.0/Stride.Engine.usrdoc",
         "lib/net6.0/Stride.Engine.xml",
         "nuget-icon.png",
-        "stride.engine.4.1.0.1734.nupkg.sha512",
+        "stride.engine.4.1.0.1805.nupkg.sha512",
         "stride.engine.nuspec",
         "stride/Assets/DefaultGraphicsCompositorLevel10.sdgfxcomp",
         "stride/Assets/DefaultGraphicsCompositorLevel9.sdgfxcomp",
@@ -10391,10 +10559,10 @@
         "stride/Stride.Engine.sdpkg"
       ]
     },
-    "Stride.Games/4.1.0.1734": {
-      "sha512": "gIgwxKibkE0BifE63gJDOxQGYtZUD+4lR8QKY43TIbTzowCWAsoSOiSxokr3qLnALhxwao6E5hUhcLDG3Mj2cQ==",
+    "Stride.Games/4.1.0.1805": {
+      "sha512": "OqsKlbbfSyRaFUaTsmHv1nor9rf4JE0ZkTJO6RnrqtVBZGX1WKBEnvN6goKPBGBc6597+QM8xe/FHT1HfzT0Jg==",
       "type": "package",
-      "path": "stride.games/4.1.0.1734",
+      "path": "stride.games/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -10403,10 +10571,10 @@
         "lib/net6.0-android31.0/Stride.Games.pdb",
         "lib/net6.0-android31.0/Stride.Games.usrdoc",
         "lib/net6.0-android31.0/Stride.Games.xml",
-        "lib/net6.0-ios15.4/Stride.Games.dll",
-        "lib/net6.0-ios15.4/Stride.Games.pdb",
-        "lib/net6.0-ios15.4/Stride.Games.usrdoc",
-        "lib/net6.0-ios15.4/Stride.Games.xml",
+        "lib/net6.0-ios16.1/Stride.Games.dll",
+        "lib/net6.0-ios16.1/Stride.Games.pdb",
+        "lib/net6.0-ios16.1/Stride.Games.usrdoc",
+        "lib/net6.0-ios16.1/Stride.Games.xml",
         "lib/net6.0-windows7.0/Direct3D11/Stride.Games.dll",
         "lib/net6.0-windows7.0/Direct3D11/Stride.Games.usrdoc",
         "lib/net6.0-windows7.0/Direct3D11/Stride.Games.xml",
@@ -10446,14 +10614,14 @@
         "lib/net6.0/Vulkan/Stride.Games.usrdoc",
         "lib/net6.0/Vulkan/Stride.Games.xml",
         "nuget-icon.png",
-        "stride.games.4.1.0.1734.nupkg.sha512",
+        "stride.games.4.1.0.1805.nupkg.sha512",
         "stride.games.nuspec"
       ]
     },
-    "Stride.Graphics/4.1.0.1734": {
-      "sha512": "TnBIt8r6gtNW1ioP2G4b/nTn1C55caQXxwgIpz1vH2Z2dInuH2Tsf/seREelMb4/dQRatUvVtbn9Z2LoqYSApw==",
+    "Stride.Graphics/4.1.0.1805": {
+      "sha512": "rEx1JvUmmZsq3XagTraksX5Bl2O6oECToLOT0TFL5UwEO/7k73FEpssVLx35aCa7Db+MEVjGHszwSEUcefqwxQ==",
       "type": "package",
-      "path": "stride.graphics/4.1.0.1734",
+      "path": "stride.graphics/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -10470,12 +10638,12 @@
         "lib/net6.0-android31.0/armeabi-v7a/libfreetype.so",
         "lib/net6.0-android31.0/x86/libfreetype.so",
         "lib/net6.0-android31.0/x86_64/libfreetype.so",
-        "lib/net6.0-ios15.4/Stride.Graphics.dll",
-        "lib/net6.0-ios15.4/Stride.Graphics.pdb",
-        "lib/net6.0-ios15.4/Stride.Graphics.ssdeps",
-        "lib/net6.0-ios15.4/Stride.Graphics.usrdoc",
-        "lib/net6.0-ios15.4/Stride.Graphics.xml",
-        "lib/net6.0-ios15.4/libfreetype.a",
+        "lib/net6.0-ios16.1/Stride.Graphics.dll",
+        "lib/net6.0-ios16.1/Stride.Graphics.pdb",
+        "lib/net6.0-ios16.1/Stride.Graphics.ssdeps",
+        "lib/net6.0-ios16.1/Stride.Graphics.usrdoc",
+        "lib/net6.0-ios16.1/Stride.Graphics.xml",
+        "lib/net6.0-ios16.1/libfreetype.a",
         "lib/net6.0/Direct3D11/Stride.Graphics.dll",
         "lib/net6.0/Direct3D11/Stride.Graphics.ssdeps",
         "lib/net6.0/Direct3D11/Stride.Graphics.usrdoc",
@@ -10517,7 +10685,7 @@
         "lib/net6.0/win-x64/freetype.dll",
         "lib/net6.0/win-x86/freetype.dll",
         "nuget-icon.png",
-        "stride.graphics.4.1.0.1734.nupkg.sha512",
+        "stride.graphics.4.1.0.1805.nupkg.sha512",
         "stride.graphics.nuspec",
         "stride/Assets/ColorUtility.sdsl",
         "stride/Assets/ShaderBase.sdsl",
@@ -10539,10 +10707,10 @@
         "stride/Stride.Graphics.sdpkg"
       ]
     },
-    "Stride.Input/4.1.0.1734": {
-      "sha512": "2hq817+M3mx4aAvKA8ZIp0ZWitiP1XGZkM6RFEA6iHRv3N+0K9MixZt4+pg1paa+pSwG5mZwhRUOjUUChfanqw==",
+    "Stride.Input/4.1.0.1805": {
+      "sha512": "odLdsB5fjOQ0IB8KVeMb0PsyFChc+CLnPXbDjT3EwTdx8yzlUgwJinizILMkH6wQYmGsnPelgA/T7QuJQu2RDQ==",
       "type": "package",
-      "path": "stride.input/4.1.0.1734",
+      "path": "stride.input/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -10550,10 +10718,10 @@
         "lib/net6.0-android31.0/Stride.Input.pdb",
         "lib/net6.0-android31.0/Stride.Input.usrdoc",
         "lib/net6.0-android31.0/Stride.Input.xml",
-        "lib/net6.0-ios15.4/Stride.Input.dll",
-        "lib/net6.0-ios15.4/Stride.Input.pdb",
-        "lib/net6.0-ios15.4/Stride.Input.usrdoc",
-        "lib/net6.0-ios15.4/Stride.Input.xml",
+        "lib/net6.0-ios16.1/Stride.Input.dll",
+        "lib/net6.0-ios16.1/Stride.Input.pdb",
+        "lib/net6.0-ios16.1/Stride.Input.usrdoc",
+        "lib/net6.0-ios16.1/Stride.Input.xml",
         "lib/net6.0-windows7.0/Direct3D11/Stride.Input.dll",
         "lib/net6.0-windows7.0/Direct3D11/Stride.Input.usrdoc",
         "lib/net6.0-windows7.0/Direct3D11/Stride.Input.xml",
@@ -10593,28 +10761,28 @@
         "lib/net6.0/Vulkan/Stride.Input.usrdoc",
         "lib/net6.0/Vulkan/Stride.Input.xml",
         "nuget-icon.png",
-        "stride.input.4.1.0.1734.nupkg.sha512",
+        "stride.input.4.1.0.1805.nupkg.sha512",
         "stride.input.nuspec"
       ]
     },
-    "Stride.Irony/4.1.0.1734": {
-      "sha512": "ALWMleXoClNeyVi8X3EzZxeXfZ3CWj88VLRyd4VKjsXFxTUA9U8FvRtBDLIdBPXP8ICzT1GVtQUc2jvH2EZKqQ==",
+    "Stride.Irony/4.1.0.1805": {
+      "sha512": "rAEVQRajpiZu65eqyG+LqMprZV+dHx1LzYDyOVtWoaA5DuC52f+7M3tKW3XkFjKEmFyHaAaZf/vpQkk4dBueTQ==",
       "type": "package",
-      "path": "stride.irony/4.1.0.1734",
+      "path": "stride.irony/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/net6.0-android31.0/Stride.Irony.dll",
         "lib/net6.0-android31.0/Stride.Irony.pdb",
         "lib/net6.0-android31.0/Stride.Irony.xml",
-        "lib/net6.0-ios15.4/Stride.Irony.dll",
-        "lib/net6.0-ios15.4/Stride.Irony.pdb",
-        "lib/net6.0-ios15.4/Stride.Irony.xml",
+        "lib/net6.0-ios16.1/Stride.Irony.dll",
+        "lib/net6.0-ios16.1/Stride.Irony.pdb",
+        "lib/net6.0-ios16.1/Stride.Irony.xml",
         "lib/net6.0/Stride.Irony.dll",
         "lib/net6.0/Stride.Irony.pdb",
         "lib/net6.0/Stride.Irony.xml",
         "nuget-icon.png",
-        "stride.irony.4.1.0.1734.nupkg.sha512",
+        "stride.irony.4.1.0.1805.nupkg.sha512",
         "stride.irony.nuspec"
       ]
     },
@@ -10631,10 +10799,10 @@
         "stride.mono.texttemplating.nuspec"
       ]
     },
-    "Stride.Native/4.1.0.1734": {
-      "sha512": "fynznOlM7AgT8UtjZAmcUodS8QXRQZBU0EpmlpTnmQwTTxcXRfwI76tuHdojeeO6XhIDyaBGhzoiQSqPimMrJA==",
+    "Stride.Native/4.1.0.1805": {
+      "sha512": "ACCC4tHR1t/lK/DD4wWSKol0wZXgQnSTJiZpjfk5g2D4k5tlQ0gPMdBBSUZE8a4i8V5MMYmcl1yvJfnennXKKg==",
       "type": "package",
-      "path": "stride.native/4.1.0.1734",
+      "path": "stride.native/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -10647,16 +10815,16 @@
         "lib/net6.0-android31.0/armeabi-v7a/libstride.so",
         "lib/net6.0-android31.0/x86/libstride.so",
         "lib/net6.0-android31.0/x86_64/libstride.so",
-        "lib/net6.0-ios15.4/Stride.Native.dll",
-        "lib/net6.0-ios15.4/Stride.Native.pdb",
-        "lib/net6.0-ios15.4/Stride.Native.ssdeps",
-        "lib/net6.0-ios15.4/Stride.Native.usrdoc",
-        "lib/net6.0-ios15.4/Stride.Native.xml",
-        "lib/net6.0-ios15.4/libCelt.a",
-        "lib/net6.0-ios15.4/libDetour.a",
-        "lib/net6.0-ios15.4/libNativePath.a",
-        "lib/net6.0-ios15.4/libRecast.a",
-        "lib/net6.0-ios15.4/libstride.a",
+        "lib/net6.0-ios16.1/Stride.Native.dll",
+        "lib/net6.0-ios16.1/Stride.Native.pdb",
+        "lib/net6.0-ios16.1/Stride.Native.ssdeps",
+        "lib/net6.0-ios16.1/Stride.Native.usrdoc",
+        "lib/net6.0-ios16.1/Stride.Native.xml",
+        "lib/net6.0-ios16.1/libCelt.a",
+        "lib/net6.0-ios16.1/libDetour.a",
+        "lib/net6.0-ios16.1/libNativePath.a",
+        "lib/net6.0-ios16.1/libRecast.a",
+        "lib/net6.0-ios16.1/libstride.a",
         "lib/net6.0/Stride.Native.dll",
         "lib/net6.0/Stride.Native.pdb",
         "lib/net6.0/Stride.Native.ssdeps",
@@ -10667,14 +10835,14 @@
         "lib/net6.0/win-x64/libstride.dll",
         "lib/net6.0/win-x86/libstride.dll",
         "nuget-icon.png",
-        "stride.native.4.1.0.1734.nupkg.sha512",
+        "stride.native.4.1.0.1805.nupkg.sha512",
         "stride.native.nuspec"
       ]
     },
-    "Stride.Navigation/4.1.0.1734": {
-      "sha512": "Qwkb6zYtCLVYVFdHvPfkZz0IR2NAnuh3NW2B7es7hvkwEOz3XbBR7K5TWUlFxx6OjwclrQNrkIhZBOnOdAiteA==",
+    "Stride.Navigation/4.1.0.1805": {
+      "sha512": "BD0fNJfzYqrUeqigF9Sjj7rNfIbRQX80r5cUY9SrOQ5goFqyPf56MMymy2sdz/iHaXkVC0d1GBoAcQXE/CQg2g==",
       "type": "package",
-      "path": "stride.navigation/4.1.0.1734",
+      "path": "stride.navigation/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -10687,15 +10855,15 @@
         "lib/net6.0-android31.0/armeabi-v7a/libstridenavigation.so",
         "lib/net6.0-android31.0/x86/libstridenavigation.so",
         "lib/net6.0-android31.0/x86_64/libstridenavigation.so",
-        "lib/net6.0-ios15.4/Stride.Navigation.dll",
-        "lib/net6.0-ios15.4/Stride.Navigation.pdb",
-        "lib/net6.0-ios15.4/Stride.Navigation.ssdeps",
-        "lib/net6.0-ios15.4/Stride.Navigation.usrdoc",
-        "lib/net6.0-ios15.4/Stride.Navigation.xml",
-        "lib/net6.0-ios15.4/libDetour.a",
-        "lib/net6.0-ios15.4/libNativePath.a",
-        "lib/net6.0-ios15.4/libRecast.a",
-        "lib/net6.0-ios15.4/libstridenavigation.a",
+        "lib/net6.0-ios16.1/Stride.Navigation.dll",
+        "lib/net6.0-ios16.1/Stride.Navigation.pdb",
+        "lib/net6.0-ios16.1/Stride.Navigation.ssdeps",
+        "lib/net6.0-ios16.1/Stride.Navigation.usrdoc",
+        "lib/net6.0-ios16.1/Stride.Navigation.xml",
+        "lib/net6.0-ios16.1/libDetour.a",
+        "lib/net6.0-ios16.1/libNativePath.a",
+        "lib/net6.0-ios16.1/libRecast.a",
+        "lib/net6.0-ios16.1/libstridenavigation.a",
         "lib/net6.0/Stride.Navigation.dll",
         "lib/net6.0/Stride.Navigation.pdb",
         "lib/net6.0/Stride.Navigation.ssdeps",
@@ -10706,14 +10874,14 @@
         "lib/net6.0/win-x64/libstridenavigation.dll",
         "lib/net6.0/win-x86/libstridenavigation.dll",
         "nuget-icon.png",
-        "stride.navigation.4.1.0.1734.nupkg.sha512",
+        "stride.navigation.4.1.0.1805.nupkg.sha512",
         "stride.navigation.nuspec"
       ]
     },
-    "Stride.Particles/4.1.0.1734": {
-      "sha512": "OQG1eTjU8d1G/useSA6lsPCO1N9PbtONsvS8f24VjQRDjHNKajjot+XpZp9qfNUE4l+4r9fvT6vqAEBD+tZcqg==",
+    "Stride.Particles/4.1.0.1805": {
+      "sha512": "at9B+eiTucWhZT319lYkXZFeHTs88FTs7kRyT+8I8x/ZaAPZvvKTLE0polyXxgKtY3MnZQY6I5YI5N4ZlpR/WQ==",
       "type": "package",
-      "path": "stride.particles/4.1.0.1734",
+      "path": "stride.particles/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -10721,16 +10889,16 @@
         "lib/net6.0-android31.0/Stride.Particles.pdb",
         "lib/net6.0-android31.0/Stride.Particles.usrdoc",
         "lib/net6.0-android31.0/Stride.Particles.xml",
-        "lib/net6.0-ios15.4/Stride.Particles.dll",
-        "lib/net6.0-ios15.4/Stride.Particles.pdb",
-        "lib/net6.0-ios15.4/Stride.Particles.usrdoc",
-        "lib/net6.0-ios15.4/Stride.Particles.xml",
+        "lib/net6.0-ios16.1/Stride.Particles.dll",
+        "lib/net6.0-ios16.1/Stride.Particles.pdb",
+        "lib/net6.0-ios16.1/Stride.Particles.usrdoc",
+        "lib/net6.0-ios16.1/Stride.Particles.xml",
         "lib/net6.0/Stride.Particles.dll",
         "lib/net6.0/Stride.Particles.pdb",
         "lib/net6.0/Stride.Particles.usrdoc",
         "lib/net6.0/Stride.Particles.xml",
         "nuget-icon.png",
-        "stride.particles.4.1.0.1734.nupkg.sha512",
+        "stride.particles.4.1.0.1805.nupkg.sha512",
         "stride.particles.nuspec",
         "stride/Assets/ComputeColorWhite.sdsl",
         "stride/Assets/ParticleBase.sdsl",
@@ -10743,10 +10911,10 @@
         "stride/Stride.Particles.sdpkg"
       ]
     },
-    "Stride.Physics/4.1.0.1734": {
-      "sha512": "7KI5835FG5MaI2MS/jLrAmfE5+UZoqI8FgtaoR605giJ4qHzQD2MYl6Z0NXp4gu9RQyoWnba2R4FW8jNo3gabA==",
+    "Stride.Physics/4.1.0.1805": {
+      "sha512": "nisGF3yjtpcfTxPE4R1xzlxJSstqztTFkdE1AZaDpyl2bKaiF4YhQD2gHlBs9R7cck1v8FtphHOrwrn+wnOP8Q==",
       "type": "package",
-      "path": "stride.physics/4.1.0.1734",
+      "path": "stride.physics/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -10760,13 +10928,13 @@
         "lib/net6.0-android31.0/armeabi-v7a/libbulletc.so",
         "lib/net6.0-android31.0/x86/libbulletc.so",
         "lib/net6.0-android31.0/x86_64/libbulletc.so",
-        "lib/net6.0-ios15.4/BulletSharp.NetStandard.dll",
-        "lib/net6.0-ios15.4/Stride.Physics.dll",
-        "lib/net6.0-ios15.4/Stride.Physics.pdb",
-        "lib/net6.0-ios15.4/Stride.Physics.ssdeps",
-        "lib/net6.0-ios15.4/Stride.Physics.usrdoc",
-        "lib/net6.0-ios15.4/Stride.Physics.xml",
-        "lib/net6.0-ios15.4/libbulletc.a",
+        "lib/net6.0-ios16.1/BulletSharp.NetStandard.dll",
+        "lib/net6.0-ios16.1/Stride.Physics.dll",
+        "lib/net6.0-ios16.1/Stride.Physics.pdb",
+        "lib/net6.0-ios16.1/Stride.Physics.ssdeps",
+        "lib/net6.0-ios16.1/Stride.Physics.usrdoc",
+        "lib/net6.0-ios16.1/Stride.Physics.xml",
+        "lib/net6.0-ios16.1/libbulletc.a",
         "lib/net6.0/BulletSharp.NetStandard.dll",
         "lib/net6.0/Stride.Physics.dll",
         "lib/net6.0/Stride.Physics.pdb",
@@ -10778,14 +10946,14 @@
         "lib/net6.0/win-x64/libbulletc.dll",
         "lib/net6.0/win-x86/libbulletc.dll",
         "nuget-icon.png",
-        "stride.physics.4.1.0.1734.nupkg.sha512",
+        "stride.physics.4.1.0.1805.nupkg.sha512",
         "stride.physics.nuspec"
       ]
     },
-    "Stride.Rendering/4.1.0.1734": {
-      "sha512": "U3f6E8SNKIsnFZbqHJzlP6Pg1tpZsshD8ScPxA0GTN1i6oRZmeaL/DGKam0UriN6rOztnuDWo3RifkGkNuSFOg==",
+    "Stride.Rendering/4.1.0.1805": {
+      "sha512": "LkL5+pW7v3jxxwCVTum7KCMj3PQX5SykRm68k8rdeo2XI9qOnUC7hdWwyJDmH2YfUfCakIoCzWumV4fWuoJudg==",
       "type": "package",
-      "path": "stride.rendering/4.1.0.1734",
+      "path": "stride.rendering/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -10793,16 +10961,16 @@
         "lib/net6.0-android31.0/Stride.Rendering.pdb",
         "lib/net6.0-android31.0/Stride.Rendering.usrdoc",
         "lib/net6.0-android31.0/Stride.Rendering.xml",
-        "lib/net6.0-ios15.4/Stride.Rendering.dll",
-        "lib/net6.0-ios15.4/Stride.Rendering.pdb",
-        "lib/net6.0-ios15.4/Stride.Rendering.usrdoc",
-        "lib/net6.0-ios15.4/Stride.Rendering.xml",
+        "lib/net6.0-ios16.1/Stride.Rendering.dll",
+        "lib/net6.0-ios16.1/Stride.Rendering.pdb",
+        "lib/net6.0-ios16.1/Stride.Rendering.usrdoc",
+        "lib/net6.0-ios16.1/Stride.Rendering.xml",
         "lib/net6.0/Stride.Rendering.dll",
         "lib/net6.0/Stride.Rendering.pdb",
         "lib/net6.0/Stride.Rendering.usrdoc",
         "lib/net6.0/Stride.Rendering.xml",
         "nuget-icon.png",
-        "stride.rendering.4.1.0.1734.nupkg.sha512",
+        "stride.rendering.4.1.0.1805.nupkg.sha512",
         "stride.rendering.nuspec",
         "stride/Assets/BRDF/BRDFMicrofacet.sdsl",
         "stride/Assets/Background/BackgroundCubemapShader.sdsl",
@@ -11228,10 +11396,10 @@
         "stride/Stride.Rendering.sdpkg"
       ]
     },
-    "Stride.Shaders/4.1.0.1734": {
-      "sha512": "2oZlHSsgvn9q/XJJROuOwTGkbEb+qRttJ+I6n+d/l++aAFaXLu6lJRespGeohLfzp4tfAcz7TCLJw4yeLL/iNg==",
+    "Stride.Shaders/4.1.0.1805": {
+      "sha512": "o8FdLryR2kJKi/YJ65VQqkHlpewI9ElsoeZobGSj3WnPLhW3iTFHGzzwYGJmrZtwCirpvTalcKYSCIdVDqihPg==",
       "type": "package",
-      "path": "stride.shaders/4.1.0.1734",
+      "path": "stride.shaders/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -11239,23 +11407,23 @@
         "lib/net6.0-android31.0/Stride.Shaders.pdb",
         "lib/net6.0-android31.0/Stride.Shaders.usrdoc",
         "lib/net6.0-android31.0/Stride.Shaders.xml",
-        "lib/net6.0-ios15.4/Stride.Shaders.dll",
-        "lib/net6.0-ios15.4/Stride.Shaders.pdb",
-        "lib/net6.0-ios15.4/Stride.Shaders.usrdoc",
-        "lib/net6.0-ios15.4/Stride.Shaders.xml",
+        "lib/net6.0-ios16.1/Stride.Shaders.dll",
+        "lib/net6.0-ios16.1/Stride.Shaders.pdb",
+        "lib/net6.0-ios16.1/Stride.Shaders.usrdoc",
+        "lib/net6.0-ios16.1/Stride.Shaders.xml",
         "lib/net6.0/Stride.Shaders.dll",
         "lib/net6.0/Stride.Shaders.pdb",
         "lib/net6.0/Stride.Shaders.usrdoc",
         "lib/net6.0/Stride.Shaders.xml",
         "nuget-icon.png",
-        "stride.shaders.4.1.0.1734.nupkg.sha512",
+        "stride.shaders.4.1.0.1805.nupkg.sha512",
         "stride.shaders.nuspec"
       ]
     },
-    "Stride.Shaders.Compiler/4.1.0.1734": {
-      "sha512": "M3mia3aEtE1UGSxQRU1uR1F6deHyoOi/Xs8qoTHxuApQj0TSTQ60eDcJcp8mnMlJ4hSSBgo7k0I0XTksM6E0Lw==",
+    "Stride.Shaders.Compiler/4.1.0.1805": {
+      "sha512": "4bDlYE5TwsBMIrfqbnU3gpKtt44jfwHa13MJKgBVIpYR15h+vKyw4Y7CqLvlh0WG2OVjrcE71XYZ+ZT8TUQoIg==",
       "type": "package",
-      "path": "stride.shaders.compiler/4.1.0.1734",
+      "path": "stride.shaders.compiler/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -11263,10 +11431,10 @@
         "lib/net6.0-android31.0/Stride.Shaders.Compiler.pdb",
         "lib/net6.0-android31.0/Stride.Shaders.Compiler.usrdoc",
         "lib/net6.0-android31.0/Stride.Shaders.Compiler.xml",
-        "lib/net6.0-ios15.4/Stride.Shaders.Compiler.dll",
-        "lib/net6.0-ios15.4/Stride.Shaders.Compiler.pdb",
-        "lib/net6.0-ios15.4/Stride.Shaders.Compiler.usrdoc",
-        "lib/net6.0-ios15.4/Stride.Shaders.Compiler.xml",
+        "lib/net6.0-ios16.1/Stride.Shaders.Compiler.dll",
+        "lib/net6.0-ios16.1/Stride.Shaders.Compiler.pdb",
+        "lib/net6.0-ios16.1/Stride.Shaders.Compiler.usrdoc",
+        "lib/net6.0-ios16.1/Stride.Shaders.Compiler.xml",
         "lib/net6.0/Stride.Shaders.Compiler.dll",
         "lib/net6.0/Stride.Shaders.Compiler.pdb",
         "lib/net6.0/Stride.Shaders.Compiler.ssdeps",
@@ -11278,14 +11446,14 @@
         "lib/net6.0/win-x64/glslangValidator.exe",
         "lib/net6.0/win-x86/d3dcompiler_47.dll",
         "nuget-icon.png",
-        "stride.shaders.compiler.4.1.0.1734.nupkg.sha512",
+        "stride.shaders.compiler.4.1.0.1805.nupkg.sha512",
         "stride.shaders.compiler.nuspec"
       ]
     },
-    "Stride.Shaders.Parser/4.1.0.1734": {
-      "sha512": "y6WXL10TWw6ag4FCTNMdc/9GK1/B4kOEa/rY2GiFkyg4VvHvtjdjcCfYQgFKJqfeAD8JdlYoDSRVyQaX5sTNzg==",
+    "Stride.Shaders.Parser/4.1.0.1805": {
+      "sha512": "HiGfMpCgKGpuGMIH+Tvy3BYKbBLr3U+gDYU6dOZCwS/AdeG4f/5bgV+6AgCWQQbdJD2ajAqZKxAXXpp+1FT2FQ==",
       "type": "package",
-      "path": "stride.shaders.parser/4.1.0.1734",
+      "path": "stride.shaders.parser/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -11293,16 +11461,16 @@
         "lib/net6.0-android31.0/Stride.Shaders.Parser.pdb",
         "lib/net6.0-android31.0/Stride.Shaders.Parser.usrdoc",
         "lib/net6.0-android31.0/Stride.Shaders.Parser.xml",
-        "lib/net6.0-ios15.4/Stride.Shaders.Parser.dll",
-        "lib/net6.0-ios15.4/Stride.Shaders.Parser.pdb",
-        "lib/net6.0-ios15.4/Stride.Shaders.Parser.usrdoc",
-        "lib/net6.0-ios15.4/Stride.Shaders.Parser.xml",
+        "lib/net6.0-ios16.1/Stride.Shaders.Parser.dll",
+        "lib/net6.0-ios16.1/Stride.Shaders.Parser.pdb",
+        "lib/net6.0-ios16.1/Stride.Shaders.Parser.usrdoc",
+        "lib/net6.0-ios16.1/Stride.Shaders.Parser.xml",
         "lib/net6.0/Stride.Shaders.Parser.dll",
         "lib/net6.0/Stride.Shaders.Parser.pdb",
         "lib/net6.0/Stride.Shaders.Parser.usrdoc",
         "lib/net6.0/Stride.Shaders.Parser.xml",
         "nuget-icon.png",
-        "stride.shaders.parser.4.1.0.1734.nupkg.sha512",
+        "stride.shaders.parser.4.1.0.1805.nupkg.sha512",
         "stride.shaders.parser.nuspec"
       ]
     },
@@ -11320,10 +11488,10 @@
         "stride.sharpfont.nuspec"
       ]
     },
-    "Stride.SpriteStudio.Offline/4.1.0.1734": {
-      "sha512": "ermsXxXXyBGzWnokY4iPo0KOUGSOIgRUBSdFgB23f9IywEKTSgy7wZVXEbLZj/hNt1v1t7I6kc4MSD7YtLSG1g==",
+    "Stride.SpriteStudio.Offline/4.1.0.1805": {
+      "sha512": "YfUiZPM0VkqRW26u/ZnijTUkZJHkm+rWei8mYjnGXwdsSaUakWHWKotNAjQNbtMDiJ/atT/IbhNmjScMifzjzw==",
       "type": "package",
-      "path": "stride.spritestudio.offline/4.1.0.1734",
+      "path": "stride.spritestudio.offline/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -11332,7 +11500,7 @@
         "lib/net6.0-windows7.0/Stride.SpriteStudio.Offline.usrdoc",
         "lib/net6.0-windows7.0/Stride.SpriteStudio.Offline.xml",
         "nuget-icon.png",
-        "stride.spritestudio.offline.4.1.0.1734.nupkg.sha512",
+        "stride.spritestudio.offline.4.1.0.1805.nupkg.sha512",
         "stride.spritestudio.offline.nuspec",
         "stride/Stride.SpriteStudio.Offline.sdpkg",
         "stride/Templates/Assets/.sdtpl/SpriteStudioAnimation.png",
@@ -11341,10 +11509,10 @@
         "stride/Templates/Assets/SpriteStudio/DefaultSpriteStudioModel.sdtpl"
       ]
     },
-    "Stride.SpriteStudio.Runtime/4.1.0.1734": {
-      "sha512": "P84Keubyt6B1yul/FYV7OTiC+GLC+ngh/2QNKnqs4TmpVkmStESgTtDt6z4Ds7+D0VwWyRR1YzXbRTFqRIQdxA==",
+    "Stride.SpriteStudio.Runtime/4.1.0.1805": {
+      "sha512": "CT58+jz6fl4RBwySh7R/iDtrkdvn5CW5tCoZi1sFqDDUO+GidD6OxV4FNw7Ie1MxU1Kfr5nVXyGL8exkdGmUQQ==",
       "type": "package",
-      "path": "stride.spritestudio.runtime/4.1.0.1734",
+      "path": "stride.spritestudio.runtime/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -11352,23 +11520,23 @@
         "lib/net6.0-android31.0/Stride.SpriteStudio.Runtime.pdb",
         "lib/net6.0-android31.0/Stride.SpriteStudio.Runtime.usrdoc",
         "lib/net6.0-android31.0/Stride.SpriteStudio.Runtime.xml",
-        "lib/net6.0-ios15.4/Stride.SpriteStudio.Runtime.dll",
-        "lib/net6.0-ios15.4/Stride.SpriteStudio.Runtime.pdb",
-        "lib/net6.0-ios15.4/Stride.SpriteStudio.Runtime.usrdoc",
-        "lib/net6.0-ios15.4/Stride.SpriteStudio.Runtime.xml",
+        "lib/net6.0-ios16.1/Stride.SpriteStudio.Runtime.dll",
+        "lib/net6.0-ios16.1/Stride.SpriteStudio.Runtime.pdb",
+        "lib/net6.0-ios16.1/Stride.SpriteStudio.Runtime.usrdoc",
+        "lib/net6.0-ios16.1/Stride.SpriteStudio.Runtime.xml",
         "lib/net6.0/Stride.SpriteStudio.Runtime.dll",
         "lib/net6.0/Stride.SpriteStudio.Runtime.pdb",
         "lib/net6.0/Stride.SpriteStudio.Runtime.usrdoc",
         "lib/net6.0/Stride.SpriteStudio.Runtime.xml",
         "nuget-icon.png",
-        "stride.spritestudio.runtime.4.1.0.1734.nupkg.sha512",
+        "stride.spritestudio.runtime.4.1.0.1805.nupkg.sha512",
         "stride.spritestudio.runtime.nuspec"
       ]
     },
-    "Stride.TextureConverter/4.1.0.1734": {
-      "sha512": "3XTRjlynpXTu2teIZKs3dwCYvB4P+oooIFuwD6emwv+gumVVgG7sH4tcCuWso47ZClRXcTaYo1Iq/7kPFCB/9A==",
+    "Stride.TextureConverter/4.1.0.1805": {
+      "sha512": "/dygkowuQQAD2M1o3cliA1NPEkzndUjkEcxejWRvxGjCp+0EkA6WEAIbiWKyN3nIn9i4OvPjaMXWnxEmWV689g==",
       "type": "package",
-      "path": "stride.textureconverter/4.1.0.1734",
+      "path": "stride.textureconverter/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -11387,14 +11555,14 @@
         "lib/net6.0-windows7.0/x86/PVRTexLib.dll",
         "lib/net6.0-windows7.0/x86/PvrttWrapper.dll",
         "nuget-icon.png",
-        "stride.textureconverter.4.1.0.1734.nupkg.sha512",
+        "stride.textureconverter.4.1.0.1805.nupkg.sha512",
         "stride.textureconverter.nuspec"
       ]
     },
-    "Stride.UI/4.1.0.1734": {
-      "sha512": "vz8PrlVK2QBwC72z41aVvuI6dGXKchuMjeq3nPNdomErJ9n04o47eOLzgz6TVjQszfR/IpihmlTEboJivVCe/Q==",
+    "Stride.UI/4.1.0.1805": {
+      "sha512": "mkoAEU+q1++8UorZ6Fu5x5zSBqIE3YIp0NCUFLwDE5C/hXqKNmDfcq2smuPloGhMZlCjq9l4TPgZZn+quPEZgA==",
       "type": "package",
-      "path": "stride.ui/4.1.0.1734",
+      "path": "stride.ui/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -11402,23 +11570,23 @@
         "lib/net6.0-android31.0/Stride.UI.pdb",
         "lib/net6.0-android31.0/Stride.UI.usrdoc",
         "lib/net6.0-android31.0/Stride.UI.xml",
-        "lib/net6.0-ios15.4/Stride.UI.dll",
-        "lib/net6.0-ios15.4/Stride.UI.pdb",
-        "lib/net6.0-ios15.4/Stride.UI.usrdoc",
-        "lib/net6.0-ios15.4/Stride.UI.xml",
+        "lib/net6.0-ios16.1/Stride.UI.dll",
+        "lib/net6.0-ios16.1/Stride.UI.pdb",
+        "lib/net6.0-ios16.1/Stride.UI.usrdoc",
+        "lib/net6.0-ios16.1/Stride.UI.xml",
         "lib/net6.0/Stride.UI.dll",
         "lib/net6.0/Stride.UI.pdb",
         "lib/net6.0/Stride.UI.usrdoc",
         "lib/net6.0/Stride.UI.xml",
         "nuget-icon.png",
-        "stride.ui.4.1.0.1734.nupkg.sha512",
+        "stride.ui.4.1.0.1805.nupkg.sha512",
         "stride.ui.nuspec"
       ]
     },
-    "Stride.Video/4.1.0.1734": {
-      "sha512": "5cutquX1l4oAiOQg+5BjpLo1f2iS9VZ3/J0gJFAcNvw1dQ9+iB83HttjC7BM7IIZd8I5T+f2G3ffc2vmTGFBbA==",
+    "Stride.Video/4.1.0.1805": {
+      "sha512": "FzR9UmXptEipyYV5e6ZIEeV7v1qJaP3v7y6BSNnp09vyDWvVI5I1yUuirGto9x78dnBur4nIxNWDEyIOqwaQhQ==",
       "type": "package",
-      "path": "stride.video/4.1.0.1734",
+      "path": "stride.video/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -11426,10 +11594,10 @@
         "lib/net6.0-android31.0/Stride.Video.pdb",
         "lib/net6.0-android31.0/Stride.Video.usrdoc",
         "lib/net6.0-android31.0/Stride.Video.xml",
-        "lib/net6.0-ios15.4/Stride.Video.dll",
-        "lib/net6.0-ios15.4/Stride.Video.pdb",
-        "lib/net6.0-ios15.4/Stride.Video.usrdoc",
-        "lib/net6.0-ios15.4/Stride.Video.xml",
+        "lib/net6.0-ios16.1/Stride.Video.dll",
+        "lib/net6.0-ios16.1/Stride.Video.pdb",
+        "lib/net6.0-ios16.1/Stride.Video.usrdoc",
+        "lib/net6.0-ios16.1/Stride.Video.xml",
         "lib/net6.0/Direct3D11/Stride.Video.dll",
         "lib/net6.0/Direct3D11/Stride.Video.ssdeps",
         "lib/net6.0/Direct3D11/Stride.Video.usrdoc",
@@ -11536,16 +11704,16 @@
         "lib/net6.0/win-x86/swresample-2.dll",
         "lib/net6.0/win-x86/swscale-4.dll",
         "nuget-icon.png",
-        "stride.video.4.1.0.1734.nupkg.sha512",
+        "stride.video.4.1.0.1805.nupkg.sha512",
         "stride.video.nuspec",
         "stride/Assets/VideoShader.sdsl",
         "stride/Stride.Video.sdpkg"
       ]
     },
-    "Stride.VirtualReality/4.1.0.1734": {
-      "sha512": "PFQbetnyJbeAS4nvyD7mmgly/aZeXMfjeF0Dqx0pnVvfJEAlcQqZpxezNoJDyCFIadAlXXzklWMpWMrt9jpzVg==",
+    "Stride.VirtualReality/4.1.0.1805": {
+      "sha512": "MdPiL+y+cbQDUZXC04QUKDuGFQmVqgLJOkQzDQfZ/g9YXF6pYN4mitdfOc9u+fJWzB7A56fBFPJ3uE/jX9pnZg==",
       "type": "package",
-      "path": "stride.virtualreality/4.1.0.1734",
+      "path": "stride.virtualreality/4.1.0.1805",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -11559,18 +11727,19 @@
         "lib/net6.0-android31.0/armeabi-v7a/libstridevr.so",
         "lib/net6.0-android31.0/x86/libstridevr.so",
         "lib/net6.0-android31.0/x86_64/libstridevr.so",
-        "lib/net6.0-ios15.4/Stride.VirtualReality.dll",
-        "lib/net6.0-ios15.4/Stride.VirtualReality.pdb",
-        "lib/net6.0-ios15.4/Stride.VirtualReality.ssdeps",
-        "lib/net6.0-ios15.4/Stride.VirtualReality.usrdoc",
-        "lib/net6.0-ios15.4/Stride.VirtualReality.xml",
-        "lib/net6.0-ios15.4/libNativePath.a",
-        "lib/net6.0-ios15.4/libstridevr.a",
+        "lib/net6.0-ios16.1/Stride.VirtualReality.dll",
+        "lib/net6.0-ios16.1/Stride.VirtualReality.pdb",
+        "lib/net6.0-ios16.1/Stride.VirtualReality.ssdeps",
+        "lib/net6.0-ios16.1/Stride.VirtualReality.usrdoc",
+        "lib/net6.0-ios16.1/Stride.VirtualReality.xml",
+        "lib/net6.0-ios16.1/libNativePath.a",
+        "lib/net6.0-ios16.1/libstridevr.a",
         "lib/net6.0/Direct3D11/Stride.VirtualReality.dll",
         "lib/net6.0/Direct3D11/Stride.VirtualReality.ssdeps",
         "lib/net6.0/Direct3D11/Stride.VirtualReality.usrdoc",
         "lib/net6.0/Direct3D11/Stride.VirtualReality.xml",
         "lib/net6.0/Direct3D11/linux-x64/libstridevr.so",
+        "lib/net6.0/Direct3D11/openxr_loader.dll",
         "lib/net6.0/Direct3D11/osx-x64/libstridevr.dylib",
         "lib/net6.0/Direct3D11/win-x64/libstridevr.dll",
         "lib/net6.0/Direct3D11/win-x64/openvr_api.dll",
@@ -11580,6 +11749,7 @@
         "lib/net6.0/Direct3D12/Stride.VirtualReality.usrdoc",
         "lib/net6.0/Direct3D12/Stride.VirtualReality.xml",
         "lib/net6.0/Direct3D12/linux-x64/libstridevr.so",
+        "lib/net6.0/Direct3D12/openxr_loader.dll",
         "lib/net6.0/Direct3D12/osx-x64/libstridevr.dylib",
         "lib/net6.0/Direct3D12/win-x64/libstridevr.dll",
         "lib/net6.0/Direct3D12/win-x64/openvr_api.dll",
@@ -11612,13 +11782,14 @@
         "lib/net6.0/Vulkan/win-x64/libstridevr.dll",
         "lib/net6.0/Vulkan/win-x86/libstridevr.dll",
         "lib/net6.0/linux-x64/libstridevr.so",
+        "lib/net6.0/openxr_loader.dll",
         "lib/net6.0/osx-x64/libstridevr.dylib",
         "lib/net6.0/win-x64/libstridevr.dll",
         "lib/net6.0/win-x64/openvr_api.dll",
         "lib/net6.0/win-x86/libstridevr.dll",
         "lib/net6.0/win-x86/openvr_api.dll",
         "nuget-icon.png",
-        "stride.virtualreality.4.1.0.1734.nupkg.sha512",
+        "stride.virtualreality.4.1.0.1805.nupkg.sha512",
         "stride.virtualreality.nuspec"
       ]
     },
@@ -12432,13 +12603,14 @@
         "system.diagnostics.tracing.nuspec"
       ]
     },
-    "System.Drawing.Common/4.7.0": {
-      "sha512": "v+XbyYHaZjDfn0ENmJEV1VYLgGgCTx1gnfOBcppowbpOAriglYgGCvFCPr2EEZyBvXlpxbEsTwkOlInl107ahA==",
+    "System.Drawing.Common/4.7.2": {
+      "sha512": "I2y4KBK3VCvU/WqE2xv7NjQ67maXHttkFSHYKgU2evrG9Yqh0oFjfORXt5hZTk+BVjdyFo2h0/YQZsca33BGmg==",
       "type": "package",
-      "path": "system.drawing.common/4.7.0",
+      "path": "system.drawing.common/4.7.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "lib/MonoAndroid10/_._",
@@ -12465,7 +12637,7 @@
         "runtimes/win/lib/netcoreapp2.0/System.Drawing.Common.dll",
         "runtimes/win/lib/netcoreapp3.0/System.Drawing.Common.dll",
         "runtimes/win/lib/netcoreapp3.0/System.Drawing.Common.xml",
-        "system.drawing.common.4.7.0.nupkg.sha512",
+        "system.drawing.common.4.7.2.nupkg.sha512",
         "system.drawing.common.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"

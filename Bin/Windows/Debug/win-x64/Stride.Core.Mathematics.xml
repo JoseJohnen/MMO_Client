@@ -3330,6 +3330,14 @@
             <c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
             </returns>
         </member>
+        <member name="M:Stride.Core.Mathematics.Color3.Deconstruct(System.Single@,System.Single@,System.Single@)">
+            <summary>
+            Deconstructs the vector's components into named variables.
+            </summary>
+            <param name="r">The R component</param>
+            <param name="g">The G component</param>
+            <param name="b">The B component</param>
+        </member>
         <member name="T:Stride.Core.Mathematics.Color4">
             <summary>
             Represents a color in the form of rgba.
@@ -3907,6 +3915,15 @@
             <returns>
             <c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
             </returns>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Color4.Deconstruct(System.Single@,System.Single@,System.Single@,System.Single@)">
+            <summary>
+            Deconstructs the vector's components into named variables.
+            </summary>
+            <param name="r">The R component</param>
+            <param name="g">The G component</param>
+            <param name="b">The B component</param>
+            <param name="a">The A component</param>
         </member>
         <member name="T:Stride.Core.Mathematics.ColorBGRA">
             <summary>
@@ -4517,6 +4534,15 @@
             <c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
             </returns>
         </member>
+        <member name="M:Stride.Core.Mathematics.ColorBGRA.Deconstruct(System.Byte@,System.Byte@,System.Byte@,System.Byte@)">
+            <summary>
+            Deconstructs the vector's components into named variables.
+            </summary>
+            <param name="r">The R component</param>
+            <param name="g">The G component</param>
+            <param name="b">The B component</param>
+            <param name="a">The A component</param>
+        </member>
         <member name="T:Stride.Core.Mathematics.ColorExtensions">
             <summary>
             A class containing extension methods for processing colors.
@@ -4641,6 +4667,15 @@
             <returns>
             A <see cref="T:System.String"/> that represents this instance.
             </returns>
+        </member>
+        <member name="M:Stride.Core.Mathematics.ColorHSV.Deconstruct(System.Single@,System.Single@,System.Single@,System.Single@)">
+            <summary>
+            Deconstructs the vector's components into named variables.
+            </summary>
+            <param name="h">The H component</param>
+            <param name="s">The S component</param>
+            <param name="v">The V component</param>
+            <param name="a">The A component</param>
         </member>
         <member name="T:Stride.Core.Mathematics.ContainmentType">
             <summary>
@@ -5532,6 +5567,13 @@
             <returns>
             	<c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
             </returns>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Double2.Deconstruct(System.Double@,System.Double@)">
+            <summary>
+            Deconstructs the vector's components into named variables.
+            </summary>
+            <param name="x">The X component</param>
+            <param name="y">The Y component</param>
         </member>
         <member name="T:Stride.Core.Mathematics.Double3">
             <summary>
@@ -6556,6 +6598,14 @@
             	<c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
             </returns>
         </member>
+        <member name="M:Stride.Core.Mathematics.Double3.Deconstruct(System.Double@,System.Double@,System.Double@)">
+            <summary>
+            Deconstructs the vector's components into named variables.
+            </summary>
+            <param name="x">The X component</param>
+            <param name="y">The Y component</param>
+            <param name="z">The Z component</param>
+        </member>
         <member name="T:Stride.Core.Mathematics.Double4">
             <summary>
             Represents a four dimensional mathematical vector with double-precision floats.
@@ -7355,6 +7405,15 @@
             <c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
             </returns>
         </member>
+        <member name="M:Stride.Core.Mathematics.Double4.Deconstruct(System.Double@,System.Double@,System.Double@,System.Double@)">
+            <summary>
+            Deconstructs the vector's components into named variables.
+            </summary>
+            <param name="x">The X component</param>
+            <param name="y">The Y component</param>
+            <param name="z">The Z component</param>
+            <param name="w">The W component</param>
+        </member>
         <member name="T:Stride.Core.Mathematics.GuillotinePacker">
             <summary>
             Implementation of a "Guillotine" packer.
@@ -7720,6 +7779,13 @@
             <param name="value">The value.</param>
             <returns>The result of the conversion.</returns>
         </member>
+        <member name="M:Stride.Core.Mathematics.Half2.Deconstruct(Stride.Core.Mathematics.Half@,Stride.Core.Mathematics.Half@)">
+            <summary>
+            Deconstructs the vector's components into named variables.
+            </summary>
+            <param name="x">The X component</param>
+            <param name="y">The Y component</param>
+        </member>
         <member name="T:Stride.Core.Mathematics.Half3">
             <summary>
             Represents a three dimensional mathematical vector with half-precision floats.
@@ -7872,6 +7938,14 @@
             <param name="obj">Object to make the comparison with.</param>
             <returns>
             <c>true</c> if the current instance is equal to the specified object; <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Half3.Deconstruct(Stride.Core.Mathematics.Half@,Stride.Core.Mathematics.Half@,Stride.Core.Mathematics.Half@)">
+            <summary>
+            Deconstructs the vector's components into named variables.
+            </summary>
+            <param name="x">The X component</param>
+            <param name="y">The Y component</param>
+            <param name="z">The Z component</param>
         </member>
         <member name="T:Stride.Core.Mathematics.Half4">
             <summary>
@@ -8039,6 +8113,15 @@
             <returns>
             <c>true</c> if the current instance is equal to the specified object; <c>false</c> otherwise.</returns>
         </member>
+        <member name="M:Stride.Core.Mathematics.Half4.Deconstruct(Stride.Core.Mathematics.Half@,Stride.Core.Mathematics.Half@,Stride.Core.Mathematics.Half@,Stride.Core.Mathematics.Half@)">
+            <summary>
+            Deconstructs the vector's components into named variables.
+            </summary>
+            <param name="x">The X component</param>
+            <param name="y">The Y component</param>
+            <param name="z">The Z component</param>
+            <param name="w">The W component</param>
+        </member>
         <member name="T:Stride.Core.Mathematics.HalfUtils">
             <summary>
             Helper class to perform Half/Float conversion.
@@ -8103,7 +8186,7 @@
         </member>
         <member name="T:Stride.Core.Mathematics.Int2">
             <summary>
-            Represents a three dimensional mathematical vector.
+            Represents a two dimensional mathematical vector.
             </summary>
         </member>
         <member name="F:Stride.Core.Mathematics.Int2.SizeInBytes">
@@ -8560,6 +8643,13 @@
             <returns>
             <c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
             </returns>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Int2.Deconstruct(System.Int32@,System.Int32@)">
+            <summary>
+            Deconstructs the vector's components into named variables.
+            </summary>
+            <param name="x">The X component</param>
+            <param name="y">The Y component</param>
         </member>
         <member name="T:Stride.Core.Mathematics.Int3">
             <summary>
@@ -9040,6 +9130,14 @@
             <c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
             </returns>
         </member>
+        <member name="M:Stride.Core.Mathematics.Int3.Deconstruct(System.Int32@,System.Int32@,System.Int32@)">
+            <summary>
+            Deconstructs the vector's components into named variables.
+            </summary>
+            <param name="x">The X component</param>
+            <param name="y">The Y component</param>
+            <param name="z">The Z component</param>
+        </member>
         <member name="T:Stride.Core.Mathematics.Int4">
             <summary>
               Represents a four dimensional mathematical vector.
@@ -9468,6 +9566,15 @@
             </summary>
             <param name="input">The input.</param>
             <returns>The result of the conversion.</returns>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Int4.Deconstruct(System.Int32@,System.Int32@,System.Int32@,System.Int32@)">
+            <summary>
+            Deconstructs the vector's components into named variables.
+            </summary>
+            <param name="x">The X component</param>
+            <param name="y">The Y component</param>
+            <param name="z">The Z component</param>
+            <param name="w">The W component</param>
         </member>
         <member name="T:Stride.Core.Mathematics.MathUtil">
             <summary>
@@ -10145,6 +10252,7 @@
         <member name="M:Stride.Core.Mathematics.Matrix.Invert">
             <summary>
             Inverts the matrix.
+            If the matrix cannot be inverted (eg. Determinant was zero), then the matrix will be set equivalent to <see cref="F:Stride.Core.Mathematics.Matrix.Zero"/>.
             </summary>
         </member>
         <member name="M:Stride.Core.Mathematics.Matrix.Transpose">
@@ -10202,15 +10310,21 @@
         </member>
         <member name="M:Stride.Core.Mathematics.Matrix.Decompose(System.Single@,System.Single@,System.Single@)">
             <summary>
-            Decomposes a rotation matrix with the specified yaw, pitch, roll
+            Decomposes a rotation matrix with the specified yaw, pitch, roll value (angles in radians).
             </summary>
-            <param name="yaw">The yaw.</param>
-            <param name="pitch">The pitch.</param>
-            <param name="roll">The roll.</param>
+            <param name="yaw">The yaw component in radians.</param>
+            <param name="pitch">The pitch component in radians.</param>
+            <param name="roll">The roll component in radians.</param>
+            <remarks>
+            This rotation matrix can be represented by <b>intrinsic</b> rotations in the order <paramref name="yaw"/>, <paramref name="pitch"/>, then <paramref name="roll"/>.
+            <br/>
+            Therefore the <b>extrinsic</b> rotations to achieve this matrix is the reversed order of operations,
+            ie. Matrix.RotationZ(roll) * Matrix.RotationX(pitch) * Matrix.RotationY(yaw)
+            </remarks>
         </member>
         <member name="M:Stride.Core.Mathematics.Matrix.DecomposeXYZ(Stride.Core.Mathematics.Vector3@)">
             <summary>
-            Decomposes a rotation matrix with the specified X, Y and Z euler angles.
+            Decomposes a rotation matrix with the specified X, Y and Z euler angles in radians.
             Matrix.RotationX(rotation.X) * Matrix.RotationY(rotation.Y) * Matrix.RotationZ(rotation.Z) should represent the same rotation.
             </summary>
             <param name="rotation">The vector containing the 3 rotations angles to be applied in order.</param>
@@ -10489,6 +10603,7 @@
         <member name="M:Stride.Core.Mathematics.Matrix.Invert(Stride.Core.Mathematics.Matrix@,Stride.Core.Mathematics.Matrix@)">
             <summary>
             Calculates the inverse of the specified matrix.
+            If the matrix cannot be inverted (eg. Determinant was zero), then <paramref name="result"/> will be <see cref="F:Stride.Core.Mathematics.Matrix.Zero"/>.
             </summary>
             <param name="value">The matrix whose inverse is to be calculated.</param>
             <param name="result">When the method completes, contains the inverse of the specified matrix.</param>
@@ -10496,6 +10611,7 @@
         <member name="M:Stride.Core.Mathematics.Matrix.Invert(Stride.Core.Mathematics.Matrix)">
             <summary>
             Calculates the inverse of the specified matrix.
+            If the matrix cannot be inverted (eg. Determinant was zero), then the returning matrix will be <see cref="F:Stride.Core.Mathematics.Matrix.Zero"/>.
             </summary>
             <param name="value">The matrix whose inverse is to be calculated.</param>
             <returns>The inverse of the specified matrix.</returns>
@@ -11094,7 +11210,7 @@
         </member>
         <member name="M:Stride.Core.Mathematics.Matrix.RotationYawPitchRoll(System.Single,System.Single,System.Single,Stride.Core.Mathematics.Matrix@)">
             <summary>
-            Creates a rotation matrix with a specified yaw, pitch, and roll.
+            Creates a rotation matrix with a specified yaw, pitch, and roll value (angles in radians).
             </summary>
             <param name="yaw">Yaw around the y-axis, in radians.</param>
             <param name="pitch">Pitch around the x-axis, in radians.</param>
@@ -11103,7 +11219,7 @@
         </member>
         <member name="M:Stride.Core.Mathematics.Matrix.RotationYawPitchRoll(System.Single,System.Single,System.Single)">
             <summary>
-            Creates a rotation matrix with a specified yaw, pitch, and roll.
+            Creates a rotation matrix with a specified yaw, pitch, and roll value (angles in radians).
             </summary>
             <param name="yaw">Yaw around the y-axis, in radians.</param>
             <param name="pitch">Pitch around the x-axis, in radians.</param>
@@ -11966,6 +12082,13 @@
             <param name="value">The value.</param>
             <returns>The result of the conversion.</returns>
         </member>
+        <member name="M:Stride.Core.Mathematics.Point.Deconstruct(System.Int32@,System.Int32@)">
+            <summary>
+            Deconstructs the vector's components into named variables.
+            </summary>
+            <param name="x">The X component</param>
+            <param name="y">The Y component</param>
+        </member>
         <member name="T:Stride.Core.Mathematics.Quaternion">
             <summary>
             Represents a four dimensional mathematical quaternion.
@@ -12309,7 +12432,7 @@
             <remarks>
             This method performs the linear interpolation based on the following formula.
             <code>start + (end - start) * amount</code>
-            Passing <paramref name="amount"/> a value of 0 will cause <paramref name="start"/> to be returned; a value of 1 will cause <paramref name="end"/> to be returned. 
+            Passing <paramref name="amount"/> a value of 0 will cause <paramref name="start"/> to be returned; a value of 1 will cause <paramref name="end"/> to be returned.
             </remarks>
         </member>
         <member name="M:Stride.Core.Mathematics.Quaternion.Lerp(Stride.Core.Mathematics.Quaternion,Stride.Core.Mathematics.Quaternion,System.Single)">
@@ -12323,7 +12446,7 @@
             <remarks>
             This method performs the linear interpolation based on the following formula.
             <code>start + (end - start) * amount</code>
-            Passing <paramref name="amount"/> a value of 0 will cause <paramref name="start"/> to be returned; a value of 1 will cause <paramref name="end"/> to be returned. 
+            Passing <paramref name="amount"/> a value of 0 will cause <paramref name="start"/> to be returned; a value of 1 will cause <paramref name="end"/> to be returned.
             </remarks>
         </member>
         <member name="M:Stride.Core.Mathematics.Quaternion.LookRotation(Stride.Core.Mathematics.Vector3@,Stride.Core.Mathematics.Vector3@)">
@@ -12443,9 +12566,9 @@
             Calculate the yaw/pitch/roll rotation equivalent to the provided quaternion.
             </summary>
             <param name="rotation">The input quaternion</param>
-            <param name="yaw">The yaw component</param>
-            <param name="pitch">The pitch component</param>
-            <param name="roll">The roll component</param>
+            <param name="yaw">The yaw component in radians.</param>
+            <param name="pitch">The pitch component in radians.</param>
+            <param name="roll">The roll component in radians.</param>
         </member>
         <member name="M:Stride.Core.Mathematics.Quaternion.RotationYawPitchRoll(System.Single,System.Single,System.Single,Stride.Core.Mathematics.Quaternion@)">
             <summary>
@@ -12458,11 +12581,11 @@
         </member>
         <member name="M:Stride.Core.Mathematics.Quaternion.RotationYawPitchRoll(System.Single,System.Single,System.Single)">
             <summary>
-            Creates a quaternion given a yaw, pitch, and roll value.
+            Creates a quaternion given a yaw, pitch, and roll value (angles in radians).
             </summary>
-            <param name="yaw">The yaw of rotation.</param>
-            <param name="pitch">The pitch of rotation.</param>
-            <param name="roll">The roll of rotation.</param>
+            <param name="yaw">The yaw of rotation in radians.</param>
+            <param name="pitch">The pitch of rotation in radians.</param>
+            <param name="roll">The roll of rotation in radians.</param>
             <returns>The newly created quaternion.</returns>
         </member>
         <member name="M:Stride.Core.Mathematics.Quaternion.BetweenDirections(Stride.Core.Mathematics.Vector3,Stride.Core.Mathematics.Vector3)">
@@ -12652,7 +12775,7 @@
             Returns a hash code for this instance.
             </summary>
             <returns>
-            A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+            A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
             </returns>
         </member>
         <member name="M:Stride.Core.Mathematics.Quaternion.Equals(Stride.Core.Mathematics.Quaternion)">
@@ -13555,6 +13678,13 @@
         <member name="M:Stride.Core.Mathematics.Size2.ToString">
             <inheritdoc/>
         </member>
+        <member name="M:Stride.Core.Mathematics.Size2.Deconstruct(System.Int32@,System.Int32@)">
+            <summary>
+            Deconstructs the vector's components into named variables.
+            </summary>
+            <param name="width">The Width component</param>
+            <param name="height">The Height component</param>
+        </member>
         <member name="T:Stride.Core.Mathematics.Size2F">
             <summary>
             Defines a 2D rectangular size (width,height).
@@ -13624,6 +13754,13 @@
         </member>
         <member name="M:Stride.Core.Mathematics.Size2F.ToString">
             <inheritdoc/>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Size2F.Deconstruct(System.Single@,System.Single@)">
+            <summary>
+            Deconstructs the vector's components into named variables.
+            </summary>
+            <param name="width">The Width component</param>
+            <param name="height">The Height component</param>
         </member>
         <member name="T:Stride.Core.Mathematics.Size3">
             <summary>
@@ -13755,6 +13892,14 @@
             </summary>
             <param name="direction">The direction &lt; 0 then <see cref="M:Stride.Core.Mathematics.Size3.Down2(System.Int32)"/>, &gt; 0  then <see cref="M:Stride.Core.Mathematics.Size3.Up2(System.Int32)"/>, else this unchanged.</param>
             <returns>Size3.</returns>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Size3.Deconstruct(System.Int32@,System.Int32@,System.Int32@)">
+            <summary>
+            Deconstructs the vector's components into named variables.
+            </summary>
+            <param name="width">The Width component</param>
+            <param name="height">The Height component</param>
+            <param name="depth">The Depth component</param>
         </member>
         <member name="T:Stride.Core.Mathematics.SphericalHarmonics`1">
             <summary>
@@ -14218,6 +14363,15 @@
             </summary>
             <param name="input">The input.</param>
             <returns>The result of the conversion.</returns>
+        </member>
+        <member name="M:Stride.Core.Mathematics.UInt4.Deconstruct(System.UInt32@,System.UInt32@,System.UInt32@,System.UInt32@)">
+            <summary>
+            Deconstructs the vector's components into named variables.
+            </summary>
+            <param name="x">The X component</param>
+            <param name="y">The Y component</param>
+            <param name="z">The Z component</param>
+            <param name="w">The W component</param>
         </member>
         <member name="T:Stride.Core.Mathematics.Vector2">
             <summary>
@@ -15063,6 +15217,13 @@
             <returns>
             <c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
             </returns>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Vector2.Deconstruct(System.Single@,System.Single@)">
+            <summary>
+            Deconstructs the vector's components into named variables.
+            </summary>
+            <param name="x">The X component</param>
+            <param name="y">The Y component</param>
         </member>
         <member name="T:Stride.Core.Mathematics.Vector3">
             <summary>
@@ -16094,6 +16255,14 @@
             <c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
             </returns>
         </member>
+        <member name="M:Stride.Core.Mathematics.Vector3.Deconstruct(System.Single@,System.Single@,System.Single@)">
+            <summary>
+            Deconstructs the vector's components into named variables.
+            </summary>
+            <param name="x">The X component</param>
+            <param name="y">The Y component</param>
+            <param name="z">The Z component</param>
+        </member>
         <member name="T:Stride.Core.Mathematics.Vector4">
             <summary>
             Represents a four dimensional mathematical vector.
@@ -16866,6 +17035,15 @@
             <returns>
             <c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
             </returns>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Vector4.Deconstruct(System.Single@,System.Single@,System.Single@,System.Single@)">
+            <summary>
+            Deconstructs the vector's components into named variables.
+            </summary>
+            <param name="x">The X component</param>
+            <param name="y">The Y component</param>
+            <param name="z">The Z component</param>
+            <param name="w">The W component</param>
         </member>
         <member name="T:Stride.Core.Mathematics.VectorExtensions">
             <summary>

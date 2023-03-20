@@ -1,0 +1,15 @@
+!SpriteSheet
+Id: 2be003a4-9e10-4c50-b403-6d2910d98697
+SerializedVersion: {Stride: 2.0.0.0}
+Tags: []
+Type: Sprite2D
+ColorKeyColor: {R: 255, G: 0, B: 255, A: 255}
+Packing: {}
+Sprites:
+    0cb324453ef0c4d13fe84bc6989faae1:
+        Source: !file ../../Resources/PC Computer - Doom Doom II - Imp.png
+        Name: PC Computer - Doom Doom II - Imp
+        TextureRegion: {X: 0, Y: 0, Width: 829, Height: 921}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}

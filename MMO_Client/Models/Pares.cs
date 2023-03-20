@@ -15,14 +15,18 @@ namespace MMO_Client.Code.Models
             this.Item1 = item1;
             this.Item2 = item2;
         }
-       
-       #region ForEach Compatibility
+
+        public Pares()
+        {
+        }
+
+        #region ForEach Compatibility
         /*public IEnumerator GetEnumerator()
         {
             return (IEnumerator)this;
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();*/
-        #endregion     
-	}
+        #endregion
+    }
 }

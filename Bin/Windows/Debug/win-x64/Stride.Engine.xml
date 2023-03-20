@@ -1729,12 +1729,14 @@
             </summary>
             <param name="name">The name to give to the entity</param>
         </member>
-        <member name="M:Stride.Engine.Entity.#ctor(Stride.Core.Mathematics.Vector3,System.String)">
+        <member name="M:Stride.Engine.Entity.#ctor(System.String,Stride.Core.Mathematics.Vector3,System.Nullable{Stride.Core.Mathematics.Quaternion},System.Nullable{Stride.Core.Mathematics.Vector3})">
             <summary>
-            Create a new <see cref="T:Stride.Engine.Entity" /> instance having the provided name and initial position.
+            Create a new <see cref="T:Stride.Engine.Entity" /> instance having the provided name, initial position, rotation and scale.
             </summary>
-            <param name="position">The initial position of the entity</param>
             <param name="name">The name to give to the entity</param>
+            <param name="position">The initial position of the entity</param>
+            <param name="rotation">The initial rotation of the entity</param>
+            <param name="rotation">The initial scale of the entity</param>
         </member>
         <member name="M:Stride.Engine.Entity.#ctor(System.String,System.Boolean)">
             <summary>
@@ -3821,24 +3823,23 @@
         <member name="P:Stride.Internals.LambdaReadOnlyCollection`2.Item(System.Int32)">
             <inheritdoc/>
         </member>
-        <member name="M:Stride.Profiling.DebugTextSystem.Print(System.String,Stride.Core.Mathematics.Int2)">
-            <summary>
-            Print a custom overlay message
-            </summary>
-            <param name="message"></param>
-            <param name="position"></param>
-        </member>
-        <member name="M:Stride.Profiling.DebugTextSystem.Print(System.String,Stride.Core.Mathematics.Int2,Stride.Core.Mathematics.Color4)">
+        <member name="M:Stride.Profiling.DebugTextSystem.Print(System.String,Stride.Core.Mathematics.Int2,System.Nullable{Stride.Core.Mathematics.Color4},System.Nullable{System.TimeSpan})">
             <summary>
             Print a custom overlay message
             </summary>
             <param name="message"></param>
             <param name="position"></param>
             <param name="color"></param>
+            <param name="timeOnScreen"></param>
         </member>
         <member name="P:Stride.Profiling.DebugTextSystem.TextColor">
             <summary>
             Sets or gets the color to use when drawing the profiling system fonts.
+            </summary>
+        </member>
+        <member name="P:Stride.Profiling.DebugTextSystem.DefaultOnScreenTime">
+            <summary>
+            Sets or gets the time that messages will stay on screen by default.
             </summary>
         </member>
         <member name="P:Stride.Profiling.DebugTextSystem.TailSize">
@@ -4210,7 +4211,7 @@
             Resolves camera to <see cref="P:Stride.Rendering.Compositing.SceneExternalCameraRenderer.ExternalCamera"/> rather than the default behavior.
             </summary>
         </member>
-        <member name="P:Stride.Rendering.Compositing.VRRendererSettings.CopyMirror">
+        <member name="F:Stride.Rendering.Compositing.VRRendererSettings.CopyMirror">
             <summary>
             Specifies if VR rendering should be copied to the current render target.
             </summary>
@@ -4785,6 +4786,14 @@
             <summary>
             Various helper functions for the <see cref="T:Stride.Updater.UpdateEngine"/>.
             </summary>
+        </member>
+        <member name="M:Stride.Updater.UpdateEngineHelper.PointerToStruct``1(System.IntPtr)">
+            <summary>Copies the value out of the pinned box.</summary>
+        </member>
+        <member name="M:Stride.Updater.UpdateEngineHelper.RefBoxedStruct``1(System.IntPtr)">
+            <summary>Obtains a reference to the object at the specified address,
+            then unboxes the value of type <typeparamref name="T"/> and
+            returns the controlled-mutability managed pointer.</summary>
         </member>
         <member name="T:Stride.Updater.UpdateMemberInfo">
             <summary>

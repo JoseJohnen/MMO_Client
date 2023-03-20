@@ -25,6 +25,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Net.Http;
 using Stride.Core.Extensions;
+using MMO_Client.Models.PuppetModels;
 
 namespace MMO_Client.Controllers
 {
@@ -72,6 +73,7 @@ namespace MMO_Client.Controllers
         #endregion
 
         #region Executing Functions
+        Puppet tempPuppet = null;
         public override void Start()
         {
             try
@@ -85,7 +87,14 @@ namespace MMO_Client.Controllers
                 //Prefab model = Content.Load<Prefab>("Prefabs/DoomGuy");
                 //Quaternion qtrn = new Quaternion();
                 //Quaternion.RotationY(90, out qtrn);
-                EnemyNPCStart("DoomGuy");
+                //EnemyNPCStart("DoomGuy");
+                //EnemyNPCStart("DoomGuy", new Vector3(-1.2f,0,0));
+
+                tempPuppet = new Imp();
+                //tempPuppet.Entity.Transform.Position = new Vector3(3, 0, 1);
+                tempPuppet.PrepareAnimations();
+                tempPuppet.InstancePuppet(new Vector3(3, 0, 1));
+
                 //l_entitysCharacters[0].RealEnt.Transform.Rotation = qtrn;
                 //Message messageOut = new Message();
                 //Shot shot = new Shot();
@@ -799,7 +808,7 @@ namespace MMO_Client.Controllers
                 //Determine if it is a model or a Sprite and add it to the model
                 Model model = Content.Load<Model>("Models/" + TypeOfPuppetName);
                 //Prefab prefab = Content.Load<Prefab>("Prefabs/" + TypeOfPuppetName);
-                List<Entity> prefab = Controller.controller.GetPrefab("TypeOfPuppetName"); //Content.Load<Prefab>("Prefabs/" + TypeOfPuppetName);
+                List<Entity> prefab = Controller.controller.GetPrefab(TypeOfPuppetName); //Content.Load<Prefab>("Prefabs/" + TypeOfPuppetName);
                 //Prefab RealEnt = Content.Load<Prefab>("Prefabs/RealEnt");
 
                 Type typ = Puppet.TypesOfMonsters().Where(c => c.Name == TypeOfPuppetName).FirstOrDefault();
@@ -860,7 +869,7 @@ namespace MMO_Client.Controllers
                 Entity.Scene.Entities.AddRange(instance);
                 ((Puppet)obtOfType).RealEnt = instance[0];
 
-                ((Puppet)obtOfType).RealEnt.Transform.RotationEulerXYZ = new Vector3(0f, -90f, 0f);
+                //((Puppet)obtOfType).RealEnt.Transform.RotationEulerXYZ = new Vector3(0f, -90f, 0f);
 
                 /*Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine("l_ent count: " + l_ent.Count());
@@ -1015,6 +1024,17 @@ namespace MMO_Client.Controllers
                         byteData += "00";
                     }
 
+                    //Por ahora dejar la rotación manual, dado que no hemos generado carga alguna al respecto en el server y no afecta aún mucho la seguridad
+                    if (Input.IsKeyDown(Keys.Q))
+                    {
+                        Player.PLAYER.Entity.Transform.Rotation *= Quaternion.RotationY(0.01f);
+                    }
+                    else if (Input.IsKeyDown(Keys.E))
+                    {
+                        Player.PLAYER.Entity.Transform.Rotation *= Quaternion.RotationY(-0.01f);
+                    }
+                    //End Dejar rotación manual por ahora
+
                     //Console.WriteLine("byteData: " + byteData);
 
                     if (!string.IsNullOrWhiteSpace(byteData))
@@ -1081,6 +1101,7 @@ namespace MMO_Client.Controllers
                         messageOut.Status = StatusMessage.Executed;
                     }
                 }
+
                 return true;
             }
             catch (Exception ex)
@@ -1455,7 +1476,8 @@ namespace MMO_Client.Controllers
                     Player.PLAYER.Entity.Transform.WorldMatrix.TranslationVector.Z >= chr.Entity.Transform.Position.Z - detectArea
                     )
                 {
-                    return ((IPuppetWithDetector)chr).IfDetectPlayer();
+                    //return ((IPuppetWithDetector)chr).IfDetectPlayer();
+                    return chr.IfDetectPlayer();
                 }
 
                 return false;
@@ -1740,7 +1762,7 @@ namespace MMO_Client.Controllers
             }
         }
 
-        #region Create Update y Destroy Shot Methods (Para Pregunta)
+        #region Create Update y Destroy Shot Methods (Para Pregunta y offline)
         public bool CreateBullet(Shot shot, Message message, out Message messageOut)
         {
             try

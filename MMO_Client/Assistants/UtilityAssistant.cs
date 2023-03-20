@@ -648,7 +648,7 @@ namespace MMO_Client.Code.Assistants
                     v3 = new Vector2(ent.RealEnt.Transform.WorldMatrix.TranslationVector.X, ent.Entity.Transform.WorldMatrix.TranslationVector.Y); //new Vector2(2,9);
                 }
 
-                
+
 
                 //Datos de prueba
                 // b 5
@@ -657,10 +657,11 @@ namespace MMO_Client.Code.Assistants
                 //Esta funcionando (85,6)
                 //Fin Datos de prueba
 
-                double anglePlayerMob = Convert180to360(CalculateAngle(v1, v3));
-                double angleFwdMob = Convert180to360(CalculateAngle(v2, v3));
+                //double anglePlayerMob = Convert180to360(CalculateAngle(v1, v3));
+                //double angleFwdMob = Convert180to360(CalculateAngle(v2, v3));
 
-                double total = anglePlayerMob - angleFwdMob;
+                //double total = anglePlayerMob - angleFwdMob;
+                double total = Convert180to360(CalculateAngle(v1, v3));
 
                 //Console.ForegroundColor = ConsoleColor.Green;
                 //Console.Write("\r{0}%   ","----------------- ");
@@ -704,7 +705,7 @@ namespace MMO_Client.Code.Assistants
         /// <returns>Returns the angle between both sides as a double</returns>
         public static double CalculateAngle(Vector2 touch, Vector2 center)
         {
-            if(touch != Vector2.Zero)
+            if (touch != Vector2.Zero)
             {
                 var a = "";
                 var b = a;
@@ -1438,10 +1439,17 @@ namespace MMO_Client.Code.Assistants
         //This work like a charm
         public static void ChangeSpriteSheet(this SpriteComponent sprComp, SpriteSheet sprite)
         {
-            SpriteFromSheet nwSfS = SpriteFromSheet.Create(sprite, sprite[0].Name);
-            sprComp.SpriteProvider = (ISpriteProvider)nwSfS;
-            SpriteFromSheet a = sprComp.SpriteProvider as SpriteFromSheet;
-            a.CurrentFrame = 0;
+            try
+            {
+                SpriteFromSheet nwSfS = SpriteFromSheet.Create(sprite, sprite[0].Name);
+                sprComp.SpriteProvider = (ISpriteProvider)nwSfS;
+                SpriteFromSheet a = sprComp.SpriteProvider as SpriteFromSheet;
+                a.CurrentFrame = 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: (ExtendedClasses) ChangeSpriteSheet(SpriteSheet): " + ex.Message);
+            }
         }
 
         public static void ChangeSpriteSheet(this SpriteComponent sprComp, Texture texture)

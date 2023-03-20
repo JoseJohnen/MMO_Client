@@ -52,7 +52,7 @@ namespace MMO_Client.Code.Models
             cms.Item1 = cms.Item2.AnimSprite.LugarAnimacionEspecificaPorNombre(nombreAnimacion);
         }
 
-        public double CambiarSpritePorPerspectivaPlayer(Puppet ppt, Entity player)
+        public double CambiarSpritePorPerspectivaPlayer(Puppet ppt, Entity player, int CantidadDeDirecciones = 8)
         {
             try
             {
@@ -68,14 +68,17 @@ namespace MMO_Client.Code.Models
 
                 double getAngle = UtilityAssistant.AngleOfRotation(ppt, player); //From 0 to (Hero) 360
 
-                Animacion[] Arr_Animacion = ppt.AnimSprite.DesdeHastaFrames.Where(c => c.Nombre.Contains("Walk")).ToArray();
+                //Animacion[] Arr_Animacion = ppt.AnimSprite.DesdeHastaFrames.Where(c => c.Nombre.Contains("Walk")).ToArray();
+                Dictionary<string, Animacion> dic_Animacion = ppt.AnimSprite.DesdeHastaFrames.Where(c => c.Nombre.Contains("Walk")).Select(c => new KeyValuePair<string, Animacion>(c.Nombre, c)).ToDictionary(c => c.Key, c => c.Value);
 
-                double sections = 180 / Arr_Animacion.Length;
+                double sections = 360 / CantidadDeDirecciones;
 
-                List<Pares<double, double>> l_seccions = new List<Pares<double, double>>();
-                for (double i = 0; i < Arr_Animacion.Length; i++)
+                //Para averiguar cantidad de secciones
+                /*List<Pares<double, double>> l_seccions = new List<Pares<double, double>>();
+
+                for (double i = 0; i < CantidadDeDirecciones; i++)
                 {
-                    if (i == (Arr_Animacion.Length - 1))
+                    if (i == (CantidadDeDirecciones - 1))
                     {
                         l_seccions.Add(new Pares<double, double>((sections * i), 360));
                     }
@@ -83,12 +86,21 @@ namespace MMO_Client.Code.Models
                     {
                         l_seccions.Add(new Pares<double, double>((sections * i), (sections * (i + 1))));
                     }
+                }*/
 
-                    /*if(l_seccions.Count > 0)
+                foreach (KeyValuePair<string, Pares<double, double>> item in ppt.DirectionalsPerAngle())
+                {
+                    if (getAngle >= item.Value.Item1 && getAngle <= item.Value.Item2)
                     {
-                        Console.WriteLine(" {0} {1} ", l_seccions[Convert.ToInt32(i)].Item1, l_seccions[Convert.ToInt32(i)].Item2);
-                    }*/
+                        CambiarAnimacion(ppt.Entity, item.Key);
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("\r {0} {1}", getAngle, item.Key);
+                        Console.ResetColor();
+                    }
                 }
+
+
+                /*
 
                 int j = 0;
                 foreach (Pares<double, double> item in l_seccions)
@@ -98,7 +110,7 @@ namespace MMO_Client.Code.Models
                         SetAnimation(ppt, j);
                     }
                     j++;
-                }
+                }*/
                 /*Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write("\r {0} {1}", getAngle, sections);
                 Console.ResetColor();*/
@@ -237,7 +249,7 @@ namespace MMO_Client.Code.Models
                 Console.WriteLine("differencial: " + angle);
                 Console.ResetColor();*/
 
-                if (ppt.Entity.Transform.Scale.X < 0)
+                /*if (ppt.Entity.Transform.Scale.X < 0)
                 {
                     ppt.Entity.Transform.Scale.X = 1;
                 }
@@ -258,7 +270,7 @@ namespace MMO_Client.Code.Models
                 {
                     CambiarAnimacion(ppt.Entity, "-WWalk");
                     ppt.Entity.Transform.Scale.X *= -1;
-                }
+                }*/
 
                 return 1;
             }
@@ -274,7 +286,7 @@ namespace MMO_Client.Code.Models
             try
             {
                 int i = 0;
-                for (i = 0; i < DesdeHastaFrames.Length - 1; i++)
+                for (i = 0; i < DesdeHastaFrames.Length; i++)
                 {
                     if (DesdeHastaFrames[i].Nombre.ToUpper() == nombreAnimacionACorrer.ToUpper())
                     {
@@ -298,6 +310,7 @@ namespace MMO_Client.Code.Models
                 {
                     return 0;
                 }
+
                 int i = 0;
                 for (i = 0; i < DesdeHastaFrames.Length - 1; i++)
                 {
@@ -355,8 +368,19 @@ namespace MMO_Client.Code.Models
                         {
                             spr.CurrentFrame++;
                         }
+
+                        //Dar vuelta si es reversible
+                        if (!this.DesdeHastaFrames[procDHUsar].isReversible && ent.Transform.Scale.X < 0)
+                        {
+                            ent.Transform.Scale.X = ent.Transform.Scale.X * -1;
+                        }
+                        else if (this.DesdeHastaFrames[procDHUsar].isReversible && ent.Transform.Scale.X > 0)
+                        {
+                            ent.Transform.Scale.X = ent.Transform.Scale.X * -1;
+                        }
                     }
                 }
+
                 return procDHUsar;
             }
             catch (Exception ex)
@@ -378,5 +402,7 @@ namespace MMO_Client.Code.Models
         public string Nombre { get; }
         public int DesdeFrame { get; }
         public int HastaFrame { get; }
+
+        public bool isReversible { get; set; } = false;
     }
 }

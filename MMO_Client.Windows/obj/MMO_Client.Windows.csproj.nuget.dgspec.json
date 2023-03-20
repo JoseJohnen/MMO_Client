@@ -136,31 +136,31 @@
             "Stride.Core.Assets.CompilerApp": {
               "include": "Build, BuildTransitive",
               "target": "Package",
-              "version": "[4.1.0.1734, )"
+              "version": "[4.1.0.1805, )"
             },
             "Stride.Engine": {
               "target": "Package",
-              "version": "[4.1.0.1734, )"
+              "version": "[4.1.0.1805, )"
             },
             "Stride.Navigation": {
               "target": "Package",
-              "version": "[4.1.0.1734, )"
+              "version": "[4.1.0.1805, )"
             },
             "Stride.Particles": {
               "target": "Package",
-              "version": "[4.1.0.1734, )"
+              "version": "[4.1.0.1805, )"
             },
             "Stride.Physics": {
               "target": "Package",
-              "version": "[4.1.0.1734, )"
+              "version": "[4.1.0.1805, )"
             },
             "Stride.UI": {
               "target": "Package",
-              "version": "[4.1.0.1734, )"
+              "version": "[4.1.0.1805, )"
             },
             "Stride.Video": {
               "target": "Package",
-              "version": "[4.1.0.1734, )"
+              "version": "[4.1.0.1805, )"
             }
           },
           "imports": [

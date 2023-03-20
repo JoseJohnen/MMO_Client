@@ -3982,38 +3982,29 @@
         <member name="M:Stride.Core.IO.NativeMemoryStream.SetLength(System.Int64)">
             <inheritdoc/>
         </member>
+        <member name="M:Stride.Core.IO.NativeMemoryStream.Read(System.Span{System.Byte})">
+            <inheritdoc/>
+        </member>
         <member name="M:Stride.Core.IO.NativeMemoryStream.Read(System.Byte[],System.Int32,System.Int32)">
             <inheritdoc/>
         </member>
+        <member name="M:Stride.Core.IO.NativeMemoryStream.Write(System.ReadOnlySpan{System.Byte})">
+            <inheritdoc/>
+            <exception cref="T:System.IO.IOException">The remaining capacity in the stream
+            is not large enough to write the specified <paramref name="buffer"/>.</exception>
+        </member>
         <member name="M:Stride.Core.IO.NativeMemoryStream.Write(System.Byte[],System.Int32,System.Int32)">
             <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeMemoryStream.Read(System.IntPtr,System.Int32)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeMemoryStream.Write(System.IntPtr,System.Int32)">
-            <inheritdoc/>
+            <exception cref="T:System.IO.IOException">The remaining capacity in the stream
+            is not large enough to write the specified <paramref name="buffer"/>.</exception>
         </member>
         <member name="M:Stride.Core.IO.NativeMemoryStream.ReadByte">
             <inheritdoc/>
         </member>
         <member name="M:Stride.Core.IO.NativeMemoryStream.WriteByte(System.Byte)">
             <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeMemoryStream.ReadUInt16">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeMemoryStream.ReadUInt64">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeMemoryStream.Write(System.UInt16)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeMemoryStream.Write(System.UInt32)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeMemoryStream.Write(System.UInt64)">
-            <inheritdoc/>
+            <exception cref="T:System.IO.IOException">The remaining capacity in the stream
+            is not large enough to write the specified <paramref name="buffer"/>.</exception>
         </member>
         <member name="P:Stride.Core.IO.NativeMemoryStream.CanRead">
             <inheritdoc/>
@@ -4076,7 +4067,13 @@
         <member name="M:Stride.Core.IO.NativeStreamWrapper.FlushAsync(System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
+        <member name="M:Stride.Core.IO.NativeStreamWrapper.ReadAsync(System.Memory{System.Byte},System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
         <member name="M:Stride.Core.IO.NativeStreamWrapper.ReadAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Stride.Core.IO.NativeStreamWrapper.WriteAsync(System.ReadOnlyMemory{System.Byte},System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
         <member name="M:Stride.Core.IO.NativeStreamWrapper.WriteAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
@@ -4088,10 +4085,16 @@
         <member name="M:Stride.Core.IO.NativeStreamWrapper.SetLength(System.Int64)">
             <inheritdoc/>
         </member>
+        <member name="M:Stride.Core.IO.NativeStreamWrapper.Read(System.Span{System.Byte})">
+            <inheritdoc/>
+        </member>
         <member name="M:Stride.Core.IO.NativeStreamWrapper.Read(System.Byte[],System.Int32,System.Int32)">
             <inheritdoc/>
         </member>
         <member name="M:Stride.Core.IO.NativeStreamWrapper.ReadByte">
+            <inheritdoc/>
+        </member>
+        <member name="M:Stride.Core.IO.NativeStreamWrapper.Write(System.ReadOnlySpan{System.Byte})">
             <inheritdoc/>
         </member>
         <member name="M:Stride.Core.IO.NativeStreamWrapper.Write(System.Byte[],System.Int32,System.Int32)">
@@ -4123,6 +4126,24 @@
         </member>
         <member name="P:Stride.Core.IO.NativeStreamWrapper.WriteTimeout">
             <inheritdoc/>
+        </member>
+        <member name="M:Stride.Core.IO.StreamExtensions.ReadUInt16(System.IO.Stream)">
+            <summary>A temporary replacement for <see cref="M:Stride.Core.IO.NativeStream.ReadUInt16"/></summary>
+        </member>
+        <member name="M:Stride.Core.IO.StreamExtensions.ReadUInt32(System.IO.Stream)">
+            <summary>A temporary replacement for <see cref="M:Stride.Core.IO.NativeStream.ReadUInt32"/></summary>
+        </member>
+        <member name="M:Stride.Core.IO.StreamExtensions.ReadUInt64(System.IO.Stream)">
+            <summary>A temporary replacement for <see cref="M:Stride.Core.IO.NativeStream.ReadUInt64"/></summary>
+        </member>
+        <member name="M:Stride.Core.IO.StreamExtensions.Write(System.IO.Stream,System.UInt16)">
+            <summary>A temporary replacement for <see cref="M:Stride.Core.IO.NativeStream.Write(System.UInt16)"/></summary>
+        </member>
+        <member name="M:Stride.Core.IO.StreamExtensions.Write(System.IO.Stream,System.UInt32)">
+            <summary>A temporary replacement for <see cref="M:Stride.Core.IO.NativeStream.Write(System.UInt32)"/></summary>
+        </member>
+        <member name="M:Stride.Core.IO.StreamExtensions.Write(System.IO.Stream,System.UInt64)">
+            <summary>A temporary replacement for <see cref="M:Stride.Core.IO.NativeStream.Write(System.UInt64)"/></summary>
         </member>
         <member name="T:Stride.Core.IReferencable">
             <summary>
@@ -4191,12 +4212,6 @@
             <summary>
             The <see cref="N:Stride.Core"/> namespace contains fundamental classes and interfaces that are commonly used in Stride.
             </summary>
-        </member>
-        <member name="M:Stride.Core.Native.NativeInvoke.Sleep(System.Int32)">
-            <summary>
-            Suspends current thread for <paramref name="ms"/> milliseconds.
-            </summary>
-            <param name="ms">Number of milliseconds to sleep.</param>
         </member>
         <member name="M:Stride.Core.NativeLibraryHelper.PreloadLibrary(System.String,System.Type)">
             <summary>
@@ -5145,7 +5160,7 @@
         <member name="M:Stride.Core.Serialization.BinarySerializationReader.Serialize(System.Byte[],System.Int32,System.Int32)">
             <inheritdoc />
         </member>
-        <member name="M:Stride.Core.Serialization.BinarySerializationReader.Serialize(System.IntPtr,System.Int32)">
+        <member name="M:Stride.Core.Serialization.BinarySerializationReader.Serialize(System.Span{System.Byte})">
             <inheritdoc/>
         </member>
         <member name="M:Stride.Core.Serialization.BinarySerializationReader.Flush">
@@ -5204,8 +5219,8 @@
         <member name="M:Stride.Core.Serialization.BinarySerializationWriter.Serialize(System.Byte[],System.Int32,System.Int32)">
             <inheritdoc />
         </member>
-        <member name="M:Stride.Core.Serialization.BinarySerializationWriter.Serialize(System.IntPtr,System.Int32)">
-            <inheritdoc/>
+        <member name="M:Stride.Core.Serialization.BinarySerializationWriter.Serialize(System.Span{System.Byte})">
+            <inheritdoc />
         </member>
         <member name="M:Stride.Core.Serialization.BinarySerializationWriter.Flush">
             <inheritdoc />
@@ -5491,7 +5506,7 @@
         <member name="M:Stride.Core.Serialization.NullSerializationStream.Serialize(System.Byte[],System.Int32,System.Int32)">
             <inheritdoc/>
         </member>
-        <member name="M:Stride.Core.Serialization.NullSerializationStream.Serialize(System.IntPtr,System.Int32)">
+        <member name="M:Stride.Core.Serialization.NullSerializationStream.Serialize(System.Span{System.Byte})">
             <inheritdoc/>
         </member>
         <member name="M:Stride.Core.Serialization.NullSerializationStream.Flush">
@@ -5509,7 +5524,12 @@
         </member>
         <member name="P:Stride.Core.Serialization.SerializationStream.NativeStream">
             <summary>
-            The underlying native stream.
+            The <see cref="T:System.IO.Stream"/> from which this serializer reads or to which it writes.
+            </summary>
+        </member>
+        <member name="P:Stride.Core.Serialization.SerializationStream.UnderlyingStream">
+            <summary>
+            The <see cref="T:System.IO.Stream"/> from which this serializer reads or to which it writes.
             </summary>
         </member>
         <member name="M:Stride.Core.Serialization.SerializationStream.#ctor">
@@ -5608,12 +5628,11 @@
             <param name="offset">The starting offset in the buffer to begin serializing.</param>
             <param name="count">The size, in bytes, to serialize.</param>
         </member>
-        <member name="M:Stride.Core.Serialization.SerializationStream.Serialize(System.IntPtr,System.Int32)">
+        <member name="M:Stride.Core.Serialization.SerializationStream.Serialize(System.Span{System.Byte})">
             <summary>
             Serializes the specified memory area.
             </summary>
             <param name="memory">The memory area to serialize.</param>
-            <param name="count">The size, in bytes, to serialize.</param>
         </member>
         <member name="M:Stride.Core.Serialization.SerializationStream.Flush">
             <summary>
@@ -5709,6 +5728,15 @@
             <param name="stream">The stream to serialize to.</param>
             <param name="obj">The object to serialize.</param>
             <param name="mode">The serialization mode.</param>
+        </member>
+        <member name="M:Stride.Core.Serialization.SerializerExtensions.Serialize(Stride.Core.Serialization.SerializationStream,System.IntPtr,System.Int32)">
+            <summary>Serializes or deserializes the memory using <see cref="M:Stride.Core.Serialization.SerializationStream.Serialize(System.Span{System.Byte})"/>.</summary>
+        </member>
+        <member name="M:Stride.Core.Serialization.SerializerExtensions.Serialize(Stride.Core.Serialization.SerializationStream,System.Void*,System.Int32)">
+            <summary>Serializes or deserializes the memory using <see cref="M:Stride.Core.Serialization.SerializationStream.Serialize(System.Span{System.Byte})"/>.</summary>
+        </member>
+        <member name="M:Stride.Core.Serialization.SerializerExtensions.Serialize``1(Stride.Core.Serialization.SerializationStream,``0@)">
+            <summary>Serializes or deserializes the value using <see cref="M:Stride.Core.Serialization.SerializationStream.Serialize(System.Span{System.Byte})"/>.</summary>
         </member>
         <member name="M:Stride.Core.Serialization.SerializerExtensions.ReadBoolean(Stride.Core.Serialization.SerializationStream)">
             <summary>
@@ -6777,6 +6805,19 @@
             <param name="offset">The offset.</param>
             <param name="count">The count.</param>
         </member>
+        <member name="M:Stride.Core.Storage.ObjectIdBuilder.Write``1(System.ReadOnlySpan{``0})">
+            <summary>
+            Writes the specified buffer to this instance.
+            </summary>
+            <typeparam name="T">Type must be a struct</typeparam>
+            <param name="buffer">The buffer.</param>
+        </member>
+        <member name="M:Stride.Core.Storage.ObjectIdBuilder.Write(System.Byte@,System.Int32)">
+            <summary>
+            Writes the specified buffer to this instance.
+            </summary>
+            <param name="buffer">The buffer.</param>
+        </member>
         <member name="M:Stride.Core.Storage.ObjectIdBuilder.Write``1(``0@)">
             <summary>
             Writes the specified buffer to this instance.
@@ -6785,6 +6826,15 @@
             <param name="data">The data.</param>
         </member>
         <member name="M:Stride.Core.Storage.ObjectIdBuilder.Write(System.Byte*,System.Int32)">
+            <summary>
+            Writes a buffer of byte to this builder.
+            </summary>
+            <param name="buffer">The buffer.</param>
+            <param name="count">The count.</param>
+            <exception cref="T:System.ArgumentNullException">buffer</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">count;Offset + Count is out of range</exception>
+        </member>
+        <member name="M:Stride.Core.Storage.ObjectIdBuilder.Write(System.ReadOnlySpan{System.Byte})">
             <summary>
             Writes a buffer of byte to this builder.
             </summary>
@@ -6820,6 +6870,35 @@
             </summary>
             <typeparam name="T">Struct type with a size multiple of 4 bytes</typeparam>
             <param name="data">The data to add to this builder</param>
+        </member>
+        <member name="M:Stride.Core.StrideCoreExtensions.SequenceEqualAllowNull``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>Determines whether two sequences are equal. Comparing the elements is done using the default equality comparer for their type.
+            <para>Allows either parameter to be <c>null</c>.</para>
+            <para>A thin wrapper around <see cref="M:System.Linq.Enumerable.SequenceEqual``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})"/>.</para></summary>
+            <typeparam name="T">The type of the elements of the input sequences.</typeparam>
+            <param name="first">An enumerable to compare to <paramref name="second"/>.</param>
+            <param name="second">An enumerable to compare to <paramref name="first"/>.</param>
+            <returns><c>true</c> if one of the following is true.
+            <list type="bullet">
+            <item><paramref name="first"/> and <paramref name="second"/> are the same object.</item>
+            <item>Neither enumerable is <c>null</c> and they have the same length and each of the elements in the enumerables compare equal pairwise.</item>
+            </list>
+            <para><c>false</c> otherwise.</para></returns>
+        </member>
+        <member name="M:Stride.Core.StrideCoreExtensions.SequenceEqualAllowNull``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEqualityComparer{``0})">
+            <summary>Determines whether two sequences are equal. Comparing the elements is done using the specified equality comparer.
+            <para>Allows <paramref name="first"/> and/or <paramref name="second"/> to be <c>null</c>.</para>
+            <para>A thin wrapper around <see cref="M:System.Linq.Enumerable.SequenceEqual``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEqualityComparer{``0})"/>.</para></summary>
+            <typeparam name="T">The type of the elements of the input sequences.</typeparam>
+            <param name="first">An enumerable to compare to <paramref name="second"/>.</param>
+            <param name="second">An enumerable to compare to <paramref name="first"/>.</param>
+            <param name="comparer">The equality comparer.</param>
+            <returns><c>true</c> if one of the following is true.
+            <list type="bullet">
+            <item><paramref name="first"/> and <paramref name="second"/> are the same object.</item>
+            <item>Neither enumerable is <c>null</c> and they have the same length and each of the elements in the enumerables compare equal pairwise.</item>
+            </list>
+            <para><c>false</c> otherwise.</para></returns>
         </member>
         <member name="T:Stride.Core.StringExtensions">
             <summary>
@@ -7194,12 +7273,13 @@
             </summary>
         </member>
         <member name="M:Stride.Core.Utilities.CopyMemory(System.IntPtr,System.IntPtr,System.Int32)">
-            <summary>
-            Copy memory.
-            </summary>
-            <param name="dest">The destination memory location</param>
-            <param name="src">The source memory location.</param>
-            <param name="sizeInBytesToCopy">The count.</param>
+            <summary>Copies bytes from the source address to the destination address.
+            <para>A thin wrapper around <see cref="M:System.Runtime.CompilerServices.Unsafe.CopyBlock(System.Void*,System.Void*,System.UInt32)"/>.</para></summary>
+            <param name="destination">The destination address.</param>
+            <param name="source">The source address.</param>
+            <param name="byteCount">The number of bytes to copy.</param>
+            <remarks>This API corresponds to the <c>unaligned.1 cpblk</c> opcode sequence.
+            No alignment assumptions are made about the <paramref name="destination"/> or <paramref name="source"/> pointers.</remarks>
         </member>
         <member name="M:Stride.Core.Utilities.CompareMemory(System.IntPtr,System.IntPtr,System.Int32)">
             <summary>
@@ -7211,11 +7291,9 @@
             <returns>True if the buffers are equivalent, false otherwise.</returns>
         </member>
         <member name="M:Stride.Core.Utilities.ClearMemory(System.IntPtr,System.Byte,System.Int32)">
-            <summary>
-            Clears the memory.
-            </summary>
-            <param name="dest">The dest.</param>
-            <param name="value">The value.</param>
+            <summary>Clears the memory.</summary>
+            <param name="destination">The destination address.</param>
+            <param name="value">The byte value to fill the memory with.</param>
             <param name="sizeInBytesToClear">The size in bytes to clear.</param>
         </member>
         <member name="M:Stride.Core.Utilities.SizeOf``1">
@@ -7300,6 +7378,14 @@
             <param name="count">The number of T element to read from the memory location</param>
             <returns>source pointer + sizeof(T) * count</returns>
         </member>
+        <member name="M:Stride.Core.Utilities.UnsafeReadOut``1(System.IntPtr,``0@)">
+            <summary>
+            Reads the specified T data from a memory location.
+            </summary>
+            <typeparam name="T">Type of a data to read</typeparam>
+            <param name="source">Memory location to read from.</param>
+            <param name="data">The data write to.</param>
+        </member>
         <member name="M:Stride.Core.Utilities.Write``1(System.IntPtr,``0@)">
             <summary>
             Writes the specified T data to a memory location.
@@ -7316,6 +7402,14 @@
             <param name="destination">Memory location to write to.</param>
             <param name="data">The data to write.</param>
             <returns>destination pointer + sizeof(T)</returns>
+        </member>
+        <member name="M:Stride.Core.Utilities.UnsafeWrite``1(System.IntPtr,``0@)">
+            <summary>
+            Writes the specified T data to a memory location.
+            </summary>
+            <typeparam name="T">Type of a data to write</typeparam>
+            <param name="destination">Memory location to write to.</param>
+            <param name="data">The data to write.</param>
         </member>
         <member name="M:Stride.Core.Utilities.Write``1(System.Byte[],``0[],System.Int32,System.Int32)">
             <summary>
@@ -7501,39 +7595,12 @@
             <param name="right">The right value.</param>
         </member>
         <member name="M:Stride.Core.Utilities.Sleep(System.TimeSpan)">
-            <summary>
-            Suspends current thread for a <see cref="!:sleepTime"/>.
-            </summary>
-            <param name="sleepTime">The duration of sleep.</param>
+            <summary>Suspends the current thread for a duration.</summary>
+            <param name="duration">The duration of sleep. Must be non-negative.</param>
         </member>
         <member name="M:Stride.Core.Utilities.Sleep(System.Int32)">
-            <summary>
-            Suspends current thread for a <see cref="!:sleepTimeInMillis"/>.
-            </summary>
-            <param name="sleepTimeInMillis">The duration of sleep in milliseconds.</param>
-        </member>
-        <member name="M:Stride.Core.Utilities.UnsafeWrite``1(System.IntPtr,``0@)">
-            <summary>
-            Writes the specified T data to a memory location.
-            </summary>
-            <typeparam name="T">Type of a data to write</typeparam>
-            <param name="destination">Memory location to write to.</param>
-            <param name="data">The data to write.</param>
-        </member>
-        <member name="M:Stride.Core.Utilities.UnsafeReadOut``1(System.IntPtr,``0@)">
-            <summary>
-            Reads the specified T data from a memory location.
-            </summary>
-            <typeparam name="T">Type of a data to read</typeparam>
-            <param name="source">Memory location to read from.</param>
-            <param name="data">The data write to.</param>
-        </member>
-        <member name="M:Stride.Core.Utilities.UnsafeSizeOf``1">
-            <summary>
-            Return the sizeof a struct from a CLR. Equivalent to sizeof operator but works on generics too.
-            </summary>
-            <typeparam name="T">a struct to evaluate</typeparam>
-            <returns>sizeof this struct</returns>
+            <summary>Suspends the current thread for a number of milliseconds.</summary>
+            <param name="ms">The duration in milliseconds. Must be non-negative.</param>
         </member>
         <member name="M:Stride.Core.Utilities.IterateTree``1(``0,System.Func{``0,System.Collections.Generic.IEnumerable{``0}})">
             <summary>
@@ -7550,11 +7617,6 @@
             </summary>
             <param name="delta">The delta.</param>
             <returns>The <see cref="T:System.TimeSpan" />.</returns>
-        </member>
-        <member name="T:Stride.Core.Interop">
-            <summary>
-            Utility class.
-            </summary>
         </member>
         <member name="T:Stride.Core.ValidateValueCallback`1">
             <summary>

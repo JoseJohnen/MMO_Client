@@ -1,0 +1,499 @@
+!SpriteSheet
+Id: ba7f9e49-9cd7-407f-82f8-7bdc9d6b4b0e
+SerializedVersion: {Stride: 2.0.0.0}
+Tags: []
+Type: Sprite2D
+ColorKeyColor: {R: 0, G: 255, B: 255, A: 255}
+ColorKeyEnabled: true
+Packing: {}
+Sprites:
+    adf122445d8c09781e53c3aeb68b0734:
+        Source: !file ../../Resources/Pinkie.png
+        Name: S-Walk_0
+        TextureRegion: {X: 3, Y: 5, Width: 40, Height: 56}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    c41a03130d7d4b7ee138c772dddb13ac:
+        Source: !file ../../Resources/Pinkie.png
+        Name: S-Walk_1
+        TextureRegion: {X: 46, Y: 3, Width: 43, Height: 58}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    fb803fc751a4ef3bb6b09c4e400fe6eb:
+        Source: !file ../../Resources/Pinkie.png
+        Name: S-Walk_2
+        TextureRegion: {X: 92, Y: 5, Width: 40, Height: 56}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    f792fae755fcd9cf442445395f1d9eda:
+        Source: !file ../../Resources/Pinkie.png
+        Name: S-Walk_3
+        TextureRegion: {X: 135, Y: 3, Width: 43, Height: 58}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    f7095ad16879247c912ecea76ef69f02:
+        Source: !file ../../Resources/Pinkie.png
+        Name: S-Shoot_0
+        TextureRegion: {X: 181, Y: 6, Width: 44, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    c376c818c36249d96da544b9036e0282:
+        Source: !file ../../Resources/Pinkie.png
+        Name: S-Shoot_5
+        TextureRegion: {X: 228, Y: 6, Width: 44, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    668bea0bd90a0bd9d3ccb321d288baa1:
+        Source: !file ../../Resources/Pinkie.png
+        Name: S-Shoot_6
+        TextureRegion: {X: 275, Y: 6, Width: 44, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    344a648bb9a11308c696061f6925b27f:
+        Source: !file ../../Resources/Pinkie.png
+        Name: SWWalk_0
+        TextureRegion: {X: 3, Y: 68, Width: 59, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    bbc164051de56203e413a0753cb95b45:
+        Source: !file ../../Resources/Pinkie.png
+        Name: SWWalk_1
+        TextureRegion: {X: 65, Y: 64, Width: 50, Height: 59}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    ad767777ebd644fe431b5787be519575:
+        Source: !file ../../Resources/Pinkie.png
+        Name: SWWalk_2
+        TextureRegion: {X: 118, Y: 71, Width: 58, Height: 52}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    610423efa545adaf440029bfaec683f7:
+        Source: !file ../../Resources/Pinkie.png
+        Name: SWWalk_3
+        TextureRegion: {X: 179, Y: 67, Width: 55, Height: 56}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    593eb912bc8c725170bd7802762edc0f:
+        Source: !file ../../Resources/Pinkie.png
+        Name: SWShoot_0
+        TextureRegion: {X: 237, Y: 68, Width: 48, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    aea664eb87c29d03a7817f5fcbfcd460:
+        Source: !file ../../Resources/Pinkie.png
+        Name: SWShoot_1
+        TextureRegion: {X: 288, Y: 68, Width: 51, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    19d3db22d57eaa5665324eaef0cd2bf4:
+        Source: !file ../../Resources/Pinkie.png
+        Name: SWShoot_2
+        TextureRegion: {X: 341, Y: 65, Width: 52, Height: 58}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    257eefdc2a7d0fbbeb4ee35cacdb1f09:
+        Source: !file ../../Resources/Pinkie.png
+        Name: -WWalk_0
+        TextureRegion: {X: 3, Y: 129, Width: 60, Height: 53}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    63d33e3158428af9573798b4e69b4322:
+        Source: !file ../../Resources/Pinkie.png
+        Name: -WWalk_1
+        TextureRegion: {X: 66, Y: 126, Width: 58, Height: 56}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    e13db76678a1265ed75dd19e58fb54fc:
+        Source: !file ../../Resources/Pinkie.png
+        Name: -WWalk_2
+        TextureRegion: {X: 127, Y: 129, Width: 60, Height: 53}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    d9becd38f429298a1418522f1487072a:
+        Source: !file ../../Resources/Pinkie.png
+        Name: -WWalk_3
+        TextureRegion: {X: 190, Y: 126, Width: 59, Height: 56}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    f7345f8d7ece912d51db67028c6219c7:
+        Source: !file ../../Resources/Pinkie.png
+        Name: -WShoot_0
+        TextureRegion: {X: 252, Y: 132, Width: 60, Height: 51}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    de6b173c42baa206c526c20ada941cb3:
+        Source: !file ../../Resources/Pinkie.png
+        Name: -WShoot_1
+        TextureRegion: {X: 316, Y: 132, Width: 67, Height: 51}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    5c67039520e7699b63c9a920662400d2:
+        Source: !file ../../Resources/Pinkie.png
+        Name: -WShoot_2
+        TextureRegion: {X: 386, Y: 130, Width: 70, Height: 53}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    d889be2f5e7fb2f7e917b6dd53f98404:
+        Source: !file ../../Resources/Pinkie.png
+        Name: NWWalk_0
+        TextureRegion: {X: 3, Y: 186, Width: 56, Height: 53}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    34da5fac950f4807914786cb664234ac:
+        Source: !file ../../Resources/Pinkie.png
+        Name: NWWalk_1
+        TextureRegion: {X: 62, Y: 186, Width: 53, Height: 53}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    25c7727d0db09f5a2bc4451ce9678472:
+        Source: !file ../../Resources/Pinkie.png
+        Name: NWWalk_2
+        TextureRegion: {X: 118, Y: 186, Width: 50, Height: 53}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    fd22d599b9833532ace17c76723b4c04:
+        Source: !file ../../Resources/Pinkie.png
+        Name: NWWalk_3
+        TextureRegion: {X: 171, Y: 185, Width: 46, Height: 54}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    621fbc0018411420ab4f6fc88f8a44a2:
+        Source: !file ../../Resources/Pinkie.png
+        Name: NWShoot_0
+        TextureRegion: {X: 220, Y: 189, Width: 54, Height: 50}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    95f150cdc4acbbd51143793414382935:
+        Source: !file ../../Resources/Pinkie.png
+        Name: NWShoot_1
+        TextureRegion: {X: 275, Y: 188, Width: 57, Height: 51}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    c436f382310f6bfbff19cb3a11d7346b:
+        Source: !file ../../Resources/Pinkie.png
+        Name: NWShoot_2
+        TextureRegion: {X: 335, Y: 187, Width: 57, Height: 52}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    2b0f30bc76cfb0f6d16f5ffec4004f83:
+        Source: !file ../../Resources/Pinkie.png
+        Name: N-Walk_0
+        TextureRegion: {X: 3, Y: 242, Width: 35, Height: 54}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    d323819aed17a52609d0844c59673478:
+        Source: !file ../../Resources/Pinkie.png
+        Name: N-Walk_1
+        TextureRegion: {X: 41, Y: 243, Width: 39, Height: 53}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    954d8d06b27ddc305ca5b8c6fc9a0275:
+        Source: !file ../../Resources/Pinkie.png
+        Name: N-Walk_2
+        TextureRegion: {X: 83, Y: 242, Width: 35, Height: 54}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    def51126619d7b9848aa3295c2dc2b26:
+        Source: !file ../../Resources/Pinkie.png
+        Name: N-Walk_3
+        TextureRegion: {X: 121, Y: 243, Width: 39, Height: 53}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    6c8db07a97c4bbdb8f12842fd6fa0d14:
+        Source: !file ../../Resources/Pinkie.png
+        Name: N-Shoot_0
+        TextureRegion: {X: 163, Y: 245, Width: 42, Height: 51}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    cb45af0b326f7062e60bff034e34378a:
+        Source: !file ../../Resources/Pinkie.png
+        Name: N-Shoot_1
+        TextureRegion: {X: 208, Y: 244, Width: 42, Height: 52}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    4408f62689dcb05b4aa549d3ccbc124e:
+        Source: !file ../../Resources/Pinkie.png
+        Name: N-Shoot_2
+        TextureRegion: {X: 253, Y: 242, Width: 42, Height: 54}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    a28bd97a6ae0764168cbdec179ef94a4:
+        Source: !file ../../Resources/Pinkie.png
+        Name: NEWalk_0
+        TextureRegion: {X: 3, Y: 299, Width: 46, Height: 54}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    16a5c740ab05fe9890ecc2a31d6f21c8:
+        Source: !file ../../Resources/Pinkie.png
+        Name: NEWalk_1
+        TextureRegion: {X: 52, Y: 300, Width: 50, Height: 53}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    f73ea46c3885f9368f5f353a881b611e:
+        Source: !file ../../Resources/Pinkie.png
+        Name: NEWalk_2
+        TextureRegion: {X: 105, Y: 300, Width: 53, Height: 53}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    2ae7bcab7d9cc2de4dd2d8553743a460:
+        Source: !file ../../Resources/Pinkie.png
+        Name: NEWalk_3
+        TextureRegion: {X: 161, Y: 300, Width: 56, Height: 53}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    57edec6c983f8bda04924e2b41094b6a:
+        Source: !file ../../Resources/Pinkie.png
+        Name: NEShoot_4
+        TextureRegion: {X: 220, Y: 303, Width: 49, Height: 50}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    e73ca1710cddf9bc69651e2031f98d52:
+        Source: !file ../../Resources/Pinkie.png
+        Name: NEShoot_5
+        TextureRegion: {X: 272, Y: 303, Width: 52, Height: 50}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    58dd09fae2f7f12cd6e0b9b526fa548f:
+        Source: !file ../../Resources/Pinkie.png
+        Name: NEShoot_5
+        TextureRegion: {X: 327, Y: 303, Width: 54, Height: 50}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    9362fe6fea9e4397c7a7c86d7d485ac0:
+        Source: !file ../../Resources/Pinkie.png
+        Name: -EWalk_0
+        TextureRegion: {X: 3, Y: 356, Width: 59, Height: 56}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    10b304ce20f502450fe0d32619d95d15:
+        Source: !file ../../Resources/Pinkie.png
+        Name: -EWalk_1
+        TextureRegion: {X: 65, Y: 359, Width: 60, Height: 53}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    9a60b973b49ff31884112f30174853c5:
+        Source: !file ../../Resources/Pinkie.png
+        Name: -EWalk_2
+        TextureRegion: {X: 128, Y: 356, Width: 58, Height: 56}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    370bca1f0c7e99324162176b06ca8a73:
+        Source: !file ../../Resources/Pinkie.png
+        Name: -EWalk_3
+        TextureRegion: {X: 189, Y: 359, Width: 60, Height: 53}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    a5ed9664c2286b8079ca71c93cdd4a38:
+        Source: !file ../../Resources/Pinkie.png
+        Name: -EShoot_0
+        TextureRegion: {X: 252, Y: 362, Width: 58, Height: 50}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    728a8b8602e4a1e59fa0017247a6eb11:
+        Source: !file ../../Resources/Pinkie.png
+        Name: -EShoot_1
+        TextureRegion: {X: 313, Y: 361, Width: 63, Height: 51}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    595eeecdd84324eb33e8f0c4bd39f742:
+        Source: !file ../../Resources/Pinkie.png
+        Name: -EShoot_2
+        TextureRegion: {X: 379, Y: 360, Width: 66, Height: 52}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    79c0db270a52e6e1635a820eea99b7b8:
+        Source: !file ../../Resources/Pinkie.png
+        Name: SEWalk_0
+        TextureRegion: {X: 3, Y: 418, Width: 55, Height: 56}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    d71466c2c719bae2f8a536e61399f756:
+        Source: !file ../../Resources/Pinkie.png
+        Name: SEWalk_1
+        TextureRegion: {X: 61, Y: 422, Width: 58, Height: 52}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    7cd57ea2b8b6520e56c31b118ceb190a:
+        Source: !file ../../Resources/Pinkie.png
+        Name: SEWalk_2
+        TextureRegion: {X: 122, Y: 415, Width: 50, Height: 59}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    a85aa379d3d7d95719081d6d98615788:
+        Source: !file ../../Resources/Pinkie.png
+        Name: SEWalk_3
+        TextureRegion: {X: 175, Y: 419, Width: 59, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    a5fa3a474901a2220602456d9a5625f7:
+        Source: !file ../../Resources/Pinkie.png
+        Name: SEShoot_0
+        TextureRegion: {X: 237, Y: 420, Width: 53, Height: 54}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    662b98522bf8ed0b321295085e0e6d47:
+        Source: !file ../../Resources/Pinkie.png
+        Name: SEShoot_1
+        TextureRegion: {X: 293, Y: 420, Width: 55, Height: 54}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    159a32d913d3a4e46cf4c47d05ffde79:
+        Source: !file ../../Resources/Pinkie.png
+        Name: SEShoot_2
+        TextureRegion: {X: 351, Y: 418, Width: 57, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    63667d5903b384a588cd56b80b473cac:
+        Source: !file ../../Resources/Pinkie.png
+        Name: S-Pain_0
+        TextureRegion: {X: 3, Y: 511, Width: 39, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    57dfc19bd6ca9beaef1fd8171eed966a:
+        Source: !file ../../Resources/Pinkie.png
+        Name: SWPain_0
+        TextureRegion: {X: 44, Y: 513, Width: 50, Height: 53}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    2890638c5e686700369ad89435aaac35:
+        Source: !file ../../Resources/Pinkie.png
+        Name: -WPain_0
+        TextureRegion: {X: 97, Y: 515, Width: 59, Height: 51}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    4d639b88de6f182a240e00b7d81d6491:
+        Source: !file ../../Resources/Pinkie.png
+        Name: NWPain_0
+        TextureRegion: {X: 159, Y: 517, Width: 52, Height: 49}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    cf15622cf75adcf899b552d710dbd84f:
+        Source: !file ../../Resources/Pinkie.png
+        Name: N-Pain_0
+        TextureRegion: {X: 214, Y: 518, Width: 35, Height: 48}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    a2c46a28cf563f62e6b0bef746e7b379:
+        Source: !file ../../Resources/Pinkie.png
+        Name: NEPain_0
+        TextureRegion: {X: 252, Y: 518, Width: 44, Height: 48}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    49e210f5c48271f760fc1911c7864d1b:
+        Source: !file ../../Resources/Pinkie.png
+        Name: -EPain_0
+        TextureRegion: {X: 299, Y: 516, Width: 57, Height: 50}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    16bc547d894d31c676aca37d6f5627ac:
+        Source: !file ../../Resources/Pinkie.png
+        Name: SEPain_0
+        TextureRegion: {X: 359, Y: 514, Width: 54, Height: 52}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    8e934d97660491f8c97331c6f0ecff09:
+        Source: !file ../../Resources/Pinkie.png
+        Name: DS_0
+        TextureRegion: {X: 3, Y: 569, Width: 54, Height: 56}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    8ed6627bf910be7944621a720b5df99f:
+        Source: !file ../../Resources/Pinkie.png
+        Name: DS_1
+        TextureRegion: {X: 60, Y: 569, Width: 60, Height: 56}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    88bcba82a7696a711c24cb3534842a2f:
+        Source: !file ../../Resources/Pinkie.png
+        Name: DS_2
+        TextureRegion: {X: 123, Y: 572, Width: 52, Height: 53}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    7c781c2ed146fb20b1ec8ea6a0f552da:
+        Source: !file ../../Resources/Pinkie.png
+        Name: DS_3
+        TextureRegion: {X: 178, Y: 568, Width: 62, Height: 57}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    5415b02a87f69aaa749c3c22d6d0f367:
+        Source: !file ../../Resources/Pinkie.png
+        Name: DS_4
+        TextureRegion: {X: 243, Y: 579, Width: 64, Height: 46}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    8e5280f4e0ac08786c3dfaf273c4b50b:
+        Source: !file ../../Resources/Pinkie.png
+        Name: DS_5
+        TextureRegion: {X: 310, Y: 593, Width: 64, Height: 32}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}

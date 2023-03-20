@@ -62,12 +62,12 @@
         </member>
         <member name="M:Stride.Navigation.Navigation.CreateNavmesh(System.Single)">
             <summary>
-            Creates a new navigation mesh object. 
+            Creates a new navigation mesh object.
             You must add tiles to it with AddTile before you can perform navigation queries using Query
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Stride.Navigation.Navigation.AddTile(System.IntPtr,System.IntPtr,System.Int32)">
+        <member name="M:Stride.Navigation.Navigation.AddTile(Stride.Navigation.Navigation.NavMeshHandle,System.Byte*,System.Int32)">
             <summary>
             Adds a new tile to the navigation mesh object
             </summary>
@@ -75,14 +75,14 @@
             <param name="data">Navigation mesh binary data in the detour format to load</param>
             <param name="dataLength">Length of the binary mesh data</param>
         </member>
-        <member name="M:Stride.Navigation.Navigation.RemoveTile(System.IntPtr,Stride.Core.Mathematics.Point)">
+        <member name="M:Stride.Navigation.Navigation.RemoveTile(Stride.Navigation.Navigation.NavMeshHandle,Stride.Core.Mathematics.Point)">
             <summary>
             Removes a tile from the navigation mesh object
             </summary>
             <param name="navmesh"></param>
             <param name="tileCoordinate">Coordinate of the tile to remove</param>
         </member>
-        <member name="M:Stride.Navigation.Navigation.DoPathFindQuery(System.IntPtr,Stride.Navigation.Navigation.PathFindQuery,System.IntPtr)">
+        <member name="M:Stride.Navigation.Navigation.DoPathFindQuery(Stride.Navigation.Navigation.NavMeshHandle,Stride.Navigation.Navigation.PathFindQuery,Stride.Navigation.Navigation.PathFindResult@)">
             <summary>
             Perform a pathfinding query on the navigation mesh
             </summary>
@@ -91,7 +91,7 @@
             <param name="resultStructure">A structure of type PathFindResult, should have the PathPoints field initialized to point to an array of Vector3's with the appropriate size</param>
             <returns>A PathFindQueryResult</returns>
         </member>
-        <member name="M:Stride.Navigation.Navigation.DoRaycastQuery(System.IntPtr,Stride.Navigation.Navigation.RaycastQuery,System.IntPtr)">
+        <member name="M:Stride.Navigation.Navigation.DoRaycastQuery(Stride.Navigation.Navigation.NavMeshHandle,Stride.Navigation.Navigation.RaycastQuery,Stride.Navigation.Navigation.RaycastResult@)">
             <summary>
             Perform a raycast on the navigation mesh
             </summary>

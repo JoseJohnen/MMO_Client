@@ -15,6 +15,7 @@ using Interfaz.Utilities;
 using System.Text.RegularExpressions;
 using MMO_Client.Code.Models;
 using Stride.Input;
+using MMO_Client.Models.PuppetModels;
 
 namespace MMO_Client.Code.Controllers
 {
@@ -172,13 +173,13 @@ namespace MMO_Client.Code.Controllers
             {
                 List<Message> l_msgs = ConsolidateMessage.CheckMissingMessages();
 
-                if(l_msgs != null)
+                if (l_msgs != null)
                 {
-                    if(l_msgs.Count > 0)
+                    if (l_msgs.Count > 0)
                     {
                         foreach (Message item in l_msgs)
                         {
-                            ConnectionManager.Queue_Instrucciones.Enqueue("MS:"+ item.ToJson());
+                            ConnectionManager.Queue_Instrucciones.Enqueue("MS:" + item.ToJson());
                         }
                     }
                 }
@@ -220,7 +221,7 @@ namespace MMO_Client.Code.Controllers
                 string item = string.Empty;
                 while (!ConnectionManager.Queue_Instrucciones.IsEmpty)
                 {
-                    if(!ConnectionManager.Queue_Instrucciones.TryDequeue(out item))
+                    if (!ConnectionManager.Queue_Instrucciones.TryDequeue(out item))
                     {
                         continue;
                     }
@@ -258,7 +259,7 @@ namespace MMO_Client.Code.Controllers
                         string[] tempStrArray = item.Split("|°|", StringSplitOptions.RemoveEmptyEntries);
                         item = tempStrArray[0];
 
-                        if(tempStrArray.Length <= 1)
+                        if (tempStrArray.Length <= 1)
                         {
                             goto msg;
                         }
@@ -279,9 +280,9 @@ namespace MMO_Client.Code.Controllers
                         }
                         continue;
                     }
-                    #endregion
+                #endregion
 
-                    msg:
+                msg:
                     item = UtilityAssistant.ExtractValues(item, "MS");
                     Message nwMsg = Message.CreateFromJson(item);
 
@@ -298,8 +299,8 @@ namespace MMO_Client.Code.Controllers
                         //este "if" es un mecánismo de emergencia en cualquier caso.
 
                         //Firme sospecha de que los mensajes que entran acá son remanente de las preguntas para consolidar
-                        
-                        Console.WriteLine("Entro nwMsg.IdRef > 0: item: " + item +"\n\n");
+
+                        Console.WriteLine("Entro nwMsg.IdRef > 0: item: " + item + "\n\n");
                         continue;
                     }
                     //END TODO
@@ -347,7 +348,7 @@ namespace MMO_Client.Code.Controllers
                 string item = string.Empty;
                 while (!ConnectionManager.Queue_Answers.IsEmpty)
                 {
-                    if(!ConnectionManager.Queue_Answers.TryDequeue(out item))
+                    if (!ConnectionManager.Queue_Answers.TryDequeue(out item))
                     {
                         continue;
                     }
@@ -479,15 +480,45 @@ namespace MMO_Client.Code.Controllers
 
                         //Si no ha sido registrado antes y pasa el break
                         T tmp = Content.Load<T>(strTemp);
+                        if (tmp.GetType().Name == "SpriteSheet")
+                        {
+                            strTemp = strTemp.Replace("Sprites/", "");
+                            foreach (string itm in l_ignoreStrings)
+                            {
+                                if (strTemp.ToUpper().Equals(itm.ToUpper()))
+                                {
+                                    state = true;
+                                    break;
+                                }
+                            }
+
+                            if (state == true)
+                            {
+                                state = false;
+                                continue;
+                            }
+
+                            Sprite spr = new Sprite();
+                            spr.Name = strTemp;
+                            (tmp as SpriteSheet).Sprites.Add(spr);
+                            l_ignoreStrings.Add(strTemp);
+                        }
+
                         l_temp.Add(tmp);
                         i++;
                         l_ignoreStrings.Add(item);
                         continue;
                     }
+
                     T temp = Content.Load<T>(item);
                     l_temp.Add(temp);
                     i++;
                     l_ignoreStrings.Add(item);
+                }
+                var itemFirst = l_temp[0];
+                if(itemFirst.GetType().Name == "SpriteSheet")
+                {
+                    l_temp = l_temp.GroupBy(x => (x as SpriteSheet).Sprites).Select(y => y.First()).ToList();
                 }
                 return l_temp;
             }

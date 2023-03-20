@@ -232,6 +232,20 @@
             Manage several effect parameters (resources and data). A specific data and resource layout can be forced (usually by the consuming effect).
             </summary>
         </member>
+        <member name="M:Stride.Rendering.ParameterCollection.Align(System.Int32)">
+            <summary>Increases <paramref name="value"/> to the next multiple of <see cref="F:Stride.Rendering.ParameterCollection.Alignment"/>,
+            if it is not already a multiple.
+            <para>It is blindly assumed <see cref="F:Stride.Rendering.ParameterCollection.Alignment"/> is a power of 2.</para></summary>
+        </member>
+        <member name="M:Stride.Rendering.ParameterCollection.ComputeAlignedSizeMinusTrailingPadding(System.Int32,System.Int32)">
+            <summary>Computes the buffer size required for a single parameter value
+            or an array of parameters of the same type.
+            <para>This is an incremental size for buffers that contain
+            more than one type of parameter.</para></summary>
+            <returns>The size of a buffer required to store <paramref name="elementCount"/>
+            elements of size <paramref name="elementSize"/>, including padding to
+            <see cref="F:Stride.Rendering.ParameterCollection.Alignment"/> for all but the last element.</returns>
+        </member>
         <member name="M:Stride.Rendering.ParameterCollection.GetAccessor``1(Stride.Rendering.ObjectParameterKey{``0},System.Boolean)">
             <summary>
             Gets an accessor to get and set objects more quickly.

@@ -2857,17 +2857,12 @@
             The tag.
             </value>
         </member>
-        <member name="M:Stride.Engine.PhysicsComponent.DerivePhysicsTransformation(Stride.Core.Mathematics.Matrix@)">
+        <member name="M:Stride.Engine.PhysicsComponent.DerivePhysicsTransformation(Stride.Core.Mathematics.Matrix@,System.Boolean)">
             <summary>
-            Computes the physics transformation from the TransformComponent values
+            Computes the physics transformation from the Bone or TransformComponent values
             </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Stride.Engine.PhysicsComponent.DeriveBonePhysicsTransformation(Stride.Core.Mathematics.Matrix@)">
-            <summary>
-            Computes the physics transformation from the TransformComponent values
-            </summary>
-            <returns></returns>
+            <param name="derivedTransformation">The resulting transformation matrix</param>
+            <param name="forceUpdateTransform">Ensure that the Transform.WorldMatrix we are reading from is up to date</param>
         </member>
         <member name="M:Stride.Engine.PhysicsComponent.UpdateTransformationComponent(Stride.Core.Mathematics.Matrix@)">
             <summary>
@@ -2881,12 +2876,13 @@
             </summary>
             <param name="physicsTransform"></param>
         </member>
-        <member name="M:Stride.Engine.PhysicsComponent.UpdatePhysicsTransformation">
+        <member name="M:Stride.Engine.PhysicsComponent.UpdatePhysicsTransformation(System.Boolean)">
             <summary>
             Forces an update from the TransformComponent to the Collider.PhysicsWorldTransform.
             Useful to manually force movements.
             In the case of dynamic rigidbodies a velocity reset should be applied first.
             </summary>
+            <param name="forceUpdateTransform">Ensure that the Transform.WorldMatrix we are reading from is up to date</param>
         </member>
         <member name="M:Stride.Engine.PhysicsComponent.ColliderShapeCollection.InsertItem(System.Int32,Stride.Physics.IInlineColliderShapeDesc)">
             <inheritdoc/>

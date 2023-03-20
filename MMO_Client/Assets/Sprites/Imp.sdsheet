@@ -1,0 +1,415 @@
+!SpriteSheet
+Id: ef27c531-e410-4ca0-87b1-7a7739b913ab
+SerializedVersion: {Stride: 2.0.0.0}
+Tags: []
+Type: Sprite2D
+ColorKeyColor: {R: 255, G: 0, B: 255, A: 255}
+ColorKeyEnabled: true
+Packing: {}
+Sprites:
+    b4765bcbf97dd50ed2604e728d5590bf:
+        Source: !file ../../Resources/Imp.png
+        Name: S-Walk_0
+        TextureRegion: {X: 3, Y: 6, Width: 40, Height: 56}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    e8a0a2c6f375a4fa3183816978771818:
+        Source: !file ../../Resources/Imp.png
+        Name: S-Walk_1
+        TextureRegion: {X: 48, Y: 7, Width: 38, Height: 56}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    1c2cb274cb529244c240332640387e3e:
+        Source: !file ../../Resources/Imp.png
+        Name: S-Walk_2
+        TextureRegion: {X: 89, Y: 3, Width: 39, Height: 60}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    7b353971a500cbab3c675301bbaf8872:
+        Source: !file ../../Resources/Imp.png
+        Name: S-Walk_3
+        TextureRegion: {X: 131, Y: 6, Width: 37, Height: 57}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    f80a6b7dca9cb5d6685ccfc8694fbf5f:
+        Source: !file ../../Resources/Imp.png
+        Name: S-Shoot_0
+        TextureRegion: {X: 171, Y: 3, Width: 49, Height: 60}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    78cf0d2fec37b28c968f8f75cc2587d4:
+        Source: !file ../../Resources/Imp.png
+        Name: S-Shoot_1
+        TextureRegion: {X: 223, Y: 8, Width: 43, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    ead755d8f6da0ccd7428ec9c58471eee:
+        Source: !file ../../Resources/Imp.png
+        Name: S-Shoot_2
+        TextureRegion: {X: 270, Y: 8, Width: 32, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    d32b23457574257e5128e6eb2df18fe9:
+        Source: !file ../../Resources/Imp.png
+        Name: SWWalk_0
+        TextureRegion: {X: 4, Y: 69, Width: 40, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    6b4523eb330666c3ea6070f96fcc2a07:
+        Source: !file ../../Resources/Imp.png
+        Name: SWWalk_1
+        TextureRegion: {X: 47, Y: 67, Width: 38, Height: 57}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    0563ef820ae2be646d6b25f5724a12ae:
+        Source: !file ../../Resources/Imp.png
+        Name: SWWalk_2
+        TextureRegion: {X: 88, Y: 66, Width: 41, Height: 58}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    2053560ab7bc824d85011e58d2b40799:
+        Source: !file ../../Resources/Imp.png
+        Name: SWWalk_3
+        TextureRegion: {X: 132, Y: 69, Width: 45, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    f2cdf1369b33726d6539de1e822e0b02:
+        Source: !file ../../Resources/Imp.png
+        Name: SWShoot_0
+        TextureRegion: {X: 180, Y: 68, Width: 32, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    9a71f777db3243463f5be0a4d3f800cb:
+        Source: !file ../../Resources/Imp.png
+        Name: SWShoot_1
+        TextureRegion: {X: 215, Y: 70, Width: 45, Height: 54}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    48ee01b44ff3b46cb4de4f5591ab4f16:
+        Source: !file ../../Resources/Imp.png
+        Name: SWShoot_2
+        TextureRegion: {X: 263, Y: 69, Width: 55, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    d5c36f5296efb31fad3ebbd153b5637b:
+        Source: !file ../../Resources/Imp.png
+        Name: -WWalk_0
+        TextureRegion: {X: 4, Y: 131, Width: 36, Height: 49}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    f96e618a2d0e2d2c0cabee42a6eab668:
+        Source: !file ../../Resources/Imp.png
+        Name: -WWalk_1
+        TextureRegion: {X: 43, Y: 129, Width: 38, Height: 51}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    9282a9285dcce6c2face891986d96ea5:
+        Source: !file ../../Resources/Imp.png
+        Name: -WWalk_2
+        TextureRegion: {X: 84, Y: 127, Width: 31, Height: 53}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    dab500c81de220322e9ec8c20d249505:
+        Source: !file ../../Resources/Imp.png
+        Name: -WWalk_3
+        TextureRegion: {X: 118, Y: 132, Width: 39, Height: 48}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    b0b91eaa78c5dbd0570eca6226cb4e24:
+        Source: !file ../../Resources/Imp.png
+        Name: -WShoot_0
+        TextureRegion: {X: 160, Y: 131, Width: 39, Height: 49}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    aa4fba12c782692c73ee73daf008474d:
+        Source: !file ../../Resources/Imp.png
+        Name: -WShoot_1
+        TextureRegion: {X: 202, Y: 131, Width: 42, Height: 49}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    5103266dce6f6b865ee49897dcf7c601:
+        Source: !file ../../Resources/Imp.png
+        Name: -WShoot_2
+        TextureRegion: {X: 248, Y: 129, Width: 59, Height: 51}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    0041959f176cd966b3ca612593a9e7f4:
+        Source: !file ../../Resources/Imp.png
+        Name: NWWalk_0
+        TextureRegion: {X: 3, Y: 187, Width: 29, Height: 47}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    6cf38a77db3fb6a7ecfdc6c640e4d8c6:
+        Source: !file ../../Resources/Imp.png
+        Name: NWWalk_1
+        TextureRegion: {X: 36, Y: 187, Width: 32, Height: 47}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    7b490e089ba5139e962a9ffa004d428f:
+        Source: !file ../../Resources/Imp.png
+        Name: NWWalk_2
+        TextureRegion: {X: 71, Y: 183, Width: 28, Height: 51}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    30e1682c330ee6c2dcecb5fb50ada6a5:
+        Source: !file ../../Resources/Imp.png
+        Name: NWWalk_3
+        TextureRegion: {X: 102, Y: 188, Width: 30, Height: 46}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    dabf02c6eeedc84c440326ada81940b3:
+        Source: !file ../../Resources/Imp.png
+        Name: NWShoot_0
+        TextureRegion: {X: 135, Y: 187, Width: 34, Height: 47}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    9e1025a3867ca65db51c8401dbe94d82:
+        Source: !file ../../Resources/Imp.png
+        Name: NWShoot_1
+        TextureRegion: {X: 172, Y: 187, Width: 36, Height: 47}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    f1d18f9fd5a0504919652c986be95025:
+        Source: !file ../../Resources/Imp.png
+        Name: NWShoot_2
+        TextureRegion: {X: 211, Y: 187, Width: 46, Height: 47}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    bfac57802fb0049ab3d910c8f2315636:
+        Source: !file ../../Resources/Imp.png
+        Name: N-Walk_0
+        TextureRegion: {X: 4, Y: 237, Width: 35, Height: 49}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    dd220c3ca2751b241f62db8a641000df:
+        Source: !file ../../Resources/Imp.png
+        Name: N-Walk_1
+        TextureRegion: {X: 42, Y: 240, Width: 33, Height: 46}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    92986ca6b53d1380694da81b2e0e96f0:
+        Source: !file ../../Resources/Imp.png
+        Name: N-Walk_2
+        TextureRegion: {X: 78, Y: 237, Width: 35, Height: 49}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    497a71c02ee362d01ea308e5bd87dffa:
+        Source: !file ../../Resources/Imp.png
+        Name: N-Walk_3
+        TextureRegion: {X: 116, Y: 240, Width: 33, Height: 46}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    fbce0ca330471bfac97b9939bf8d5dec:
+        Source: !file ../../Resources/Imp.png
+        Name: N-Shoot_0
+        TextureRegion: {X: 152, Y: 238, Width: 38, Height: 48}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    55038d11882353930050a6a5228f688f:
+        Source: !file ../../Resources/Imp.png
+        Name: N-Shoot_1
+        TextureRegion: {X: 193, Y: 240, Width: 33, Height: 46}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    442a85eac053ba5e6a42438214284fa7:
+        Source: !file ../../Resources/Imp.png
+        Name: N-Shoot_2
+        TextureRegion: {X: 229, Y: 237, Width: 31, Height: 49}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    d19165f3b90096dcdb70178add67fa2e:
+        Source: !file ../../Resources/Imp.png
+        Name: S-Pain_0
+        TextureRegion: {X: 4, Y: 292, Width: 41, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    fa16e165436cfd11c45db943ad62ed4a:
+        Source: !file ../../Resources/Imp.png
+        Name: SWPain_0
+        TextureRegion: {X: 48, Y: 291, Width: 31, Height: 56}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    b90b6224070f1a85f237805d77d70c13:
+        Source: !file ../../Resources/Imp.png
+        Name: -WPain_0
+        TextureRegion: {X: 82, Y: 290, Width: 34, Height: 57}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    13f20caa951d4c6b522920dc886340e1:
+        Source: !file ../../Resources/Imp.png
+        Name: NWPain_0
+        TextureRegion: {X: 119, Y: 291, Width: 34, Height: 56}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    61a799267abd668641f875faea0ec4d3:
+        Source: !file ../../Resources/Imp.png
+        Name: N-Pain_0
+        TextureRegion: {X: 156, Y: 290, Width: 39, Height: 57}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    b11dde5238e1fb30f8ef83b0a15751aa:
+        Source: !file ../../Resources/Imp.png
+        Name: DS_0
+        TextureRegion: {X: 3, Y: 350, Width: 42, Height: 62}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    005a61988557f9d86ce14999601aa535:
+        Source: !file ../../Resources/Imp.png
+        Name: DS_1
+        TextureRegion: {X: 48, Y: 353, Width: 41, Height: 59}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    eaf2baecc67488fa69895e498f749e6e:
+        Source: !file ../../Resources/Imp.png
+        Name: DS_2
+        TextureRegion: {X: 93, Y: 358, Width: 40, Height: 54}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    5bb3de357433874e1f91b46eb208c0dd:
+        Source: !file ../../Resources/Imp.png
+        Name: DS_3
+        TextureRegion: {X: 136, Y: 366, Width: 48, Height: 46}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    07a64ca4a19e9ed32ce01cb5c1b50ac2:
+        Source: !file ../../Resources/Imp.png
+        Name: DS_4
+        TextureRegion: {X: 187, Y: 387, Width: 58, Height: 22}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    50330e5fd79783e3a2be2441dbddde68:
+        Source: !file ../../Resources/Imp.png
+        Name: DE_0
+        TextureRegion: {X: 4, Y: 417, Width: 46, Height: 59}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    15b79e37e4409a9af950e93238ec5f12:
+        Source: !file ../../Resources/Imp.png
+        Name: DE_1
+        TextureRegion: {X: 53, Y: 415, Width: 49, Height: 61}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    5c7384a4998f99cd980ae7dc482740ed:
+        Source: !file ../../Resources/Imp.png
+        Name: DE_2
+        TextureRegion: {X: 105, Y: 415, Width: 55, Height: 61}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    fac41e8627effb388f883cfa55991fe6:
+        Source: !file ../../Resources/Imp.png
+        Name: DE_3
+        TextureRegion: {X: 163, Y: 415, Width: 57, Height: 61}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    b5c185aee068b8056e147cce6df00c2d:
+        Source: !file ../../Resources/Imp.png
+        Name: DE_4
+        TextureRegion: {X: 223, Y: 432, Width: 57, Height: 44}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    e867b3325ebeeb5239bf4d0fcf86c44a:
+        Source: !file ../../Resources/Imp.png
+        Name: DE_5
+        TextureRegion: {X: 283, Y: 442, Width: 57, Height: 34}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    628a3060c281931b270a7e7e06f005b4:
+        Source: !file ../../Resources/Imp.png
+        Name: DE_6
+        TextureRegion: {X: 343, Y: 444, Width: 56, Height: 31}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    5b6359030e35b4708afba970e98ddce1:
+        Source: !file ../../Resources/Imp.png
+        Name: DE_7
+        TextureRegion: {X: 402, Y: 457, Width: 56, Height: 18}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    8b8898184949fdeb48c4ed371ba9bd37:
+        Source: !file ../../Resources/Imp.png
+        Name: MM_0
+        TextureRegion: {X: 351, Y: 345, Width: 15, Height: 15}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    71716f13ecd1063079d6bac2b93d6d87:
+        Source: !file ../../Resources/Imp.png
+        Name: MM_1
+        TextureRegion: {X: 369, Y: 345, Width: 15, Height: 15}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    e59713380e5789dc0d5d173e85605fc1:
+        Source: !file ../../Resources/Imp.png
+        Name: ME_0
+        TextureRegion: {X: 351, Y: 372, Width: 37, Height: 35}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    9edc76c71112fa07b4555ccdfcc1cae7:
+        Source: !file ../../Resources/Imp.png
+        Name: ME_1
+        TextureRegion: {X: 391, Y: 368, Width: 43, Height: 39}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    cafdd969750fd918387f29bc469e81a5:
+        Source: !file ../../Resources/Imp.png
+        Name: ME_2
+        TextureRegion: {X: 437, Y: 363, Width: 50, Height: 44}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}

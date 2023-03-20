@@ -1,0 +1,366 @@
+!SpriteSheet
+Id: a9c32b3f-ed5b-49a1-bb33-32e1c27c5bba
+SerializedVersion: {Stride: 2.0.0.0}
+Tags: []
+Type: Sprite2D
+ColorKeyColor: {R: 255, G: 0, B: 255, A: 255}
+ColorKeyEnabled: true
+Packing: {}
+Sprites:
+    a324aab428e8b1e3fd1fe1bdb009568e:
+        Source: !file ../../Resources/Marine.png
+        Name: S-Walk_0
+        TextureRegion: {X: 136, Y: 3, Width: 41, Height: 56}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    49c06ed77931b352adc758abf8d3ca34:
+        Source: !file ../../Resources/Marine.png
+        Name: S-Walk_1
+        TextureRegion: {X: 180, Y: 3, Width: 37, Height: 56}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    87791dfe31c6e04367b090530d0f3ec8:
+        Source: !file ../../Resources/Marine.png
+        Name: S-Walk_2
+        TextureRegion: {X: 220, Y: 3, Width: 39, Height: 56}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    c4a99fbbe3619b2641dffd23632140da:
+        Source: !file ../../Resources/Marine.png
+        Name: S-Walk_3
+        TextureRegion: {X: 262, Y: 4, Width: 40, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    d6189c31f170bb403bdd63ed4757afb0:
+        Source: !file ../../Resources/Marine.png
+        Name: S-Shoot_0
+        TextureRegion: {X: 305, Y: 3, Width: 26, Height: 56}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    16a0d6ab3cd5c24afb4c20250aa534e8:
+        Source: !file ../../Resources/Marine.png
+        Name: S-Shoot_1
+        TextureRegion: {X: 334, Y: 3, Width: 26, Height: 56}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    410001adafed0eda8a479ac3c4a43860:
+        Source: !file ../../Resources/Marine.png
+        Name: SEWalk_0
+        TextureRegion: {X: 126, Y: 63, Width: 35, Height: 54}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    6e4de23db3bcb24177fd9ea7f0d018da:
+        Source: !file ../../Resources/Marine.png
+        Name: SEWalk_1
+        TextureRegion: {X: 164, Y: 62, Width: 35, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    8c8056f601a6182edc0e1b5d23ef2eb5:
+        Source: !file ../../Resources/Marine.png
+        Name: SEWalk_2
+        TextureRegion: {X: 202, Y: 62, Width: 37, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    2884a84e298c1a15f5110e6f837f7481:
+        Source: !file ../../Resources/Marine.png
+        Name: SEWalk_3
+        TextureRegion: {X: 242, Y: 62, Width: 35, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    5aaf608badc09420a33f7bcaa1439105:
+        Source: !file ../../Resources/Marine.png
+        Name: SEShoot_0
+        TextureRegion: {X: 280, Y: 62, Width: 43, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    462d1789eb257a17a73346087ff39691:
+        Source: !file ../../Resources/Marine.png
+        Name: SEShoot_1
+        TextureRegion: {X: 325, Y: 62, Width: 45, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    0abac4bc0575219c1b0c7e45a4d387ce:
+        Source: !file ../../Resources/Marine.png
+        Name: -EWalk_0
+        TextureRegion: {X: 114, Y: 122, Width: 42, Height: 53}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    69d5cf72592c8d1d13db94bc454875ad:
+        Source: !file ../../Resources/Marine.png
+        Name: -EWalk_1
+        TextureRegion: {X: 159, Y: 120, Width: 36, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    19c7107f10ce72ac8e10510890c069ee:
+        Source: !file ../../Resources/Marine.png
+        Name: -EWalk_2
+        TextureRegion: {X: 198, Y: 121, Width: 38, Height: 54}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    5c43155b94ca791e1ea35fd5a066fbcb:
+        Source: !file ../../Resources/Marine.png
+        Name: -EWalk_3
+        TextureRegion: {X: 239, Y: 121, Width: 34, Height: 54}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    d7b46ead0f795a1b9cb9651732272769:
+        Source: !file ../../Resources/Marine.png
+        Name: -EShoot_0
+        TextureRegion: {X: 276, Y: 122, Width: 51, Height: 53}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    ef66ed965d1a1f56a23f3aa8e48e7fb2:
+        Source: !file ../../Resources/Marine.png
+        Name: -EShoot_1
+        TextureRegion: {X: 330, Y: 122, Width: 52, Height: 53}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    9deb1b58e1e1d2bbff07c321b077cb25:
+        Source: !file ../../Resources/Marine.png
+        Name: NEWalk_0
+        TextureRegion: {X: 117, Y: 182, Width: 45, Height: 51}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    1e98a27203ec2c893e8b5fd56d3de0e3:
+        Source: !file ../../Resources/Marine.png
+        Name: NEWalk_1
+        TextureRegion: {X: 165, Y: 179, Width: 41, Height: 54}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    04f4316623817b801b0d35692e373ab2:
+        Source: !file ../../Resources/Marine.png
+        Name: NEWalk_2
+        TextureRegion: {X: 209, Y: 178, Width: 41, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    a790be209a13173ec506a1fd7f9e0336:
+        Source: !file ../../Resources/Marine.png
+        Name: NEWalk_3
+        TextureRegion: {X: 253, Y: 179, Width: 40, Height: 54}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    1a78e4fbeeb1312331d0fee6050c857b:
+        Source: !file ../../Resources/Marine.png
+        Name: NEShoot_0
+        TextureRegion: {X: 296, Y: 181, Width: 38, Height: 52}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    a6bc44827a6bc2e6711e8b6f140726b4:
+        Source: !file ../../Resources/Marine.png
+        Name: NEShoot_1
+        TextureRegion: {X: 337, Y: 181, Width: 41, Height: 52}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    ca4c77e4186c2120e45fbaae746036b1:
+        Source: !file ../../Resources/Marine.png
+        Name: N-Walk_0
+        TextureRegion: {X: 147, Y: 239, Width: 36, Height: 50}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    2025b8f5de27b876207f5f1ed798978e:
+        Source: !file ../../Resources/Marine.png
+        Name: N-Walk_1
+        TextureRegion: {X: 186, Y: 236, Width: 35, Height: 53}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    8cae62c2a385b801434ea509631ce9e1:
+        Source: !file ../../Resources/Marine.png
+        Name: N-Walk_2
+        TextureRegion: {X: 224, Y: 236, Width: 34, Height: 53}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    6d94d84f70c25a489130b20b930a50db:
+        Source: !file ../../Resources/Marine.png
+        Name: N-Walk_3
+        TextureRegion: {X: 261, Y: 236, Width: 35, Height: 53}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    fa4ae9116ebf3b1e58ca31c98022f829:
+        Source: !file ../../Resources/Marine.png
+        Name: N-Shoot_0
+        TextureRegion: {X: 299, Y: 238, Width: 26, Height: 51}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    f96b7fe94fe3ae2e82b61f1d1b7900f0:
+        Source: !file ../../Resources/Marine.png
+        Name: N-Shoot_1
+        TextureRegion: {X: 328, Y: 238, Width: 23, Height: 51}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    f8b306c7273419b7d95326cb9cc817bc:
+        Source: !file ../../Resources/Marine.png
+        Name: S-Pain_0
+        TextureRegion: {X: 140, Y: 293, Width: 39, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    5947a794aed4686b05ef392e890367ba:
+        Source: !file ../../Resources/Marine.png
+        Name: SWPain_0
+        TextureRegion: {X: 182, Y: 292, Width: 36, Height: 56}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    9ae56a7946ed8006842cdb5273d5b818:
+        Source: !file ../../Resources/Marine.png
+        Name: -WPain_0
+        TextureRegion: {X: 221, Y: 293, Width: 43, Height: 55}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    1530f7fdd4caec8f26f116ed8a165569:
+        Source: !file ../../Resources/Marine.png
+        Name: NWPain_0
+        TextureRegion: {X: 267, Y: 296, Width: 43, Height: 52}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    690db3fa3b25fb097a828a62a5534d96:
+        Source: !file ../../Resources/Marine.png
+        Name: N-Pain_0
+        TextureRegion: {X: 313, Y: 295, Width: 34, Height: 54}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    41f2f583372687602230a524b2819bdd:
+        Source: !file ../../Resources/Marine.png
+        Name: DS_0
+        TextureRegion: {X: 74, Y: 351, Width: 44, Height: 50}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    10308eade41bf43eb29c077af99bc853:
+        Source: !file ../../Resources/Marine.png
+        Name: DS_1
+        TextureRegion: {X: 120, Y: 358, Width: 35, Height: 43}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    9689f24086cddf9510a1e60826dfa87a:
+        Source: !file ../../Resources/Marine.png
+        Name: DS_2
+        TextureRegion: {X: 158, Y: 355, Width: 36, Height: 46}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    c7ebcaa5380b2637b7e50d2419d24e4b:
+        Source: !file ../../Resources/Marine.png
+        Name: DS_3
+        TextureRegion: {X: 197, Y: 363, Width: 41, Height: 38}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    530184fed748760c7f026a8d8aca2588:
+        Source: !file ../../Resources/Marine.png
+        Name: DS_4
+        TextureRegion: {X: 241, Y: 387, Width: 51, Height: 14}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    9b780dbe051b139773c7a7ed6b24390d:
+        Source: !file ../../Resources/Marine.png
+        Name: DS_5
+        TextureRegion: {X: 295, Y: 387, Width: 51, Height: 14}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    4703793880111f560ac6cf0fa7d182fb:
+        Source: !file ../../Resources/Marine.png
+        Name: DS_6
+        TextureRegion: {X: 349, Y: 387, Width: 51, Height: 14}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    2703bae7ff3d5683b2f2c082104d80e3:
+        Source: !file ../../Resources/Marine.png
+        Name: DE_0
+        TextureRegion: {X: 3, Y: 407, Width: 38, Height: 56}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    1d554ec04e36f259fc8c2f1b9f80a5de:
+        Source: !file ../../Resources/Marine.png
+        Name: DE_1
+        TextureRegion: {X: 44, Y: 404, Width: 44, Height: 59}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    059a1359b807af8a2721d5f0140c1e40:
+        Source: !file ../../Resources/Marine.png
+        Name: DE_2
+        TextureRegion: {X: 91, Y: 406, Width: 48, Height: 57}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    0970c2869e540aea96c43b6c2a3c4493:
+        Source: !file ../../Resources/Marine.png
+        Name: DE_3
+        TextureRegion: {X: 142, Y: 411, Width: 53, Height: 52}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    f3e69314ab01c5d9f14c564b1577b17c:
+        Source: !file ../../Resources/Marine.png
+        Name: DE_4
+        TextureRegion: {X: 198, Y: 416, Width: 55, Height: 47}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    ec55b01527c39d180ef81a6e8db19018:
+        Source: !file ../../Resources/Marine.png
+        Name: DE_5
+        TextureRegion: {X: 256, Y: 423, Width: 57, Height: 40}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    46670a9d82ce2189f336bc630a484a9e:
+        Source: !file ../../Resources/Marine.png
+        Name: DE_6
+        TextureRegion: {X: 316, Y: 430, Width: 57, Height: 33}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    f0d37f2a9389e06f515a6fe7ddffda9c:
+        Source: !file ../../Resources/Marine.png
+        Name: DE_7
+        TextureRegion: {X: 376, Y: 440, Width: 57, Height: 23}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    746f67b02c50d773668f14baf33de52d:
+        Source: !file ../../Resources/Marine.png
+        Name: DE_8
+        TextureRegion: {X: 436, Y: 441, Width: 57, Height: 22}
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
