@@ -390,12 +390,12 @@ namespace MMO_Client.Code.Controllers
                             responseString = UtilityAssistant.CleanJSON(strPreClean);
 
                             //En desuso
-                            if (responseChars.AsSpan(0, responseChars.Length).SequenceEqual("LOGIN_TRUE"))
-                            {
-                                Player.PLAYER.Entity.Name = MailTest;
-                                retrySend = false;
-                                isLoginSuccessfull = true;
-                            }
+                            //if (responseChars.AsSpan(0, responseChars.Length).SequenceEqual("LOGIN_TRUE"))
+                            //{
+                            //    Player.PLAYER.Entity.Name = MailTest;
+                            //    retrySend = false;
+                            //    isLoginSuccessfull = true;
+                            //}
                             //Fin en desuso
 
                             if (charCount > 0)
@@ -649,12 +649,12 @@ namespace MMO_Client.Code.Controllers
                     }
 
                     //En desuso
-                    if (responseString.Replace("\0", "") == "LOGIN_TRUE")
-                    {
-                        Player.PLAYER.Entity.Name = MailTest;
-                        retrySend = false;
-                        isLoginSuccessfull = true;
-                    }
+                    //if (responseString.Replace("\0", "") == "LOGIN_TRUE")
+                    //{
+                    //    Models.Player.PLAYER.Entity.Name = MailTest;
+                    //    retrySend = false;
+                    //    isLoginSuccessfull = true;
+                    //}
                     //Fin en desuso
 
                     if (responseString.Contains("ST") && !responseString.Contains("MS:"))

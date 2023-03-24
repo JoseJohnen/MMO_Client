@@ -16,6 +16,7 @@ using System.Text.RegularExpressions;
 using MMO_Client.Code.Models;
 using Stride.Input;
 using MMO_Client.Models.PuppetModels;
+using Player = MMO_Client.Code.Models.Player;
 
 namespace MMO_Client.Code.Controllers
 {

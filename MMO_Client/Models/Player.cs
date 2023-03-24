@@ -11,7 +11,7 @@ using MMO_Client.Code.Assistants;
 
 namespace MMO_Client.Code.Models
 {
-    public class Player : Puppet
+    public partial class Player : Puppet
     {
         //No usados en este proyecto, al menos de momento
         public static string WP = string.Empty;

@@ -26,6 +26,8 @@ using System.Threading;
 using System.Net.Http;
 using Stride.Core.Extensions;
 using MMO_Client.Models.PuppetModels;
+using Puppet = MMO_Client.Code.Models.Puppet;
+using Player = MMO_Client.Code.Models.Player;
 
 namespace MMO_Client.Controllers
 {

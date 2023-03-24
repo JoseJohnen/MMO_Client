@@ -8,21 +8,12 @@ using MMO_Client.Code.Assistants;
 using MMO_Client.Code.Controllers;
 using MMO_Client.Code.Interfaces;
 using Newtonsoft.Json;
-using MMO_Client.Models.FurnitureModels;
-using Microsoft.VisualBasic.Logging;
-using System.Runtime.ConstrainedExecution;
 using Interfaz.Models;
-using MMO_Client.Controllers;
 using Stride.Graphics;
-using Silk.NET.OpenGLES.Extensions.EXT;
-using Stride.Rendering.Sprites;
-using Stride.Core.Extensions;
-using Stride.Input;
-using System.ComponentModel;
 
 namespace MMO_Client.Code.Models
 {
-    public abstract class Puppet
+    public abstract partial class Puppet
     {
         private Dictionary<string, Pares<double, double>> direccionales = null;
 
@@ -160,11 +151,11 @@ namespace MMO_Client.Code.Models
                 Animacion anim = default(Animacion);
                 foreach (string item in l_missingAnimations)
                 {
-                    if(item.Contains("-W"))
+                    if (item.Contains("-W"))
                     {
-                        anim = AnimSprite.DesdeHastaFrames.Where(c => c.Nombre.Substring(0,2).Contains("-E") && c.Nombre.Contains("Walk")).First();
+                        anim = AnimSprite.DesdeHastaFrames.Where(c => c.Nombre.Substring(0, 2).Contains("-E") && c.Nombre.Contains("Walk")).First();
                     }
-                    else if(item.Contains("-E"))
+                    else if (item.Contains("-E"))
                     {
                         anim = AnimSprite.DesdeHastaFrames.Where(c => c.Nombre.Substring(0, 2).Contains("-W") && c.Nombre.Contains("Walk")).First();
                     }
@@ -185,7 +176,7 @@ namespace MMO_Client.Code.Models
                         anim = AnimSprite.DesdeHastaFrames.Where(c => c.Nombre.Substring(0, 2).Contains("SW") && c.Nombre.Contains("Walk")).First();
                     }
 
-                    if(!string.IsNullOrWhiteSpace(anim.Nombre))
+                    if (!string.IsNullOrWhiteSpace(anim.Nombre))
                     {
                         tempAnimArray[k] = new Animacion(anim.DesdeFrame, anim.HastaFrame, item);
                         tempAnimArray[k].isReversible = true;
@@ -273,7 +264,7 @@ namespace MMO_Client.Code.Models
                 //TODO: Activar animación relevante
 
                 Message msgOut = new Message();
-                Controller.controller.playerController.CreateShot(shot.ToJson(), msgOut, out msgOut);
+                Controller.controller.playerController.CreateShot("CS:" + shot.ToJson(), msgOut, out msgOut);
             }
             catch (Exception ex)
             {
@@ -320,7 +311,7 @@ namespace MMO_Client.Code.Models
                 }
 
                 Vector3 a = Vector3.Zero;
-                if (this.Entity.Transform.Position.X < Player.PLAYER.Entity.Transform.WorldMatrix.TranslationVector.X)
+                if (this.Entity.Transform.Position.X < targetPosition.X)//Player.PLAYER.Entity.Transform.WorldMatrix.TranslationVector.X)
                 {
                     a.X = this.VelocityModifier;
                     if (this.Entity.Transform.Scale.X < 0)
@@ -329,7 +320,7 @@ namespace MMO_Client.Code.Models
                     }
 
                 }
-                else if (this.Entity.Transform.Position.X > Player.PLAYER.Entity.Transform.WorldMatrix.TranslationVector.X)
+                else if (this.Entity.Transform.Position.X > targetPosition.X)//Player.PLAYER.Entity.Transform.WorldMatrix.TranslationVector.X)
                 {
                     a.X = this.VelocityModifier * -1;
                     if (this.Entity.Transform.Scale.X > 0)
@@ -341,21 +332,21 @@ namespace MMO_Client.Code.Models
                 //Only if fly
                 if (this.IsFlyer)
                 {
-                    if (this.Entity.Transform.Position.Y < Player.PLAYER.Entity.Transform.WorldMatrix.TranslationVector.Y)
+                    if (this.Entity.Transform.Position.Y < targetPosition.Y)//Player.PLAYER.Entity.Transform.WorldMatrix.TranslationVector.Y)
                     {
                         a.Y = this.VelocityModifier;
                     }
-                    else if (this.Entity.Transform.Position.Y > Player.PLAYER.Entity.Transform.WorldMatrix.TranslationVector.Y)
+                    else if (this.Entity.Transform.Position.Y > targetPosition.Y)//Player.PLAYER.Entity.Transform.WorldMatrix.TranslationVector.Y)
                     {
                         a.Y = this.VelocityModifier * -1;
                     }
                 }
 
-                if (this.Entity.Transform.Position.Z < Player.PLAYER.Entity.Transform.WorldMatrix.TranslationVector.Z)
+                if (this.Entity.Transform.Position.Z < targetPosition.Z)//Player.PLAYER.Entity.Transform.WorldMatrix.TranslationVector.Z)
                 {
                     a.Z = this.VelocityModifier;
                 }
-                else if (this.Entity.Transform.Position.Z > Player.PLAYER.Entity.Transform.WorldMatrix.TranslationVector.Z)
+                else if (this.Entity.Transform.Position.Z > targetPosition.Z)//Player.PLAYER.Entity.Transform.WorldMatrix.TranslationVector.Z)
                 {
                     a.Z = this.VelocityModifier * -1;
                 }
@@ -525,6 +516,45 @@ namespace MMO_Client.Code.Models
         }
 
         public abstract void RunIA();
+
+        public virtual void RunIAInstructions(string Instructions)
+        {
+            try
+            {
+                //TODO: Pon un switch que indique instrucciones especificas de IA
+                switch ("")
+                {
+                    case "":
+                        this.MoveTo(Vector3.Zero);
+                        break;
+                    case "1":
+                        this.ShootingToOnline(Vector3.Zero, new Shot());
+                        break;
+                    case "2":
+                        this.MeleeAttack();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error (Puppet) RunIAInstructions(string): " + ex.Message);
+            }
+        }
+
+        public virtual void MeleeAttack()
+        {
+            try
+            {
+                //TODO: TODO EL MÉTODO
+                //Tiene que, en un principio, cambiar la animación, la versión offline necesita determinar la distancia con el blanco también.
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error (Puppet) MeleeAttack(): " + ex.Message);
+            }
+        }
     }
 
     public abstract class PuppetShooter : Puppet, IPuppetWithDetector
