@@ -10,6 +10,8 @@ using MMO_Client.Code.Interfaces;
 using Newtonsoft.Json;
 using Interfaz.Models;
 using Stride.Graphics;
+using Interfaz.Models.Shots;
+using Interfaz.Models.Comms;
 
 namespace MMO_Client.Code.Models
 {

@@ -7,27 +7,24 @@ using System.Linq;
 using MMO_Client.Code.Models;
 using System.Reflection;
 using MMO_Client.Code.Interfaces;
-using MMO_Client.Code.Assistants;
 using MMO_Client.Code.Controllers;
 using Stride.Rendering;
 using Stride.Rendering.Sprites;
 using Stride.Graphics;
 using Controller = MMO_Client.Code.Controllers.Controller;
 using Quaternion = Stride.Core.Mathematics.Quaternion;
-using Interfaz.Models;
 using Stride.Core;
 using System.Collections.Concurrent;
-using System.Windows.Interop;
-using Interfaz.Utilities;
 using UtilityAssistant = MMO_Client.Code.Assistants.UtilityAssistant;
 using SerializedVector3 = MMO_Client.Code.Models.SerializedVector3;
-using System.Threading.Tasks;
 using System.Threading;
 using System.Net.Http;
-using Stride.Core.Extensions;
 using MMO_Client.Models.PuppetModels;
 using Puppet = MMO_Client.Code.Models.Puppet;
 using Player = MMO_Client.Code.Models.Player;
+using Interfaz.Models.Shots;
+using Interfaz.Models.Comms;
+using Interfaz.Models.Api;
 
 namespace MMO_Client.Controllers
 {

@@ -15,6 +15,7 @@ using System.Collections.Concurrent;
 using MMO_Client.Code.Models;
 using Interfaz.Utilities;
 using System.Text.RegularExpressions;
+using Interfaz.Models.Comms;
 
 namespace MMO_Client.Code.Controllers
 {
