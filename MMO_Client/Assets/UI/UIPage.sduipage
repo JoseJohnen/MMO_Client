@@ -46,7 +46,7 @@ Hierarchy:
                 MaximumDepth: 3.4028235E+38
                 Name: barTest
                 Source: !SpriteFromSheet
-                    Sheet: 701bfa83-7468-442f-9fdf-739cc9dfeea7:Tileset/SpriteSheet
+                    Sheet: 701bfa83-7468-442f-9fdf-739cc9dfeea7:Tilesets/Tiles
                 Color: {R: 255, G: 255, B: 255, A: 255}
                 StretchType: Fill
         -   UIElement: !EditText

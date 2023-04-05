@@ -91,8 +91,7 @@ namespace MMO_Client.Controllers
 
                 tempPuppet = new Imp();
                 //tempPuppet.Entity.Transform.Position = new Vector3(3, 0, 1);
-                tempPuppet.PrepareAnimations();
-                tempPuppet.InstancePuppet(new Vector3(3, 0, 1));
+                tempPuppet.Prepare(new Vector3(3, 0, 1));
 
                 //l_entitysCharacters[0].RealEnt.Transform.Rotation = qtrn;
                 //Message messageOut = new Message();

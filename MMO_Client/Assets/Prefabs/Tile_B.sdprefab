@@ -19,7 +19,7 @@ Hierarchy:
                     25bfd4f57efb62d4baf29cbcdaa5b1db: !SpriteComponent
                         Id: c7c5e1a3-cb51-4987-8b9d-ceaafafc507e
                         SpriteProvider: !SpriteFromSheet
-                            Sheet: 701bfa83-7468-442f-9fdf-739cc9dfeea7:Tileset/SpriteSheet
+                            Sheet: 701bfa83-7468-442f-9fdf-739cc9dfeea7:Tilesets/Tiles
                         Color: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}
                     155980b48385976d81d809c9948029cb: !RigidbodyComponent
                         Id: 88023a1b-81dc-4213-9315-a0ff3e78e429

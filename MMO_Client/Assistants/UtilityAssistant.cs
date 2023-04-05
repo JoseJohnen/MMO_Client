@@ -18,6 +18,10 @@ using MMO_Client.Models.MathModels;
 using Stride.Core.Shaders.Ast.Hlsl;
 
 using MMO_Client.Models.Enums;
+using System.Numerics;
+using Quaternion = Stride.Core.Mathematics.Quaternion;
+using Vector3 = Stride.Core.Mathematics.Vector3;
+using Vector2 = Stride.Core.Mathematics.Vector2;
 
 namespace MMO_Client.Code.Assistants
 {
@@ -257,6 +261,32 @@ namespace MMO_Client.Code.Assistants
             {
                 Console.WriteLine("Error Quaternion ToQuaternion(Vector3): " + ex.Message, ConsoleColor.Red);
                 return Quaternion.Identity;
+            }
+        }
+
+        public static Stride.Core.Mathematics.Quaternion ConvertSystemNumericsToStrideQuaternion(System.Numerics.Quaternion quaternion)
+        {
+            try
+            {
+                return new Quaternion(quaternion.X, quaternion.Y, quaternion.Z, quaternion.W);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error System.Numerics.Quaternion ConvertSystemNumericsToStrideQuaternion(Stride.Core.Mathematics.Quaternion): " + ex.Message);
+                return Quaternion.Identity;
+            }
+        }
+
+        public static System.Numerics.Quaternion ConvertStrideToSystemNumericsQuaternion(Stride.Core.Mathematics.Quaternion quaternion)
+        {
+            try
+            {
+                return new System.Numerics.Quaternion(quaternion.X, quaternion.Y, quaternion.Z, quaternion.W);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error Stride.Core.Mathematics.Quaternion ConvertStrideToSystemNumericsQuaternion(System.Numerics.Quaternion): " + ex.Message);
+                return System.Numerics.Quaternion.Identity;
             }
         }
 
@@ -1228,6 +1258,12 @@ namespace MMO_Client.Code.Assistants
             return (degrees);
         }
 
+        public static double ConvertDegreesToRadiants(double degrees)
+        {
+            double radians = degrees * (Math.PI / 180);
+            return (radians);
+        }
+
         public static void MatrixFromYawPitchRoll()
         {
             return;
@@ -1386,7 +1422,7 @@ namespace MMO_Client.Code.Assistants
         }
     }
 
-    public class FurnitureConverterJSON : Newtonsoft.Json.JsonConverter<Furniture>
+    /*public class FurnitureConverterJSON : Newtonsoft.Json.JsonConverter<Furniture>
     {
         public override void WriteJson(JsonWriter writer, Furniture furniture, Newtonsoft.Json.JsonSerializer serializer)
         {
@@ -1416,9 +1452,9 @@ namespace MMO_Client.Code.Assistants
                 //Type typ = Furniture.TypesOfFurniture().Where(c => c.FullName == a[3]).FirstOrDefault();
                 //object obtOfType = Activator.CreateInstance(typ); //Requires parameterless constructor.
 
-                /*((Furniture)obtOfType).Entity.Name = a[0];
-                ((Furniture)obtOfType).Entity.Transform.position = UtilityAssistant.XmlToClass<SerializedVector3>(a[1]).ConvertToVector3();
-                ((Furniture)obtOfType).Entity.Transform.Rotation = UtilityAssistant.XmlToClass<Quaternion>(a[2]);*/
+                //((Furniture)obtOfType).Entity.Name = a[0];
+                //((Furniture)obtOfType).Entity.Transform.position = UtilityAssistant.XmlToClass<SerializedVector3>(a[1]).ConvertToVector3();
+                //((Furniture)obtOfType).Entity.Transform.Rotation = UtilityAssistant.XmlToClass<Quaternion>(a[2]);
 
                 //Controller.controller.worldController.FurnitureCreate(a[3], position: UtilityAssistant.XmlToClass<SerializedVector3>(a[1]).ConvertToVector3(), Rotation: UtilityAssistant.XmlToClass<Quaternion>(a[2]));
                 //Controller.ActiveScene.Entities.Add(((Furniture)obtOfType).Entity);
@@ -1432,7 +1468,7 @@ namespace MMO_Client.Code.Assistants
                 return null;
             }
         }
-    }
+    }*/
 
     public static class ExtendedClasses
     {

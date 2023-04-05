@@ -35,7 +35,7 @@ namespace MMO_Client.Models.FurnitureModels
                     Converters =
                     {
                         new EntityConverterJSON(),
-                        new FurnitureConverterJSON(),
+                        //new FurnitureConverterJSON(),
                     }
                 };
 

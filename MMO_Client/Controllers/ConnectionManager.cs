@@ -89,7 +89,6 @@ namespace MMO_Client.Code.Controllers
         }
 
         #region Listening Socket
-
         private static async Task PrepareListeningSocketHttpAsync()
         {
             try

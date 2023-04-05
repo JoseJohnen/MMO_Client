@@ -12,8 +12,8 @@ Hierarchy:
         - ref!! 2f4a3abc-56e1-43dd-bc33-5531a5d5763f
         - ref!! 671c67b1-8617-4412-a55b-d4159559587a
         - ref!! f08b714e-443a-44e6-8e40-762f2fd7cd91
-        - ref!! e3c8c343-7723-4e41-8b3b-675f7d161585
         - ref!! b4ede24e-d573-4636-95fb-f81001224eec
+        - ref!! e3c8c343-7723-4e41-8b3b-675f7d161585
         - ref!! 5952a4f6-2fd7-4275-ab6a-236ac12709b4
         - ref!! 4ab985bc-88fc-4342-830d-51f0d2d03c24
         - ref!! ff1888cf-9910-4a2e-a4f7-a14c5db3a6f8
@@ -104,7 +104,7 @@ Hierarchy:
                 Components:
                     7f809e7656471255046764c3a31499df: !TransformComponent
                         Id: e99831b4-eebb-405b-8dfc-228b153a46a0
-                        Position: {X: 0.0, Y: 0.5, Z: 0.0}
+                        Position: {X: 0.026890755, Y: 0.5, Z: -4.5170746}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
@@ -155,15 +155,8 @@ Hierarchy:
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
-                    2d423a973a372d76959277a3b187f7c1: !MMO_Client.WorldController,MMO_Client
-                        Id: 180e6405-4adc-4f47-860f-391093b382d2
-                        tileSquare: null
-                        l_sprites: null
-                        l_l_instanciatedEntitys: {}
-                        l_entitysFurnitures: {}
-                        l_areaLimits: {}
-                        l_areaTeleports: {}
-                        l_areaFurnitures: {}
+                    ebf663946daec66357f1d750a9ded0f0: !MMO_Client.Controllers.WorldController,MMO_Client
+                        Id: 361b89de-f7b5-446e-a7eb-ade83d3e37aa
         -   Entity:
                 Id: e16e2fcc-1627-4610-889a-fd4beb15a011
                 Name: Bullet
@@ -198,6 +191,7 @@ Hierarchy:
                         l_bullets: {}
                         ActiveArea: null
                         l_ActiveAreaFurniture: null
+                        workerThread: null
                         l_AnimacionesEntitys: {}
                         shot: null
                         OtherCamera: null
@@ -221,6 +215,7 @@ Hierarchy:
                         l_Prefabs: {}
                         l_Models: {}
                         l_Sprites: {}
+                        l_Tileset: {}
                         l_Textures: {}
                         l_Materials: {}
                         l_UI: {}

@@ -9,13 +9,9 @@ using System.Timers;
 using MMO_Client.Controllers;
 using Stride.Core.IO;
 using Stride.Rendering;
-using Interfaz.Models;
 using System.Threading.Tasks;
 using Interfaz.Utilities;
 using System.Text.RegularExpressions;
-using MMO_Client.Code.Models;
-using Stride.Input;
-using MMO_Client.Models.PuppetModels;
 using Player = MMO_Client.Code.Models.Player;
 using Interfaz.Models.Comms;
 
@@ -48,6 +44,7 @@ namespace MMO_Client.Code.Controllers
         public List<Prefab> l_Prefabs = new List<Prefab>();
         public List<Model> l_Models = new List<Model>();
         public List<SpriteSheet> l_Sprites = new List<SpriteSheet>();
+        public List<SpriteSheet> l_Tileset = new List<SpriteSheet>();
         public List<Texture> l_Textures = new List<Texture>();
         public List<Material> l_Materials = new List<Material>();
         public List<UIPage> l_UI = new List<UIPage>();
@@ -130,10 +127,10 @@ namespace MMO_Client.Code.Controllers
             l_Prefabs = GetItemsFromVirtualGameFolder<Prefab>("Prefabs");
             l_Models = GetItemsFromVirtualGameFolder<Model>("Models");
             l_Sprites = GetItemsFromVirtualGameFolder<SpriteSheet>("Sprites");
+            l_Tileset = GetItemsFromVirtualGameFolder<SpriteSheet>("Tilesets");
             l_Textures = GetItemsFromVirtualGameFolder<Texture>("Textures");
             l_Materials = GetItemsFromVirtualGameFolder<Material>("Materials");
             l_UI = GetItemsFromVirtualGameFolder<UIPage>("UI");
-
 
             //TODO: TEST: You just change the instanced sound in the right context, and maybie it start to sound.
 
@@ -324,6 +321,15 @@ namespace MMO_Client.Code.Controllers
                             break;
                         case "US":
                             playerController.UpdateShot(nwMsg.TextOriginal, nwMsg, out nwMsg);
+                            break;
+                        case "MU": //Monster Update
+                            //playerController.UpdateShot(nwMsg.TextOriginal, nwMsg, out nwMsg);
+                            break;
+                        case "MA": //Monster Attack
+                            //playerController.UpdateShot(nwMsg.TextOriginal, nwMsg, out nwMsg);
+                            break;
+                        case "MC": //Monster Create
+                            //playerController.UpdateShot(nwMsg.TextOriginal, nwMsg, out nwMsg);
                             break;
                         default:
                             break;

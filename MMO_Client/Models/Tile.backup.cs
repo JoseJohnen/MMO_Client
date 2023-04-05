@@ -8,7 +8,7 @@ namespace MMO_Client
 {
     [Serializable]
     [Stride.Core.DataContract]
-    public struct Tile
+    public class Tile : Interfaz.Models.Tile
     {
         private float x;
         private float z;
@@ -138,7 +138,7 @@ namespace MMO_Client
             }
         }
 
-        private string FirstPart(string strName)
+        /*private string FirstPart(string strName)
         {
             string strFirstPart = strName.Substring(0, strName.IndexOf("_") + 1);
             return strFirstPart;
@@ -166,6 +166,6 @@ namespace MMO_Client
             string lastValueIsolated = strName.Substring((firstInstance + secondInstance));
             lastValueIsolated = lastValueIsolated.Substring(lastValueIsolated.IndexOf("_") + 1);
             return lastValueIsolated;
-        }
+        }*/
     }
 }

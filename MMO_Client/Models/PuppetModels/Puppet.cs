@@ -95,6 +95,21 @@ namespace MMO_Client.Code.Models
             }
         }
 
+        public bool Prepare(Vector3 position = new Vector3())
+        {
+            try
+            {
+                PrepareAnimations();
+                InstancePuppet(position);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error (MMO_Client.Code.Models.Puppet) Prepare: " + ex.Message);
+                return false;
+            }
+        }
+
         public bool PrepareAnimations(bool AgregarComponenteSiNoEsta = true)
         {
             try
@@ -232,7 +247,7 @@ namespace MMO_Client.Code.Models
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error (Puppet) InstancePuppet: " + ex.Message);
+                Console.WriteLine("Error (MMO_Client.Code.Models.Puppet) InstancePuppet: " + ex.Message);
             }
         }
 
@@ -477,7 +492,7 @@ namespace MMO_Client.Code.Models
                     Converters =
                     {
                         new EntityConverterJSON(),
-                        new FurnitureConverterJSON(),
+                        //new FurnitureConverterJSON(),
                     }
                 };
 
@@ -490,6 +505,62 @@ namespace MMO_Client.Code.Models
                 return string.Empty;
             }
         }
+
+        /*public virtual Puppet FromJson(string Text)
+        {
+            string txt = Text;
+            try
+            {
+                txt = Interfaz.Utilities.UtilityAssistant.CleanJSON(txt.Replace("\u002B", "+"));
+
+                JsonSerializerSettings serializeOptions = new JsonSerializerSettings
+                {
+                    Converters =
+                    {
+                        new EntityConverterJSON(),
+                        new FurnitureConverterJSON(),
+                    }
+                };
+
+                Puppet strResult = JsonConvert.DeserializeObject(txt, serializeOptions);
+
+
+                //TODO: VER QUE EL OBJETO AL HACER TO JSON SALVE EL NOMBRE DE LA CLASE TAMBIÉN
+                //TODO2: RECUERDA QUE DEBES EXTRAER EL OBJETO
+                string TypeOfPuppetName = string.Empty;
+                Type typ = Puppet.TypesOfMonsters().Where(c => c.Name == TypeOfPuppetName).FirstOrDefault();
+                if (typ == null)
+                {
+                    typ = Puppet.TypesOfMonsters().Where(c => c.FullName == TypeOfPuppetName).FirstOrDefault();
+                }
+
+                object obtOfType = Activator.CreateInstance(typ); //Requires parameterless constructor.
+                                                                  //TODO: System to determine the type of enemy to make the object, prepare stats and then add it to the list
+                int position = Controller.controller.playerController.l_entitysCharacters.Count();
+                Controller.controller.playerController.l_entitysCharacters.Add(((Puppet)obtOfType));
+
+                Puppet nwMsg = Controller.controller.playerController.l_entitysCharacters[position];
+                if (plDt != null)
+                {
+                    nwMsg.Weapon = new Interfaz.Utilities.SerializedVector3(plDt.WP).ConvertToVector3();
+                    this.Weapon = nwMsg.Weapon;
+                    nwMsg.Leftarm = new Interfaz.Utilities.SerializedVector3(plDt.LS).ConvertToVector3();
+                    this.Leftarm = nwMsg.Leftarm;
+                    nwMsg.Rightarm = new Interfaz.Utilities.SerializedVector3(plDt.RS).ConvertToVector3();
+                    this.Rightarm = nwMsg.Rightarm;
+                    nwMsg.Position = new Interfaz.Utilities.SerializedVector3(plDt.PS).ConvertToVector3();
+                    this.Position = nwMsg.Position;
+                    nwMsg.Rotation = Interfaz.Utilities.UtilityAssistant.StringToQuaternion(plDt.RT);
+                    this.Rotation = nwMsg.Rotation;
+                }
+                return nwMsg;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error (Player) FromJson: " + ex.Message + " Text: " + txt);
+                return new Player();
+            }
+        }*/
 
         public static List<Type> TypesOfMonsters()
         {

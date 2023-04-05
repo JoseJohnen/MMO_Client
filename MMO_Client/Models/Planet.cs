@@ -18,8 +18,8 @@ namespace MMO_Client.Code.Models
 {
     public class Planet
     {
-        private World[,,] l_worlds; //Ordered by X, Y and Z of the world
-        public World[,,] L_worlds { get => l_worlds; set => l_worlds = value; }
+        //private World[,,] l_worlds; //Ordered by X, Y and Z of the world
+        //public World[,,] L_worlds { get => l_worlds; set => l_worlds = value; }
 
         public List<Furniture> L_Furnitures = new List<Furniture>();
 
@@ -32,7 +32,7 @@ namespace MMO_Client.Code.Models
                     Converters =
                     {
                         new EntityConverterJSON(),
-                        new FurnitureConverterJSON(),
+                        //new FurnitureConverterJSON(),
                     }
                 };
 

@@ -7,7 +7,7 @@ ColorKeyColor: {R: 255, G: 0, B: 255, A: 255}
 Packing: {}
 Sprites:
     fc61e5616b9d844510e94d4bb2e0c7da:
-        Source: !file Maiden-and-the-Unicorn-05-oil-on-canvas-46x52.jpg
+        Source: !file ../Tileset/Maiden-and-the-Unicorn-05-oil-on-canvas-46x52.jpg
         Name: Maiden-and-the-Unicorn-05-oil-on-canvas-46x52
         TextureRegion: {X: 0, Y: 0, Width: 1000, Height: 887}
         Center: {X: 0.0, Y: 0.0}
