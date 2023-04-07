@@ -1293,6 +1293,16 @@ namespace MMO_Client.Code.Assistants
         {
             return new System.Numerics.Vector3(v3ToConvert.X, v3ToConvert.Y, v3ToConvert.Z);
         }
+
+        public static Stride.Core.Mathematics.Vector2 ConvertVector2NumericToStride(System.Numerics.Vector2 v2ToConvert)
+        {
+            return new Stride.Core.Mathematics.Vector2(v2ToConvert.X, v2ToConvert.Y);
+        }
+
+        public static System.Numerics.Vector2 ConvertVector2StrideToNumeric(Stride.Core.Mathematics.Vector2 v2ToConvert)
+        {
+            return new System.Numerics.Vector2(v2ToConvert.X, v2ToConvert.Y);
+        }
     }
 
     public class EntityConverter : System.Text.Json.Serialization.JsonConverter<Entity>

@@ -15,22 +15,99 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using UtilityAssistant = Interfaz.Utilities.UtilityAssistant;
 using Quaternion = Stride.Core.Mathematics.Quaternion;
+using System.Xml.Linq;
+using MMO_Client.Controllers;
+using MMO_Client.Code.Models;
 
 namespace MMO_Client.Models.TilesModels
 {
     public abstract class Tile : Interfaz.Models.Tile
     {
-        public Entity Entity { get; set; }
+        public virtual new Area Area { get => area; set => area = value; }
+
+        private Area area = new Area(new List<AreaDefiner>() {
+            new AreaDefiner(),
+            new AreaDefiner(),
+            new AreaDefiner(),
+            new AreaDefiner(),
+        });
+
+        public override Vector3 Position
+        {
+            get => base.Position;
+            set
+            {
+                base.Position = value;
+                if (entity != null)
+                {
+                    entity.Transform.Position = MMO_Client.Code.Assistants.UtilityAssistant.ConvertVector3NumericToStride(value);
+                }
+            }
+        }
+
+        public override string Name
+        {
+            get => base.Name;
+            set
+            {
+                base.Name = value;
+                if (entity != null)
+                {
+                    entity.Name = value;
+                }
+
+            }
+        }
+
+        private Entity entity = null;
+        public Entity Entity
+        {
+            get
+            {
+                if (entity == null)
+                {
+                    if (string.IsNullOrWhiteSpace(base.Name))
+                    {
+                        return null;
+                    }
+                    SceneInstance sceneInstance = WorldController.game.SceneSystem.SceneInstance;
+                    this.entity = sceneInstance.RootScene.Entities.Where(c => c.Name == base.Name).FirstOrDefault();
+                }
+                return entity;
+            }
+            set => entity = value;
+        }
+
+        public Tile()
+        {
+
+        }
 
         public Tile(string name = "", Vector3 position = new(), Vector3 inworldpos = new()) : base(name, position, inworldpos)
         {
             Name = name;
-            this.Entity = new Entity(name);
-            Position = position;
+            this.entity = null;
+            base.Position = position;
             InWorldPos = inworldpos;
         }
 
         #region Auxiliares
+        //public virtual void GetEntityByName(Game game, string name)
+        //{
+        //    Get the scene instance
+        //    var sceneInstance = new Entity().Sc game.SceneSystem.SceneInstance;
+
+        //    Search for the entity by name
+
+        //   var entity = sceneInstance.RootScene.Entities.Find(name);
+
+        //    Use the entity reference as needed
+        //    if (entity != null)
+        //    {
+        //        Do something with the entity
+        //    }
+        //}
+
         public virtual new string ToJson()
         {
             try
@@ -122,18 +199,25 @@ namespace MMO_Client.Models.TilesModels
             return myTypes;
         }
 
-        public virtual void InstanceTile(Vector3 position = default(Vector3))
+        public virtual void InstanceTile(string name = "", Vector3 position = default(Vector3), Vector3 inworldpos = default(Vector3))
         {
             try
             {
-                Vector3 Position = Vector3.Zero;
+                Vector3 Pos = Vector3.Zero;
                 if (position != default(Vector3))
                 {
-                    Position = position;
+                    Pos = position;
                 }
 
-                this.Position = position;
-                Entity.Transform.Position = Code.Assistants.UtilityAssistant.ConvertVector3NumericToStride(position);
+                if (inworldpos != default(Vector3))
+                {
+                    InWorldPos = inworldpos;
+                }
+
+                if (!string.IsNullOrEmpty(name))
+                {
+                    this.Name = name;
+                }
 
                 SpriteSheet spritesheet = null;
                 string nameSprite = string.Empty;
@@ -149,19 +233,45 @@ namespace MMO_Client.Models.TilesModels
                     }
                 }
 
-                if(!string.IsNullOrEmpty(nameSprite))
+                if (!string.IsNullOrEmpty(nameSprite))
                 {
-                    Entity.GetOrCreate<SpriteComponent>().SpriteProvider = SpriteFromSheet.Create(spritesheet, nameSprite);
-                    Controller.controller.Entity.Scene.Entities.Add(this.Entity);
+                    if (entity == null)
+                    {
+                        this.entity = new Entity(this.Name);
+                        Controller.controller.Entity.Scene.Entities.Add(this.entity);
+                        //SceneInstance sceneInstance = WorldController.game.SceneSystem.SceneInstance;
+                        //this.entity = sceneInstance.RootScene.Entities.Where(c => c.Name == base.Name).FirstOrDefault();
+                        entity.GetOrCreate<SpriteComponent>().SpriteProvider = SpriteFromSheet.Create(spritesheet, nameSprite);
+                    }
+
+                    this.Position = Pos;
+
+                    // Get the size of the sprite
+                    spriteSize = MMO_Client.Code.Assistants.UtilityAssistant.ConvertVector2StrideToNumeric(entity.GetOrCreate<SpriteComponent>().CurrentSprite.Size);
+
+                    // Calculate the corners of the sprite
+                    Vector3 topLeft = MMO_Client.Code.Assistants.UtilityAssistant.ConvertVector3StrideToNumeric(entity.Transform.WorldMatrix.TranslationVector) + new Vector3(-spriteSize.X / 2, spriteSize.Y / 2, 0);
+                    Vector3 topRight = MMO_Client.Code.Assistants.UtilityAssistant.ConvertVector3StrideToNumeric(entity.Transform.WorldMatrix.TranslationVector) + new Vector3(spriteSize.X / 2, spriteSize.Y / 2, 0);
+                    Vector3 bottomLeft = MMO_Client.Code.Assistants.UtilityAssistant.ConvertVector3StrideToNumeric(entity.Transform.WorldMatrix.TranslationVector) + new Vector3(-spriteSize.X / 2, -spriteSize.Y / 2, 0);
+                    Vector3 bottomRight = MMO_Client.Code.Assistants.UtilityAssistant.ConvertVector3StrideToNumeric(entity.Transform.WorldMatrix.TranslationVector) + new Vector3(spriteSize.X / 2, -spriteSize.Y / 2, 0);
+                    this.Area.L_AreaDefiners[0].Point = new Pares<string, Code.Models.SerializedVector3>() { Item1 = "NW", Item2 = new Code.Models.SerializedVector3(topLeft) };
+                    this.Area.L_AreaDefiners[1].Point = new Pares<string, Code.Models.SerializedVector3>() { Item1 = "NE", Item2 = new Code.Models.SerializedVector3(topRight) };
+                    this.Area.L_AreaDefiners[2].Point = new Pares<string, Code.Models.SerializedVector3>() { Item1 = "SW", Item2 = new Code.Models.SerializedVector3(bottomLeft) };
+                    this.Area.L_AreaDefiners[3].Point = new Pares<string, Code.Models.SerializedVector3>() { Item1 = "SE", Item2 = new Code.Models.SerializedVector3(bottomRight) };
+
+                    //SceneInstance sceneInstance = WorldController.game.SceneSystem.SceneInstance;
+                    //this.entity = sceneInstance.RootScene.Entities.Where(c => c.Name == base.Name).FirstOrDefault();
 
                     //Correct system rotation
                     //Entity.Transform.Rotation *= Quaternion.RotationX(Convert.ToSingle(MMO_Client.Code.Assistants.UtilityAssistant.ConvertDegreesToRadiants(90)));
 
                     //More precise rotation
-                    Entity.Transform.Rotation *= MMO_Client.Code.Assistants.UtilityAssistant.ConvertSystemNumericsToStrideQuaternion(System.Numerics.Quaternion.CreateFromAxisAngle(Vector3.UnitX, MathF.PI / 2));
+                    entity.Transform.Rotation *= MMO_Client.Code.Assistants.UtilityAssistant.ConvertSystemNumericsToStrideQuaternion(System.Numerics.Quaternion.CreateFromAxisAngle(Vector3.UnitX, MathF.PI / 2));
+
+                    //Entity.Transform.Position = Code.Assistants.UtilityAssistant.ConvertVector3NumericToStride(Pos);
                     return;
                 }
-                Console.WriteLine("Error (MMO_Client.Models.TilesModels.Tile) InstanceTile: SPRITE NO ENCONTRADO PARA CLASE "+this.GetType().FullName);
+                Console.WriteLine("Error (MMO_Client.Models.TilesModels.Tile) InstanceTile: SPRITE NO ENCONTRADO PARA CLASE " + this.GetType().FullName);
             }
             catch (Exception ex)
             {
@@ -198,7 +308,7 @@ namespace MMO_Client.Models.TilesModels
 
                 Tile prgObj = ((Tile)obtOfType);
 
-                string pst = UtilityAssistant.ExtractValue(strJson, "Position");
+                string pst = UtilityAssistant.ExtractValue(strJson, "Pos");
                 prgObj.Position = UtilityAssistant.Vector3Deserializer(pst);
                 pst = UtilityAssistant.ExtractValue(strJson, "InWorldPos");
                 prgObj.InWorldPos = UtilityAssistant.Vector3Deserializer(pst);
@@ -242,7 +352,7 @@ namespace MMO_Client.Models.TilesModels
 
                 string wr = string.Concat("{ ", new string(a), "Name", new string(a), ":", new string(a), Name, new string(a),
                     ", ", new string(a), "Class", new string(a), ":", new string(a), Class, new string(a),
-                    ", ", new string(a), "Position", new string(a), ":", Position,
+                    ", ", new string(a), "Pos", new string(a), ":", Position,
                     ", ", new string(a), "InWorldPos", new string(a), ":", InWorldPos,
                     "}");
 

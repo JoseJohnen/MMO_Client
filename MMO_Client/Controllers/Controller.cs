@@ -322,6 +322,9 @@ namespace MMO_Client.Code.Controllers
                         case "US":
                             playerController.UpdateShot(nwMsg.TextOriginal, nwMsg, out nwMsg);
                             break;
+                        case "WM": //World Load
+                            WorldController.LoadWorld(nwMsg.TextOriginal);
+                            break;
                         case "MU": //Monster Update
                             //playerController.UpdateShot(nwMsg.TextOriginal, nwMsg, out nwMsg);
                             break;
@@ -329,7 +332,7 @@ namespace MMO_Client.Code.Controllers
                             //playerController.UpdateShot(nwMsg.TextOriginal, nwMsg, out nwMsg);
                             break;
                         case "MC": //Monster Create
-                            //playerController.UpdateShot(nwMsg.TextOriginal, nwMsg, out nwMsg);
+                            //WorldController
                             break;
                         default:
                             break;

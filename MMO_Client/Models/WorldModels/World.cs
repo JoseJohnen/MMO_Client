@@ -1,5 +1,5 @@
-﻿using Interfaz.Models.Puppets;
-using Interfaz.Utilities;
+﻿using Interfaz.Utilities;
+using MMO_Client.Code.Models;
 using MMO_Client.Controllers;
 using MMO_Client.Models.TilesModels;
 using System;
@@ -10,14 +10,19 @@ using System.Reflection;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace MMO_Client.Models.WorldModels
 {
     public abstract class World : Interfaz.Models.Worlds.World
     {
         public new ConcurrentDictionary<string, Tile> dic_worldTiles = new ConcurrentDictionary<string, Tile>();
-
+        public new Dictionary<Puppet, int> dic_SpawnList = new Dictionary<Puppet, int>();
+        public new Area Area = new Area(new List<AreaDefiner>() {
+            new AreaDefiner(),
+            new AreaDefiner(),
+            new AreaDefiner(),
+            new AreaDefiner(),
+        });
         public World(int westEast = 3, int height = 1, int frontBack = 3, string name = "")
         {
             WestEast = westEast;
@@ -45,48 +50,82 @@ namespace MMO_Client.Models.WorldModels
             }
         }
 
-        //public virtual World FillWorld()
-        //{
-        //    try
-        //    {
-        //        float x = 0, y = 0, z = 0;
-        //        do
-        //        {
-        //            //world.worldTiles[x, y, z].Entity.Transform.parent = world.Instance.Transform;
-        //            //worldTiles[x, y, z] = new Tile_Primus("Tile_"+this.Name+"_"+x+"_"+y+"_"+z);
-        //            dic_worldTiles.TryAdd("Tile_" + x + "_" + y + "_" + z, new Grass("Tile_" + x + "_" + y + "_" + z));
-        //            if (x == WestEast - 1)
-        //            {
-        //                x = 0;
-        //                y++;
+        public new virtual World FillWorld(string TileClass = "")
+        {
+            try
+            {
+                Type typ = null;
+                if (!string.IsNullOrWhiteSpace(TileClass))
+                {
+                    typ = Tile.TypesOfTiles().Where(c => c.Name == TileClass).FirstOrDefault();
+                    if (typ == null)
+                    {
+                        typ = Tile.TypesOfTiles().Where(c => c.FullName == TileClass).FirstOrDefault();
+                    }
+                }
+                else
+                {
+                    typ = Tile.TypesOfTiles().Where(c => c.Name == "Black").FirstOrDefault();
+                }
 
-        //                if (y == Height)
-        //                {
-        //                    y = 0;
-        //                    z++;
+                float inicialX = Location.X - (WestEast / 2);
+                float inicialZ = Location.Z - (WestEast / 2);
+                Tile tile = null;
 
-        //                    if (z == FrontBack)
-        //                    {
-        //                        break;
-        //                    }
-        //                }
-        //            }
-        //            else if (x < WestEast)
-        //            {
-        //                x++;
-        //            }
-        //        }
-        //        while (x <= WestEast - 1 && y <= Height - 1 && z <= FrontBack - 1);
-        //        return this;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("Error FillWorld: " + ex.Message);
-        //        return null;
-        //    }
-        //}
+                float xMod = inicialX;
+                float yMod = Location.Y;
+                float zMod = inicialZ;
 
-        public static List<Type> TypesOfWorlds()
+                float x = 0, y = 0, z = 0;
+                do
+                {
+                    if (typ != null)
+                    {
+                        object obtOfType = Activator.CreateInstance(typ);
+                        tile = ((Tile)obtOfType);
+                        tile.InstanceTile("Tile_" + x + "_" + y + "_" + z, new System.Numerics.Vector3(xMod, yMod, zMod), new System.Numerics.Vector3(x, y, z));
+                        dic_worldTiles.TryAdd(tile.Name, tile);
+                    }
+                    else
+                    {
+                        dic_worldTiles.TryAdd("Tile_" + x + "_" + y + "_" + z, new Grass("Tile_" + x + "_" + y + "_" + z));
+                    }
+
+                    if (x == WestEast - 1)
+                    {
+                        x = 0;
+                        y++;
+                        zMod += tile.spriteSize.Y;
+                        xMod = inicialX;
+
+                        if (y == Height)
+                        {
+                            y = 0;
+                            z++;
+
+                            if (z == FrontBack)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                    else if (x < WestEast)
+                    {
+                        x++;
+                        xMod += tile.spriteSize.X;
+                    }
+                }
+                while (x <= WestEast - 1 && y <= Height - 1 && z <= FrontBack - 1);
+                return this;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error FillWorld: " + ex.Message);
+                return null;
+            }
+        }
+
+        public new static List<Type> TypesOfWorlds()
         {
             List<Type> myTypes = Assembly.GetExecutingAssembly().GetTypes().Where(type => type.IsSubclassOf(typeof(World)) && !type.IsAbstract).ToList();
             return myTypes;
@@ -122,7 +161,8 @@ namespace MMO_Client.Models.WorldModels
             string txt = json;
             try
             {
-                txt = Interfaz.Utilities.UtilityAssistant.CleanJSON(txt.Replace("\u002B", "+"));
+                //txt = Interfaz.Utilities.UtilityAssistant.CleanJSON(txt.Replace("\u002B", "+"));
+                //txt = Interfaz.Utilities.UtilityAssistant.CleanJSON(txt);
 
                 //json = UtilityAssistant.CleanJSON(json);
 
@@ -182,6 +222,22 @@ namespace MMO_Client.Models.WorldModels
                 return null;
             }
         }
+
+        //TODO: CHECK IF WORKS
+        public void InstanceWorld()
+        {
+            try
+            {
+                foreach (Tile item in this.dic_worldTiles.Values)
+                {
+                    item.InstanceTile();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("WorldController LoadWorld(string) Error: " + ex.Message);
+            }
+        }
         #endregion
     }
 
@@ -193,7 +249,7 @@ namespace MMO_Client.Models.WorldModels
             string[] strStrArr = new string[1];
             //string[] strStrArr2 = new string[1];
             //string[] strStrArr3 = new string[1];
-            //string readerReceiver = string.Empty;
+            string readerReceiver = string.Empty;
             try
             {
                 //TODO: Corregir, testear y terminar
@@ -201,19 +257,23 @@ namespace MMO_Client.Models.WorldModels
                 JsonDocument jsonDoc = JsonDocument.ParseValue(ref reader);
                 string tempString = jsonDoc.RootElement.GetRawText();
 
-                string clase = UtilityAssistant.CleanJSON(tempString);
-                clase = UtilityAssistant.ExtractValue(clase, "Class").Replace("\"", "");
+                //string clase = UtilityAssistant.CleanJSON(tempString);
+                string clase = UtilityAssistant.ExtractValue(tempString, "Class").Replace("\"", "");
 
                 Type typ = World.TypesOfWorlds().Where(c => c.Name == clase).FirstOrDefault();
                 if (typ == null)
                 {
                     typ = World.TypesOfWorlds().Where(c => c.FullName == clase).FirstOrDefault();
+                    
                 }
 
-                object obtOfType = Activator.CreateInstance(typ); //Requires parameterless constructor.
-                                                                  //TODO: System to determine the type of enemy to make the object, prepare stats and then add it to the list
-
-                World wrldObj = ((World)obtOfType);
+                World wrldObj = new BaseWorld();
+                if (typ != null)
+                {
+                    object obtOfType = Activator.CreateInstance(typ); //Requires parameterless constructor.
+                                                                      //TODO: System to determine the type of enemy to make the object, prepare stats and then add it to the list
+                    wrldObj = ((World)obtOfType);
+                }
 
                 string strValue = UtilityAssistant.ExtractValue(tempString, "WestEast");
                 wrldObj.WestEast = Convert.ToInt32(strValue);
@@ -222,6 +282,15 @@ namespace MMO_Client.Models.WorldModels
                 strValue = UtilityAssistant.ExtractValue(tempString, "FrontBack");
                 wrldObj.FrontBack = Convert.ToInt32(strValue);
                 wrldObj.Name = UtilityAssistant.ExtractValue(tempString, "Name");
+                strValue = UtilityAssistant.ExtractValue(tempString, "Location");
+                wrldObj.Location = Vector3Converter.Converter(strValue);
+
+                //strValue = UtilityAssistant.ExtractValue(tempString, "Area");
+                strValue = tempString.Substring(tempString.IndexOf("Area"));
+                strValue = strValue.Substring(0, tempString.IndexOf("dic_worldTiles"));
+                strValue = UtilityAssistant.CleanJSON(strValue);
+                strValue = strValue.Replace("Y\"", ", \"Y\"").Replace("Z\"", ", \"Z\"").Replace("\"Name\":", "\"Name\":"+ wrldObj.Name +",").Replace("\",\",", "\",");
+                wrldObj.Area = Area.CreateFromJson(strValue);
 
                 /*if (string.IsNullOrWhiteSpace(readerReceiver) || readerReceiver.Equals("\"{\""))
                 {
@@ -235,7 +304,7 @@ namespace MMO_Client.Models.WorldModels
                     strJsonArray[1] += "]";
                 }*/
 
-                strJsonArray[0] = tempString;
+                strJsonArray[0] = tempString;//UtilityAssistant.CleanJSON(tempString);
 
                 string strTemp = strJsonArray[0].Substring(strJsonArray[0].IndexOf("dic_worldTiles")).Replace("dic_worldTiles", "");
                 Tile tile = null;
@@ -243,8 +312,12 @@ namespace MMO_Client.Models.WorldModels
                 foreach (string item in l_string)
                 {
                     //strTemp = UtilityAssistant.ExtractValue(item, "Value");
-                    strTemp = item.Substring(item.IndexOf("\"Value\""));
-                    strTemp = strTemp.Replace("\"Value\":", "").Replace("}}]}", "}");
+                    strTemp = UtilityAssistant.CleanJSON(item);
+                    if(strTemp.Contains("\"Value\""))
+                    {
+                        strTemp = strTemp.Substring(strTemp.IndexOf("\"Value\""));
+                        strTemp = strTemp.Replace("\"Value\":", "").Replace("}}]}", "}");
+                    }
                     tile = Tile.CreateFromJson(strTemp);
                     wrldObj.dic_worldTiles.TryAdd(tile.Name, tile);
                 }
@@ -316,6 +389,20 @@ namespace MMO_Client.Models.WorldModels
                 string FrontBack = wldObj.FrontBack.ToString();
                 string Name = string.IsNullOrWhiteSpace(wldObj.Name) ? "null" : wldObj.Name;
 
+                JsonSerializerOptions serializeOptions = new JsonSerializerOptions
+                {
+                    Converters =
+                    {
+                        new Vector3Converter()
+                        ,new NullConverter()
+                    },
+                    Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                    WriteIndented = true,
+                    IgnoreNullValues = true
+                };
+
+                string Location = System.Text.Json.JsonSerializer.Serialize(wldObj.Location, serializeOptions);
+                string Area = wldObj.Area.ToJson();
                 string Class = wldObj.GetType().Name;
 
                 char[] a = { '"' };
@@ -325,6 +412,8 @@ namespace MMO_Client.Models.WorldModels
                     ", ", new string(a), "WestEast", new string(a), ":", WestEast,
                     ", ", new string(a), "Height", new string(a), ":", Height,
                     ", ", new string(a), "FrontBack", new string(a), ":", FrontBack,
+                    ", ", new string(a), "Location", new string(a), ":", Location,
+                    ", ", new string(a), "Area", new string(a), ":", Area,
                     ", ", strTemp,
                     "}");
 

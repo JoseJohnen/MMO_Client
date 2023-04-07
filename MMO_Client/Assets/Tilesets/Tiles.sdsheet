@@ -3,7 +3,7 @@ Id: 701bfa83-7468-442f-9fdf-739cc9dfeea7
 SerializedVersion: {Stride: 2.0.0.0}
 Tags: []
 Type: Sprite2D
-ColorKeyColor: {R: 255, G: 0, B: 255, A: 255}
+ColorKeyColor: {R: 0, G: 0, B: 0, A: 255}
 Packing: {}
 Sprites:
     e0cf8c472fa3c76f01b5d06f4acfe731:
@@ -80,6 +80,56 @@ Sprites:
         Source: !file ../Tileset/Tileset_2.png
         Name: Swampy
         TextureRegion: {X: 112, Y: 0, Width: 16, Height: 16}
+        PixelsPerUnit: 20.0
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderModeU: Wrap
+        BorderModeV: Wrap
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    c32d9239b68b85a6932a473f5a6fd3aa:
+        Source: !file ../Tileset/Tileset_2.png
+        Name: Rocky
+        TextureRegion: {X: 128, Y: 0, Width: 16, Height: 16}
+        PixelsPerUnit: 20.0
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderModeU: Wrap
+        BorderModeV: Wrap
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    c6898953f64d5ee1f7443fea129a177e:
+        Source: !file ../Tileset/Tileset_2.png
+        Name: Water_Cloud_Single
+        TextureRegion: {X: 144, Y: 0, Width: 16, Height: 16}
+        PixelsPerUnit: 20.0
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderModeU: Wrap
+        BorderModeV: Wrap
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    45fa74602454aae88e699579f26182c4:
+        Source: !file ../Tileset/Tileset_2.png
+        Name: Town_White_Single
+        TextureRegion: {X: 160, Y: 0, Width: 16, Height: 16}
+        PixelsPerUnit: 20.0
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderModeU: Wrap
+        BorderModeV: Wrap
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    7cb17068ed726b6a87b2b42909cb46bb:
+        Source: !file ../Tileset/Tileset_2.png
+        Name: Town_Brown_Single
+        TextureRegion: {X: 176, Y: 0, Width: 16, Height: 16}
+        PixelsPerUnit: 20.0
+        Center: {X: 0.0, Y: 0.0}
+        Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}
+        BorderModeU: Wrap
+        BorderModeV: Wrap
+        BorderColor: {R: 0, G: 0, B: 0, A: 0}
+    be2e9d79833e131fc212d2c3ab7c44f0:
+        Source: !file ../Tileset/Tileset_2.png
+        Name: Dungeon_Entrance
+        TextureRegion: {X: 224, Y: 48, Width: 16, Height: 16}
         PixelsPerUnit: 20.0
         Center: {X: 0.0, Y: 0.0}
         Borders: {X: 0.0, Y: 0.0, Z: 0.0, W: 0.0}

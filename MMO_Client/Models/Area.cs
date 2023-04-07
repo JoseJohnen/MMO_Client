@@ -733,6 +733,107 @@ namespace MMO_Client.Code.Models
         }
         #endregion
 
+        #region Métodos JSON
+        public string ToJson()
+        {
+            try
+            {
+                string strTemp = string.Empty;//"{";
+                int i = 0;
+                int last = 0;
+                strTemp += "\"L_AreaDefiners\" : [";
+                last = this.L_AreaDefiners.Count;
+                foreach (AreaDefiner item in L_AreaDefiners)
+                {
+                    strTemp += item.ToJson();
+                    if (i < last - 1)
+                    {
+                        strTemp += ",";
+                    }
+                    i++;
+                }
+                strTemp += "]"; //,";
+
+                while (strTemp.Contains("\"\""))
+                {
+                    strTemp = strTemp.Replace("\"\"", "\"");
+                }
+
+                while (strTemp.Contains("\\"))
+                {
+                    strTemp = strTemp.Replace("\\", "");
+                }
+
+                char[] a = { '"' };
+
+                string nstring = !string.IsNullOrWhiteSpace(Name) ? Name : "null"; 
+                string wr = string.Concat("{", new string(a), "Name", new string(a), ":", new string(a), Name, new string(a),
+                   ", ", strTemp,
+                   "}");
+
+                return wr;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error (Area) ToJson(): " + ex.Message);
+                return string.Empty;
+            }
+        }
+
+        public Area FromJson(string json)
+        {
+            string txt = json;
+            try
+            {
+                txt = Interfaz.Utilities.UtilityAssistant.CleanJSON(txt.Replace("\u002B", "+"));
+                string[] strJsonArray = new string[1];
+                string[] strStrArr = new string[1];
+
+                this.Name = Interfaz.Utilities.UtilityAssistant.ExtractValue(txt, "Name");
+
+                strJsonArray[0] = txt;
+
+                string strTemp = strJsonArray[0].Substring(strJsonArray[0].IndexOf("L_AreaDefiners")).Replace("L_AreaDefiners", "");
+                strTemp = strTemp.Replace("\"Nombre\"", "\"Nombre\":\"");
+                AreaDefiner areaDefiner = null;
+                List<string> l_string = new List<string>(strTemp.Split("},{", StringSplitOptions.RemoveEmptyEntries));
+                foreach (string item in l_string)
+                {
+                    //strTemp = UtilityAssistant.ExtractValue(item, "Value");
+                    if(item.Contains("\"Value\""))
+                    {
+                        strTemp = item.Substring(item.IndexOf("\"Value\""));
+                        strTemp = strTemp.Replace("\"Value\":", "").Replace("}}]}", "}");
+                    }
+                    areaDefiner = AreaDefiner.CreateFromJson(strTemp);
+                    this.l_AreaDefiners.Add(areaDefiner);
+                }
+
+                return this;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("\n\nError (Area) FromJson(): " + json + " ex.Message: " + ex.Message);
+                return null;
+            }
+        }
+
+        public static Area CreateFromJson(string json)
+        {
+            try
+            {
+                string txt = Interfaz.Utilities.UtilityAssistant.CleanJSON(json);
+                Area area = new Area();
+                return area.FromJson(txt);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error (Area) CreateFromJson(): " + ex.Message);
+                return null;
+            }
+        }
+        #endregion
+
         #region ForEach Compatibility
         /*public IEnumerator<AreaDefiner> GetEnumerator()
         {

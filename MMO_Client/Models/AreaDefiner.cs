@@ -1,4 +1,5 @@
-﻿using Stride.Core.Mathematics;
+﻿using Interfaz.Utilities;
+using Stride.Core.Mathematics;
 using Stride.Engine;
 using System;
 using System.Collections;
@@ -141,6 +142,72 @@ namespace MMO_Client.Code.Models
                 return false;
             }
         }
+
+        #region Métodos JSON
+        public string ToJson()
+        {
+            try
+            {
+                string narea = !string.IsNullOrWhiteSpace(NombreArea) ? NombreArea : "null";
+                string strItem1 = !string.IsNullOrWhiteSpace(Point.Item1) ? Point.Item1 : "null";
+                string json = "{ \"NombreArea\":\"" + narea + "\",";
+                json += "\"Point\":{ \"Item1\":\"" + strItem1 + "\","; //it's a string
+                json += "\"Item2\":" + Point.Item2.ToJson() + "}}"; //it's a SerializeVector3
+
+                return json;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error (AreaDefiner) ToJson(): " + ex.Message);
+                return string.Empty;
+            }
+        }
+
+        public AreaDefiner FromJson(string json)
+        {
+            string txt = json;
+            try
+            {
+                txt = Interfaz.Utilities.UtilityAssistant.CleanJSON(txt.Replace("\u002B", "+"));
+
+                string nombreArea = UtilityAssistant.ExtractValue(txt, "NombreArea");
+                this.NombreArea = nombreArea;
+
+                string pointJson = UtilityAssistant.ExtractValue(txt, "Point");
+
+                string item1 = UtilityAssistant.ExtractValue(pointJson, "Item1");
+                string item2 = UtilityAssistant.ExtractValue(pointJson, "Item2");
+
+                this.point = new Pares<string, SerializedVector3>(item1, new SerializedVector3(item2));
+
+                return this;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("\n\nError (AreaDefiner) FromJson(): " + json + " ex.Message: " + ex.Message);
+                return null;
+            }
+        }
+
+        public static AreaDefiner CreateFromJson(string json)
+        {
+            try
+            {
+                string txt = UtilityAssistant.CleanJSON(json);
+                if(string.IsNullOrWhiteSpace(txt))
+                {
+                    txt = json;
+                }
+                AreaDefiner areaDefiner = new AreaDefiner();
+                return areaDefiner.FromJson(txt);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error (AreaDefiner) CreateFromJson(): " + ex.Message);
+                return null;
+            }
+        }
+        #endregion
 
         #region ForEach Compatibility
         /*public IEnumerator GetEnumerator()
