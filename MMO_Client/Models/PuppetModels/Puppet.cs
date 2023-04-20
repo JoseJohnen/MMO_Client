@@ -4,25 +4,45 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using MMO_Client.Code.Assistants;
 using MMO_Client.Code.Controllers;
 using MMO_Client.Code.Interfaces;
-using Newtonsoft.Json;
-using Interfaz.Models;
 using Stride.Graphics;
 using Interfaz.Models.Shots;
 using Interfaz.Models.Comms;
+using MMO_Client.Assistants;
+using MMO_Client.Code.Models;
+using Interfaz.Models.Puppets;
+using System.Text.Json;
+using Player = MMO_Client.Code.Models.Player;
+using Interfaz.Auxiliary;
+using System.Text.Encodings.Web;
+using System.Text.RegularExpressions;
+using UtilityAssistant = Interfaz.Auxiliary.UtilityAssistant;
 
-namespace MMO_Client.Code.Models
+namespace MMO_Client.Models.PuppetModels
 {
-    public abstract partial class Puppet
+    public abstract class Puppet : Interfaz.Models.Puppets.Puppet
     {
         private Dictionary<string, Pares<double, double>> direccionales = null;
 
-        public virtual float HP { get; set; }
-        public virtual float VelocityModifier { get; set; }
-        public virtual float MPKillBox { get; set; }
-        public virtual bool IsFlyer { get; set; }
+        //public virtual float HP { get; set; }
+        //public virtual float VelocityModifier { get; set; }
+        //public virtual float MPKillBox { get; set; }
+        //public virtual bool IsFlyer { get; set; }
+        public virtual new Vector3 Position 
+        {
+            get
+            {
+                return MMO_Client.Assistants.UtilityAssistant.ConvertVector3NumericToStride(base.Position);
+            }
+            set
+            {
+                base.Position = MMO_Client.Assistants.UtilityAssistant.ConvertVector3StrideToNumeric(value);
+                Entity.Transform.Position = value;
+                Body.Transform.Position = value;
+                RealEnt.Transform.Position = value;
+            }
+        }
         public virtual Entity Entity { get; set; }
         public virtual AnimacionSprite AnimSprite { get; set; }
         public virtual Dictionary<string, Pares<double, double>> Direccionales { get => direccionales; set => direccionales = value; }
@@ -257,8 +277,8 @@ namespace MMO_Client.Code.Models
         {
             try
             {
-                UtilityAssistant.RotateTo(this.Entity, target);
-                UtilityAssistant.RotateTo(this.RealEnt, target);
+                MMO_Client.Assistants.UtilityAssistant.RotateTo(this.Entity, target);
+                MMO_Client.Assistants.UtilityAssistant.RotateTo(this.RealEnt, target);
 
                 //TODO: Activar animación relevante
 
@@ -275,8 +295,8 @@ namespace MMO_Client.Code.Models
         {
             try
             {
-                UtilityAssistant.RotateTo(this.Entity, target);
-                UtilityAssistant.RotateTo(this.RealEnt, target);
+                MMO_Client.Assistants.UtilityAssistant.RotateTo(this.Entity, target);
+                MMO_Client.Assistants.UtilityAssistant.RotateTo(this.RealEnt, target);
 
                 //TODO: Activar animación relevante
 
@@ -294,8 +314,8 @@ namespace MMO_Client.Code.Models
             try
             {
                 Vector3 trgPos = target.Entity.Transform.Position;
-                UtilityAssistant.RotateTo(this.Entity, trgPos);
-                UtilityAssistant.RotateTo(this.RealEnt, trgPos);
+                MMO_Client.Assistants.UtilityAssistant.RotateTo(this.Entity, trgPos);
+                MMO_Client.Assistants.UtilityAssistant.RotateTo(this.RealEnt, trgPos);
 
                 //TODO: Activar animación relevante
 
@@ -303,8 +323,8 @@ namespace MMO_Client.Code.Models
                 sht.LN = this.RealEnt.Name;
                 sht.Type = type;
                 Message msgOut = new Message();
-                sht.OrPos = UtilityAssistant.ConvertVector3StrideToNumeric(this.Entity.Transform.WorldMatrix.TranslationVector);
-                sht.WPos = UtilityAssistant.ConvertVector3StrideToNumeric(this.RealEnt.FindChild("Fwd").Transform.WorldMatrix.TranslationVector);
+                sht.OrPos = MMO_Client.Assistants.UtilityAssistant.ConvertVector3StrideToNumeric(this.Entity.Transform.WorldMatrix.TranslationVector);
+                sht.WPos = MMO_Client.Assistants.UtilityAssistant.ConvertVector3StrideToNumeric(this.RealEnt.FindChild("Fwd").Transform.WorldMatrix.TranslationVector);
                 Controller.controller.playerController.CreateBullet(sht, msgOut, out msgOut);
             }
             catch (Exception ex)
@@ -385,7 +405,7 @@ namespace MMO_Client.Code.Models
         {
             try
             {
-                if (Player.PLAYER.Entity == null)
+                if (Code.Models.Player.PLAYER.Entity == null)
                 {
                     return false;
                 }
@@ -483,20 +503,21 @@ namespace MMO_Client.Code.Models
             }
         }
 
-        public virtual string ToJson()
+        public override string ToJson()
         {
             try
             {
-                JsonSerializerSettings serializeOptions = new JsonSerializerSettings
+                JsonSerializerOptions serializeOptions = new JsonSerializerOptions
                 {
                     Converters =
                     {
-                        new EntityConverterJSON(),
+                        //new EntityConverter(),
+                        new PuppetConverter(),
                         //new FurnitureConverterJSON(),
                     }
                 };
 
-                string strResult = JsonConvert.SerializeObject(this, serializeOptions);
+                string strResult = JsonSerializer.Serialize(this, serializeOptions);
                 return strResult;
             }
             catch (Exception ex)
@@ -506,61 +527,66 @@ namespace MMO_Client.Code.Models
             }
         }
 
-        /*public virtual Puppet FromJson(string Text)
+        public virtual Puppet FromJson(string Text)
         {
             string txt = Text;
             try
             {
-                txt = Interfaz.Utilities.UtilityAssistant.CleanJSON(txt.Replace("\u002B", "+"));
+                txt = Interfaz.Auxiliary.UtilityAssistant.CleanJSON(txt.Replace("\u002B", "+"));
 
-                JsonSerializerSettings serializeOptions = new JsonSerializerSettings
+                JsonSerializerOptions serializeOptions = new JsonSerializerOptions
                 {
                     Converters =
                     {
-                        new EntityConverterJSON(),
-                        new FurnitureConverterJSON(),
+                        new PuppetConverter(),
                     }
                 };
 
-                Puppet strResult = JsonConvert.DeserializeObject(txt, serializeOptions);
-
+                Puppet strResult = JsonSerializer.Deserialize<Puppet>(txt, serializeOptions);
 
                 //TODO: VER QUE EL OBJETO AL HACER TO JSON SALVE EL NOMBRE DE LA CLASE TAMBIÉN
                 //TODO2: RECUERDA QUE DEBES EXTRAER EL OBJETO
-                string TypeOfPuppetName = string.Empty;
-                Type typ = Puppet.TypesOfMonsters().Where(c => c.Name == TypeOfPuppetName).FirstOrDefault();
+
+                if (strResult != null)
+                {
+                    this.Name = strResult.Name;
+                    this.Position = strResult.Position;
+                }
+                return strResult;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error (Puppet) FromJson: " + ex.Message + " Text: " + txt);
+                return null;
+            }
+        }
+
+        public static Puppet CreateFromJson(string json)
+        {
+            try
+            {
+                string clase = Interfaz.Auxiliary.UtilityAssistant.CleanJSON(json);
+                clase = UtilityAssistant.ExtractAIInstructionData(clase, "Class").Replace("\"", "");
+
+                Type typ = Puppet.TypesOfMonsters().Where(c => c.Name == clase).FirstOrDefault();
                 if (typ == null)
                 {
-                    typ = Puppet.TypesOfMonsters().Where(c => c.FullName == TypeOfPuppetName).FirstOrDefault();
+                    typ = Puppet.TypesOfMonsters().Where(c => c.FullName == clase).FirstOrDefault();
                 }
 
                 object obtOfType = Activator.CreateInstance(typ); //Requires parameterless constructor.
                                                                   //TODO: System to determine the type of enemy to make the object, prepare stats and then add it to the list
-                int position = Controller.controller.playerController.l_entitysCharacters.Count();
-                Controller.controller.playerController.l_entitysCharacters.Add(((Puppet)obtOfType));
 
-                Puppet nwMsg = Controller.controller.playerController.l_entitysCharacters[position];
-                if (plDt != null)
-                {
-                    nwMsg.Weapon = new Interfaz.Utilities.SerializedVector3(plDt.WP).ConvertToVector3();
-                    this.Weapon = nwMsg.Weapon;
-                    nwMsg.Leftarm = new Interfaz.Utilities.SerializedVector3(plDt.LS).ConvertToVector3();
-                    this.Leftarm = nwMsg.Leftarm;
-                    nwMsg.Rightarm = new Interfaz.Utilities.SerializedVector3(plDt.RS).ConvertToVector3();
-                    this.Rightarm = nwMsg.Rightarm;
-                    nwMsg.Position = new Interfaz.Utilities.SerializedVector3(plDt.PS).ConvertToVector3();
-                    this.Position = nwMsg.Position;
-                    nwMsg.Rotation = Interfaz.Utilities.UtilityAssistant.StringToQuaternion(plDt.RT);
-                    this.Rotation = nwMsg.Rotation;
-                }
-                return nwMsg;
+                Puppet prgObj = ((Puppet)obtOfType);
+                return prgObj.FromJson(json);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error (Player) FromJson: " + ex.Message + " Text: " + txt);
-                return new Player();
+                Console.WriteLine("Error (Puppet) CreateFromJson(): " + ex.Message);
+                return null;
             }
-        }*/
+        }
+
 
         public static List<Type> TypesOfMonsters()
         {
@@ -587,8 +613,6 @@ namespace MMO_Client.Code.Models
         {
             return;
         }
-
-        public abstract void RunIA();
 
         public virtual void RunIAInstructions(string Instructions)
         {
@@ -626,6 +650,93 @@ namespace MMO_Client.Code.Models
             catch (Exception ex)
             {
                 Console.WriteLine("Error (Puppet) MeleeAttack(): " + ex.Message);
+            }
+        }
+
+        public override List<string> RunIAServer(string instruciones, System.Numerics.Vector3 target)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class PuppetConverter : System.Text.Json.Serialization.JsonConverter<Puppet>
+    {
+        public override Puppet Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            string strJson = string.Empty;
+            try
+            {
+                //TODO: Corregir, testear y terminar
+                JsonDocument jsonDoc = JsonDocument.ParseValue(ref reader);
+                strJson = jsonDoc.RootElement.GetRawText();
+                //strJson = reader.GetString();
+
+                string clase = UtilityAssistant.CleanJSON(strJson);
+                clase = UtilityAssistant.ExtractValue(clase, "Class").Replace("\"", "");
+
+                Type typ = Puppet.TypesOfMonsters().Where(c => c.Name == clase).FirstOrDefault();
+                if (typ == null)
+                {
+                    typ = Puppet.TypesOfMonsters().Where(c => c.FullName == clase).FirstOrDefault();
+                }
+
+                object obtOfType = Activator.CreateInstance(typ); //Requires parameterless constructor.
+                                                                  //TODO: System to determine the type of enemy to make the object, prepare stats and then add it to the list
+
+                Puppet prgObj = ((Puppet)obtOfType);
+
+                string pst = UtilityAssistant.ExtractValue(strJson, "Position");
+                prgObj.Position = MMO_Client.Assistants.UtilityAssistant.ConvertVector3NumericToStride(Interfaz.Auxiliary.UtilityAssistant.Vector3Deserializer(pst));
+                prgObj.Name = UtilityAssistant.ExtractValue(strJson, "Name");
+
+                return prgObj;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: (PuppetConverter) Read(): {0} Message: {1}", strJson, ex.Message);
+                return default;
+            }
+        }
+
+        public override void Write(Utf8JsonWriter writer, Puppet ppt, JsonSerializerOptions options)
+        {
+            try
+            {
+                JsonSerializerOptions serializeOptions = new JsonSerializerOptions
+                {
+                    Converters =
+                    {
+                        new Vector3Converter()
+                        ,new EntityConverter()
+                        ,new NullConverter()
+                    },
+                    Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                    WriteIndented = true,
+                    IgnoreNullValues = true
+                };
+
+
+                //Para deserealizar los vector3 serializados: UtilityAssistant.Vector3Deserializer(ppt);
+
+                //TODO: Corregir, testear y terminar
+                string Name = string.IsNullOrWhiteSpace(ppt.Name) ? "null" : ppt.Name;
+                string Position = System.Text.Json.JsonSerializer.Serialize(ppt.Position, serializeOptions);
+                string Class = ppt.GetType().Name;
+
+                char[] a = { '"' };
+
+                string wr = string.Concat("{ ", new string(a), "Name", new string(a), ":", new string(a), Name, new string(a),
+                    ", ", new string(a), "Class", new string(a), ":", new string(a), Class, new string(a),
+                    ", ", new string(a), "Position", new string(a), ":", Position,
+                    "}");
+
+                string resultJson = Regex.Replace(wr, "(\"(?:[^\"\\\\]|\\\\.)*\")|\\s+", "$1");
+                //string resultJson = "{Id:" + Id + ", LN:" + LauncherName + ", Type:" + Type + ", OrPos:" + LauncherPos + ", WPos:" + WeaponPos + ", Mdf:" + Moddif + "}";
+                writer.WriteStringValue(resultJson);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: (PuppetConverter) Write(): " + ex.Message);
             }
         }
     }
@@ -764,10 +875,6 @@ namespace MMO_Client.Code.Models
             }
         }
 
-        public override void RunIA()
-        {
-            throw new NotImplementedException();
-        }
     }
 
     public class tankexport : Puppet, IPuppetWithDetector
@@ -802,10 +909,6 @@ namespace MMO_Client.Code.Models
             return true;
         }*/
 
-        public override void RunIA()
-        {
-
-        }
     }
 
     public class Spider : Puppet, IPuppetWithDetector
@@ -831,10 +934,6 @@ namespace MMO_Client.Code.Models
             return true;
         }*/
 
-        public override void RunIA()
-        {
-
-        }
     }
 
     public class Hunter : Ship
@@ -860,9 +959,5 @@ namespace MMO_Client.Code.Models
             }
         }
 
-        public override void RunIA()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

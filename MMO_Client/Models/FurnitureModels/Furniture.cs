@@ -6,6 +6,7 @@ using System;
 using MMO_Client.Code.Models;
 using MMO_Client.Code.Assistants;
 using Newtonsoft.Json;
+using MMO_Client.Assistants;
 
 namespace MMO_Client.Models.FurnitureModels
 {

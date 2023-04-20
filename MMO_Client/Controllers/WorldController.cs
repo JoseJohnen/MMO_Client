@@ -23,7 +23,7 @@ namespace MMO_Client.Controllers
                 {
                     if (textOriginal.Contains("WM:"))
                     {
-                        string tempString = UtilityAssistant.ExtractValues(textOriginal, "WM");
+                        string tempString = Interfaz.Auxiliary.UtilityAssistant.ExtractValues(textOriginal, "WM");
                         if (!string.IsNullOrWhiteSpace(tempString))
                         {
                             World world = World.CreateFromJson(textOriginal);
@@ -60,6 +60,8 @@ namespace MMO_Client.Controllers
             try
             {
                 TestWorld = new MMO_Client.Models.WorldModels.BaseWorld();
+                TestWorld.WestEast = 15;
+                TestWorld.FrontBack = 15;
                 TestWorld.RegisterWorld("NombreDePrueba");
                 TestWorld.FillWorld("Grass");
                 string b = TestWorld.ToJson();

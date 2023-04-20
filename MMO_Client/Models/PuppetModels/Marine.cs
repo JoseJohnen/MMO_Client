@@ -129,16 +129,5 @@ namespace MMO_Client.Models.PuppetModels
                 });
         }
 
-        public override void RunIA()
-        {
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
     }
 }

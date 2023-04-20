@@ -10,10 +10,12 @@ using MMO_Client.Controllers;
 using Stride.Core.IO;
 using Stride.Rendering;
 using System.Threading.Tasks;
-using Interfaz.Utilities;
 using System.Text.RegularExpressions;
 using Player = MMO_Client.Code.Models.Player;
 using Interfaz.Models.Comms;
+using MMO_Client.Assistants;
+using Interfaz.Models.Puppets;
+using Interfaz.Models.Shots;
 
 namespace MMO_Client.Code.Controllers
 {
@@ -332,7 +334,26 @@ namespace MMO_Client.Code.Controllers
                             //playerController.UpdateShot(nwMsg.TextOriginal, nwMsg, out nwMsg);
                             break;
                         case "MC": //Monster Create
-                            //WorldController
+                            try
+                            {
+                                string itemParameter = nwMsg.TextOriginal;
+                                if (!string.IsNullOrWhiteSpace(itemParameter))
+                                {
+                                    if (itemParameter.Contains("US:"))
+                                    {
+                                        string tempString = UtilityAssistant.ExtractValues(itemParameter, "MC");
+                                        if (!string.IsNullOrWhiteSpace(tempString))
+                                        {
+                                            MMO_Client.Models.PuppetModels.Puppet ppt = MMO_Client.Models.PuppetModels.Puppet.CreateFromJson(tempString);
+                                            ppt.Prepare();
+                                            Controller.controller.playerController.l_entitysCharacters.Add(ppt);
+                                        }
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            { 
+                            }
                             break;
                         default:
                             break;

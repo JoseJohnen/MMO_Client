@@ -5,7 +5,7 @@ namespace MMO_Client.Models.PuppetModels
 {
     public class Pinkie : Puppet
     {
-        public override void RunIA()
+        /*public override void RunIA()
         {
             try
             {
@@ -22,6 +22,6 @@ namespace MMO_Client.Models.PuppetModels
             {
                 Console.WriteLine(ex.Message);
             }
-        }
+        }*/
     }
 }

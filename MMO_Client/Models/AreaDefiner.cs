@@ -1,10 +1,7 @@
-﻿using Interfaz.Utilities;
-using Stride.Core.Mathematics;
+﻿using Interfaz.Auxiliary;
 using Stride.Engine;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json.Serialization;
 
 namespace MMO_Client.Code.Models
@@ -55,6 +52,7 @@ namespace MMO_Client.Code.Models
 
         }
 
+        #region Suplementary Functions
         public static bool isBreakingInside(List<AreaDefiner> l_areaDefiners, Entity entity)
         {
             try
@@ -142,6 +140,7 @@ namespace MMO_Client.Code.Models
                 return false;
             }
         }
+        #endregion
 
         #region Métodos JSON
         public string ToJson()
@@ -168,7 +167,7 @@ namespace MMO_Client.Code.Models
             string txt = json;
             try
             {
-                txt = Interfaz.Utilities.UtilityAssistant.CleanJSON(txt.Replace("\u002B", "+"));
+                txt = UtilityAssistant.CleanJSON(txt.Replace("\u002B", "+"));
 
                 string nombreArea = UtilityAssistant.ExtractValue(txt, "NombreArea");
                 this.NombreArea = nombreArea;

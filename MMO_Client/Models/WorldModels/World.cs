@@ -1,6 +1,7 @@
-﻿using Interfaz.Utilities;
+﻿using Interfaz.Auxiliary;
 using MMO_Client.Code.Models;
 using MMO_Client.Controllers;
+using MMO_Client.Models.PuppetModels;
 using MMO_Client.Models.TilesModels;
 using System;
 using System.Collections.Concurrent;
@@ -10,25 +11,49 @@ using System.Reflection;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-
+using SerializedVector3 = MMO_Client.Code.Models.SerializedVector3;
 namespace MMO_Client.Models.WorldModels
 {
     public abstract class World : Interfaz.Models.Worlds.World
     {
         public new ConcurrentDictionary<string, Tile> dic_worldTiles = new ConcurrentDictionary<string, Tile>();
         public new Dictionary<Puppet, int> dic_SpawnList = new Dictionary<Puppet, int>();
+
+        public override System.Numerics.Vector3 Location {
+            get
+            {
+                return base.Location;
+            }
+            set 
+            {
+                base.Location = value;
+            }
+        } 
+            
+        //= new System.Numerics.Vector3(0, 0, 0);
+
+
+        //Pares<string, SerializedVector3> point, string name = ""
+
         public new Area Area = new Area(new List<AreaDefiner>() {
-            new AreaDefiner(),
-            new AreaDefiner(),
-            new AreaDefiner(),
-            new AreaDefiner(),
+            new AreaDefiner(new Pares<string,SerializedVector3>("NW"), "NW"),
+            new AreaDefiner(new Pares<string, SerializedVector3>("NE"), "NE"),
+            new AreaDefiner(new Pares<string, SerializedVector3>("SW"), "SW"),
+            new AreaDefiner(new Pares<string, SerializedVector3>("SE"), "SE"),
         });
+
         public World(int westEast = 3, int height = 1, int frontBack = 3, string name = "")
         {
             WestEast = westEast;
             Height = height;
             FrontBack = frontBack;
             Name = name;
+            Area = new Area(new List<AreaDefiner>() {
+                new AreaDefiner(new Pares<string,SerializedVector3>("NW"), "NW"),
+                new AreaDefiner(new Pares<string, SerializedVector3>("NE"), "NE"),
+                new AreaDefiner(new Pares<string, SerializedVector3>("SW"), "SW"),
+                new AreaDefiner(new Pares<string, SerializedVector3>("SE"), "SE"),
+            });
         }
 
         public virtual new World RegisterWorld(string nameOfTheWorld = "")

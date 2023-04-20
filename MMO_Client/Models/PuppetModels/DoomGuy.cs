@@ -134,22 +134,5 @@ namespace MMO_Client.Models.PuppetModels
                 });
         }
 
-        public override void RunIA()
-        {
-            try
-            {
-                //if (((IPuppetWithDetector)this).IfDetectPlayer())
-                if (this.IfDetectPlayer())
-                {
-                    //UtilityAssistant.RotateToDirection(this.Entity, Controller.controller.playerController.player.Transform.position);
-                    //this.Shot();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error RunIA: " + ex.Message);
-            }
-
-        }
     }
 }

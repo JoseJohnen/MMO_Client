@@ -11,19 +11,17 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Text.Json;
 using Newtonsoft.Json;
-using MMO_Client.Models.FurnitureModels;
 using Stride.Rendering.Sprites;
 using Stride.Graphics;
 using MMO_Client.Models.MathModels;
-using Stride.Core.Shaders.Ast.Hlsl;
 
 using MMO_Client.Models.Enums;
-using System.Numerics;
 using Quaternion = Stride.Core.Mathematics.Quaternion;
 using Vector3 = Stride.Core.Mathematics.Vector3;
 using Vector2 = Stride.Core.Mathematics.Vector2;
+using MMO_Client.Models.PuppetModels;
 
-namespace MMO_Client.Code.Assistants
+namespace MMO_Client.Assistants
 {
     public class UtilityAssistant : StartupScript
     {
@@ -203,274 +201,6 @@ namespace MMO_Client.Code.Assistants
         }
 
         /// <summary>
-        /// Recibe un string en formato 'X:# Y:# Z:# W:#' y lo convierte en un Quaternion con dichos parámetros, luego retorna dicho Quaternion.
-        /// </summary>
-        /// <param name="information">String containing the quaternion information in format X:# Y:# Z:# W:#</param>
-        /// <returns></returns>
-        public static Quaternion StringToQuaternion(string information)
-        {
-            try
-            {
-                string sQuaternion = "(" + information.Replace(",", ".").Replace(" ", ",").Replace("}", "").Replace("{", "") + ")";
-                // Remove the parentheses
-                if (sQuaternion.StartsWith("(") && sQuaternion.EndsWith(")"))
-                {
-                    sQuaternion = sQuaternion.Substring(1, sQuaternion.Length - 2);
-                }
-
-                // split the items
-                string[] sArray = sQuaternion.Split(',');
-
-                // store as a Vector3
-                Quaternion result = new Quaternion(
-                    float.Parse(sArray[0].Replace(".", ",").Substring(2)),
-                    float.Parse(sArray[1].Replace(".", ",").Substring(2)),
-                    float.Parse(sArray[2].Replace(".", ",").Substring(2)),
-                    float.Parse(sArray[3].Replace(".", ",").Substring(2)));
-
-                return result;
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error Quaternion StringToQuaternion(string): " + ex.Message, ConsoleColor.Red);
-                return Quaternion.Identity;
-            }
-        }
-
-        public static Quaternion ToQuaternion(Vector3 v)
-        {
-            try
-            {
-                float cy = (float)Math.Cos(v.Z * 0.5);
-                float sy = (float)Math.Sin(v.Z * 0.5);
-                float cp = (float)Math.Cos(v.Y * 0.5);
-                float sp = (float)Math.Sin(v.Y * 0.5);
-                float cr = (float)Math.Cos(v.X * 0.5);
-                float sr = (float)Math.Sin(v.X * 0.5);
-
-                return new Quaternion
-                {
-                    W = (cr * cp * cy + sr * sp * sy),
-                    X = (sr * cp * cy - cr * sp * sy),
-                    Y = (cr * sp * cy + sr * cp * sy),
-                    Z = (cr * cp * sy - sr * sp * cy)
-                };
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error Quaternion ToQuaternion(Vector3): " + ex.Message, ConsoleColor.Red);
-                return Quaternion.Identity;
-            }
-        }
-
-        public static Stride.Core.Mathematics.Quaternion ConvertSystemNumericsToStrideQuaternion(System.Numerics.Quaternion quaternion)
-        {
-            try
-            {
-                return new Quaternion(quaternion.X, quaternion.Y, quaternion.Z, quaternion.W);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error System.Numerics.Quaternion ConvertSystemNumericsToStrideQuaternion(Stride.Core.Mathematics.Quaternion): " + ex.Message);
-                return Quaternion.Identity;
-            }
-        }
-
-        public static System.Numerics.Quaternion ConvertStrideToSystemNumericsQuaternion(Stride.Core.Mathematics.Quaternion quaternion)
-        {
-            try
-            {
-                return new System.Numerics.Quaternion(quaternion.X, quaternion.Y, quaternion.Z, quaternion.W);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error Stride.Core.Mathematics.Quaternion ConvertStrideToSystemNumericsQuaternion(System.Numerics.Quaternion): " + ex.Message);
-                return System.Numerics.Quaternion.Identity;
-            }
-        }
-
-        public static string QuaternionToXml(Quaternion quaternion)
-        {
-            try
-            {
-                XmlSerializer serializer = new XmlSerializer(typeof(Quaternion));
-                XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
-                ns.Add(String.Empty, String.Empty);
-                string result = string.Empty;
-                using (StringWriter textWriter = new StringWriter())
-                {
-                    serializer.Serialize(textWriter, quaternion, ns);
-                    return textWriter.ToString();
-                }
-                return string.Empty;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error string QuaternionToXml(Quaternion): " + ex.Message);
-                return String.Empty;
-            }
-        }
-
-        public static Vector3 ToEulerAngles(Quaternion q)
-        {
-            try
-            {
-                Vector3 angles = new();
-
-                // roll / x
-                double sinr_cosp = 2 * (q.W * q.X + q.Y * q.Z);
-                double cosr_cosp = 1 - 2 * (q.X * q.X + q.Y * q.Y);
-                angles.X = (float)Math.Atan2(sinr_cosp, cosr_cosp);
-
-                // pitch / y
-                double sinp = 2 * (q.W * q.Y - q.Z * q.X);
-                if (Math.Abs(sinp) >= 1)
-                {
-                    angles.Y = (float)Math.CopySign(Math.PI / 2, sinp);
-                }
-                else
-                {
-                    angles.Y = (float)Math.Asin(sinp);
-                }
-
-                // yaw / z
-                double siny_cosp = 2 * (q.W * q.Z + q.X * q.Y);
-                double cosy_cosp = 1 - 2 * (q.Y * q.Y + q.Z * q.Z);
-                angles.Z = (float)Math.Atan2(siny_cosp, cosy_cosp);
-
-                return angles;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error Vector3 ToEulerAngles(Quaternion): " + ex.Message);
-                return Vector3.Zero;
-            }
-        }
-
-        public static string ExtractValues(string instructions, string particle, out string part1, out string part2)
-        {
-            try
-            {
-                if (!instructions.Contains(particle))
-                {
-                    part1 = String.Empty;
-                    part2 = String.Empty;
-                    return instructions;
-                }
-
-                //Extract relevant part
-                string particleswithdots = particle + ":";
-                string b = instructions.Substring(instructions.IndexOf(particle));
-                string d = b.Contains("r/n/") ? b.Substring(0, b.IndexOf("r/n/")) : b;
-
-                //Process relevant part
-                string specificRelevantInstruction = d.Substring(particleswithdots.Length);
-                part1 = specificRelevantInstruction.Substring(0, 2);
-                part2 = specificRelevantInstruction.Substring(2);
-                return specificRelevantInstruction;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error string ExtractValues(string, string, out string, out string): " + ex.Message);
-                part1 = String.Empty;
-                part2 = String.Empty;
-                return String.Empty;
-            }
-        }
-
-        //Cuidado, no funciona con con objetos dentro de objetos TODO: Arreglar eso
-        public static string[] CutJson(string jsonToCut)
-        {
-            try
-            {
-                string[] result = null;
-                if (!string.IsNullOrWhiteSpace(jsonToCut))
-                {
-                    string tempString = jsonToCut.Replace("{", "").Replace("}", "");
-
-
-                    if (tempString.Contains(", "))
-                    {
-                        result = tempString.Split(", ");
-                        int i = 0;
-                        foreach (string str in result)
-                        {
-                            result[i] = str.Substring(str.IndexOf(":") + 1).Replace("\"", "");
-                            i++;
-                        }
-                        return result;
-                    }
-
-                    if (tempString.Contains(" "))
-                    {
-                        result = tempString.Split(" ");
-                        return result;
-                    }
-                }
-
-                result = new string[0];
-                return result;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error string[] CutJson(string): " + ex.Message);
-                return new string[0];
-            }
-        }
-
-        public static T XmlToClass<T>(string xml)
-        {
-            try
-            {
-                string toProcess = xml.Replace("xmlns:xsi=http://www.w3.org/2001/XMLSchema-instance xmlns:xsd=http://www.w3.org/2001/XMLSchema", "").Replace("1.0", "\"1.0\"").Replace("utf-16", "\"utf-16\"").Replace("UTF-8", "\"UTF-8\"");
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
-                using (StringReader textReader = new StringReader(toProcess))
-                {
-                    return (T)xmlSerializer.Deserialize(textReader);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error T XmlToClass<T>: " + ex.Message);
-                return default(T);
-            }
-        }
-
-        public static string ExtractValues(string instructions, string particle)
-        {
-            try
-            {
-                if (!instructions.Contains(particle))
-                {
-                    return instructions;
-                }
-
-                //Extract relevant part
-                string particleswithdots = particle + ":";
-                string b = instructions.Substring(instructions.IndexOf(particle));
-                string d = String.Empty;
-                if (b.Contains("\r\n"))
-                {
-                    d = b.Substring(0, b.IndexOf("\r\n"));
-                }
-                else
-                {
-                    d = b;
-                }
-
-                //Process relevant part
-                string specificRelevantInstruction = d.Substring(particleswithdots.Length);
-                return specificRelevantInstruction;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error string ExtractValues(string, string): " + ex.Message);
-                return String.Empty;
-            }
-        }
-
-        /// <summary>
         /// Compare floats, usually used in floats of position, to determine what is the directional difference between them, it will return a -1, 0 or 1 depending of the imaginary nature of the answer 
         /// </summary>
         /// <param name="ValueA">a float</param>
@@ -532,6 +262,391 @@ namespace MMO_Client.Code.Assistants
             {
                 Console.WriteLine("Error DistanceModifierByAxis(): " + ex.Message);
                 return 0;
+            }
+        }
+
+        #region Quaternion Related
+        /// <summary>
+        /// Recibe un string en formato 'X:# Y:# Z:# W:#' y lo convierte en un Quaternion con dichos parámetros, luego retorna dicho Quaternion.
+        /// </summary>
+        /// <param name="information">String containing the quaternion information in format X:# Y:# Z:# W:#</param>
+        /// <returns></returns>
+        public static Quaternion StringToQuaternion(string information)
+        {
+            try
+            {
+                string sQuaternion = "(" + information.Replace(",", ".").Replace(" ", ",").Replace("}", "").Replace("{", "") + ")";
+                // Remove the parentheses
+                if (sQuaternion.StartsWith("(") && sQuaternion.EndsWith(")"))
+                {
+                    sQuaternion = sQuaternion.Substring(1, sQuaternion.Length - 2);
+                }
+
+                // split the items
+                string[] sArray = sQuaternion.Split(',');
+
+                // store as a Vector3
+                Quaternion result = new Quaternion(
+                    float.Parse(sArray[0].Replace(".", ",").Substring(2)),
+                    float.Parse(sArray[1].Replace(".", ",").Substring(2)),
+                    float.Parse(sArray[2].Replace(".", ",").Substring(2)),
+                    float.Parse(sArray[3].Replace(".", ",").Substring(2)));
+
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error Quaternion StringToQuaternion(string): " + ex.Message, ConsoleColor.Red);
+                return Quaternion.Identity;
+            }
+        }
+
+        public static Quaternion ToQuaternion(Vector3 v)
+        {
+            try
+            {
+                float cy = (float)Math.Cos(v.Z * 0.5);
+                float sy = (float)Math.Sin(v.Z * 0.5);
+                float cp = (float)Math.Cos(v.Y * 0.5);
+                float sp = (float)Math.Sin(v.Y * 0.5);
+                float cr = (float)Math.Cos(v.X * 0.5);
+                float sr = (float)Math.Sin(v.X * 0.5);
+
+                return new Quaternion
+                {
+                    W = (cr * cp * cy + sr * sp * sy),
+                    X = (sr * cp * cy - cr * sp * sy),
+                    Y = (cr * sp * cy + sr * cp * sy),
+                    Z = (cr * cp * sy - sr * sp * cy)
+                };
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error Quaternion ToQuaternion(Vector3): " + ex.Message, ConsoleColor.Red);
+                return Quaternion.Identity;
+            }
+        }
+
+        public static string QuaternionToXml(Quaternion quaternion)
+        {
+            try
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(Quaternion));
+                XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+                ns.Add(String.Empty, String.Empty);
+                string result = string.Empty;
+                using (StringWriter textWriter = new StringWriter())
+                {
+                    serializer.Serialize(textWriter, quaternion, ns);
+                    return textWriter.ToString();
+                }
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error string QuaternionToXml(Quaternion): " + ex.Message);
+                return String.Empty;
+            }
+        }
+
+        public static Vector3 ToEulerAngles(Quaternion q)
+        {
+            try
+            {
+                Vector3 angles = new();
+
+                // roll / x
+                double sinr_cosp = 2 * (q.W * q.X + q.Y * q.Z);
+                double cosr_cosp = 1 - 2 * (q.X * q.X + q.Y * q.Y);
+                angles.X = (float)Math.Atan2(sinr_cosp, cosr_cosp);
+
+                // pitch / y
+                double sinp = 2 * (q.W * q.Y - q.Z * q.X);
+                if (Math.Abs(sinp) >= 1)
+                {
+                    angles.Y = (float)Math.CopySign(Math.PI / 2, sinp);
+                }
+                else
+                {
+                    angles.Y = (float)Math.Asin(sinp);
+                }
+
+                // yaw / z
+                double siny_cosp = 2 * (q.W * q.Z + q.X * q.Y);
+                double cosy_cosp = 1 - 2 * (q.Y * q.Y + q.Z * q.Z);
+                angles.Z = (float)Math.Atan2(siny_cosp, cosy_cosp);
+
+                return angles;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error Vector3 ToEulerAngles(Quaternion): " + ex.Message);
+                return Vector3.Zero;
+            }
+        }
+        #endregion
+
+        #region Extract Values
+        public static string ExtractValues(string instructions, string particle, out string part1, out string part2)
+        {
+            try
+            {
+                if (!instructions.Contains(particle))
+                {
+                    part1 = String.Empty;
+                    part2 = String.Empty;
+                    return instructions;
+                }
+
+                //Extract relevant part
+                string particleswithdots = particle + ":";
+                string b = instructions.Substring(instructions.IndexOf(particle));
+                string d = b.Contains("r/n/") ? b.Substring(0, b.IndexOf("r/n/")) : b;
+
+                //Process relevant part
+                string specificRelevantInstruction = d.Substring(particleswithdots.Length);
+                part1 = specificRelevantInstruction.Substring(0, 2);
+                part2 = specificRelevantInstruction.Substring(2);
+                return specificRelevantInstruction;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error string ExtractValues(string, string, out string, out string): " + ex.Message);
+                part1 = String.Empty;
+                part2 = String.Empty;
+                return String.Empty;
+            }
+        }
+
+        public static string ExtractValues(string instructions, string particle, out string part1, out string part2, out string part3)
+        {
+            try
+            {
+                if (!instructions.Contains(particle))
+                {
+                    part1 = String.Empty;
+                    part2 = String.Empty;
+                    part3 = String.Empty;
+                    return instructions;
+                }
+
+                //Extract relevant part
+                string particleswithdots = particle + ":";
+                string b = instructions.Substring(instructions.IndexOf(particle));
+                string d = b.Contains("r/n/") ? b.Substring(0, b.IndexOf("r/n/")) : b;
+
+                //Process relevant part
+                string specificRelevantInstruction = d.Substring(particleswithdots.Length);
+                part1 = specificRelevantInstruction.Substring(0, 2);
+                part2 = specificRelevantInstruction.Substring(2, 2);
+                part3 = specificRelevantInstruction.Substring(4);
+                return specificRelevantInstruction;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error string ExtractValues(string, string, out string, out string): " + ex.Message);
+                part1 = String.Empty;
+                part2 = String.Empty;
+                part3 = String.Empty;
+                return String.Empty;
+            }
+        }
+
+        public static string ExtractValues(string instructions, string particle)
+        {
+            try
+            {
+                if (!instructions.Contains(particle))
+                {
+                    return instructions;
+                }
+
+                //Extract relevant part
+                string particleswithdots = particle + ":";
+                string b = instructions.Substring(instructions.IndexOf(particle));
+                string d = String.Empty;
+                if (b.Contains("\r\n"))
+                {
+                    d = b.Substring(0, b.IndexOf("\r\n"));
+                }
+                else
+                {
+                    d = b;
+                }
+
+                //Process relevant part
+                string specificRelevantInstruction = d.Substring(particleswithdots.Length);
+                return specificRelevantInstruction;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error string ExtractValues(string, string): " + ex.Message);
+                return String.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Extract the value of the specific field in the Json, it eliminates everything else
+        /// </summary>
+        /// <param name="instruction">the JSON from which its gonna extract the value</param>
+        /// <param name="valueName">the name of the field to extract</param>
+        /// <returns>the value extacted</returns>
+        public static string ExtractValue(string instruction, string valueName)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(instruction))
+                {
+                    return string.Empty;
+                }
+
+                string result = instruction;
+                if (instruction.Contains("\u0022"))
+                {
+                    result = Interfaz.Auxiliary.UtilityAssistant.CleanJSON(instruction);
+                }
+
+                if (result.Contains("\"" + valueName + "\":"))
+                {
+                    result = result.Substring(result.IndexOf("\"" + valueName + "\":"));
+                }
+                else if (result.Contains(valueName))
+                {
+                    result = result.Substring(result.IndexOf(valueName));
+                }
+
+                if (result.Contains(","))
+                {
+                    result = result.Replace(result.Substring(result.IndexOf(",")), "");
+                }
+                string aarg = "\"" + valueName + "\":";
+                result = result.Replace(aarg, "");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error string ExtractValues(string, string): " + ex.Message);
+                return String.Empty;
+            }
+        }
+
+        public static string ExtractAIInstructionData(string instruction, string valueName)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(instruction))
+                {
+                    return string.Empty;
+                }
+
+                string result = instruction;
+                result = result.Substring(result.IndexOf("\"" + valueName + "\":"));
+                result = result.Replace(result.Substring(result.IndexOf(",")), "");
+                string aarg = "\"" + valueName + "\":";
+                result = result.Replace(aarg, "");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error string ExtractValues(string, string): " + ex.Message);
+                return String.Empty;
+            }
+        }
+        #endregion
+
+        /// <summary>
+        /// Cuidado, no funciona con objetos dentro de objetos TODO: Arreglar eso
+        /// </summary>
+        /// <param name="jsonToCut">el string en formato JSON a cortar</param>
+        /// <returns>un string array que contiene el json ya cortado en sub-jsons</returns>
+        public static string[] CutJson(string jsonToCut)
+        {
+            try
+            {
+                string[] result = null;
+                if (!string.IsNullOrWhiteSpace(jsonToCut))
+                {
+                    string tempString = jsonToCut.Replace("{", "").Replace("}", "");
+
+
+                    if (tempString.Contains(", "))
+                    {
+                        result = tempString.Split(", ");
+                        int i = 0;
+                        foreach (string str in result)
+                        {
+                            result[i] = str.Substring(str.IndexOf(":") + 1).Replace("\"", "");
+                            i++;
+                        }
+                        return result;
+                    }
+
+                    if (tempString.Contains(" "))
+                    {
+                        result = tempString.Split(" ");
+                        return result;
+                    }
+                }
+
+                result = new string[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error string[] CutJson(string): " + ex.Message);
+                return new string[0];
+            }
+        }
+
+        /// <summary>
+        /// Deserializa los string XML de vuelta a objetos de la clase T
+        /// </summary>
+        /// <param name="xml">el string en formato XML a deserializar</param>
+        /// <returns>un objeto de la clase T</returns>
+        public static T XmlToClass<T>(string xml)
+        {
+            try
+            {
+                string toProcess = xml.Replace("xmlns:xsi=http://www.w3.org/2001/XMLSchema-instance xmlns:xsd=http://www.w3.org/2001/XMLSchema", "").Replace("1.0", "\"1.0\"").Replace("utf-16", "\"utf-16\"").Replace("UTF-8", "\"UTF-8\"");
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
+                using (StringReader textReader = new StringReader(toProcess))
+                {
+                    return (T)xmlSerializer.Deserialize(textReader);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error T XmlToClass<T>: " + ex.Message);
+                return default(T);
+            }
+        }
+
+        public static Stride.Core.Mathematics.Quaternion ConvertSystemNumericsToStrideQuaternion(System.Numerics.Quaternion quaternion)
+        {
+            try
+            {
+                return new Quaternion(quaternion.X, quaternion.Y, quaternion.Z, quaternion.W);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error System.Numerics.Quaternion ConvertSystemNumericsToStrideQuaternion(Stride.Core.Mathematics.Quaternion): " + ex.Message);
+                return Quaternion.Identity;
+            }
+        }
+
+        public static System.Numerics.Quaternion ConvertStrideToSystemNumericsQuaternion(Stride.Core.Mathematics.Quaternion quaternion)
+        {
+            try
+            {
+                return new System.Numerics.Quaternion(quaternion.X, quaternion.Y, quaternion.Z, quaternion.W);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error Stride.Core.Mathematics.Quaternion ConvertStrideToSystemNumericsQuaternion(System.Numerics.Quaternion): " + ex.Message);
+                return System.Numerics.Quaternion.Identity;
             }
         }
 
@@ -1054,13 +1169,6 @@ namespace MMO_Client.Code.Assistants
                 Console.WriteLine("Error: RotateTo(Entity, Vector3): " + ex.Message);
                 return Quaternion.Zero;
             }
-        }
-
-        public static void Angle2dRotation()
-        {
-            //var subtraction = targetsPosition - observersPosition;
-            //var direction = (targetsPosition - observersPosition).normalized;
-            //var lookRotation = Quaternion.FromToRotation(observer.transform.forward, direction);
         }
 
         //Rotate the position of the entity in the direction of the destination (worldrotation) [ChildLookAtAlt]

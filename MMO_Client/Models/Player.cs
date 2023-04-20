@@ -1,13 +1,13 @@
 ﻿using Stride.Engine;
-using MMO_Client.Code.Controllers;
 using System;
-using Interfaz.Utilities;
 using Newtonsoft.Json;
-using Interfaz.Models;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using MMO_Client.Code.Assistants;
+using MMO_Client.Assistants;
+using Interfaz.Auxiliary;
+using UtilityAssistant = MMO_Client.Assistants.UtilityAssistant;
+using MMO_Client.Models.PuppetModels;
 
 namespace MMO_Client.Code.Models
 {
@@ -101,7 +101,7 @@ namespace MMO_Client.Code.Models
             string txt = Text;
             try
             {
-                txt = Interfaz.Utilities.UtilityAssistant.CleanJSON(txt.Replace("\u002B", "+"));
+                txt = Interfaz.Auxiliary.UtilityAssistant.CleanJSON(txt.Replace("\u002B", "+"));
                 //Player nwMsg = System.Text.Json.JsonSerializer.Deserialize<Player>(txt);
                 JsonSerializerOptions serializeOptions = new JsonSerializerOptions
                 {
@@ -146,12 +146,6 @@ namespace MMO_Client.Code.Models
                 Console.WriteLine("Error (Player) CreateFromJson: " + ex.Message);
                 return new Player();
             }
-        }
-
-        public override void RunIA()
-        {
-            //Es el jugador, no corre IA
-            return;
         }
 
         //For local purposes, it's a "card", hence, is static.
@@ -220,7 +214,7 @@ namespace MMO_Client.Code.Models
                 if (a[4] != null)
                 {
                     string fd = a[4].Substring(a[4].IndexOf(":") + 1);
-                    Player.PLAYER.Entity.Transform.Position = Assistants.UtilityAssistant.ConvertVector3NumericToStride(Vector3Converter.Converter(fd));//System.Text.Json.JsonSerializer.Deserialize<Vector3>(fd, serializeOptions);
+                    Player.PLAYER.Entity.Transform.Position = UtilityAssistant.ConvertVector3NumericToStride(Vector3Converter.Converter(fd));//System.Text.Json.JsonSerializer.Deserialize<Vector3>(fd, serializeOptions);
                 }
                 else
                 {
@@ -236,7 +230,7 @@ namespace MMO_Client.Code.Models
                 if (a[5] != null)
                 {
                     string fd = a[5].Substring(a[5].IndexOf(":") + 1);
-                    plyr.Weapon.Transform.Position = Assistants.UtilityAssistant.ConvertVector3NumericToStride(Vector3Converter.Converter(fd));//System.Text.Json.JsonSerializer.Deserialize<Vector3>(fd, serializeOptions);
+                    plyr.Weapon.Transform.Position = UtilityAssistant.ConvertVector3NumericToStride(Vector3Converter.Converter(fd));//System.Text.Json.JsonSerializer.Deserialize<Vector3>(fd, serializeOptions);
                 }
                 else
                 {
@@ -252,7 +246,7 @@ namespace MMO_Client.Code.Models
                 if (a[6] != null)
                 {
                     string fd = a[6].Substring(a[6].IndexOf(":") + 1);
-                    plyr.RightShoulder.Transform.Position = Assistants.UtilityAssistant.ConvertVector3NumericToStride(Vector3Converter.Converter(fd));//System.Text.Json.JsonSerializer.Deserialize<Vector3>(fd, serializeOptions);
+                    plyr.RightShoulder.Transform.Position = UtilityAssistant.ConvertVector3NumericToStride(Vector3Converter.Converter(fd));//System.Text.Json.JsonSerializer.Deserialize<Vector3>(fd, serializeOptions);
                 }
                 else
                 {
@@ -268,7 +262,7 @@ namespace MMO_Client.Code.Models
                 if (a[7] != null)
                 {
                     string fd = a[7].Substring(a[7].IndexOf(":") + 1);
-                    plyr.LeftShoulder.Transform.Position = Assistants.UtilityAssistant.ConvertVector3NumericToStride(Vector3Converter.Converter(fd));//System.Text.Json.JsonSerializer.Deserialize<Vector3>(fd, serializeOptions);
+                    plyr.LeftShoulder.Transform.Position = UtilityAssistant.ConvertVector3NumericToStride(Vector3Converter.Converter(fd));//System.Text.Json.JsonSerializer.Deserialize<Vector3>(fd, serializeOptions);
                 }
                 else
                 {

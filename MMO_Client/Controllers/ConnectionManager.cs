@@ -13,9 +13,9 @@ using System.Linq;
 using Interfaz.Models;
 using System.Collections.Concurrent;
 using MMO_Client.Code.Models;
-using Interfaz.Utilities;
 using System.Text.RegularExpressions;
 using Interfaz.Models.Comms;
+using Interfaz.Auxiliary;
 
 namespace MMO_Client.Code.Controllers
 {

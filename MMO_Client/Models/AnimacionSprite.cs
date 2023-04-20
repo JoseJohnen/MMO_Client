@@ -3,9 +3,10 @@ using Stride.Engine;
 using Stride.Rendering.Sprites;
 using System;
 using System.Linq;
-using MMO_Client.Code.Assistants;
 using MMO_Client.Code.Controllers;
 using System.Collections.Generic;
+using MMO_Client.Assistants;
+using MMO_Client.Models.PuppetModels;
 
 namespace MMO_Client.Code.Models
 {

@@ -13,6 +13,7 @@ using System.Windows.Documents;
 using System.Windows.Media.Media3D;
 using MMO_Client.Models.FurnitureModels;
 using System.Text.Json;
+using MMO_Client.Assistants;
 
 namespace MMO_Client.Code.Models
 {

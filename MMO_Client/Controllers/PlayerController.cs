@@ -15,12 +15,12 @@ using Controller = MMO_Client.Code.Controllers.Controller;
 using Quaternion = Stride.Core.Mathematics.Quaternion;
 using Stride.Core;
 using System.Collections.Concurrent;
-using UtilityAssistant = MMO_Client.Code.Assistants.UtilityAssistant;
+using UtilityAssistant = MMO_Client.Assistants.UtilityAssistant;
 using SerializedVector3 = MMO_Client.Code.Models.SerializedVector3;
 using System.Threading;
 using System.Net.Http;
 using MMO_Client.Models.PuppetModels;
-using Puppet = MMO_Client.Code.Models.Puppet;
+using Puppet = MMO_Client.Models.PuppetModels.Puppet;
 using Player = MMO_Client.Code.Models.Player;
 using Interfaz.Models.Shots;
 using Interfaz.Models.Comms;
@@ -73,6 +73,7 @@ namespace MMO_Client.Controllers
 
         #region Executing Functions
         Puppet tempPuppet = null;
+        Puppet tempPuppet2 = null;
         public override void Start()
         {
             try
@@ -90,8 +91,10 @@ namespace MMO_Client.Controllers
                 //EnemyNPCStart("DoomGuy", new Vector3(-1.2f,0,0));
 
                 tempPuppet = new Imp();
+                tempPuppet2 = new Pinkie();
                 //tempPuppet.Entity.Transform.Position = new Vector3(3, 0, 1);
                 tempPuppet.Prepare(new Vector3(3, 0, 1));
+                tempPuppet2.Prepare(new Vector3(5, 0, 1));
 
                 //l_entitysCharacters[0].RealEnt.Transform.Rotation = qtrn;
                 //Message messageOut = new Message();
@@ -1112,7 +1115,7 @@ namespace MMO_Client.Controllers
         }
 
         //Solve Movement of player only (Offline)
-        public void MovementSinglePlayer(Code.Assistants.UtilityAssistant.Axis AxistToIgnore = Code.Assistants.UtilityAssistant.Axis.Y)
+        public void MovementSinglePlayer(Assistants.UtilityAssistant.Axis AxistToIgnore = Assistants.UtilityAssistant.Axis.Y)
         {
             try
             {
@@ -1388,7 +1391,7 @@ namespace MMO_Client.Controllers
         {
             foreach (Puppet pppt in l_entitysCharacters)
             {
-                pppt.RunIA();
+                //pppt.RunIA();
             }
         }
 
@@ -1398,7 +1401,7 @@ namespace MMO_Client.Controllers
             //TODO: Fusionar MovementPuppet con Movement
             //MovementPuppet();
 
-            IA();
+            //IA();
             //ShotPuppet();
         }
 
@@ -1706,8 +1709,8 @@ namespace MMO_Client.Controllers
                 if (!string.IsNullOrWhiteSpace(text))
                 {
                     messageOut.Status = StatusMessage.Delivered;
-                    string tempString = Interfaz.Utilities.UtilityAssistant.ExtractValues(text, "CO");
-                    tempString = Interfaz.Utilities.UtilityAssistant.CleanJSON(tempString);
+                    string tempString = Interfaz.Auxiliary.UtilityAssistant.ExtractValues(text, "CO");
+                    tempString = Interfaz.Auxiliary.UtilityAssistant.CleanJSON(tempString);
                     //string strTemp = string.Empty;
 
                     //Reduntante, porque ahora el return devuelve una variable y por tanto no necesita dos returns

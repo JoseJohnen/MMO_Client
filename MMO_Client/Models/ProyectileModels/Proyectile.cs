@@ -1,4 +1,4 @@
-﻿using Interfaz.Utilities;
+﻿using Interfaz.Auxiliary;
 using MMO_Client.Controllers;
 using Stride.Core.Mathematics;
 using Stride.Engine;
