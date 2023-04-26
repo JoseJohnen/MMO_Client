@@ -1,10 +1,9 @@
 ﻿using Stride.Engine;
 using System;
 using System.Collections.Generic;
-using MMO_Client.Code.Models;
 using MMO_Client.Models.PuppetModels;
 
-namespace MMO_Client.Code.Interfaces
+namespace MMO_Client.Interfaces
 {
     [Serializable]
     [Stride.Core.DataContract]

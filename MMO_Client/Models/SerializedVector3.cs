@@ -2,7 +2,7 @@
 using System.IO;
 using System.Xml.Serialization;
 
-namespace MMO_Client.Code.Models
+namespace MMO_Client.Models
 {
     [Serializable]
     public class SerializedVector3

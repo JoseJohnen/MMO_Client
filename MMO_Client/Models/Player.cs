@@ -1,15 +1,14 @@
 ﻿using Stride.Engine;
 using System;
-using Newtonsoft.Json;
+//using Newtonsoft.Json;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using MMO_Client.Assistants;
-using Interfaz.Auxiliary;
 using UtilityAssistant = MMO_Client.Assistants.UtilityAssistant;
 using MMO_Client.Models.PuppetModels;
+using Interfaz.Utilities;
 
-namespace MMO_Client.Code.Models
+namespace MMO_Client.Models
 {
     public partial class Player : Puppet
     {
@@ -19,25 +18,25 @@ namespace MMO_Client.Code.Models
         public static string RS = string.Empty;
         public static string PS = string.Empty;
         public static string RT = string.Empty;
-        [JsonIgnore]
+        ////[JsonIgnore]
         public static string GNPS = string.Empty;
-        [JsonIgnore]
+        ////[JsonIgnore]
         public static string GNRT = string.Empty;
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public static Entity CAM = null;
-        [JsonIgnore]
+        //[JsonIgnore]
         public static Player PLAYER = null;
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public Entity Camera { get => CAM; set { CAM = value; } }
-        [JsonIgnore]
+        //[JsonIgnore]
         public override Entity Weapon { get; set; }
-        [JsonIgnore]
+        //[JsonIgnore]
         public Entity LeftShoulder { get; set; }
-        [JsonIgnore]
+        //[JsonIgnore]
         public Entity RightShoulder { get; set; }
-        [JsonIgnore]
+        //[JsonIgnore]
         public Entity Gun { get; set; }
 
         public override float HP { get => hpplayer; set => hpplayer = value; }
@@ -46,7 +45,7 @@ namespace MMO_Client.Code.Models
         public override bool IsFlyer { get => isflyer; set => isflyer = value; }
 
         private bool isflyer = false;
-        [JsonIgnore]
+        //[JsonIgnore]
         public override Entity Entity
         {
             get
@@ -59,7 +58,7 @@ namespace MMO_Client.Code.Models
             }
             set => entity = value;
         }
-        [JsonIgnore]
+        //[JsonIgnore]
         private Entity entity = null;
 
         public Player()
@@ -101,7 +100,7 @@ namespace MMO_Client.Code.Models
             string txt = Text;
             try
             {
-                txt = Interfaz.Auxiliary.UtilityAssistant.CleanJSON(txt.Replace("\u002B", "+"));
+                txt = Interfaz.Utilities.UtilityAssistant.CleanJSON(txt.Replace("\u002B", "+"));
                 //Player nwMsg = System.Text.Json.JsonSerializer.Deserialize<Player>(txt);
                 JsonSerializerOptions serializeOptions = new JsonSerializerOptions
                 {

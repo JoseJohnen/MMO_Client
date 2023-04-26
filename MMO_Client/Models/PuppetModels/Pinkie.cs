@@ -1,7 +1,4 @@
-﻿using MMO_Client.Code.Models;
-using System;
-
-namespace MMO_Client.Models.PuppetModels
+﻿namespace MMO_Client.Models.PuppetModels
 {
     public class Pinkie : Puppet
     {

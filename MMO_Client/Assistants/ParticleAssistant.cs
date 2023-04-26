@@ -3,10 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
-using MMO_Client.Controllers;
-using MMO_Client.Code.Models;
+using MMO_Client.Models;
 
-namespace MMO_Client.Code.Assistants
+namespace MMO_Client.Assistants
 {
     public class ParticleAssistant : StartupScript
     {

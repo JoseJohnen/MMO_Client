@@ -1,7 +1,5 @@
-﻿using MMO_Client.Code.Interfaces;
-using MMO_Client.Code.Models;
+﻿using MMO_Client.Interfaces;
 using Stride.Engine;
-using System;
 
 namespace MMO_Client.Models.PuppetModels
 {

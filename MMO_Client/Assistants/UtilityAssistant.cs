@@ -4,13 +4,12 @@ using Stride.Engine;
 using Stride.Physics;
 using System;
 using System.Linq;
-using MMO_Client.Code.Controllers;
 using MMO_Client.Controllers;
-using MMO_Client.Code.Models;
+using MMO_Client.Models;
 using System.IO;
 using System.Xml.Serialization;
 using System.Text.Json;
-using Newtonsoft.Json;
+//using Newtonsoft.Json;
 using Stride.Rendering.Sprites;
 using Stride.Graphics;
 using MMO_Client.Models.MathModels;
@@ -504,7 +503,7 @@ namespace MMO_Client.Assistants
                 string result = instruction;
                 if (instruction.Contains("\u0022"))
                 {
-                    result = Interfaz.Auxiliary.UtilityAssistant.CleanJSON(instruction);
+                    result = Interfaz.Utilities.UtilityAssistant.CleanJSON(instruction);
                 }
 
                 if (result.Contains("\"" + valueName + "\":"))
@@ -1451,7 +1450,7 @@ namespace MMO_Client.Assistants
         }
     }
 
-    public class EntityConverterJSON : Newtonsoft.Json.JsonConverter<Entity>
+    /*public class EntityConverterJSON : Newtonsoft.Json.JsonConverter<Entity>
     {
         public override void WriteJson(JsonWriter writer, Entity entity, Newtonsoft.Json.JsonSerializer serializer)
         {
@@ -1538,7 +1537,7 @@ namespace MMO_Client.Assistants
                 return null;
             }
         }
-    }
+    }*/
 
     /*public class FurnitureConverterJSON : Newtonsoft.Json.JsonConverter<Furniture>
     {

@@ -1,4 +1,4 @@
-﻿using Interfaz.Auxiliary;
+﻿using Interfaz.Utilities;
 using MMO_Client.Controllers;
 using Stride.Core.Mathematics;
 using Stride.Engine;
@@ -6,7 +6,7 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace MMO_Client.Code.Models
+namespace MMO_Client.Models.ProyectileModels
 {
     public abstract class Proyectile
     {
@@ -25,17 +25,17 @@ namespace MMO_Client.Code.Models
 
         public Vector3 Position { get => position; set { position = value; if (ProyectileBody != null) { ProyectileBody.Transform.Position = position; } } }
 
-        public Proyectile(string id, string NameLauncher, Vector3 InitialPosition, Vector3 MovementModifier, float Damage, DateTime LastUpdate = default(DateTime), TimeSpan Velocity = default(TimeSpan))
+        public Proyectile(string id, string NameLauncher, Vector3 InitialPosition, Vector3 MovementModifier, float Damage, DateTime LastUpdate = default, TimeSpan Velocity = default)
         {
             this.id = string.IsNullOrWhiteSpace(id) ? GenerateId() : id;
             this.NameLauncher = NameLauncher;
             this.InitialPosition = InitialPosition;
-            this.Position = InitialPosition;
+            Position = InitialPosition;
             this.MovementModifier = MovementModifier;
             this.Damage = Damage;
             this.LastUpdate = LastUpdate;
-            this.Velocity = Velocity == default(TimeSpan) ? new TimeSpan(0, 0, 0, 0, 1) : Velocity;
-            this.ProyectileBody = null;
+            this.Velocity = Velocity == default ? new TimeSpan(0, 0, 0, 0, 1) : Velocity;
+            ProyectileBody = null;
         }
 
         public string GenerateId()
@@ -47,7 +47,7 @@ namespace MMO_Client.Code.Models
                 Bullet blt = null;
                 do
                 {
-                    a = DateTime.Now.ToString() + this.Position.ToString();
+                    a = DateTime.Now.ToString() + Position.ToString();
                     keyAttempt = UtilityAssistant.Base64Encode(a).Substring(0, 10);
                 }
                 while (PlayerController.dic_bulletsOnline.TryGetValue(keyAttempt, out blt) || string.IsNullOrWhiteSpace(keyAttempt));
@@ -86,7 +86,7 @@ namespace MMO_Client.Code.Models
 
         public override string ToString()
         {
-            string rtrString = "NL:" + this.NameLauncher + "IP:" + InitialPosition + "PS:" + Position + "MM:" + MovementModifier + "DM:" + Damage;
+            string rtrString = "NL:" + NameLauncher + "IP:" + InitialPosition + "PS:" + Position + "MM:" + MovementModifier + "DM:" + Damage;
             return rtrString;
         }
 
@@ -104,9 +104,9 @@ namespace MMO_Client.Code.Models
     public class Bullet : Proyectile
     {
         //Write here methods or atributes of the specific object
-        public Bullet(string id, string NameLauncher, Vector3 InitialPosition, Vector3 MovementModifier, float Damage = 10f, DateTime velocity = default(DateTime), TimeSpan Velocity = default(TimeSpan)) : base(id, NameLauncher, InitialPosition, MovementModifier, Damage)
+        public Bullet(string id, string NameLauncher, Vector3 InitialPosition, Vector3 MovementModifier, float Damage = 10f, DateTime velocity = default, TimeSpan Velocity = default) : base(id, NameLauncher, InitialPosition, MovementModifier, Damage)
         {
-            this.Velocity = Velocity == default(TimeSpan) ? new TimeSpan(0, 0, 0, 0, 1) : Velocity;
+            this.Velocity = Velocity == default ? new TimeSpan(0, 0, 0, 0, 1) : Velocity;
         }
     }
 
@@ -115,10 +115,10 @@ namespace MMO_Client.Code.Models
         //Write here methods or atributes of the specific object
         public int HP = 0;
 
-        public Missile(string id, string NameLauncher, Vector3 InitialPosition, Vector3 MovementModifier, float Damage, DateTime velocity = default(DateTime), TimeSpan Velocity = default(TimeSpan), int HP = 1) : base(id, NameLauncher, InitialPosition, MovementModifier, Damage)
+        public Missile(string id, string NameLauncher, Vector3 InitialPosition, Vector3 MovementModifier, float Damage, DateTime velocity = default, TimeSpan Velocity = default, int HP = 1) : base(id, NameLauncher, InitialPosition, MovementModifier, Damage)
         {
             this.HP = HP;
-            this.Velocity = Velocity == default(TimeSpan) ? new TimeSpan(0, 0, 0, 0, 1) : Velocity;
+            this.Velocity = Velocity == default ? new TimeSpan(0, 0, 0, 0, 1) : Velocity;
         }
     }
 

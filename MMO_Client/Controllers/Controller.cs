@@ -6,18 +6,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
-using MMO_Client.Controllers;
 using Stride.Core.IO;
 using Stride.Rendering;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
-using Player = MMO_Client.Code.Models.Player;
+using Player = MMO_Client.Models.Player;
 using Interfaz.Models.Comms;
 using MMO_Client.Assistants;
-using Interfaz.Models.Puppets;
-using Interfaz.Models.Shots;
 
-namespace MMO_Client.Code.Controllers
+namespace MMO_Client.Controllers
 {
     public class Controller : SyncScript
     {
@@ -328,32 +325,13 @@ namespace MMO_Client.Code.Controllers
                             WorldController.LoadWorld(nwMsg.TextOriginal);
                             break;
                         case "MU": //Monster Update
-                            //playerController.UpdateShot(nwMsg.TextOriginal, nwMsg, out nwMsg);
+                            PlayerController.MonsterUpdateMethod(nwMsg.TextOriginal);
                             break;
                         case "MA": //Monster Attack
-                            //playerController.UpdateShot(nwMsg.TextOriginal, nwMsg, out nwMsg);
+                            PlayerController.MonsterAttackMethod(nwMsg.TextOriginal);
                             break;
                         case "MC": //Monster Create
-                            try
-                            {
-                                string itemParameter = nwMsg.TextOriginal;
-                                if (!string.IsNullOrWhiteSpace(itemParameter))
-                                {
-                                    if (itemParameter.Contains("US:"))
-                                    {
-                                        string tempString = UtilityAssistant.ExtractValues(itemParameter, "MC");
-                                        if (!string.IsNullOrWhiteSpace(tempString))
-                                        {
-                                            MMO_Client.Models.PuppetModels.Puppet ppt = MMO_Client.Models.PuppetModels.Puppet.CreateFromJson(tempString);
-                                            ppt.Prepare();
-                                            Controller.controller.playerController.l_entitysCharacters.Add(ppt);
-                                        }
-                                    }
-                                }
-                            }
-                            catch (Exception ex)
-                            { 
-                            }
+                            PlayerController.MonsterCreateMethod(nwMsg.TextOriginal);
                             break;
                         default:
                             break;

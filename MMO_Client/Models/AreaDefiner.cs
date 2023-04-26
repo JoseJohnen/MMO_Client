@@ -1,10 +1,10 @@
-﻿using Interfaz.Auxiliary;
+﻿using Interfaz.Utilities;
 using Stride.Engine;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace MMO_Client.Code.Models
+namespace MMO_Client.Models
 {
     [Serializable]
     [Stride.Core.DataContract]

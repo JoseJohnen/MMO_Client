@@ -1,10 +1,8 @@
 ﻿using System.Collections.Concurrent;
 using System;
 using Stride.Engine;
-using MMO_Client.Code.Controllers;
 using MMO_Client.Models.WorldModels;
-using System.Collections.Generic;
-using MMO_Client.Code.Assistants;
+using Interfaz.Utilities;
 
 namespace MMO_Client.Controllers
 {
@@ -23,7 +21,7 @@ namespace MMO_Client.Controllers
                 {
                     if (textOriginal.Contains("WM:"))
                     {
-                        string tempString = Interfaz.Auxiliary.UtilityAssistant.ExtractValues(textOriginal, "WM");
+                        string tempString = UtilityAssistant.ExtractValues(textOriginal, "WM");
                         if (!string.IsNullOrWhiteSpace(tempString))
                         {
                             World world = World.CreateFromJson(textOriginal);

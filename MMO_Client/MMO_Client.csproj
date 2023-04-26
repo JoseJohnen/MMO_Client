@@ -1,21 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>net6.0</TargetFrameworks>
+    <RootNamespace>MMO_Client</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Controllers\BCC_Original.cs" />
     <Compile Remove="Controllers\WorldController.backup.cs" />
     <Compile Remove="Models\Tile.backup.cs" />
     <Compile Remove="Models\World.backup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-    <PackageReference Include="Stride.Engine" Version="4.1.0.1805" />
-    <PackageReference Include="Stride.Video" Version="4.1.0.1805" />
-    <PackageReference Include="Stride.Physics" Version="4.1.0.1805" />
-    <PackageReference Include="Stride.Navigation" Version="4.1.0.1805" />
-    <PackageReference Include="Stride.Particles" Version="4.1.0.1805" />
-    <PackageReference Include="Stride.UI" Version="4.1.0.1805" />
-    <PackageReference Include="Stride.Core.Assets.CompilerApp" Version="4.1.0.1805" IncludeAssets="build;buildTransitive" />
+    <PackageReference Include="Stride.Engine" Version="4.1.0.1822" />
+    <PackageReference Include="Stride.Video" Version="4.1.0.1822" />
+    <PackageReference Include="Stride.Physics" Version="4.1.0.1822" />
+    <PackageReference Include="Stride.Navigation" Version="4.1.0.1822" />
+    <PackageReference Include="Stride.Particles" Version="4.1.0.1822" />
+    <PackageReference Include="Stride.UI" Version="4.1.0.1822" />
+    <PackageReference Include="Stride.Core.Assets.CompilerApp" Version="4.1.0.1822" IncludeAssets="build;buildTransitive" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Visual_Studio\Interfaz\Interfaz.csproj" />
