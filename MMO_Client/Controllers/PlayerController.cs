@@ -34,7 +34,8 @@ namespace MMO_Client.Controllers
         // Declared public member fields and properties will show in the game studio
         public List<Puppet> l_entitysCharacters = new List<Puppet>(); //Other Characters, Players or not
 
-        public List<Pares<List<Entity>, Bullet>> l_bullets = new List<Pares<List<Entity>, Bullet>>();
+		[DataMemberIgnore]
+		public List<Pares<List<Entity>, Bullet>> l_bullets = new List<Pares<List<Entity>, Bullet>>();
 
         public static bool isQuestionAsked = false;
 
