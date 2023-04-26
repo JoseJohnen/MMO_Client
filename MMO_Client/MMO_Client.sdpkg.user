@@ -2,8 +2,8 @@
 Settings:
     Package/SceneSettings:
         653b85fa-5e49-4621-ade3-383125002c94:
-            CamPosition: {X: 3.432344, Y: 2.2928317, Z: 9.074129}
-            CamPitchYaw: {X: -0.18563902, Y: 0.36742544}
+            CamPosition: {X: 1.5590913, Y: 6.9416056, Z: 9.706117}
+            CamPitchYaw: {X: -0.5251336, Y: 0.32390395}
             CamProjection: Orthographic
             CamVerticalFieldOfView: 45.0
             CamOrthographicSize: 10.0
@@ -18,7 +18,7 @@ Settings:
             ScaleSnapActive: false
             ScaleSnapValue: 1.1
             SceneUnit: 1.0
-            SelectionMaskVisible: true
+            SelectionMaskVisible: false
             GridVisible: true
             GridColor: {R: 0.7058824, G: 0.7058824, B: 0.7058824}
             GridOpacity: 0.35

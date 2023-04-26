@@ -15,7 +15,7 @@ using System.Text.RegularExpressions;
 using Interfaz.Models.Comms;
 using Interfaz.Utilities;
 
-namespace MMO_Client.Controllers
+namespace MMO_Client.Code.Controllers
 {
     public class ResultObject
     {

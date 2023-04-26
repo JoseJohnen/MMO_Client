@@ -95,6 +95,9 @@ Hierarchy:
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
+                    cb0740b46aeeec2a39fc3d3f315199d1: !MMO_Client.Code.Controllers.ConnectionManager,MMO_Client
+                        Id: e0e31440-c3bb-4f95-afe3-a90e15d99991
+                        isStarted: false
         -   Entity:
                 Id: 671c67b1-8617-4412-a55b-d4159559587a
                 Name: Sphere
@@ -152,6 +155,8 @@ Hierarchy:
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
+                    bd53354a75afe479ee20a3030eb40c25: !MMO_Client.Controllers.WorldController,MMO_Client
+                        Id: 43fc8180-8d2b-4c22-968c-2c2ae065e5ed
         -   Entity:
                 Id: e16e2fcc-1627-4610-889a-fd4beb15a011
                 Name: Bullet
@@ -180,6 +185,17 @@ Hierarchy:
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
+                    a341b2d2310c7635c06874d3820f1399: !MMO_Client.Controllers.PlayerController,MMO_Client
+                        Id: 357a2b17-ac4e-4faa-9641-d73744d354be
+                        l_entitysCharacters: {}
+                        ActiveArea: null
+                        l_ActiveAreaFurniture: null
+                        workerThread: null
+                        l_AnimacionesEntitys: {}
+                        shot: null
+                        OtherCamera: null
+                        modifier: {X: 0.0, Y: 0.0, Z: 0.0}
+                        CameraFollowing: false
         -   Entity:
                 Id: f08b714e-443a-44e6-8e40-762f2fd7cd91
                 Name: Controller
@@ -190,6 +206,32 @@ Hierarchy:
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
+                    aac995f1214efe455290461462388830: !MMO_Client.Controllers.Controller,MMO_Client
+                        Id: e74df464-3126-48dc-9edd-3a0288d47f94
+                        playerController: null
+                        worldController: null
+                        dataFileProviderService: null
+                        l_Prefabs: {}
+                        l_Models: {}
+                        l_Sprites: {}
+                        l_Tileset: {}
+                        l_Textures: {}
+                        l_Materials: {}
+                        l_UI: {}
+                        movementDisable: false
+                        autoMovement: false
+                        isHistoryRelatedUsage: false
+                        isPressedZToRun: false
+                        isLoginInProcess: false
+                        isLoginSuccessfull: false
+                        dtIsLoginInProcess: 2023-04-26T18:34:13.3235920-04:00
+                        CursorPos: null
+                        lastPositionBeforeMove: 2023-04-26T18:34:13.3236068-04:00
+                        page: null
+                        thingy1: null
+                        thingy2: null
+                        MainSceneImages: null
+                        TextoFueraDeCutscene: false
         -   Entity:
                 Id: ff1888cf-9910-4a2e-a4f7-a14c5db3a6f8
                 Name: Bullet

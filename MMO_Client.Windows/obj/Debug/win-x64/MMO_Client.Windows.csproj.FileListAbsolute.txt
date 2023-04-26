@@ -3,3 +3,14 @@ E:\Cod_Pers\Stride\MMO_Client\MMO_Client.Windows\obj\Debug\win-x64\MMO_Client.Wi
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client.Windows\obj\Debug\win-x64\MMO_Client.Windows.AssemblyInfoInputs.cache
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client.Windows\obj\Debug\win-x64\MMO_Client.Windows.AssemblyInfo.cs
 E:\Cod_Pers\Stride\MMO_Client\MMO_Client.Windows\obj\Debug\win-x64\MMO_Client.Windows.csproj.CoreCompileInputs.cache
+E:\Cod_Pers\Stride\MMO_Client\Bin\Windows\Debug\win-x64\MMO_Client.Windows.exe
+E:\Cod_Pers\Stride\MMO_Client\Bin\Windows\Debug\win-x64\MMO_Client.Windows.deps.json
+E:\Cod_Pers\Stride\MMO_Client\Bin\Windows\Debug\win-x64\MMO_Client.Windows.runtimeconfig.json
+E:\Cod_Pers\Stride\MMO_Client\Bin\Windows\Debug\win-x64\MMO_Client.Windows.dll
+E:\Cod_Pers\Stride\MMO_Client\Bin\Windows\Debug\win-x64\MMO_Client.Windows.pdb
+E:\Cod_Pers\Stride\MMO_Client\MMO_Client.Windows\obj\Debug\win-x64\MMO_Client.Windows.csproj.CopyComplete
+E:\Cod_Pers\Stride\MMO_Client\MMO_Client.Windows\obj\Debug\win-x64\MMO_Client.Windows.dll
+E:\Cod_Pers\Stride\MMO_Client\MMO_Client.Windows\obj\Debug\win-x64\refint\MMO_Client.Windows.dll
+E:\Cod_Pers\Stride\MMO_Client\MMO_Client.Windows\obj\Debug\win-x64\MMO_Client.Windows.pdb
+E:\Cod_Pers\Stride\MMO_Client\MMO_Client.Windows\obj\Debug\win-x64\MMO_Client.Windows.genruntimeconfig.cache
+E:\Cod_Pers\Stride\MMO_Client\MMO_Client.Windows\obj\Debug\win-x64\ref\MMO_Client.Windows.dll

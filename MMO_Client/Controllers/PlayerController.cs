@@ -25,6 +25,7 @@ using Interfaz.Models.Monsters;
 using MMO_Client.Models;
 using MMO_Client.Interfaces;
 using MMO_Client.Models.ProyectileModels;
+using MMO_Client.Code.Controllers;
 
 namespace MMO_Client.Controllers
 {
@@ -33,7 +34,7 @@ namespace MMO_Client.Controllers
         #region Atributos
         // Declared public member fields and properties will show in the game studio
         public List<Puppet> l_entitysCharacters = new List<Puppet>(); //Other Characters, Players or not
-
+        [DataMemberIgnore]
         public List<Pares<List<Entity>, Bullet>> l_bullets = new List<Pares<List<Entity>, Bullet>>();
 
         public static bool isQuestionAsked = false;
