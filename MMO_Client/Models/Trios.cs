@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MMO_Client.Code.Models
+namespace MMO_Client.Models
 {
     [Serializable]
     [Stride.Core.DataContract]

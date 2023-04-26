@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 using System;
-using MMO_Client.Code.Models;
-using MMO_Client.Code.Assistants;
-using Newtonsoft.Json;
+using MMO_Client.Models;
+//using Newtonsoft.Json;
 using MMO_Client.Assistants;
+using System.Text.Json;
 
 namespace MMO_Client.Models.FurnitureModels
 {
@@ -31,16 +31,16 @@ namespace MMO_Client.Models.FurnitureModels
         {
             try
             {
-                JsonSerializerSettings serializeOptions = new JsonSerializerSettings
+                JsonSerializerOptions serializeOptions = new JsonSerializerOptions
                 {
                     Converters =
                     {
-                        new EntityConverterJSON(),
+                        new EntityConverter(),
                         //new FurnitureConverterJSON(),
                     }
                 };
 
-                string strResult = JsonConvert.SerializeObject(this, serializeOptions);
+                string strResult = JsonSerializer.Serialize(this, serializeOptions);
                 return strResult;
             }
             catch (Exception ex)

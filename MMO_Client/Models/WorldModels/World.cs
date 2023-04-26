@@ -1,5 +1,4 @@
-﻿using Interfaz.Auxiliary;
-using MMO_Client.Code.Models;
+﻿using Interfaz.Utilities;
 using MMO_Client.Controllers;
 using MMO_Client.Models.PuppetModels;
 using MMO_Client.Models.TilesModels;
@@ -11,7 +10,7 @@ using System.Reflection;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using SerializedVector3 = MMO_Client.Code.Models.SerializedVector3;
+
 namespace MMO_Client.Models.WorldModels
 {
     public abstract class World : Interfaz.Models.Worlds.World
@@ -310,12 +309,16 @@ namespace MMO_Client.Models.WorldModels
                 strValue = UtilityAssistant.ExtractValue(tempString, "Location");
                 wrldObj.Location = Vector3Converter.Converter(strValue);
 
-                //strValue = UtilityAssistant.ExtractValue(tempString, "Area");
+                /*strValue = UtilityAssistant.ExtractValue(tempString, "Area");
                 strValue = tempString.Substring(tempString.IndexOf("Area"));
                 strValue = strValue.Substring(0, tempString.IndexOf("dic_worldTiles"));
                 strValue = UtilityAssistant.CleanJSON(strValue);
                 strValue = strValue.Replace("Y\"", ", \"Y\"").Replace("Z\"", ", \"Z\"").Replace("\"Name\":", "\"Name\":"+ wrldObj.Name +",").Replace("\",\",", "\",");
+                wrldObj.Area = Area.CreateFromJson(strValue);*/
+
+                strValue = UtilityAssistant.ExtractValue(tempString, "Area");
                 wrldObj.Area = Area.CreateFromJson(strValue);
+
 
                 /*if (string.IsNullOrWhiteSpace(readerReceiver) || readerReceiver.Equals("\"{\""))
                 {
@@ -337,12 +340,16 @@ namespace MMO_Client.Models.WorldModels
                 foreach (string item in l_string)
                 {
                     //strTemp = UtilityAssistant.ExtractValue(item, "Value");
-                    strTemp = UtilityAssistant.CleanJSON(item);
+                    /*strTemp = UtilityAssistant.CleanJSON(item);
                     if(strTemp.Contains("\"Value\""))
                     {
                         strTemp = strTemp.Substring(strTemp.IndexOf("\"Value\""));
                         strTemp = strTemp.Replace("\"Value\":", "").Replace("}}]}", "}");
                     }
+                    tile = Tile.CreateFromJson(strTemp);
+                    wrldObj.dic_worldTiles.TryAdd(tile.Name, tile);*/
+                    strTemp = item.Substring(item.IndexOf("\"Value\""));
+                    strTemp = strTemp.Replace("\"Value\":", "").Replace("}}]}", "}");
                     tile = Tile.CreateFromJson(strTemp);
                     wrldObj.dic_worldTiles.TryAdd(tile.Name, tile);
                 }

@@ -1,6 +1,4 @@
-﻿using MMO_Client.Code.Models;
-using Stride.Engine;
-using System;
+﻿using Stride.Engine;
 
 namespace MMO_Client.Models.PuppetModels
 {

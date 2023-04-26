@@ -1,5 +1,4 @@
-﻿using MMO_Client.Code.Controllers;
-using Stride.Engine;
+﻿using Stride.Engine;
 using Stride.Graphics;
 using Stride.Rendering.Sprites;
 using System;
@@ -11,13 +10,12 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using MMO_Client.Controllers;
-using MMO_Client.Code.Models;
 using MMO_Client.Assistants;
-using Interfaz.Auxiliary;
+using Interfaz.Utilities;
 
 namespace MMO_Client.Models.TilesModels
 {
-    public abstract class Tile : Interfaz.Models.Tile
+    public abstract class Tile : Interfaz.Models.Tiles.Tile
     {
         public virtual new Area Area { get => area; set => area = value; }
 
@@ -132,7 +130,7 @@ namespace MMO_Client.Models.TilesModels
             string txt = Text;
             try
             {
-                txt = Interfaz.Auxiliary.UtilityAssistant.CleanJSON(txt.Replace("\u002B", "+"));
+                txt = Interfaz.Utilities.UtilityAssistant.CleanJSON(txt.Replace("\u002B", "+"));
 
                 JsonSerializerOptions serializeOptions = new JsonSerializerOptions
                 {
@@ -167,8 +165,8 @@ namespace MMO_Client.Models.TilesModels
         {
             try
             {
-                string clase = Interfaz.Auxiliary.UtilityAssistant.CleanJSON(json);
-                clase = Interfaz.Auxiliary.UtilityAssistant.ExtractAIInstructionData(clase, "Class").Replace("\"", "");
+                string clase = Interfaz.Utilities.UtilityAssistant.CleanJSON(json);
+                clase = Interfaz.Utilities.UtilityAssistant.ExtractAIInstructionData(clase, "Class").Replace("\"", "");
 
                 Type typ = Tile.TypesOfTiles().Where(c => c.Name == clase).FirstOrDefault();
                 if (typ == null)
@@ -250,10 +248,10 @@ namespace MMO_Client.Models.TilesModels
                     Vector3 topRight = MMO_Client.Assistants.UtilityAssistant.ConvertVector3StrideToNumeric(entity.Transform.WorldMatrix.TranslationVector) + new Vector3(spriteSize.X / 2, spriteSize.Y / 2, 0);
                     Vector3 bottomLeft = MMO_Client.Assistants.UtilityAssistant.ConvertVector3StrideToNumeric(entity.Transform.WorldMatrix.TranslationVector) + new Vector3(-spriteSize.X / 2, -spriteSize.Y / 2, 0);
                     Vector3 bottomRight = MMO_Client.Assistants.UtilityAssistant.ConvertVector3StrideToNumeric(entity.Transform.WorldMatrix.TranslationVector) + new Vector3(spriteSize.X / 2, -spriteSize.Y / 2, 0);
-                    this.Area.L_AreaDefiners[0].Point = new Pares<string, Code.Models.SerializedVector3>() { Item1 = "NW", Item2 = new Code.Models.SerializedVector3(topLeft) };
-                    this.Area.L_AreaDefiners[1].Point = new Pares<string, Code.Models.SerializedVector3>() { Item1 = "NE", Item2 = new Code.Models.SerializedVector3(topRight) };
-                    this.Area.L_AreaDefiners[2].Point = new Pares<string, Code.Models.SerializedVector3>() { Item1 = "SW", Item2 = new Code.Models.SerializedVector3(bottomLeft) };
-                    this.Area.L_AreaDefiners[3].Point = new Pares<string, Code.Models.SerializedVector3>() { Item1 = "SE", Item2 = new Code.Models.SerializedVector3(bottomRight) };
+                    this.Area.L_AreaDefiners[0].Point = new Pares<string, Models.SerializedVector3>() { Item1 = "NW", Item2 = new Models.SerializedVector3(topLeft) };
+                    this.Area.L_AreaDefiners[1].Point = new Pares<string, Models.SerializedVector3>() { Item1 = "NE", Item2 = new Models.SerializedVector3(topRight) };
+                    this.Area.L_AreaDefiners[2].Point = new Pares<string, Models.SerializedVector3>() { Item1 = "SW", Item2 = new Models.SerializedVector3(bottomLeft) };
+                    this.Area.L_AreaDefiners[3].Point = new Pares<string, Models.SerializedVector3>() { Item1 = "SE", Item2 = new Models.SerializedVector3(bottomRight) };
 
                     //SceneInstance sceneInstance = WorldController.game.SceneSystem.SceneInstance;
                     //this.entity = sceneInstance.RootScene.Entities.Where(c => c.Name == base.Name).FirstOrDefault();
@@ -290,8 +288,8 @@ namespace MMO_Client.Models.TilesModels
                 strJson = jsonDoc.RootElement.GetRawText();
                 //strJson = reader.GetString();
 
-                string clase = Interfaz.Auxiliary.UtilityAssistant.CleanJSON(strJson);
-                clase = Interfaz.Auxiliary.UtilityAssistant.ExtractValue(clase, "Class").Replace("\"", "");
+                string clase = Interfaz.Utilities.UtilityAssistant.CleanJSON(strJson);
+                clase = Interfaz.Utilities.UtilityAssistant.ExtractValue(clase, "Class").Replace("\"", "");
 
                 Type typ = Tile.TypesOfTiles().Where(c => c.Name == clase).FirstOrDefault();
                 if (typ == null)
@@ -304,11 +302,11 @@ namespace MMO_Client.Models.TilesModels
 
                 Tile prgObj = ((Tile)obtOfType);
 
-                string pst = Interfaz.Auxiliary.UtilityAssistant.ExtractValue(strJson, "Pos");
-                prgObj.Position = Interfaz.Auxiliary.UtilityAssistant.Vector3Deserializer(pst);
-                pst = Interfaz.Auxiliary.UtilityAssistant.ExtractValue(strJson, "InWorldPos");
-                prgObj.InWorldPos = Interfaz.Auxiliary.UtilityAssistant.Vector3Deserializer(pst);
-                prgObj.Name = Interfaz.Auxiliary.UtilityAssistant.ExtractValue(strJson, "Name");
+                string pst = Interfaz.Utilities.UtilityAssistant.ExtractValue(strJson, "Pos");
+                prgObj.Position = Interfaz.Utilities.UtilityAssistant.Vector3Deserializer(pst);
+                pst = Interfaz.Utilities.UtilityAssistant.ExtractValue(strJson, "InWorldPos");
+                prgObj.InWorldPos = Interfaz.Utilities.UtilityAssistant.Vector3Deserializer(pst);
+                prgObj.Name = Interfaz.Utilities.UtilityAssistant.ExtractValue(strJson, "Name");
 
                 return prgObj;
             }

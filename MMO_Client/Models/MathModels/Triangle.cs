@@ -1,5 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿//using Newtonsoft.Json;
 using System;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace MMO_Client.Models.MathModels
@@ -90,7 +91,7 @@ namespace MMO_Client.Models.MathModels
 
         public override string ToString()
         {
-            return JsonConvert.SerializeObject(this);
+            return JsonSerializer.Serialize(this);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using Stride.Engine;
 
-namespace MMO_Client
+namespace MMO_Client.Models
 {
     [Serializable]
     [Stride.Core.DataContract]
@@ -94,10 +94,10 @@ namespace MMO_Client
             range = rangeP;
             nombre = nombreP.Equals("WPType_AMMOMAX_RANGE") ? "WPType_" + ammo + "_" + range : nombreP;
             entity = ent;
-            if(ent != null)
+            if (ent != null)
             {
                 ent.Name = nombreP.Equals("WPType_AMMOMAX_RANGE") ? "WPType_" + ammo + "_" + range : nombreP;
-            } 
+            }
         }
 
         private string FirstPart(string strName)
@@ -114,7 +114,7 @@ namespace MMO_Client
 
         private string FirstValue(string strName)
         {
-            int firstInstance = (strName.IndexOf("_") + 1);
+            int firstInstance = strName.IndexOf("_") + 1;
             string c = strName.Substring(firstInstance);
             string firstValueIsolated = c.Substring(0, c.IndexOf("_"));
             return firstValueIsolated;
@@ -122,10 +122,10 @@ namespace MMO_Client
 
         private string LastValue(string strName)
         {
-            int firstInstance = (strName.IndexOf("_") + 1);
+            int firstInstance = strName.IndexOf("_") + 1;
             string a = strName.Substring(firstInstance);
-            int secondInstance = (a.IndexOf("_") + 1);
-            string lastValueIsolated = strName.Substring((firstInstance + secondInstance));
+            int secondInstance = a.IndexOf("_") + 1;
+            string lastValueIsolated = strName.Substring(firstInstance + secondInstance);
             lastValueIsolated = lastValueIsolated.Substring(lastValueIsolated.IndexOf("_") + 1);
             return lastValueIsolated;
         }

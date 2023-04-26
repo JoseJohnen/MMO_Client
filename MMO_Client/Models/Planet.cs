@@ -1,21 +1,12 @@
-﻿using Stride.Engine;
-using MMO_Client.Code.Interfaces;
-using Stride.Core;
-using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Silk.NET.SDL;
-using MMO_Client.Code.Assistants;
-using Microsoft.VisualBasic.Logging;
-using static Stride.Graphics.GeometricPrimitives.GeometricPrimitive;
+﻿using System;
+//using Newtonsoft.Json;
+//using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
-using System.Windows.Documents;
-using System.Windows.Media.Media3D;
 using MMO_Client.Models.FurnitureModels;
 using System.Text.Json;
 using MMO_Client.Assistants;
 
-namespace MMO_Client.Code.Models
+namespace MMO_Client.Models
 {
     public class Planet
     {
@@ -28,16 +19,16 @@ namespace MMO_Client.Code.Models
         {
             try
             {
-                JsonSerializerSettings serializeOptions = new JsonSerializerSettings
+                JsonSerializerOptions serializeOptions = new JsonSerializerOptions
                 {
                     Converters =
                     {
-                        new EntityConverterJSON(),
+                        new EntityConverter(),
                         //new FurnitureConverterJSON(),
                     }
                 };
 
-                string planet = JsonConvert.SerializeObject(this, Formatting.Indented, serializeOptions);
+                string planet = JsonSerializer.Serialize(this, serializeOptions);//Formatting.Indented, serializeOptions);
                 return planet;
             }
             catch (Exception Ex)

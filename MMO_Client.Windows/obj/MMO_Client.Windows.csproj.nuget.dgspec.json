@@ -60,15 +60,15 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
-              "version": "[6.0.14, 6.0.14]"
+              "version": "[6.0.16, 6.0.16]"
             },
             {
               "name": "Microsoft.NETCore.App.Runtime.win-x64",
-              "version": "[6.0.14, 6.0.14]"
+              "version": "[6.0.16, 6.0.16]"
             },
             {
               "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-              "version": "[6.0.14, 6.0.14]"
+              "version": "[6.0.16, 6.0.16]"
             }
           ],
           "frameworkReferences": {
@@ -76,7 +76,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "D:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "D:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {
@@ -103,15 +103,15 @@
           "D:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0-windows"
+          "net6.0"
         ],
         "sources": {
           "D:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0-windows7.0": {
-            "targetAlias": "net6.0-windows",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {
               "E:\\Cod_Pers\\Visual_Studio\\Interfaz\\Interfaz.csproj": {
                 "projectPath": "E:\\Cod_Pers\\Visual_Studio\\Interfaz\\Interfaz.csproj"
@@ -126,41 +126,37 @@
         }
       },
       "frameworks": {
-        "net6.0-windows7.0": {
-          "targetAlias": "net6.0-windows",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "dependencies": {
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[13.0.2, )"
-            },
             "Stride.Core.Assets.CompilerApp": {
               "include": "Build, BuildTransitive",
               "target": "Package",
-              "version": "[4.1.0.1805, )"
+              "version": "[4.1.0.1822, )"
             },
             "Stride.Engine": {
               "target": "Package",
-              "version": "[4.1.0.1805, )"
+              "version": "[4.1.0.1822, )"
             },
             "Stride.Navigation": {
               "target": "Package",
-              "version": "[4.1.0.1805, )"
+              "version": "[4.1.0.1822, )"
             },
             "Stride.Particles": {
               "target": "Package",
-              "version": "[4.1.0.1805, )"
+              "version": "[4.1.0.1822, )"
             },
             "Stride.Physics": {
               "target": "Package",
-              "version": "[4.1.0.1805, )"
+              "version": "[4.1.0.1822, )"
             },
             "Stride.UI": {
               "target": "Package",
-              "version": "[4.1.0.1805, )"
+              "version": "[4.1.0.1822, )"
             },
             "Stride.Video": {
               "target": "Package",
-              "version": "[4.1.0.1805, )"
+              "version": "[4.1.0.1822, )"
             }
           },
           "imports": [
@@ -179,7 +175,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "D:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "D:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -221,12 +217,6 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "dependencies": {
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[13.0.2, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -243,7 +233,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "D:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "D:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

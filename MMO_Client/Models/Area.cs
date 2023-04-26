@@ -1,10 +1,10 @@
-﻿using MMO_Client.Assistants;
-using Stride.Core.Mathematics;
+﻿using Stride.Core.Mathematics;
 using Stride.Engine;
 using System;
 using System.Collections.Generic;
+using MMO_Client.Assistants;
 
-namespace MMO_Client.Code.Models
+namespace MMO_Client.Models
 {
     [Serializable]
     [Stride.Core.DataContract]
@@ -783,11 +783,11 @@ namespace MMO_Client.Code.Models
             string txt = json;
             try
             {
-                txt = Interfaz.Auxiliary.UtilityAssistant.CleanJSON(txt.Replace("\u002B", "+"));
+                txt = Interfaz.Utilities.UtilityAssistant.CleanJSON(txt.Replace("\u002B", "+"));
                 string[] strJsonArray = new string[1];
                 string[] strStrArr = new string[1];
 
-                this.Name = Interfaz.Auxiliary.UtilityAssistant.ExtractValue(txt, "Name");
+                this.Name = Interfaz.Utilities.UtilityAssistant.ExtractValue(txt, "Name");
 
                 strJsonArray[0] = txt;
 
@@ -820,7 +820,7 @@ namespace MMO_Client.Code.Models
         {
             try
             {
-                string txt = Interfaz.Auxiliary.UtilityAssistant.CleanJSON(json);
+                string txt = Interfaz.Utilities.UtilityAssistant.CleanJSON(json);
                 Area area = new Area();
                 return area.FromJson(txt);
             }

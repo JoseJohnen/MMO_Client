@@ -1,9 +1,4 @@
-﻿using Stride.Engine;
-using MMO_Client.Code.Assistants;
-using MMO_Client.Code.Controllers;
-using MMO_Client.Code.Models;
-
-namespace MMO_Client.Code.Interfaces
+﻿namespace MMO_Client.Interfaces
 {
     internal interface IPuppetWithDetector
     {

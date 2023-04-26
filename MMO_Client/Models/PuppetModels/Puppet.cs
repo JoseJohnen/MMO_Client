@@ -4,20 +4,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using MMO_Client.Code.Controllers;
-using MMO_Client.Code.Interfaces;
+using MMO_Client.Controllers;
+using MMO_Client.Interfaces;
 using Stride.Graphics;
 using Interfaz.Models.Shots;
 using Interfaz.Models.Comms;
 using MMO_Client.Assistants;
-using MMO_Client.Code.Models;
-using Interfaz.Models.Puppets;
 using System.Text.Json;
-using Player = MMO_Client.Code.Models.Player;
-using Interfaz.Auxiliary;
 using System.Text.Encodings.Web;
 using System.Text.RegularExpressions;
-using UtilityAssistant = Interfaz.Auxiliary.UtilityAssistant;
+using UtilityAssistant = Interfaz.Utilities.UtilityAssistant;
+using Interfaz.Utilities;
 
 namespace MMO_Client.Models.PuppetModels
 {
@@ -79,6 +76,33 @@ namespace MMO_Client.Models.PuppetModels
 
         protected Puppet()
         {
+        }
+
+        public static Puppet CreatePuppetFromClassName(string ClassName, Vector3 Pos = new Vector3())
+        {
+            try
+            {
+                Type typ = Puppet.TypesOfMonsters().Where(c => c.Name == ClassName).FirstOrDefault();
+                if (typ == null)
+                {
+                    typ = Puppet.TypesOfMonsters().Where(c => c.FullName == ClassName).FirstOrDefault();
+                }
+
+                object obtOfType = Activator.CreateInstance(typ); //Requires parameterless constructor.
+                                                                  //TODO: System to determine the type of enemy to make the object, prepare stats and then add it to the list
+
+                Puppet prgObj = ((Puppet)obtOfType);
+                if (Pos != new Vector3())
+                {
+                    prgObj.Position = Pos;
+                }
+                return prgObj;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: (Puppet)  CreatePuppetFromClassName(string, Vector3): " + ex.Message);
+                return default;
+            }
         }
 
         public virtual Dictionary<string, Pares<double, double>> DirectionalsPerAngle(Dictionary<string, Pares<double, double>> arrString = null)
@@ -271,68 +295,6 @@ namespace MMO_Client.Models.PuppetModels
             }
         }
 
-        //TODO: Metodo virtual que activa activación ataque melee (Meramente visual o de hecho real con efecto sobre los datos) recibe el objetivo sobre el que ataca que orienta básicamente la rotación y animación
-
-        public virtual void ShootingToOnline(Vector3 target, string shot)
-        {
-            try
-            {
-                MMO_Client.Assistants.UtilityAssistant.RotateTo(this.Entity, target);
-                MMO_Client.Assistants.UtilityAssistant.RotateTo(this.RealEnt, target);
-
-                //TODO: Activar animación relevante
-
-                Message msgOut = new Message();
-                Controller.controller.playerController.CreateShot(shot, msgOut, out msgOut);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error (Puppet) ShootingToOffline(Puppet, Shot): " + ex.Message);
-            }
-        }
-
-        public virtual void ShootingToOnline(Vector3 target, Shot shot)
-        {
-            try
-            {
-                MMO_Client.Assistants.UtilityAssistant.RotateTo(this.Entity, target);
-                MMO_Client.Assistants.UtilityAssistant.RotateTo(this.RealEnt, target);
-
-                //TODO: Activar animación relevante
-
-                Message msgOut = new Message();
-                Controller.controller.playerController.CreateShot("CS:" + shot.ToJson(), msgOut, out msgOut);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error (Puppet) ShootingToOffline(Vector3, Shot): " + ex.Message);
-            }
-        }
-
-        public virtual void ShootingToOffline(Puppet target, string type = "NB")
-        {
-            try
-            {
-                Vector3 trgPos = target.Entity.Transform.Position;
-                MMO_Client.Assistants.UtilityAssistant.RotateTo(this.Entity, trgPos);
-                MMO_Client.Assistants.UtilityAssistant.RotateTo(this.RealEnt, trgPos);
-
-                //TODO: Activar animación relevante
-
-                Shot sht = new Shot();
-                sht.LN = this.RealEnt.Name;
-                sht.Type = type;
-                Message msgOut = new Message();
-                sht.OrPos = MMO_Client.Assistants.UtilityAssistant.ConvertVector3StrideToNumeric(this.Entity.Transform.WorldMatrix.TranslationVector);
-                sht.WPos = MMO_Client.Assistants.UtilityAssistant.ConvertVector3StrideToNumeric(this.RealEnt.FindChild("Fwd").Transform.WorldMatrix.TranslationVector);
-                Controller.controller.playerController.CreateBullet(sht, msgOut, out msgOut);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error (Puppet) ShootingToOffline(Puppet, string): " + ex.Message);
-            }
-        }
-
         public virtual void MoveTo(Vector3 targetPosition, bool transition = false)
         {
             try
@@ -405,7 +367,7 @@ namespace MMO_Client.Models.PuppetModels
         {
             try
             {
-                if (Code.Models.Player.PLAYER.Entity == null)
+                if (Models.Player.PLAYER.Entity == null)
                 {
                     return false;
                 }
@@ -503,6 +465,70 @@ namespace MMO_Client.Models.PuppetModels
             }
         }
 
+        #region Shooting Methods
+        //TODO: Metodo virtual que activa activación ataque melee (Meramente visual o de hecho real con efecto sobre los datos) recibe el objetivo sobre el que ataca que orienta básicamente la rotación y animación
+        public virtual void ShootingToOnline(Vector3 target, string shot)
+        {
+            try
+            {
+                MMO_Client.Assistants.UtilityAssistant.RotateTo(this.Entity, target);
+                MMO_Client.Assistants.UtilityAssistant.RotateTo(this.RealEnt, target);
+
+                //TODO: Activar animación relevante
+
+                Message msgOut = new Message();
+                Controller.controller.playerController.CreateShot(shot, msgOut, out msgOut);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error (Puppet) ShootingToOffline(Puppet, Shot): " + ex.Message);
+            }
+        }
+
+        public virtual void ShootingToOnline(Vector3 target, Shot shot)
+        {
+            try
+            {
+                MMO_Client.Assistants.UtilityAssistant.RotateTo(this.Entity, target);
+                MMO_Client.Assistants.UtilityAssistant.RotateTo(this.RealEnt, target);
+
+                //TODO: Activar animación relevante
+
+                Message msgOut = new Message();
+                Controller.controller.playerController.CreateShot("CS:" + shot.ToJson(), msgOut, out msgOut);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error (Puppet) ShootingToOffline(Vector3, Shot): " + ex.Message);
+            }
+        }
+
+        public virtual void ShootingToOffline(Puppet target, string type = "NB")
+        {
+            try
+            {
+                Vector3 trgPos = target.Entity.Transform.Position;
+                MMO_Client.Assistants.UtilityAssistant.RotateTo(this.Entity, trgPos);
+                MMO_Client.Assistants.UtilityAssistant.RotateTo(this.RealEnt, trgPos);
+
+                //TODO: Activar animación relevante
+
+                Shot sht = new Shot();
+                sht.LN = this.RealEnt.Name;
+                sht.Type = type;
+                Message msgOut = new Message();
+                sht.OrPos = MMO_Client.Assistants.UtilityAssistant.ConvertVector3StrideToNumeric(this.Entity.Transform.WorldMatrix.TranslationVector);
+                sht.WPos = MMO_Client.Assistants.UtilityAssistant.ConvertVector3StrideToNumeric(this.RealEnt.FindChild("Fwd").Transform.WorldMatrix.TranslationVector);
+                Controller.controller.playerController.CreateBullet(sht, msgOut, out msgOut);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error (Puppet) ShootingToOffline(Puppet, string): " + ex.Message);
+            }
+        }
+        #endregion
+
+        #region JSON
         public override string ToJson()
         {
             try
@@ -532,7 +558,7 @@ namespace MMO_Client.Models.PuppetModels
             string txt = Text;
             try
             {
-                txt = Interfaz.Auxiliary.UtilityAssistant.CleanJSON(txt.Replace("\u002B", "+"));
+                txt = UtilityAssistant.CleanJSON(txt.Replace("\u002B", "+"));
 
                 JsonSerializerOptions serializeOptions = new JsonSerializerOptions
                 {
@@ -565,7 +591,7 @@ namespace MMO_Client.Models.PuppetModels
         {
             try
             {
-                string clase = Interfaz.Auxiliary.UtilityAssistant.CleanJSON(json);
+                string clase = UtilityAssistant.CleanJSON(json);
                 clase = UtilityAssistant.ExtractAIInstructionData(clase, "Class").Replace("\"", "");
 
                 Type typ = Puppet.TypesOfMonsters().Where(c => c.Name == clase).FirstOrDefault();
@@ -586,7 +612,7 @@ namespace MMO_Client.Models.PuppetModels
                 return null;
             }
         }
-
+        #endregion
 
         public static List<Type> TypesOfMonsters()
         {
@@ -686,7 +712,7 @@ namespace MMO_Client.Models.PuppetModels
                 Puppet prgObj = ((Puppet)obtOfType);
 
                 string pst = UtilityAssistant.ExtractValue(strJson, "Position");
-                prgObj.Position = MMO_Client.Assistants.UtilityAssistant.ConvertVector3NumericToStride(Interfaz.Auxiliary.UtilityAssistant.Vector3Deserializer(pst));
+                prgObj.Position = MMO_Client.Assistants.UtilityAssistant.ConvertVector3NumericToStride(UtilityAssistant.Vector3Deserializer(pst));
                 prgObj.Name = UtilityAssistant.ExtractValue(strJson, "Name");
 
                 return prgObj;

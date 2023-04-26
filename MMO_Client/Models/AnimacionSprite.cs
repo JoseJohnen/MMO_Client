@@ -3,12 +3,12 @@ using Stride.Engine;
 using Stride.Rendering.Sprites;
 using System;
 using System.Linq;
-using MMO_Client.Code.Controllers;
+using MMO_Client.Controllers;
 using System.Collections.Generic;
 using MMO_Client.Assistants;
 using MMO_Client.Models.PuppetModels;
 
-namespace MMO_Client.Code.Models
+namespace MMO_Client.Models
 {
     public class AnimacionSprite
     {
