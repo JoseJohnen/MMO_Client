@@ -248,10 +248,10 @@ namespace MMO_Client.Code.Controllers
                     {
                         if (gameSocketClient.StreamSocket != null)
                         {
-                            if (gameSocketClient.l_SendBigMessages.Count > 0)
+                            if (gameSocketClient.L_SendBigMessages.Count > 0)
                             {
                                 string item = string.Empty;
-                                while (gameSocketClient.l_SendBigMessages.TryTake(out item))
+                                while (gameSocketClient.L_SendBigMessages.TryTake(out item))
                                 //while (gameSocketClient.l_SendBigMessages.TryDequeue(out item))
                                 {
                                     if (string.IsNullOrWhiteSpace(item))
@@ -550,9 +550,9 @@ namespace MMO_Client.Code.Controllers
                     {
                         if (gameSocketClient.SenderSocket != null)
                         {
-                            if (gameSocketClient.l_SendQueueMessages.Count > 0)
+                            if (gameSocketClient.L_SendQueueMessages.Count > 0)
                             {
-                                while (gameSocketClient.l_SendQueueMessages.TryTake(out item))
+                                while (gameSocketClient.L_SendQueueMessages.TryTake(out item))
                                 //while (gameSocketClient.l_SendQueueMessages.TryDequeue(out item))
                                 {
                                     if (string.IsNullOrWhiteSpace(item))
@@ -714,13 +714,13 @@ namespace MMO_Client.Code.Controllers
                     gameSocketClient = new GameSocketClient();
                 }
 
-                if (gameSocketClient.l_SendQueueMessages == null)
+                if (gameSocketClient.L_SendQueueMessages == null)
                 {
-                    gameSocketClient.l_SendQueueMessages = new BlockingCollection<string>();
+                    gameSocketClient.L_SendQueueMessages = new BlockingCollection<string>();
                 }
 
-                gameSocketClient.l_SendQueueMessages.TryAdd("MS:" + strMsg);
-                //gameSocketClient.l_SendQueueMessages.Enqueue(strMsg);
+                gameSocketClient.L_SendQueueMessages.TryAdd("MS:" + strMsg);
+                //gameSocketClient.L_SendQueueMessages.Enqueue(strMsg);
 
                 return true;
             }
@@ -1013,7 +1013,7 @@ namespace MMO_Client.Code.Controllers
                 }
 
                 //Dejar descomentado si se esta utilizando gameSocketClient
-                gameSocketClient.l_SendQueueMessages.TryAdd(instruction);
+                gameSocketClient.L_SendQueueMessages.TryAdd(instruction);
                 //gameSocketClient.l_SendQueueMessages.Enqueue(instruction);
                 return true;
             }

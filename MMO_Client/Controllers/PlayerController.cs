@@ -198,10 +198,10 @@ namespace MMO_Client.Controllers
                     }
                 }
 
-                foreach (Entity item in Entity.Scene.Entities.Where(c => dic_bulletsOnline.Values.All(c2 => ("Bullet_" + c2.id) != c.Name) && c.Name.Contains("Bullet_")).Reverse()) // Entity.Scene.Entities.Where(c => !excludedIDs.Contains(c.Name) && c.Name.Contains("Bullet")).Reverse())
+                /*foreach (Entity item in Entity.Scene.Entities.Where(c => dic_bulletsOnline.Values.All(c2 => ("Bullet_" + c2.id) != c.Name) && c.Name.Contains("Bullet_")).Reverse()) // Entity.Scene.Entities.Where(c => !excludedIDs.Contains(c.Name) && c.Name.Contains("Bullet")).Reverse())
                 {
                     Entity.Scene.Entities.Remove(item);
-                }
+                }*/
 
                 while (q_NewEntitiesToScene.TryDequeue(out ent))
                 {
@@ -226,8 +226,8 @@ namespace MMO_Client.Controllers
                 {
                     while (MissingMessages.q_MissingMessages.TryDequeue(out mMsg))
                     {
-                        ConnectionManager.gameSocketClient.l_SendQueueMessages.TryAdd("MM:" + mMsg.ToJson());
-                        //ConnectionManager.gameSocketClient.l_SendQueueMessages.Enqueue("MM:" + mMsg.ToJson());
+                        ConnectionManager.gameSocketClient.L_SendQueueMessages.TryAdd("MM:" + mMsg.ToJson());
+                        //ConnectionManager.gameSocketClient.L_SendQueueMessages.Enqueue("MM:" + mMsg.ToJson());
                     }
                     return;
                 }
@@ -250,7 +250,7 @@ namespace MMO_Client.Controllers
                 {
                     if (DateTime.Now - lastFrame > new TimeSpan(0, 0, 0, 0, 50))
                     {
-                        ConnectionManager.gameSocketClient.l_SendBigMessages.TryAdd("PR:" + prtObj.ToJson());
+                        ConnectionManager.gameSocketClient.L_SendBigMessages.TryAdd("PR:" + prtObj.ToJson());
                         //ConnectionManager.gameSocketClient.l_SendBigMessages.Enqueue("PR:" + prtObj.ToJson());
                         lastFrame = DateTime.Now;
                     }
@@ -264,7 +264,7 @@ namespace MMO_Client.Controllers
                         {
                             if (DateTime.Now - item.LastUpdate >= item.Velocity)
                             {
-                                ConnectionManager.gameSocketClient.l_SendBigMessages.TryAdd("PR:" + prtObj.ToJson());
+                                ConnectionManager.gameSocketClient.L_SendBigMessages.TryAdd("PR:" + prtObj.ToJson());
                                 //ConnectionManager.gameSocketClient.l_SendBigMessages.Enqueue("PR:" + prtObj.ToJson());
                                 return;
                             }
@@ -294,8 +294,8 @@ namespace MMO_Client.Controllers
                     {
                         while (MissingMessages.q_MissingMessages.TryDequeue(out mMsg))
                         {
-                            ConnectionManager.gameSocketClient.l_SendQueueMessages.TryAdd("MM:" + mMsg.ToJson());
-                            //ConnectionManager.gameSocketClient.l_SendQueueMessages.Enqueue("MM:" + mMsg.ToJson());
+                            ConnectionManager.gameSocketClient.L_SendQueueMessages.TryAdd("MM:" + mMsg.ToJson());
+                            //ConnectionManager.gameSocketClient.L_SendQueueMessages.Enqueue("MM:" + mMsg.ToJson());
                         }
                         return;
                     }
@@ -318,7 +318,7 @@ namespace MMO_Client.Controllers
                     {
                         if (DateTime.Now - lastFrame > new TimeSpan(0, 0, 0, 0, 50))
                         {
-                            ConnectionManager.gameSocketClient.l_SendBigMessages.TryAdd("PR:" + prtObj.ToJson());
+                            ConnectionManager.gameSocketClient.L_SendBigMessages.TryAdd("PR:" + prtObj.ToJson());
                             //ConnectionManager.gameSocketClient.l_SendBigMessages.Enqueue("PR:" + prtObj.ToJson());
                             lastFrame = DateTime.Now;
                         }
@@ -332,7 +332,7 @@ namespace MMO_Client.Controllers
                             {
                                 if (DateTime.Now - item.LastUpdate >= item.Velocity)
                                 {
-                                    ConnectionManager.gameSocketClient.l_SendBigMessages.TryAdd("PR:" + prtObj.ToJson());
+                                    ConnectionManager.gameSocketClient.L_SendBigMessages.TryAdd("PR:" + prtObj.ToJson());
                                     //ConnectionManager.gameSocketClient.l_SendBigMessages.Enqueue("PR:" + prtObj.ToJson());
                                     return;
                                 }
@@ -371,7 +371,7 @@ namespace MMO_Client.Controllers
                     {
                         while (MissingMessages.q_MissingMessages.TryDequeue(out mMsg))
                         {
-                            ConnectionManager.gameSocketClient.l_SendQueueMessages.TryAdd("MM:" + mMsg.ToJson());
+                            ConnectionManager.gameSocketClient.L_SendQueueMessages.TryAdd("MM:" + mMsg.ToJson());
                         }
                         continue;
                     }
@@ -491,7 +491,7 @@ namespace MMO_Client.Controllers
                 {
                     foreach (KeyValuePair<int, Message> item in Message.dic_ActiveMessages)
                     {
-                        ConnectionManager.gameSocketClient.l_SendQueueMessages.Enqueue(item.Value.ToJson());
+                        ConnectionManager.gameSocketClient.L_SendQueueMessages.Enqueue(item.Value.ToJson());
                     }
                 }
 
@@ -1809,6 +1809,7 @@ namespace MMO_Client.Controllers
                     {
                         messageOut.Status = StatusMessage.Delivered;
                         string tempString = UtilityAssistant.ExtractValues(itemParameter, "CS");
+                        tempString = Interfaz.Utilities.UtilityAssistant.PrepareJSON(itemParameter);
                         //Console.WriteLine("Evaluate if it's Null or Whitespace");
                         if (!string.IsNullOrWhiteSpace(tempString))
                         {
@@ -1863,6 +1864,7 @@ namespace MMO_Client.Controllers
                         string tempString = UtilityAssistant.ExtractValues(itemParameter, "US");
                         if (!string.IsNullOrWhiteSpace(tempString))
                         {
+                            tempString = Interfaz.Utilities.UtilityAssistant.PrepareJSON(tempString);
                             ShotPosUpdate shtPosUpd = ShotPosUpdate.CreateFromJson(tempString);
                             if (string.IsNullOrWhiteSpace(shtPosUpd.Id) && shtPosUpd.Pos == System.Numerics.Vector3.Zero)
                             {

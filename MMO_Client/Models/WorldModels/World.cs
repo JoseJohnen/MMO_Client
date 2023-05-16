@@ -6,6 +6,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Reflection;
 using System.Text.Encodings.Web;
 using System.Text.Json;
@@ -27,19 +28,31 @@ namespace MMO_Client.Models.WorldModels
             {
                 base.Location = value;
             }
-        } 
-            
+        }
+
+        public override string Name
+        {
+            get => base.Name;
+            set
+            {
+                base.Name = value;
+                if(Area != null)
+                {
+                    Area.Name = "Area_" + base.Name;
+                }
+            }
+        }
         //= new System.Numerics.Vector3(0, 0, 0);
 
 
         //Pares<string, SerializedVector3> point, string name = ""
 
         public new Area Area = new Area(new List<AreaDefiner>() {
-            new AreaDefiner(new Pares<string,SerializedVector3>("NW"), "NW"),
-            new AreaDefiner(new Pares<string, SerializedVector3>("NE"), "NE"),
-            new AreaDefiner(new Pares<string, SerializedVector3>("SW"), "SW"),
-            new AreaDefiner(new Pares<string, SerializedVector3>("SE"), "SE"),
-        });
+            new AreaDefiner(new Pares<string,SerializedVector3>("NW",new SerializedVector3(Vector3.Zero)), "NW"),
+            new AreaDefiner(new Pares<string, SerializedVector3>("NE",new SerializedVector3(Vector3.Zero)), "NE"),
+            new AreaDefiner(new Pares<string, SerializedVector3>("SW",new SerializedVector3(Vector3.Zero)), "SW"),
+            new AreaDefiner(new Pares<string, SerializedVector3>("SE",new SerializedVector3(Vector3.Zero)), "SE"),
+        }, "AreaWorld");
 
         public World(int westEast = 3, int height = 1, int frontBack = 3, string name = "")
         {
@@ -48,11 +61,11 @@ namespace MMO_Client.Models.WorldModels
             FrontBack = frontBack;
             Name = name;
             Area = new Area(new List<AreaDefiner>() {
-                new AreaDefiner(new Pares<string,SerializedVector3>("NW"), "NW"),
-                new AreaDefiner(new Pares<string, SerializedVector3>("NE"), "NE"),
-                new AreaDefiner(new Pares<string, SerializedVector3>("SW"), "SW"),
-                new AreaDefiner(new Pares<string, SerializedVector3>("SE"), "SE"),
-            });
+                new AreaDefiner(new Pares<string,SerializedVector3>("NW",new SerializedVector3(Vector3.Zero)), "NW"),
+                new AreaDefiner(new Pares<string, SerializedVector3>("NE",new SerializedVector3(Vector3.Zero)), "NE"),
+                new AreaDefiner(new Pares<string, SerializedVector3>("SW",new SerializedVector3(Vector3.Zero)), "SW"),
+                new AreaDefiner(new Pares<string, SerializedVector3>("SE",new SerializedVector3(Vector3.Zero)), "SE"),
+            }, "AreaWorld");
         }
 
         public virtual new World RegisterWorld(string nameOfTheWorld = "")
@@ -64,6 +77,7 @@ namespace MMO_Client.Models.WorldModels
                 {
                     name = nameOfTheWorld;
                 }
+                this.Name = name;
                 WorldController.dic_worlds.TryAdd(name, this);
                 return this;
             }
@@ -238,7 +252,10 @@ namespace MMO_Client.Models.WorldModels
                                                                   //TODO: System to determine the type of enemy to make the object, prepare stats and then add it to the list
 
                 World prgObj = ((World)obtOfType);
-                return prgObj.FromJson(json);
+                prgObj.FromJson(json);
+                prgObj.RegisterWorld();
+                prgObj.InstanceWorld();
+                return prgObj;
             }
             catch (Exception ex)
             {
@@ -288,7 +305,7 @@ namespace MMO_Client.Models.WorldModels
                 if (typ == null)
                 {
                     typ = World.TypesOfWorlds().Where(c => c.FullName == clase).FirstOrDefault();
-                    
+
                 }
 
                 World wrldObj = new BaseWorld();
@@ -309,15 +326,22 @@ namespace MMO_Client.Models.WorldModels
                 strValue = UtilityAssistant.ExtractValue(tempString, "Location");
                 wrldObj.Location = Vector3Converter.Converter(strValue);
 
-                /*strValue = UtilityAssistant.ExtractValue(tempString, "Area");
+                //strValue = UtilityAssistant.ExtractValue(tempString, "Area");
                 strValue = tempString.Substring(tempString.IndexOf("Area"));
-                strValue = strValue.Substring(0, tempString.IndexOf("dic_worldTiles"));
+                string strValue2 = strValue.Substring(strValue.IndexOf("dic_worldTiles"));
+                strValue = strValue.Replace(strValue2, "");
+                strValue = UtilityAssistant.PrepareJSON(strValue);
+                int c = strValue.IndexOf("}]}");
+                string b = strValue.Substring(c + 3);
+                strValue = strValue.Replace("}]}" + b, "}]}");
+                strValue = strValue.Replace("Area\":{", "{"); //ek "{" esta ahí porque hay valores al interior del string que se llaman "NombreArea", entonces para evitar que se afecten lugares del string que no deberían
                 strValue = UtilityAssistant.CleanJSON(strValue);
-                strValue = strValue.Replace("Y\"", ", \"Y\"").Replace("Z\"", ", \"Z\"").Replace("\"Name\":", "\"Name\":"+ wrldObj.Name +",").Replace("\",\",", "\",");
-                wrldObj.Area = Area.CreateFromJson(strValue);*/
-
-                strValue = UtilityAssistant.ExtractValue(tempString, "Area");
+                //strValue = strValue.Replace("Y\"", ", \"Y\"").Replace("Z\"", ", \"Z\"").Replace("\"Name\":", "\"Name\":"+ wrldObj.Name +",").Replace("\",\",", "\",");
                 wrldObj.Area = Area.CreateFromJson(strValue);
+
+                //string tempValue = UtilityAssistant.PrepareJSON(tempString);
+                //strValue = UtilityAssistant.ExtractValue(tempValue, "Area");
+                //wrldObj.Area = Area.CreateFromJson(strValue);
 
 
                 /*if (string.IsNullOrWhiteSpace(readerReceiver) || readerReceiver.Equals("\"{\""))
@@ -332,11 +356,16 @@ namespace MMO_Client.Models.WorldModels
                     strJsonArray[1] += "]";
                 }*/
 
-                strJsonArray[0] = tempString;//UtilityAssistant.CleanJSON(tempString);
+                strJsonArray[0] = tempString; //UtilityAssistant.CleanJSON(tempString);
 
                 string strTemp = strJsonArray[0].Substring(strJsonArray[0].IndexOf("dic_worldTiles")).Replace("dic_worldTiles", "");
                 Tile tile = null;
-                List<string> l_string = new List<string>(strTemp.Split("},{", StringSplitOptions.RemoveEmptyEntries));
+                strTemp = UtilityAssistant.PrepareJSON(strTemp);
+                strTemp = strTemp.Replace("\"\"", "");
+                strTemp = strTemp.Substring(strTemp.IndexOf("[") + 1);
+                strTemp = strTemp.Substring(0, strTemp.IndexOf("]"));
+                strTemp = strTemp.Replace("},{", "}|°|{");
+                List<string> l_string = new List<string>(strTemp.Split("|°|", StringSplitOptions.RemoveEmptyEntries));
                 foreach (string item in l_string)
                 {
                     //strTemp = UtilityAssistant.ExtractValue(item, "Value");
@@ -349,7 +378,7 @@ namespace MMO_Client.Models.WorldModels
                     tile = Tile.CreateFromJson(strTemp);
                     wrldObj.dic_worldTiles.TryAdd(tile.Name, tile);*/
                     strTemp = item.Substring(item.IndexOf("\"Value\""));
-                    strTemp = strTemp.Replace("\"Value\":", "").Replace("}}]}", "}");
+                    strTemp = strTemp.Replace("\"Value\":\"", "").Replace("}\"}", "}"); //.Replace("}}]}", "}");
                     tile = Tile.CreateFromJson(strTemp);
                     wrldObj.dic_worldTiles.TryAdd(tile.Name, tile);
                 }

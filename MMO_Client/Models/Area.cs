@@ -83,8 +83,9 @@ namespace MMO_Client.Models
             this.L_AreaDefiners.Add(new AreaDefiner(new Pares<string, SerializedVector3>("SE", se), name));
         }
 
-        public Area(List<AreaDefiner> L_AreaDefiners)
+        public Area(List<AreaDefiner> L_AreaDefiners, string Name = "")
         {
+            this.Name = Name;
             this.L_AreaDefiners = L_AreaDefiners;
         }
 
@@ -95,6 +96,7 @@ namespace MMO_Client.Models
             {
                 this.L_AreaDefiners.Add(new AreaDefiner(new Pares<string, SerializedVector3>(string.Empty, new SerializedVector3(item)), Name));
             }
+            this.Name = Name;
         }
 
         public Area(IEnumerable<AreaDefiner> collection) : base(collection)
@@ -764,7 +766,7 @@ namespace MMO_Client.Models
 
                 char[] a = { '"' };
 
-                string nstring = !string.IsNullOrWhiteSpace(Name) ? Name : "null"; 
+                string nstring = !string.IsNullOrWhiteSpace(Name) ? Name : "null";
                 string wr = string.Concat("{", new string(a), "Name", new string(a), ":", new string(a), Name, new string(a),
                    ", ", strTemp,
                    "}");
@@ -787,23 +789,20 @@ namespace MMO_Client.Models
                 string[] strJsonArray = new string[1];
                 string[] strStrArr = new string[1];
 
-                this.Name = Interfaz.Utilities.UtilityAssistant.ExtractValue(txt, "Name");
+                this.Name = UtilityAssistant.ExtractValue(txt, "Name").Replace("\"", "");
 
                 strJsonArray[0] = txt;
 
                 string strTemp = strJsonArray[0].Substring(strJsonArray[0].IndexOf("L_AreaDefiners")).Replace("L_AreaDefiners", "");
-                strTemp = strTemp.Replace("\"Nombre\"", "\"Nombre\":\"");
+                strTemp = strTemp.Substring(strTemp.IndexOf("[{") + 1);
+                //strTemp = strTemp.Replace("\"Nombre\"", "\"Nombre\":\"");
+                strTemp = strTemp.Replace("]}", "");
+                strTemp = strTemp.Replace("},{", "}|°|{");
                 AreaDefiner areaDefiner = null;
-                List<string> l_string = new List<string>(strTemp.Split("},{", StringSplitOptions.RemoveEmptyEntries));
+                List<string> l_string = new List<string>(strTemp.Split("|°|", StringSplitOptions.RemoveEmptyEntries));
                 foreach (string item in l_string)
                 {
-                    //strTemp = UtilityAssistant.ExtractValue(item, "Value");
-                    if(item.Contains("\"Value\""))
-                    {
-                        strTemp = item.Substring(item.IndexOf("\"Value\""));
-                        strTemp = strTemp.Replace("\"Value\":", "").Replace("}}]}", "}");
-                    }
-                    areaDefiner = AreaDefiner.CreateFromJson(strTemp);
+                    areaDefiner = AreaDefiner.CreateFromJson(item);
                     this.l_AreaDefiners.Add(areaDefiner);
                 }
 

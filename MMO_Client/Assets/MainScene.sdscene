@@ -209,7 +209,7 @@ Hierarchy:
                     aac995f1214efe455290461462388830: !MMO_Client.Controllers.Controller,MMO_Client
                         Id: e74df464-3126-48dc-9edd-3a0288d47f94
                         playerController: null
-                        worldController: null
+                        worldController: ref!! 43fc8180-8d2b-4c22-968c-2c2ae065e5ed
                         dataFileProviderService: null
                         l_Prefabs: {}
                         l_Models: {}
@@ -228,8 +228,8 @@ Hierarchy:
                         CursorPos: null
                         lastPositionBeforeMove: 2023-04-26T18:34:13.3236068-04:00
                         page: null
-                        thingy1: null
-                        thingy2: null
+                        thingy1: ref!! 4ab985bc-88fc-4342-830d-51f0d2d03c24
+                        thingy2: ref!! ff1888cf-9910-4a2e-a4f7-a14c5db3a6f8
                         MainSceneImages: null
                         TextoFueraDeCutscene: false
         -   Entity:
