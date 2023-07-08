@@ -224,9 +224,9 @@ Hierarchy:
                         isPressedZToRun: false
                         isLoginInProcess: false
                         isLoginSuccessfull: false
-                        dtIsLoginInProcess: 2023-04-26T18:34:13.3235920-04:00
+                        dtIsLoginInProcess: 2023-04-26T18:34:13.3235920
                         CursorPos: null
-                        lastPositionBeforeMove: 2023-04-26T18:34:13.3236068-04:00
+                        lastPositionBeforeMove: 2023-04-26T18:34:13.3236068
                         page: null
                         thingy1: ref!! 4ab985bc-88fc-4342-830d-51f0d2d03c24
                         thingy2: ref!! ff1888cf-9910-4a2e-a4f7-a14c5db3a6f8

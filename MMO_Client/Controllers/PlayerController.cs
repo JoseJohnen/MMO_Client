@@ -74,8 +74,8 @@ namespace MMO_Client.Controllers
         #endregion
 
         #region Executing Functions
-        Puppet tempPuppet = null;
-        Puppet tempPuppet2 = null;
+        //Puppet tempPuppet = null;
+        //Puppet tempPuppet2 = null;
         public override void Start()
         {
             try
@@ -93,11 +93,11 @@ namespace MMO_Client.Controllers
                 //EnemyNPCStart("DoomGuy");
                 //EnemyNPCStart("DoomGuy", new Vector3(-1.2f,0,0));
 
-                tempPuppet = new Imp();
-                tempPuppet2 = new Pinkie();
+                //tempPuppet = new Imp();
+                //tempPuppet2 = new Pinkie();
                 //tempPuppet.Entity.Transform.Position = new Vector3(3, 0, 1);
-                tempPuppet.Prepare(new Vector3(3, 0, 1));
-                tempPuppet2.Prepare(new Vector3(5, 0, 1));
+                //tempPuppet.Prepare(new Vector3(3, 0, 1));
+                //tempPuppet2.Prepare(new Vector3(5, 0, 1));
 
                 //l_entitysCharacters[0].RealEnt.Transform.Rotation = qtrn;
                 //Message messageOut = new Message();
@@ -1396,15 +1396,19 @@ namespace MMO_Client.Controllers
                 {
                     if (itemParameter.Contains("MC:"))
                     {
-                        string tempString = UtilityAssistant.ExtractValues(itemParameter, "MC");
+                        //string tempString = UtilityAssistant.ExtractValues(itemParameter, "MC");
+                        string tempString = Interfaz.Utilities.UtilityAssistant.CleanJSON(itemParameter);
                         if (!string.IsNullOrWhiteSpace(tempString))
                         {
                             MonsterCreate mc = MonsterCreate.CreateFromJson(tempString);
-                            Puppet ppt = Puppet.CreatePuppetFromClassName(mc.Type);
-                            ppt.Name = mc.Id;
-                            ppt.Prepare();
-                            instance.l_entitysCharacters.Add(ppt);
-                            return ppt.ToJson();
+                            if (instance.l_entitysCharacters.Where(c => c.Name == mc.Id).ToList().Count() == 0)
+                            {
+                                Puppet ppt = Puppet.CreatePuppetFromClassName(mc.Type);
+                                ppt.Name = mc.Id;
+                                ppt.Prepare();
+                                instance.l_entitysCharacters.Add(ppt);
+                                return ppt.ToJson();
+                            }
                         }
                     }
                 }

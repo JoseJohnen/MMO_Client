@@ -2,8 +2,8 @@
 Settings:
     Package/SceneSettings:
         653b85fa-5e49-4621-ade3-383125002c94:
-            CamPosition: {X: 2.6591735, Y: 5.467166, Z: 8.118153}
-            CamPitchYaw: {X: -0.5251336, Y: 0.32390395}
+            CamPosition: {X: 12.447159, Y: 6.522935, Z: -1.2868984}
+            CamPitchYaw: {X: -0.6624723, Y: 2.0641665}
             CamProjection: Orthographic
             CamVerticalFieldOfView: 45.0
             CamOrthographicSize: 10.0
@@ -22,7 +22,7 @@ Settings:
             GridVisible: true
             GridColor: {R: 0.7058824, G: 0.7058824, B: 0.7058824}
             GridOpacity: 0.35
-            GridAxisIndex: 1
+            GridAxisIndex: 2
             CameraPreviewVisible: true
             RenderMode: Lighting
             ActiveStream: 
