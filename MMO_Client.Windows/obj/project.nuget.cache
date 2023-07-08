@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "xoFqkCNYZi+yC/PJvcJe4prfNvQske/QMeSjRav4wk97o2MBvZb6R4u3q0b2Vc4KhroX0EhVY2zv8mqCUmNLbw==",
+  "dgSpecHash": "y67q3HeJH8NkF/2tEhQnzjwsqBo0oidUL0vE6cm6mCl6LvkGlJg4SMbooE5peiLxAaovM6RIEEEzZwmKMCWMmQ==",
   "success": true,
   "projectFilePath": "E:\\Cod_Pers\\Stride\\MMO_Client\\MMO_Client.Windows\\MMO_Client.Windows.csproj",
   "expectedPackageFiles": [
@@ -239,9 +239,13 @@
     "C:\\Users\\Jose Johnen\\.nuget\\packages\\ultz.native.sdl\\2.0.14.1\\ultz.native.sdl.2.0.14.1.nupkg.sha512",
     "C:\\Users\\Jose Johnen\\.nuget\\packages\\vortice.mathematics\\1.3.3\\vortice.mathematics.1.3.3.nupkg.sha512",
     "C:\\Users\\Jose Johnen\\.nuget\\packages\\vortice.vulkan\\1.2.167\\vortice.vulkan.1.2.167.nupkg.sha512",
-    "C:\\Users\\Jose Johnen\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\6.0.16\\microsoft.aspnetcore.app.runtime.win-x64.6.0.16.nupkg.sha512",
-    "C:\\Users\\Jose Johnen\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\6.0.16\\microsoft.windowsdesktop.app.runtime.win-x64.6.0.16.nupkg.sha512",
-    "C:\\Users\\Jose Johnen\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\6.0.16\\microsoft.netcore.app.runtime.win-x64.6.0.16.nupkg.sha512"
+    "C:\\Users\\Jose Johnen\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.13\\microsoft.netcore.app.ref.6.0.13.nupkg.sha512",
+    "C:\\Users\\Jose Johnen\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\6.0.13\\microsoft.netcore.app.runtime.win-x64.6.0.13.nupkg.sha512",
+    "C:\\Users\\Jose Johnen\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.13\\microsoft.windowsdesktop.app.ref.6.0.13.nupkg.sha512",
+    "C:\\Users\\Jose Johnen\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\6.0.13\\microsoft.windowsdesktop.app.runtime.win-x64.6.0.13.nupkg.sha512",
+    "C:\\Users\\Jose Johnen\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.13\\microsoft.aspnetcore.app.ref.6.0.13.nupkg.sha512",
+    "C:\\Users\\Jose Johnen\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\6.0.13\\microsoft.aspnetcore.app.runtime.win-x64.6.0.13.nupkg.sha512",
+    "C:\\Users\\Jose Johnen\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.13\\microsoft.netcore.app.host.win-x64.6.0.13.nupkg.sha512"
   ],
   "logs": []
 }
